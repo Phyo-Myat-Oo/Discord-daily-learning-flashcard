@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Daily Learning Flashcard",
+  "type": "object",
+  "required": ["id", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
+    "date": {"type": "string", "format": "date"},
+    "category": {"enum": ["linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "review"]},
+    "topic": {"type": "string"},
+    "difficulty": {"enum": ["beginner", "intermediate", "advanced"]},
+    "title": {"type": "string"},
+    "summary": {"type": "string"},
+    "command": {"type": "string"},
+    "explanation": {"type": "string"},
+    "flags": {"type": "array", "items": {"type": "object", "required": ["flag", "meaning"], "properties": {"flag": {"type": "string"}, "meaning": {"type": "string"}}}},
+    "use_case": {"type": "string"},
+    "example": {"type": "string"},
+    "question": {"type": "string"},
+    "answer": {"type": "string"},
+    "tags": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "status": {"enum": ["candidate", "approved", "rejected", "scheduled"]},
+    "priority": {"enum": ["low", "normal", "high"]},
+    "generated_from_source": {"type": "boolean"},
+    "source_type": {"enum": ["pdf", "ipynb", "md", "txt", "py"]},
+    "source_file": {"type": "string"},
+    "source_title": {"type": "string"},
+    "source_section": {"type": "string"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "source_cell": {"type": "integer", "minimum": 0},
+    "needs_review": {"type": "boolean"}
+    ,"review_items": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["question", "answer"],
+        "properties": {"question": {"type": "string"}, "answer": {"type": "string"}}
+      }
+    }
+  }
+}

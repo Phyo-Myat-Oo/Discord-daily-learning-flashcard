@@ -1,0 +1,41 @@
+name: Send daily learning card
+
+on:
+  schedule:
+    # 00:15 Asia/Yangon (UTC+06:30). GitHub cron uses UTC.
+    - cron: "45 17 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Optional YYYY-MM-DD card date (defaults to today in Asia/Yangon)"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-learning-discord
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TZ: Asia/Yangon
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate all cards
+        run: python3 scripts/validate_cards.py
+      - name: Send today's pre-generated card
+        env:
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          if [[ -n "$INPUT_DATE" ]]; then
+            python3 scripts/send_discord.py --date "$INPUT_DATE"
+          else
+            python3 scripts/send_discord.py --today
+          fi
+

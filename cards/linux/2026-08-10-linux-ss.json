@@ -1,0 +1,26 @@
+{
+  "id": "linux-ss-listeners-001",
+  "date": "2026-08-10",
+  "category": "linux",
+  "topic": "ss-listening-sockets",
+  "difficulty": "intermediate",
+  "title": "Inspect listening sockets with ss",
+  "summary": "Use ss to verify which TCP and UDP ports are listening and which processes own them.",
+  "command": "sudo ss -tulpn",
+  "explanation": "ss reads kernel socket information. Numeric output avoids slow name resolution, while process details help connect a port to the service that opened it.",
+  "flags": [
+    {"flag": "-t", "meaning": "TCP sockets"},
+    {"flag": "-u", "meaning": "UDP sockets"},
+    {"flag": "-l", "meaning": "listening sockets only"},
+    {"flag": "-p", "meaning": "owning process"},
+    {"flag": "-n", "meaning": "numeric addresses and ports"}
+  ],
+  "use_case": "An API should be listening on port 8080; confirm that it started and identify its process.",
+  "example": "sudo ss -tulpn | grep ':8080'",
+  "question": "How can you identify the process listening on TCP or UDP port 8080?",
+  "answer": "sudo ss -tulpn | grep ':8080'",
+  "tags": ["networking", "sysadmin"],
+  "status": "approved",
+  "priority": "normal"
+}
+

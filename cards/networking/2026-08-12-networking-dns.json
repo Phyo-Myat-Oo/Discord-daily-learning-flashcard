@@ -1,0 +1,20 @@
+{
+  "id": "networking-dns-trace-001",
+  "date": "2026-08-12",
+  "category": "networking",
+  "topic": "dns-resolution-trace",
+  "difficulty": "intermediate",
+  "title": "Trace DNS delegation with dig +trace",
+  "summary": "dig +trace follows delegation from the DNS root toward the authoritative server instead of asking one recursive resolver for the final answer.",
+  "command": "dig +trace example.com",
+  "explanation": "The trace exposes each delegation step and its name servers. It is useful for diagnosing broken delegation, missing glue records, or disagreement before the query reaches an authoritative server.",
+  "flags": [{"flag": "+trace", "meaning": "follow referrals from the root name servers"}],
+  "use_case": "A domain works through one resolver but fails through another after a nameserver change.",
+  "example": "dig +trace example.com",
+  "question": "Which dig option reveals the DNS delegation path from the root to an authoritative server?",
+  "answer": "dig +trace example.com",
+  "tags": ["dns", "troubleshooting"],
+  "status": "approved",
+  "priority": "normal"
+}
+

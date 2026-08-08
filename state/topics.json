@@ -1,0 +1,8 @@
+{
+  "covered": [
+    {"topic": "ss-listening-sockets", "category": "linux", "level": "intermediate", "card_id": "linux-ss-listeners-001"},
+    {"topic": "embedding-similarity", "category": "ai", "level": "beginner", "card_id": "ai-embedding-similarity-001"},
+    {"topic": "dns-resolution-trace", "category": "networking", "level": "intermediate", "card_id": "networking-dns-trace-001"}
+  ]
+}
+

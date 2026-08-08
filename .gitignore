@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.generated/
+sources/inbox/*
+sources/processed/*
+sources/failed/*
+!sources/inbox/.gitkeep
+!sources/processed/.gitkeep
+!sources/failed/.gitkeep
+

@@ -1,0 +1,18 @@
+{
+  "id": "ai-embedding-similarity-001",
+  "date": "2026-08-11",
+  "category": "ai",
+  "topic": "embedding-similarity",
+  "difficulty": "beginner",
+  "title": "Embeddings turn meaning into geometry",
+  "summary": "An embedding maps an item to a numeric vector so semantically related items can be found by proximity.",
+  "explanation": "Embedding models place related text near each other in vector space. Similarity search can therefore retrieve relevant passages even when they do not share exact keywords.",
+  "use_case": "A RAG system embeds a question and retrieves documentation chunks with nearby vectors before generating an answer.",
+  "example": "query embedding → cosine similarity → nearest document chunks",
+  "question": "Why can embedding search retrieve a relevant passage that uses different words from the query?",
+  "answer": "Because embeddings encode semantic relationships, so similar meanings can have nearby vectors despite different wording.",
+  "tags": ["embeddings", "rag", "vector-search"],
+  "status": "approved",
+  "priority": "normal"
+}
+
