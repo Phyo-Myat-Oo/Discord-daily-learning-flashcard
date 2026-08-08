@@ -33,11 +33,16 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--target", type=int, help="override every stream's configured target")
     parser.add_argument("--stream", choices=load_channels().keys(), help="calculate or generate one stream only")
+    parser.add_argument("--limit", type=int, help="limit this prompt to the first N missing slots")
     parser.add_argument("--count-only", action="store_true")
     args = parser.parse_args()
     needed = missing_slots(args.target, stream_filter=args.stream)
     if args.count_only:
         print(len(needed)); return 0
+    if args.limit is not None:
+        if args.limit < 1:
+            parser.error("--limit must be at least 1")
+        needed = needed[:args.limit]
     template = (ROOT / "prompts/generate_cards.md").read_text(encoding="utf-8")
     topics = json.loads((ROOT / "state/topics.json").read_text(encoding="utf-8"))
     recent = sorted((c for _, c in all_cards() if c.get("date")), key=lambda c: c["date"], reverse=True)[:10]

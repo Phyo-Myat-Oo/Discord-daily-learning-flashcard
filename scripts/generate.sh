@@ -18,13 +18,19 @@ fi
 
 echo "Generating $total_needed card(s) to restore all configured stream buffers."
 while IFS= read -r stream; do
-  needed="$(python3 scripts/generate_prompt.py --stream "$stream" --count-only)"
-  if [[ "$needed" == "0" ]]; then
-    continue
-  fi
-  echo "Generating $needed card(s) for stream: $stream"
-  python3 scripts/generate_prompt.py --stream "$stream" | codex exec --ephemeral --sandbox workspace-write -C "$repo_dir" -
-  python3 scripts/validate_cards.py
+  while true; do
+    needed="$(python3 scripts/generate_prompt.py --stream "$stream" --count-only)"
+    if [[ "$needed" == "0" ]]; then
+      break
+    fi
+    batch_size=4
+    if (( needed < batch_size )); then
+      batch_size="$needed"
+    fi
+    echo "Generating $batch_size of $needed missing card(s) for stream: $stream"
+    python3 scripts/generate_prompt.py --stream "$stream" --limit "$batch_size" | codex exec --ephemeral --sandbox workspace-write -C "$repo_dir" -
+    python3 scripts/validate_cards.py
+  done
 done < <(python3 -c 'from scripts.cardlib import load_channels; print("\n".join(load_channels()))')
 
 # New card files and the topic index are the only permitted generation changes.

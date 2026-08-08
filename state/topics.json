@@ -2,7 +2,10 @@
   "covered": [
     {"topic": "ss-listening-sockets", "category": "linux", "level": "intermediate", "card_id": "linux-ss-listeners-001"},
     {"topic": "embedding-similarity", "category": "ai", "level": "beginner", "card_id": "ai-embedding-similarity-001"},
-    {"topic": "dns-resolution-trace", "category": "networking", "level": "intermediate", "card_id": "networking-dns-trace-001"}
+    {"topic": "dns-resolution-trace", "category": "networking", "level": "intermediate", "card_id": "networking-dns-trace-001"},
+    {"topic": "retrieved-content-as-untrusted-data", "category": "ai-engineering", "level": "intermediate", "card_id": "ai-retrieved-content-untrusted-001"},
+    {"topic": "classification-threshold-precision-recall", "category": "ai", "level": "intermediate", "card_id": "ai-classification-threshold-tradeoff-001"},
+    {"topic": "preprocessing-fit-training-data-only", "category": "ai", "level": "intermediate", "card_id": "ai-preprocessing-train-only-fit-001"},
+    {"topic": "temperature-is-not-confidence", "category": "ai", "level": "beginner", "card_id": "ai-temperature-not-confidence-001"}
   ]
 }
-

@@ -1,0 +1,19 @@
+{
+  "id": "ai-temperature-not-confidence-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-12",
+  "category": "ai",
+  "topic": "temperature-is-not-confidence",
+  "difficulty": "beginner",
+  "title": "Temperature ကို အဖြေမှန်နိုင်ခြေဟု မယူဆခြင်း",
+  "summary": "LLM ၏ temperature သည် token ရွေးချယ်မှု random ဖြစ်မှုကို ချိန်ညှိသော generation setting ဖြစ်ပြီး အဖြေ၏ ယုံကြည်စိတ်ချရမှု score မဟုတ်ပါ။",
+  "explanation": "Temperature နိမ့်ခြင်းက probability မြင့်သော token များကို ပိုရွေးစေပြီး output ကို ပိုတည်ငြိမ်စေနိုင်သည်။ သို့သော် မမှန်သောအဖြေကိုလည်း တည်ငြိမ်စွာ ထုတ်နိုင်သဖြင့် factual accuracy ကို သက်သေမပြပါ။ အဖြေမှန်မှုကို source grounding၊ task-specific evaluation နှင့် validation ဖြင့် သီးခြားစစ်ရသည်။",
+  "use_case": "Extraction pipeline တွင် reproducibility အတွက် temperature ကို နိမ့်ထားသော်လည်း ထုတ်ယူထားသောတန်ဖိုးများကို schema နှင့် source text တို့ဖြင့် ဆက်လက်စစ်ဆေးရန်။",
+  "example": "temperature = 0 သည် output ကို ပိုတည်ငြိမ်စေနိုင်သော်လည်း “အဖြေ 100% မှန်သည်” ဟု မဆိုလိုပါ။",
+  "question": "Temperature = 0 ဖြင့် ရသော LLM အဖြေကို ယုံကြည်စိတ်ချရသောအဖြေဟု အဘယ်ကြောင့် တန်းမသတ်မှတ်နိုင်သနည်း။",
+  "answer": "Temperature သည် token sampling ကိုသာ ချိန်ညှိပြီး factual correctness ကို မတိုင်းတာသောကြောင့် ဖြစ်သည်။ နိမ့်သော temperature ဖြင့်လည်း မှားသောအဖြေ ထွက်နိုင်သည်။",
+  "tags": ["llm", "generation", "evaluation"],
+  "status": "approved",
+  "priority": "normal"
+}

@@ -90,7 +90,7 @@ python3 scripts/validate_cards.py
 ./scripts/generate.sh
 ```
 
-`generate.sh` pulls with `--ff-only`, calculates missing `(stream, date)` slots up to each stream's configured 14-card future buffer, and invokes Codex once per deficient stream so a new installation does not request dozens of cards in one oversized generation. It validates, stages only `cards/` plus `state/topics.json`, commits, and pushes. When every stream is full, it exits without invoking Codex. Read `AGENTS.md` to see the permanent quality, scope, duplication, and safety rules.
+`generate.sh` pulls with `--ff-only`, calculates missing `(stream, date)` slots up to each stream's configured 14-card future buffer, and invokes Codex in restartable batches of at most four cards. After every batch it validates and recalculates what remains, then stages only `cards/` plus `state/topics.json`, commits, and pushes. When every stream is full, it exits without invoking Codex. Read `AGENTS.md` to see the permanent quality, scope, duplication, and safety rules.
 
 To add a card manually, copy a nearby JSON file into the correct category, choose a unique ID and unused ISO date, update `state/topics.json`, then run validation and a dry-run preview. Scheduled cards require dates; approved imported cards may remain undated until you place them in the delivery calendar.
 
