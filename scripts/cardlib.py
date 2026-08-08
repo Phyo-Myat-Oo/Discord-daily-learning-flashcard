@@ -10,11 +10,12 @@ from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 CARDS = ROOT / "cards"
+CHANNELS_FILE = ROOT / "config/channels.json"
 VALID_CATEGORIES = {"linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "review"}
 VALID_DIFFICULTIES = {"beginner", "intermediate", "advanced"}
 VALID_STATUSES = {"candidate", "approved", "rejected", "scheduled"}
 VALID_PRIORITIES = {"low", "normal", "high"}
-REQUIRED = {"id", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"}
+REQUIRED = {"id", "stream", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"}
 EMOJI = {"linux": "🐧", "networking": "🌐", "git": "🌿", "docker": "🐳", "python": "🐍", "ai": "🤖", "mlops": "⚙️", "ai-engineering": "🧩", "review": "🧠"}
 
 
@@ -35,10 +36,19 @@ def all_cards() -> Iterable[tuple[Path, dict[str, Any]]]:
         yield path, load_card(path)
 
 
-def find_card(day: str) -> tuple[Path, dict[str, Any]] | None:
-    matches = [(p, c) for p, c in all_cards() if c.get("date") == day and c.get("status") in {"approved", "scheduled"}]
+def load_channels() -> dict[str, dict[str, Any]]:
+    with CHANNELS_FILE.open(encoding="utf-8") as handle:
+        config = json.load(handle)
+    streams = config.get("streams")
+    if not isinstance(streams, dict) or not streams:
+        raise ValueError("config/channels.json must contain a non-empty streams object")
+    return streams
+
+
+def find_card(day: str, stream: str) -> tuple[Path, dict[str, Any]] | None:
+    matches = [(p, c) for p, c in all_cards() if c.get("date") == day and c.get("stream") == stream and c.get("status") in {"approved", "scheduled"}]
     if len(matches) > 1:
-        raise ValueError(f"multiple sendable cards found for {day}")
+        raise ValueError(f"multiple sendable cards found for {stream} on {day}")
     return matches[0] if matches else None
 
 

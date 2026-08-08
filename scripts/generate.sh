@@ -10,14 +10,22 @@ if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
 fi
 
 git pull --ff-only
-needed="$(python3 scripts/generate_prompt.py --count-only)"
-if [[ "$needed" == "0" ]]; then
-  echo "Future-card buffer already has 14 cards; nothing to do."
+total_needed="$(python3 scripts/generate_prompt.py --count-only)"
+if [[ "$total_needed" == "0" ]]; then
+  echo "Every configured stream has reached its future-card target; nothing to do."
   exit 0
 fi
 
-echo "Generating $needed card(s) to restore the 14-card buffer."
-python3 scripts/generate_prompt.py | codex exec --ephemeral --sandbox workspace-write -C "$repo_dir" -
+echo "Generating $total_needed card(s) to restore all configured stream buffers."
+while IFS= read -r stream; do
+  needed="$(python3 scripts/generate_prompt.py --stream "$stream" --count-only)"
+  if [[ "$needed" == "0" ]]; then
+    continue
+  fi
+  echo "Generating $needed card(s) for stream: $stream"
+  python3 scripts/generate_prompt.py --stream "$stream" | codex exec --ephemeral --sandbox workspace-write -C "$repo_dir" -
+  python3 scripts/validate_cards.py
+done < <(python3 -c 'from scripts.cardlib import load_channels; print("\n".join(load_channels()))')
 
 # New card files and the topic index are the only permitted generation changes.
 while IFS= read -r change; do

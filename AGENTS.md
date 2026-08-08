@@ -9,9 +9,10 @@ During curriculum generation, modify only new files below `cards/<category>/` an
 ## Quality and schema
 
 - Follow `cards/schema.json`; store one JSON object per card and one atomic concept per card.
+- Every card has a `stream` from `config/channels.json`. Its category must be allowed by that stream. Dates are unique within a stream, so different streams may each have a card on the same day.
 - Every card needs one useful explanation, one realistic example, one real-world use case, and one active-recall question/answer.
 - Use categories: linux, networking, git, docker, python, ai, mlops, ai-engineering, or review. Difficulty is beginner, intermediate, or advanced.
-- Curriculum cards are `approved` and dated. Source-derived cards are initially `candidate`, normally undated, include reliable source metadata, `generated_from_source: true`, and a priority.
+- Curriculum cards are `approved` and dated. Each configured stream maintains its own future buffer. Source-derived cards are initially `candidate`, normally undated, include a valid stream, reliable source metadata, `generated_from_source: true`, and a priority.
 - Sunday review cards use `category: review` plus at least two atomic `review_items`, each containing a question and answer. Keep the normal recall fields as a concise description/fallback.
 - Keep Discord output concise. Never turn a card into a tutorial.
 - Prefer practical operational knowledge. Avoid trivia and repetitive basics.

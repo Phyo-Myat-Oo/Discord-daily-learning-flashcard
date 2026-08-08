@@ -1,5 +1,6 @@
 {
   "id": "networking-dns-trace-001",
+  "stream": "linux",
   "date": "2026-08-12",
   "category": "networking",
   "topic": "dns-resolution-trace",
@@ -17,4 +18,3 @@
   "status": "approved",
   "priority": "normal"
 }
-

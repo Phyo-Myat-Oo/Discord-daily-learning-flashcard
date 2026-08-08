@@ -10,7 +10,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from cardlib import ROOT, all_cards
+from cardlib import ROOT, all_cards, load_channels
 from source_extractors import EXTRACTORS, extract
 
 
@@ -69,7 +69,7 @@ def main() -> int:
             print(staging); continue
         output.mkdir(parents=True)
         existing = [{key: c.get(key) for key in ("id", "category", "topic", "question")} for _, c in all_cards()]
-        dynamic = {"source_type": source_type, "source_file": source.name, "normalized_text_path": str(staging.relative_to(ROOT)), "output_directory": str(output.relative_to(ROOT)), "depth": args.depth, "max_cards": args.max_cards, "priority": args.priority, "existing_card_index": existing}
+        dynamic = {"source_type": source_type, "source_file": source.name, "normalized_text_path": str(staging.relative_to(ROOT)), "output_directory": str(output.relative_to(ROOT)), "depth": args.depth, "max_cards": args.max_cards, "priority": args.priority, "streams": load_channels(), "existing_card_index": existing}
         prompt = (ROOT / "prompts/import_source.md").read_text(encoding="utf-8") + "\n## Dynamic context\n```json\n" + json.dumps(dynamic, indent=2) + "\n```\n"
         result = subprocess.run(["codex", "exec", "--ephemeral", "--sandbox", "workspace-write", "-C", str(ROOT), "-"], input=prompt, text=True)
         if result.returncode:

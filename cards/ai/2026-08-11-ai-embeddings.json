@@ -1,5 +1,6 @@
 {
   "id": "ai-embedding-similarity-001",
+  "stream": "ai",
   "date": "2026-08-11",
   "category": "ai",
   "topic": "embedding-similarity",
@@ -15,4 +16,3 @@
   "status": "approved",
   "priority": "normal"
 }
-

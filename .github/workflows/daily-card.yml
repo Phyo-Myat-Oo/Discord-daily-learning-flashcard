@@ -24,7 +24,10 @@ jobs:
     timeout-minutes: 5
     env:
       TZ: Asia/Yangon
-      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      DISCORD_WEBHOOK_LINUX: ${{ secrets.DISCORD_WEBHOOK_LINUX }}
+      DISCORD_WEBHOOK_AI: ${{ secrets.DISCORD_WEBHOOK_AI }}
+      DISCORD_WEBHOOK_DEV: ${{ secrets.DISCORD_WEBHOOK_DEV }}
+      DISCORD_WEBHOOK_MLOPS: ${{ secrets.DISCORD_WEBHOOK_MLOPS }}
     steps:
       - uses: actions/checkout@v4
       - name: Validate all cards
@@ -34,8 +37,7 @@ jobs:
           INPUT_DATE: ${{ inputs.date }}
         run: |
           if [[ -n "$INPUT_DATE" ]]; then
-            python3 scripts/send_discord.py --date "$INPUT_DATE"
+            python3 scripts/send_discord.py --date "$INPUT_DATE" --all
           else
-            python3 scripts/send_discord.py --today
+            python3 scripts/send_discord.py --today --all
           fi
-

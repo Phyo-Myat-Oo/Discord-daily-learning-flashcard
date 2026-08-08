@@ -2,9 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Daily Learning Flashcard",
   "type": "object",
-  "required": ["id", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"],
+  "required": ["id", "stream", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"],
   "properties": {
     "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
+    "stream": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
     "date": {"type": "string", "format": "date"},
     "category": {"enum": ["linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "review"]},
     "topic": {"type": "string"},

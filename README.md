@@ -1,11 +1,11 @@
 # Daily Learning Flashcards
 
-A file-based system that sends one practical technical flashcard to Discord every day. Codex occasionally generates a 14-day buffer on your Ubuntu computer; GitHub Actions only validates and sends already-generated JSON. There is no VPS, always-running bot, database, or LLM in CI.
+A file-based system that sends different practical technical flashcards to multiple Discord channels every day. Codex occasionally generates a 14-day buffer for each configured stream on your Ubuntu computer; GitHub Actions only validates and sends already-generated JSON. There is no VPS, always-running bot, database, or LLM in CI.
 
 ```text
 Ubuntu + systemd → Codex batch → JSON validation → Git push
                                                      ↓
-Discord webhook ← daily GitHub Action ← dated approved cards
+Discord webhooks ← daily GitHub Action ← dated approved cards per stream
 
 Local PDF/notebook/notes → extractor → Codex candidates → manual approval/scheduling
 ```
@@ -14,6 +14,7 @@ Local PDF/notebook/notes → extractor → Codex candidates → manual approval/
 
 ```text
 cards/                 curriculum categories, imported candidates, and schema
+config/channels.json   streams, allowed categories, buffer targets, secret names
 prompts/               curriculum and source-analysis Codex prompts
 scripts/               validation, sending, generation, import, and review tools
 sources/               ignored inbox/processed/failed source locations
@@ -47,28 +48,37 @@ git push
 
 Use an SSH remote or a credential helper so unattended `git pull` and `git push` can authenticate. The working tree must be clean before automated generation; review any local edits first.
 
-## 2. Create the Discord webhook
+## 2. Create the Discord webhooks
 
-In Discord, open **Server Settings → Integrations → Webhooks → New Webhook**, choose `#daily-learning`, and copy its URL. Do not put it in a file or commit it.
+Create four Discord text channels (names are suggestions), then open **Server Settings → Integrations → Webhooks → New Webhook** and create one webhook for each channel:
+
+| Stream | Suggested channel | GitHub secret |
+|---|---|---|
+| `linux` | `#daily-linux` | `DISCORD_WEBHOOK_LINUX` |
+| `ai` | `#daily-ai` | `DISCORD_WEBHOOK_AI` |
+| `dev` | `#daily-dev` | `DISCORD_WEBHOOK_DEV` |
+| `mlops` | `#daily-mlops` | `DISCORD_WEBHOOK_MLOPS` |
+
+Copy each webhook URL separately. Do not put URLs in a file or commit them. Stream behavior lives in `config/channels.json`; `webhook_env` stores only the environment-variable name.
 
 For a one-off local send test only:
 
 ```bash
-export DISCORD_WEBHOOK_URL='paste-the-webhook-url-here'
-python3 scripts/send_discord.py --date 2026-08-10
-unset DISCORD_WEBHOOK_URL
+export DISCORD_WEBHOOK_LINUX='paste-the-linux-webhook-url-here'
+python3 scripts/send_discord.py --date 2026-08-10 --stream linux
+unset DISCORD_WEBHOOK_LINUX
 ```
 
 First use `--dry-run` so nothing is posted:
 
 ```bash
-python3 scripts/send_discord.py --date 2026-08-10 --dry-run
-python3 scripts/send_discord.py --today --dry-run
+python3 scripts/send_discord.py --date 2026-08-10 --stream linux --dry-run
+python3 scripts/send_discord.py --today --all --dry-run
 ```
 
 ## 3. Configure GitHub
 
-Push this project to GitHub. In **Repository Settings → Secrets and variables → Actions**, add a repository secret named `DISCORD_WEBHOOK_URL`. The workflow runs at 00:15 Asia/Yangon (17:45 UTC), validates all cards, locates the current Yangon date, and posts exactly one approved/scheduled card. Missing or duplicate dates fail with a useful log and send nothing.
+Push this project to GitHub. In **Repository Settings → Secrets and variables → Actions**, add all four secrets from the table above. The workflow runs at 00:15 Asia/Yangon (17:45 UTC), validates all cards, locates one card for each `(stream, Yangon date)`, preflights every stream, and then posts each card to its webhook. A missing card or secret fails before any message is sent.
 
 Under **Actions → Send daily learning card → Run workflow**, optionally enter a sample date such as `2026-08-10`. This performs a real post. GitHub may delay scheduled workflows during load, but date lookup remains based on Asia/Yangon.
 
@@ -80,7 +90,7 @@ python3 scripts/validate_cards.py
 ./scripts/generate.sh
 ```
 
-`generate.sh` pulls with `--ff-only`, calculates missing dates up to a 14-card future buffer, passes dynamic context to Codex, validates, stages only `cards/` plus `state/topics.json`, commits, and pushes. If 14 future cards already exist, it exits without invoking Codex. Read `AGENTS.md` to see the permanent quality, scope, duplication, and safety rules.
+`generate.sh` pulls with `--ff-only`, calculates missing `(stream, date)` slots up to each stream's configured 14-card future buffer, and invokes Codex once per deficient stream so a new installation does not request dozens of cards in one oversized generation. It validates, stages only `cards/` plus `state/topics.json`, commits, and pushes. When every stream is full, it exits without invoking Codex. Read `AGENTS.md` to see the permanent quality, scope, duplication, and safety rules.
 
 To add a card manually, copy a nearby JSON file into the correct category, choose a unique ID and unused ISO date, update `state/topics.json`, then run validation and a dry-run preview. Scheduled cards require dates; approved imported cards may remain undated until you place them in the delivery calendar.
 
@@ -136,10 +146,10 @@ Imported material may be private. Only candidate JSON and import history are can
 
 ## Troubleshooting
 
-- **No card today:** run `python3 scripts/card_status.py`; create/schedule the missing date, validate, commit, and push. The Action intentionally sends nothing on failure.
+- **No card today:** run `python3 scripts/card_status.py`; create/schedule the missing `(stream, date)`, validate, commit, and push. The Action intentionally sends nothing if preflight fails.
 - **Codex creates nothing:** inspect the full generation output and confirm authentication plus workspace permissions. Run `python3 scripts/generate_prompt.py` to inspect its prompt.
 - **PDF has no text:** it is probably scanned; OCR it outside this project and import the resulting text/PDF.
 - **Timer fails:** inspect `journalctl --user -u daily-learning-generate.service`; verify the repo path, executable bit, network, Codex login, and Git credentials.
 - **Push is rejected:** manually reconcile remote changes; automation intentionally uses only `git pull --ff-only`.
-- **Discord HTTP error:** verify the Actions secret and webhook channel permissions. Never print the secret.
+- **Discord HTTP error:** verify the corresponding stream's Actions secret and webhook channel permissions. Never print the secret.
 - **Validation fails after approval:** fix the reported card before committing. Approval does not bypass safety, duplicate, date, or message-size checks.

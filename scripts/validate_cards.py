@@ -9,7 +9,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from cardlib import REQUIRED, VALID_CATEGORIES, VALID_DIFFICULTIES, VALID_PRIORITIES, VALID_STATUSES, card_paths, format_discord, load_card, normalized_words, parse_date
+from cardlib import REQUIRED, VALID_CATEGORIES, VALID_DIFFICULTIES, VALID_PRIORITIES, VALID_STATUSES, card_paths, format_discord, load_card, load_channels, normalized_words, parse_date
 
 SECRET_PATTERNS = [
     re.compile(r"AKIA[0-9A-Z]{16}"),
@@ -25,8 +25,23 @@ WARN_WORDS = re.compile(r"danger|destructive|irreversible|delete|overwrite|data 
 def validate(paths: list[Path]) -> list[str]:
     errors: list[str] = []
     ids: dict[str, Path] = {}
-    dates: dict[str, Path] = {}
+    dates: dict[tuple[str, str], Path] = {}
     topics: defaultdict[tuple[str, str], list[tuple[Path, dict]]] = defaultdict(list)
+    try:
+        streams = load_channels()
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        return [f"config/channels.json: {exc}"]
+    for stream_name, config in streams.items():
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]+", stream_name):
+            errors.append(f"config/channels.json: invalid stream key: {stream_name}")
+        if not isinstance(config.get("display_name"), str) or not config["display_name"].strip():
+            errors.append(f"config/channels.json: {stream_name} needs display_name")
+        if not isinstance(config.get("categories"), list) or not config["categories"] or any(category not in VALID_CATEGORIES - {"review"} for category in config.get("categories", [])):
+            errors.append(f"config/channels.json: {stream_name} has invalid categories")
+        if not re.fullmatch(r"DISCORD_WEBHOOK_[A-Z0-9_]+", str(config.get("webhook_env", ""))):
+            errors.append(f"config/channels.json: {stream_name} has invalid webhook_env")
+        if not isinstance(config.get("buffer_target"), int) or not 1 <= config["buffer_target"] <= 60:
+            errors.append(f"config/channels.json: {stream_name} buffer_target must be 1..60")
     for path in paths:
         try:
             card = load_card(path)
@@ -41,6 +56,11 @@ def validate(paths: list[Path]) -> list[str]:
                 errors.append(f"{path}: empty field: {key}")
         if card.get("category") not in VALID_CATEGORIES:
             errors.append(f"{path}: invalid category: {card.get('category')}")
+        stream = card.get("stream")
+        if stream not in streams:
+            errors.append(f"{path}: unknown stream: {stream}")
+        elif card.get("category") not in streams[stream].get("categories", []) and card.get("category") != "review":
+            errors.append(f"{path}: category {card.get('category')} is not allowed in stream {stream}")
         if card.get("difficulty") not in VALID_DIFFICULTIES:
             errors.append(f"{path}: invalid difficulty: {card.get('difficulty')}")
         if card.get("status") not in VALID_STATUSES:
@@ -54,9 +74,10 @@ def validate(paths: list[Path]) -> list[str]:
                 parse_date(card["date"])
             except (TypeError, ValueError):
                 errors.append(f"{path}: invalid ISO date: {card.get('date')}")
-            if card["date"] in dates:
-                errors.append(f"{path}: duplicate date also used by {dates[card['date']]}")
-            dates[card["date"]] = path
+            date_key = (str(stream), card["date"])
+            if date_key in dates:
+                errors.append(f"{path}: duplicate date in stream {stream}, also used by {dates[date_key]}")
+            dates[date_key] = path
         card_id = card.get("id")
         if card_id in ids:
             errors.append(f"{path}: duplicate id also used by {ids[card_id]}")
