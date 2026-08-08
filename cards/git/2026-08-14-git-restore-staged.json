@@ -1,0 +1,25 @@
+{
+  "id": "git-restore-staged-keep-worktree-001",
+  "stream": "dev",
+  "language": "my",
+  "date": "2026-08-14",
+  "category": "git",
+  "topic": "git-restore-staged-keep-worktree",
+  "difficulty": "intermediate",
+  "title": "Git file ပြင်ဆင်ချက်ကို မဖျက်ဘဲ staging area မှ ပြန်ထုတ်ခြင်း",
+  "summary": "`git restore --staged <file>` သည် file ကို index မှ unstage လုပ်သော်လည်း working tree ထဲရှိ ပြင်ဆင်ချက်ကို မဖျက်ပါ။",
+  "command": "git restore --staged config.py",
+  "explanation": "Git တွင် staging area နှင့် working tree သည် သီးခြားဖြစ်သည်။ `--staged` က index ကို `HEAD` နှင့် ပြန်ညှိပေးပြီး file ကို commit နောက်တစ်ခုမှ ဖယ်ပေးသော်လည်း လက်ရှိရေးထားသော အပြောင်းအလဲကို ဆက်ထားပေးသည်။",
+  "flags": [
+    {
+      "flag": "--staged",
+      "meaning": "Working tree မဟုတ်ဘဲ staging area ကိုသာ restore လုပ်သည်။"
+    }
+  ],
+  "use_case": "`git add` ဖြင့် မတော်တဆ stage လုပ်ထားသော config ပြောင်းလဲချက်ကို မဖျက်ဘဲ လက်ရှိ commit မှ ဖယ်ထားရန်။",
+  "example": "git restore --staged config.py\ngit status",
+  "question": "`config.py` ၏ လက်ရှိပြင်ဆင်ချက်ကို ဆက်ထားပြီး staging area မှသာ ဖယ်ရန် မည်သည့် command ကို သုံးမည်နည်း။",
+  "answer": "`git restore --staged config.py` ကို သုံးပါ။ ထို့နောက် `git status` ဖြင့် file က unstaged ဖြစ်ပြီး ပြင်ဆင်ချက် ဆက်ရှိကြောင်း စစ်နိုင်သည်။",
+  "tags": ["git", "staging-area", "restore"],
+  "status": "approved"
+}

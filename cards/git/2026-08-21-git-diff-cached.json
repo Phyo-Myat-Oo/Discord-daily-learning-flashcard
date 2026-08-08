@@ -1,0 +1,29 @@
+{
+  "id": "git-diff-cached-before-commit-001",
+  "stream": "dev",
+  "language": "my",
+  "date": "2026-08-21",
+  "category": "git",
+  "topic": "git-diff-cached-before-commit",
+  "difficulty": "beginner",
+  "title": "Commit မလုပ်မီ staged changes ကို သီးခြားစစ်ခြင်း",
+  "summary": "`git diff --cached` သည် staging area နှင့် လက်ရှိ `HEAD` ကြား ကွာခြားချက်ကို ပြသသဖြင့် နောက် commit ထဲ အမှန်တကယ် ပါမည့်ပြောင်းလဲချက်များကို စစ်နိုင်သည်။",
+  "command": "git diff --cached",
+  "explanation": "Argument မပါသော `git diff` က worktree ထဲရှိ unstaged changes ကိုသာ ပုံမှန်ပြသည်။ `--cached` သုံးလျှင် staged snapshot ကို `HEAD` နှင့် နှိုင်းယှဉ်ပေးသောကြောင့် commit message ရေးမီ မရည်ရွယ်သော line သို့မဟုတ် file ပါနေသလား စစ်နိုင်သည်။",
+  "flags": [
+    {
+      "flag": "--cached",
+      "meaning": "Staging area ထဲရှိ အကြောင်းအရာကို လက်ရှိ `HEAD` နှင့် နှိုင်းယှဉ်ပြသည်။"
+    }
+  ],
+  "use_case": "File တစ်ခု၏ ပြောင်းလဲချက်အချို့ကိုသာ stage လုပ်ထားချိန် နောက် commit ထဲ ပါမည့် patch ကို အတည်ပြုရန်။",
+  "example": "git add -p\ngit diff --cached",
+  "question": "နောက် commit ထဲ အမှန်တကယ် ပါမည့် staged patch ကို မည်သည့် command ဖြင့် စစ်မည်နည်း။",
+  "answer": "`git diff --cached` ကို သုံးပါ။ ၎င်းက staging area ကို `HEAD` နှင့် နှိုင်းယှဉ်ပြပြီး argument မပါသော `git diff` ကတော့ unstaged changes ကို ပြသည်။",
+  "tags": [
+    "git",
+    "staging",
+    "review"
+  ],
+  "status": "approved"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "python-explicit-exception-chaining-001",
+  "stream": "dev",
+  "language": "my",
+  "date": "2026-08-20",
+  "category": "python",
+  "topic": "python-explicit-exception-chaining",
+  "difficulty": "intermediate",
+  "title": "raise ... from ဖြင့် မူလ exception အကြောင်းရင်းကို ထိန်းထားခြင်း",
+  "summary": "Low-level exception ကို နားလည်လွယ်သော application error အဖြစ် ပြောင်းရာတွင် `raise NewError(...) from exc` သုံးလျှင် မူလအကြောင်းရင်းကို traceback ထဲတွင် ဆက်လက်ဖော်ပြနိုင်သည်။",
+  "explanation": "Exception အသစ်တစ်ခုသာ raise လုပ်ပါက ပြဿနာ၏ အပေါ်ယံအဓိပ္ပာယ်ကို ရှင်းစေနိုင်သော်လည်း မူလ failure နှင့် ဆက်နွယ်မှု မရှင်းနိုင်ပါ။ `from exc` က exception နှစ်ခုကြား cause ကို တိတိကျကျ ချိတ်ပေးသဖြင့် caller က သင့်လျော်သော error ကို ကိုင်တွယ်နိုင်ပြီး developer က root cause ကို traceback မှ စစ်နိုင်သည်။",
+  "use_case": "Configuration file ထဲမှ မမှန်သော JSON ကို ဖတ်ရာတွင် `JSONDecodeError` ကို service အတွက် အဓိပ္ပာယ်ရှိသော `ConfigError` အဖြစ် ပြောင်းသော်လည်း parse failure အသေးစိတ်ကို debugging အတွက် ထိန်းထားရန်။",
+  "example": "try:\n    config = json.loads(text)\nexcept json.JSONDecodeError as exc:\n    raise ConfigError(\"Configuration JSON မမှန်ပါ\") from exc",
+  "question": "Low-level exception ကို application-specific error အဖြစ် ပြောင်းရာတွင် `raise ConfigError(...) from exc` ဟု ရေးခြင်း၏ အဓိကအကျိုးကျေးဇူးက ဘာလဲ။",
+  "answer": "Caller အတွက် နားလည်လွယ်သော error ပေးနိုင်သလို မူလ exception ကို explicit cause အဖြစ် traceback ထဲတွင် ထိန်းထားနိုင်သောကြောင့် root cause စစ်ဆေးရလွယ်သည်။",
+  "tags": [
+    "python",
+    "exceptions",
+    "debugging"
+  ],
+  "status": "approved"
+}

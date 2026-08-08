@@ -1,0 +1,18 @@
+{
+  "id": "ai-probability-calibration-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-14",
+  "category": "ai",
+  "topic": "probability-calibration",
+  "difficulty": "intermediate",
+  "title": "Model score ကို probability အဖြစ် မယူမီ calibration စစ်ခြင်း",
+  "summary": "Classifier က 0.8 score ပေးခြင်းသည် အလားတူခန့်မှန်းချက်များ၏ 80% မှန်မည်ဟု calibration မစစ်ဘဲ မဆိုနိုင်ပါ။",
+  "explanation": "Calibrated model တစ်ခုတွင် 0.8 ဝန်းကျင် score ရသော sample များ၏ အမှန်တကယ် positive ဖြစ်နှုန်းသည် 80% ဝန်းကျင် ရှိသင့်သည်။ Reliability diagram သို့မဟုတ် calibration curve ဖြင့် predicted probability များကို observed frequency နှင့် နှိုင်းယှဉ်ပြီး validation data ပေါ်တွင် စစ်ရသည်။",
+  "use_case": "Fraud risk score ကို ငွေကြေးဆုံးရှုံးနိုင်ခြေဟု သုံးပြီး လူစစ်ဆေးရေး workload ခွဲဝေမည့်အခါ score ၏ အဓိပ္ပာယ်ကို အရင်အတည်ပြုရန်။",
+  "example": "0.7–0.8 score bin ထဲရှိ sample 100 ခုတွင် 52 ခုသာ positive ဖြစ်လျှင် model သည် ထိုအပိုင်း၌ overconfident ဖြစ်သည်။",
+  "question": "Classifier ၏ score 0.8 ကို 80% ဖြစ်နိုင်ခြေဟု မယူမီ ဘာကို စစ်သင့်သနည်း။",
+  "answer": "Validation data ပေါ်တွင် calibration curve ဖြင့် 0.8 ဝန်းကျင် score ရသော sample များ၏ observed positive rate သည် 80% ဝန်းကျင် ရှိမရှိ စစ်သင့်သည်။",
+  "tags": ["classification", "calibration", "evaluation"],
+  "status": "approved"
+}

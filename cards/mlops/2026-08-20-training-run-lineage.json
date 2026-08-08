@@ -1,0 +1,18 @@
+{
+  "id": "mlops-training-run-lineage-001",
+  "stream": "mlops",
+  "language": "my",
+  "date": "2026-08-20",
+  "category": "mlops",
+  "topic": "training-run-reproducibility-lineage",
+  "difficulty": "intermediate",
+  "title": "Training run မှ model artifact အထိ lineage ချိတ်ထားခြင်း",
+  "summary": "Model artifact တစ်ခုကို ပြန်လည်ဖော်ထုတ်နိုင်ရန် training run နှင့် dataset snapshot၊ code commit၊ configuration တို့ကို မပြောင်းလဲနိုင်သော identifier များဖြင့် ချိတ်ဆက်မှတ်တမ်းတင်ရသည်။",
+  "explanation": "Metric နှင့် model file သာသိမ်းထားလျှင် မည်သည့် data နှင့် code က ထုတ်လုပ်ခဲ့သည်ကို နောက်ပိုင်း အတိအကျ မသိနိုင်ပါ။ Run metadata တွင် dataset version၊ Git commit၊ hyperparameter configuration နှင့် ထွက်လာသော artifact ID ကို ချိတ်ထားခြင်းက result ကို စုံစမ်းခြင်း၊ နှိုင်းယှဉ်ခြင်းနှင့် ပြန်လည်ထုတ်လုပ်ခြင်းတို့အတွက် အခြေခံပေးသည်။",
+  "use_case": "Production model တစ်ခု၏ prediction ပြဿနာကို စုံစမ်းရာတွင် ၎င်းကို လေ့ကျင့်ခဲ့သော dataset snapshot နှင့် code revision ကို အတိအကျ ပြန်ရှာရန်။",
+  "example": "run-184 → dataset=features@sha256:abc..., code_commit=8f31c2a, config=train-v4, artifact=model@sha256:def...",
+  "question": "Training run တစ်ခုကို ပြန်လည်ဖော်ထုတ်နိုင်ရန် model artifact ID အပြင် မည်သည့် identifier များကို အနည်းဆုံး ချိတ်ဆက်မှတ်တမ်းတင်သင့်သနည်း။",
+  "answer": "အသုံးပြုခဲ့သော dataset snapshot သို့မဟုတ် version၊ code commit နှင့် training configuration ကို artifact ID နှင့်အတူ run တစ်ခုတည်းတွင် ချိတ်ဆက်မှတ်တမ်းတင်သင့်သည်။",
+  "tags": ["mlops", "lineage", "reproducibility"],
+  "status": "approved"
+}

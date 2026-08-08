@@ -1,0 +1,19 @@
+{
+  "id": "mlops-model-artifact-checksum-001",
+  "stream": "mlops",
+  "language": "my",
+  "date": "2026-08-10",
+  "category": "mlops",
+  "topic": "model-artifact-checksum-verification",
+  "difficulty": "intermediate",
+  "title": "Model artifact ကို မဖွင့်မီ checksum စစ်ခြင်း",
+  "summary": "Model registry မှ download လုပ်ထားသော artifact ၏ checksum ကို မျှော်မှန်းတန်ဖိုးနှင့် တိုက်စစ်ခြင်းက ပျက်စီးခြင်း သို့မဟုတ် မှားယွင်းသော file ရောက်လာခြင်းကို စောစီးစွာ သိစေသည်။",
+  "command": "sha256sum model.bin",
+  "explanation": "Artifact version အမည်တူရုံဖြင့် bytes တူကြောင်း မအာမခံနိုင်ပါ။ Registry metadata တွင် ယုံကြည်စိတ်ချစွာ သိမ်းထားသော SHA-256 တန်ဖိုးနှင့် download ပြီး file ၏ checksum ကို နှိုင်းယှဉ်ပြီး မတူလျှင် model ကို load မလုပ်ဘဲ deployment ကို ရပ်ရမည်။ Checksum သည် source ၏ ယုံကြည်ရမှုကို တစ်ခုတည်းဖြင့် အာမမခံပါ။",
+  "use_case": "ကြီးမားသော model artifact download မပြည့်စုံဘဲ inference server က မရှင်းသော load error ဖြစ်ခြင်းကို တားဆီးရန်။",
+  "example": "Registry metadata က ပေးသော expected SHA-256 နှင့် `sha256sum model.bin` output တူမှ model loader ကို ဆက် run သည်။",
+  "question": "Download လုပ်ထားသော model artifact ၏ SHA-256 checksum မကိုက်လျှင် pipeline က မည်သို့ လုပ်သင့်သနည်း။",
+  "answer": "Artifact ကို load သို့မဟုတ် deploy မလုပ်ဘဲ fail closed လုပ်ကာ ယုံကြည်ရသော source မှ ပြန်လည်ရယူသင့်သည်။",
+  "tags": ["mlops", "model-artifact", "integrity"],
+  "status": "approved"
+}

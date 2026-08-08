@@ -1,0 +1,18 @@
+{
+  "id": "python-with-open-context-manager-001",
+  "stream": "dev",
+  "language": "my",
+  "date": "2026-08-17",
+  "category": "python",
+  "topic": "python-with-open-context-manager",
+  "difficulty": "beginner",
+  "title": "with open ဖြင့် file ကို အလိုအလျောက်ပိတ်ခြင်း",
+  "summary": "File ဖတ်ရေးရာတွင် with open(...) ကို သုံးလျှင် block ပြီးချိန်၌ exception ဖြစ်ခဲ့သော်လည်း file ကို သေချာပိတ်ပေးသည်။",
+  "explanation": "File ကို ဖွင့်ပြီး close() ကို ကိုယ်တိုင်ခေါ်ပါက အလယ်တွင် exception ဖြစ်သောအခါ close() မရောက်နိုင်ပါ။ Context manager သုံးထားလျှင် block မှ ထွက်ချိန် resource cleanup ကို အလိုအလျောက် လုပ်ပေးသောကြောင့် file descriptor မပိတ်ဘဲ ကျန်ခြင်းကို လျှော့ချနိုင်သည်။",
+  "use_case": "Log file များစွာကို ဆက်တိုက်ဖတ်သော script တွင် file descriptor များ စုပုံမလာစေရန်။",
+  "example": "with open(\"settings.json\", encoding=\"utf-8\") as file:\n    data = file.read()",
+  "question": "open() နောက်တွင် close() ကို ကိုယ်တိုင်ခေါ်ခြင်းထက် with open(...) ကို သုံးသင့်သည့် အဓိကအကြောင်းရင်းက ဘာလဲ။",
+  "answer": "Block အတွင်း exception ဖြစ်လျှင်တောင် block မှ ထွက်ချိန် file ကို အလိုအလျောက်ပိတ်ပြီး resource မပိတ်ဘဲ ကျန်ခြင်းကို ကာကွယ်ပေးသောကြောင့် ဖြစ်သည်။",
+  "tags": ["python", "context-manager", "files"],
+  "status": "approved"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "ai-model-dependency-circuit-breaker-001",
+  "stream": "mlops",
+  "language": "my",
+  "date": "2026-08-18",
+  "category": "ai-engineering",
+  "topic": "ai-model-dependency-circuit-breaker",
+  "difficulty": "intermediate",
+  "title": "Model dependency ပျက်နေချိန် circuit breaker ဖွင့်ခြင်း",
+  "summary": "Model service ဆက်တိုက်ပျက်နေချိန် call အသစ်များကို ခဏတားသည့် circuit breaker က timeout စောင့်ရမှုနှင့် dependency overload ကို လျှော့ပေးသည်။",
+  "explanation": "Failure threshold ကျော်လျှင် circuit ကို open လုပ်ပြီး request ကို လျင်မြန်စွာ fallback သို့မဟုတ် controlled error ပြန်ပေးရသည်။ Cooldown ပြီးနောက် စမ်းသပ် call အနည်းငယ်သာ ခွင့်ပြုသည့် half-open အခြေအနေဖြင့် recovery ကို စစ်ပြီး အောင်မြင်မှ normal traffic ပြန်ပို့ရသည်။",
+  "use_case": "External embedding API ပျက်နေချိန် worker အားလုံး timeout စောင့်ကာ queue ပြည့်သွားခြင်းကို ကာကွယ်ရန်။",
+  "example": "နောက်ဆုံး call 20 ခုတွင် failure 50% ကျော်လျှင် circuit ကို 30 seconds ဖွင့်ထားပြီး cached result သို့မဟုတ် retryable error ပြန်ပေးသည်။",
+  "question": "Circuit breaker ၏ half-open အခြေအနေတွင် traffic အားလုံးကို ချက်ချင်းပြန်ပို့မည့်အစား ဘာကြောင့် စမ်းသပ် call အနည်းငယ်သာ ခွင့်ပြုသနည်း။",
+  "answer": "Dependency ပြန်ကောင်းကြောင်း load အနည်းငယ်ဖြင့် စစ်ပြီး မပြေလည်သေးပါက overload ထပ်မဖြစ်စေရန် ဖြစ်သည်။ စမ်းသပ် call အောင်မြင်မှ circuit ကို ပြန်ပိတ်ရမည်။",
+  "tags": ["ai-engineering", "circuit-breaker", "reliability"],
+  "status": "approved"
+}

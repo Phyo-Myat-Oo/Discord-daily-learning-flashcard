@@ -1,0 +1,18 @@
+{
+  "id": "ai-class-imbalance-accuracy-trap-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-17",
+  "category": "ai",
+  "topic": "class-imbalance-accuracy-trap",
+  "difficulty": "beginner",
+  "title": "Class imbalance ရှိလျှင် accuracy တစ်ခုတည်းကို မယုံခြင်း",
+  "summary": "ရှားပါးသော positive class ရှိသည့် dataset တွင် class အများစုကိုသာ အမြဲခန့်မှန်းသော model ပင် accuracy မြင့်နိုင်သည်။",
+  "explanation": "Positive case 1% သာရှိလျှင် အားလုံးကို negative ဟု ခန့်မှန်းခြင်းက accuracy 99% ရသော်လည်း positive တစ်ခုမျှ မဖမ်းမိပါ။ ထို့ကြောင့် confusion matrix နှင့် လိုအပ်ချက်အလိုက် precision၊ recall သို့မဟုတ် PR curve ကိုပါ စစ်ရသည်။",
+  "use_case": "Fraud transaction ရှားပါးသော dataset တွင် model က fraud ကို အမှန်တကယ် ဖမ်းမိသလား စစ်ဆေးရန်။",
+  "example": "Sample 10,000 ခုတွင် fraud 100 ခုရှိပြီး model က အားလုံးကို normal ဟုဆိုလျှင် accuracy = 99% ဖြစ်သော်လည်း fraud recall = 0% ဖြစ်သည်။",
+  "question": "Positive class 1% သာရှိချိန်တွင် accuracy 99% ရသော model ကို အဘယ်ကြောင့် ကောင်းသည်ဟု ချက်ချင်းမဆိုနိုင်သနည်း။",
+  "answer": "အားလုံးကို negative ဟု ခန့်မှန်းရုံဖြင့်လည်း accuracy 99% ရနိုင်ပြီး positive case တစ်ခုမျှ မဖမ်းမိနိုင်သောကြောင့် ဖြစ်သည်။ Confusion matrix နှင့် precision၊ recall တို့ကိုပါ စစ်ရမည်။",
+  "tags": ["classification", "class-imbalance", "evaluation"],
+  "status": "approved"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "review-mlops-image-identity-001",
+  "stream": "mlops",
+  "language": "my",
+  "date": "2026-08-09",
+  "category": "review",
+  "topic": "mlops-image-identity-review",
+  "difficulty": "intermediate",
+  "title": "MLOps deployment image identity ကို ပြန်လည်မှတ်မိခြင်း",
+  "summary": "Docker tag နှင့် digest တို့၏ ကွာခြားချက်၊ reproducible deployment အတွက် digest pinning ၏ tradeoff ကို ပြန်လည်စမ်းသပ်ပါ။",
+  "explanation": "အဖြေမကြည့်မီ deployment manifest က image content အတိအကျကို ရွေးထားသလားနှင့် update လုပ်ငန်းစဉ်ကို ကိုယ်တိုင်ရှင်းပြကြည့်ပါ။",
+  "use_case": "Staging တွင် စမ်းသပ်ခဲ့သော inference image ကို production သို့ တူညီစွာ တင်နိုင်ရန်နှင့် update များကို ထိန်းချုပ်ရန်။",
+  "example": "`model-api:v1` နှင့် `model-api@sha256:<digest>` တို့ထဲမှ reproducible deployment အတွက် သင့်တော်သည်ကို ရွေးပြီး အကြောင်းပြပါ။",
+  "question": "ဒီ review card က deployment image identity ၏ မည်သည့်အချက်များကို စမ်းသပ်သနည်း။",
+  "answer": "Tag ပြောင်းလဲနိုင်မှု၊ digest ဖြင့် content အတိအကျရွေးခြင်းနှင့် digest update ကို ရည်ရွယ်ချက်ရှိရှိ စီမံခြင်းတို့ကို စမ်းသပ်သည်။",
+  "review_items": [
+    {
+      "question": "`v1` tag တူနေသော်လည်း deployment နှစ်ကြိမ်တွင် image မတူနိုင်သည့် အကြောင်းရင်းက ဘာလဲ။",
+      "answer": "Registry က `v1` tag ကို image အသစ်ဆီ ပြန်ညွှန်းနိုင်သောကြောင့် ဖြစ်သည်။"
+    },
+    {
+      "question": "Image digest ကို pin လုပ်ခြင်းက reproducibility ကို မည်သို့ ကူညီသနည်း။",
+      "answer": "Deployment က tag ၏ လက်ရှိညွှန်းရာကို မလိုက်ဘဲ သတ်မှတ်ထားသော content ကို အတိအကျ ရယူစေသည်။"
+    },
+    {
+      "question": "Digest pin ထားသော image တွင် security fix အသစ်ရရန် ဘာလုပ်ရမည်နည်း။",
+      "answer": "ပြင်ဆင်ထားသော image ကို စမ်းသပ်ပြီး deployment manifest ရှိ digest ကို digest အသစ်ဖြင့် ရည်ရွယ်ချက်ရှိရှိ update လုပ်ရမည်။"
+    }
+  ],
+  "tags": ["review", "docker", "reproducibility"],
+  "status": "approved"
+}

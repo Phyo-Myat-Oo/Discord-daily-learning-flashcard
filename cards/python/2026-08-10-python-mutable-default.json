@@ -1,0 +1,18 @@
+{
+  "id": "python-mutable-default-argument-001",
+  "stream": "dev",
+  "language": "my",
+  "date": "2026-08-10",
+  "category": "python",
+  "topic": "python-mutable-default-argument",
+  "difficulty": "intermediate",
+  "title": "Mutable default argument ကြောင့် call များကြား state မမျှဝေစေခြင်း",
+  "summary": "Python default argument ကို function သတ်မှတ်ချိန်တွင် တစ်ကြိမ်သာ ဖန်တီးသဖြင့် list သို့မဟုတ် dict ကို default ထားပါက call များကြား မရည်ရွယ်ဘဲ မျှဝေနိုင်သည်။",
+  "explanation": "def add(item, items=[]): က items list တစ်ခုတည်းကို နောက် call များတွင် ပြန်သုံးသည်။ Call တစ်ကြိမ်စီအတွက် container အသစ်လိုလျှင် default ကို None ထားပြီး function အတွင်းမှ list အသစ်ဖန်တီးရသည်။",
+  "use_case": "Request တစ်ခု၏ result များက နောက် request ၏ result ထဲ မတော်တဆ ပါလာသည့် ရှာရခက်သော state leakage bug ကို ကာကွယ်ရန်။",
+  "example": "def add(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items",
+  "question": "Function call တစ်ကြိမ်စီအတွက် list အသစ်လိုသောအခါ items=[] ကို default မထားသင့်သည့် အကြောင်းရင်းက ဘာလဲ။",
+  "answer": "Default list ကို function သတ်မှတ်ချိန်တွင် တစ်ကြိမ်သာ ဖန်တီးပြီး call များအားလုံးက ပြန်မျှဝေနိုင်သောကြောင့် ဖြစ်သည်။ items=None ထားပြီး function အတွင်း list အသစ်ဖန်တီးရမည်။",
+  "tags": ["python", "functions", "mutable-state"],
+  "status": "approved"
+}

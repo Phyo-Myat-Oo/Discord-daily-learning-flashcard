@@ -1,0 +1,18 @@
+{
+  "id": "ai-structured-output-schema-validation-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-13",
+  "category": "ai-engineering",
+  "topic": "llm-structured-output-schema-validation",
+  "difficulty": "intermediate",
+  "title": "LLM structured output ကို မသုံးမီ schema ဖြင့် စစ်ခြင်း",
+  "summary": "LLM က JSON ပုံစံတကျ ထုတ်ပေးသော်လည်း field အမျိုးအစားနှင့် ခွင့်ပြုတန်ဖိုးများ မှန်ကြောင်း မဆိုလိုသဖြင့် application က schema validation လုပ်ရသည်။",
+  "explanation": "Parsing အောင်မြင်ခြင်းသည် syntax မှန်ကြောင်းသာ ပြသည်။ Required field ပျောက်ခြင်း၊ number နေရာတွင် string ပါခြင်း သို့မဟုတ် မခွင့်ပြုထားသော action ပါခြင်းကို schema ဖြင့် စစ်ပြီး မအောင်မြင်လျှင် output ကို မသုံးဘဲ ပြန်တောင်းခြင်း သို့မဟုတ် လူစစ်ဆေးရန် ပို့ရသည်။",
+  "use_case": "Support ticket များကို priority နှင့် team အလိုက် route လုပ်သည့် pipeline တွင် မမှန်သော model output ကြောင့် ticket မှားပို့ခြင်းကို တားဆီးရန်။",
+  "example": "parse JSON → validate {priority: enum, team: enum} → accept or reject",
+  "question": "LLM output ကို JSON parse လုပ်နိုင်ရုံဖြင့် downstream action အတွက် အဘယ်ကြောင့် မလုံလောက်သနည်း။",
+  "answer": "JSON syntax မှန်သော်လည်း required field၊ data type နှင့် ခွင့်ပြုတန်ဖိုးများ မှားနိုင်သောကြောင့် ဖြစ်သည်။ အသုံးမပြုမီ schema validation လုပ်ပြီး invalid output ကို ပယ်ရမည်။",
+  "tags": ["structured-output", "validation", "reliability"],
+  "status": "approved"
+}

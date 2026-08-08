@@ -1,0 +1,18 @@
+{
+  "id": "ai-data-drift-vs-concept-drift-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-19",
+  "category": "ai",
+  "topic": "data-drift-vs-concept-drift",
+  "difficulty": "intermediate",
+  "title": "Data drift နှင့် concept drift ကို ခွဲခြားခြင်း",
+  "summary": "Data drift သည် input distribution ပြောင်းခြင်းဖြစ်ပြီး concept drift သည် input နှင့် target ကြား ဆက်နွယ်မှု ပြောင်းခြင်းဖြစ်သည်။",
+  "explanation": "Production feature များ၏ ဖြန့်ဝေမှု training ကာလနှင့် မတူလာခြင်းကို label မရသေးချိန်တွင်ပင် data drift အဖြစ် စောင့်ကြည့်နိုင်သည်။ Concept drift ကိုတော့ တူညီသော input အတွက် မှန်ကန်သည့် outcome ပြောင်းလာခြင်းဖြစ်၍ နောက်ကျရောက်လာသော ground-truth label နှင့် model performance ကို နှိုင်းယှဉ်မှ သိနိုင်သည်။",
+  "use_case": "Fraud model performance ကျလာချိန်တွင် customer behavior distribution ပြောင်းသလား၊ fraud pattern နှင့် label ဆက်နွယ်မှု ပြောင်းသလား ခွဲခြားစစ်ဆေးရန်။",
+  "example": "အသုံးပြုသူအသက်အုပ်စု အချိုးပြောင်းခြင်းသည် data drift ဖြစ်နိုင်ပြီး transaction pattern တစ်မျိုး၏ fraud ဖြစ်နိုင်ခြေ ပြောင်းခြင်းသည် concept drift ဖြစ်နိုင်သည်။",
+  "question": "Input feature distribution မပြောင်းသော်လည်း feature တစ်မျိုးနှင့် target ကြား ဆက်နွယ်မှု ပြောင်းသွားလျှင် မည်သည့် drift ဖြစ်သနည်း။",
+  "answer": "Concept drift ဖြစ်သည်။ Input distribution ကိုသာ စစ်၍ မလုံလောက်ဘဲ ground-truth label ရလာချိန်တွင် performance နှင့် input-target ဆက်နွယ်မှုကို စစ်ရမည်။",
+  "tags": ["monitoring", "data-drift", "concept-drift"],
+  "status": "approved"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "ai-request-bounded-concurrency-001",
+  "stream": "mlops",
+  "language": "my",
+  "date": "2026-08-11",
+  "category": "ai-engineering",
+  "topic": "ai-request-bounded-concurrency",
+  "difficulty": "intermediate",
+  "title": "AI request concurrency ကို အကန့်အသတ်ထားခြင်း",
+  "summary": "တစ်ပြိုင်နက် model request အရေအတွက်ကို semaphore သို့မဟုတ် worker pool ဖြင့် ကန့်သတ်ခြင်းက overload နှင့် cascading failure ကို လျှော့ချပေးသည်။",
+  "explanation": "Traffic တက်လာတိုင်း request အားလုံးကို ချက်ချင်း model backend ဆီ ပို့လျှင် memory၊ connection နှင့် rate limit များ ကုန်နိုင်သည်။ Bounded concurrency က တစ်ချိန်တည်း run မည့်အရေအတွက်ကို ကန့်သတ်ပြီး ကျန် request များကို အကန့်အသတ်ရှိ queue၊ timeout သို့မဟုတ် overload response ဖြင့် ကိုင်တွယ်စေသည်။",
+  "use_case": "Embedding API နှေးသွားချိန် worker များစွာက request ထပ်ပို့၍ service တစ်ခုလုံး မပြိုကွဲစေရန်။",
+  "example": "Concurrency limit ကို 20 ထားပြီး queue ပြည့်လျှင် request ကို အဆုံးမရှိ စောင့်မထားဘဲ retry hint ပါသော overload response ပြန်ပေးသည်။",
+  "question": "AI backend နှေးသွားချိန် concurrency ကို အကန့်အသတ်မထားပါက မည်သည့်ပြဿနာ ပိုဆိုးလာနိုင်သနည်း။",
+  "answer": "စောင့်နေသော request နှင့် resource အသုံးပြုမှု ဆက်တိုးကာ latency၊ timeout နှင့် cascading failure ပိုဆိုးလာနိုင်သည်။",
+  "tags": ["ai-engineering", "concurrency", "reliability"],
+  "status": "approved"
+}

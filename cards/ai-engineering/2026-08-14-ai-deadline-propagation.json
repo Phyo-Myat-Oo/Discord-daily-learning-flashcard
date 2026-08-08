@@ -1,0 +1,18 @@
+{
+  "id": "ai-end-to-end-deadline-propagation-001",
+  "stream": "mlops",
+  "language": "my",
+  "date": "2026-08-14",
+  "category": "ai-engineering",
+  "topic": "ai-end-to-end-deadline-propagation",
+  "difficulty": "intermediate",
+  "title": "AI pipeline တစ်လျှောက် deadline ကျန်ချိန်ကို ဆက်လက်ပို့ခြင်း",
+  "summary": "Request ၏ end-to-end deadline ကို retrieval၊ model နှင့် tool call တစ်ဆင့်စီသို့ ကျန်ချိန်အလိုက် ပို့ခြင်းက အဖြေမလိုတော့သည့် အလုပ် ဆက်လုပ်နေခြင်းကို တားဆီးသည်။",
+  "explanation": "Dependency တစ်ခုစီကို သီးခြား timeout အပြည့်ပေးလျှင် အဆင့်များ ဆက်တိုက်စောင့်ရပြီး user deadline ကို ကျော်နိုင်သည်။ Request စချိန်က absolute deadline တစ်ခု သတ်မှတ်ကာ call တစ်ခုစီမတိုင်မီ ကျန်ချိန်ကို တွက်ပြီး ထိုထက်တိုသော timeout ပေးရသည်။ ကျန်ချိန်မရှိတော့လျှင် နောက်ထပ် call မစဘဲ cancellable operation များကို ရပ်ရသည်။",
+  "use_case": "RAG API တစ်ခုက retrieval နှင့် generation နှစ်ဆင့်စလုံး စောင့်ရသော်လည်း client ၏ 3-second latency budget ကို မကျော်စေရန်။",
+  "example": "Request deadline 3 seconds ဖြစ်ပြီး retrieval က 1.2 seconds သုံးပြီးနောက် model call ကို 3 seconds အသစ်မပေးဘဲ ကျန် budget ထက်တိုသော timeout သာ ပေးသည်။",
+  "question": "Pipeline အဆင့်တိုင်းကို 3-second timeout သီးခြားပေးခြင်းက end-to-end 3-second deadline ကို အဘယ်ကြောင့် မအာမခံနိုင်သနည်း။",
+  "answer": "အဆင့်များ၏ စောင့်ချိန် ပေါင်းလဒ်က 3 seconds ထက် ကျော်နိုင်သောကြောင့် ဖြစ်သည်။ Absolute deadline မှ ကျန်ချိန်ကို call တစ်ဆင့်စီသို့ ပို့ရမည်။",
+  "tags": ["ai-engineering", "timeouts", "reliability"],
+  "status": "approved"
+}

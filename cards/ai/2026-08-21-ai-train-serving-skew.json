@@ -1,0 +1,22 @@
+{
+  "id": "ai-train-serving-feature-skew-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-21",
+  "category": "ai",
+  "topic": "train-serving-feature-skew",
+  "difficulty": "intermediate",
+  "title": "Training နှင့် production တွင် feature တွက်ချက်ပုံ တူညီစေခြင်း",
+  "summary": "Feature တစ်ခုကို training နှင့် production inference တွင် မတူညီသော logic ဖြင့် တွက်လျှင် train-serving skew ဖြစ်ပြီး offline ကောင်းသော model သည် production တွင် အားနည်းနိုင်သည်။",
+  "explanation": "Feature အမည်တူသော်လည်း unit၊ default value၊ time window သို့မဟုတ် preprocessing order ကွာလျှင် model က training အတွင်း မြင်ခဲ့သော input နှင့် production input မကိုက်တော့ပါ။ Feature transformation logic တစ်ခုတည်းကို နှစ်နေရာစလုံးတွင် ပြန်သုံးပြီး sample record များ၏ feature တန်ဖိုးကို နှိုင်းယှဉ်စစ်ဆေးရသည်။",
+  "use_case": "Training pipeline က ဝယ်ယူမှုပမာဏကို 30 ရက်စာ စုသော်လည်း online service က 7 ရက်စာ စုနေသောကြောင့် fraud model ၏ production performance ကျဆင်းမှုကို ကာကွယ်ရန်။",
+  "example": "record တစ်ခုတည်းကို offline pipeline နှင့် online service နှစ်ခုစလုံးဖြင့် transform လုပ်ပြီး feature vector များ တူကြောင်း test လုပ်ပါ။",
+  "question": "Offline score ကောင်းသော်လည်း production performance ကျသွားပြီး feature အမည်များလည်း တူနေပါက မည်သည့်ကွာခြားချက်ကို စစ်သင့်သနည်း။",
+  "answer": "Training နှင့် production ကြား feature တွက်ချက်သည့် logic၊ unit၊ default value၊ time window နှင့် preprocessing order တူမတူ စစ်သင့်သည်။ မတူလျှင် train-serving feature skew ဖြစ်နိုင်သည်။",
+  "tags": [
+    "features",
+    "model-serving",
+    "reliability"
+  ],
+  "status": "approved"
+}

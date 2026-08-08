@@ -1,0 +1,32 @@
+{
+  "id": "review-ai-reliability-retrieval-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-16",
+  "category": "review",
+  "topic": "ai-reliability-and-retrieval-review",
+  "difficulty": "intermediate",
+  "title": "AI output reliability နှင့် RAG retrieval ပြန်လည်မှတ်မိခြင်း",
+  "summary": "Structured output validation၊ probability calibration နှင့် chunk overlap တို့၏ လက်တွေ့အသုံးကို ပြန်လည်စမ်းသပ်ပါ။",
+  "explanation": "မေးခွန်းတိုင်းကို အဖြေမကြည့်မီ ကိုယ်တိုင်ဖြေပြီး၊ မမှတ်မိသည့် concept ကို သက်ဆိုင်ရာ card နှင့် ပြန်တိုက်စစ်ပါ။",
+  "use_case": "AI pipeline တစ်ခုတွင် model output ကို ယုံကြည်မသုံးမီ စစ်ဆေးရမည့်အချက်များနှင့် retrieval quality ချိန်ညှိပုံကို တစ်ပတ်စာ ပြန်လည်ခိုင်မာစေရန်။",
+  "example": "အဖြေကို ဖုံးထားပြီး question တစ်ခုစီအတွက် အကြောင်းရင်းကို တစ်ကြောင်းဖြင့် ပြောကြည့်ပါ။",
+  "question": "ဒီ review card က မည်သည့် concept သုံးခုကို ပြန်လည်စမ်းသပ်သနည်း။",
+  "answer": "Structured output schema validation၊ probability calibration နှင့် RAG chunk overlap တို့ကို ပြန်လည်စမ်းသပ်သည်။",
+  "review_items": [
+    {
+      "question": "JSON parse အောင်မြင်သော LLM output ကို downstream action မလုပ်မီ ဘာဆက်လုပ်ရမည်နည်း။",
+      "answer": "Required field၊ data type နှင့် ခွင့်ပြုတန်ဖိုးများကို schema ဖြင့် validate လုပ်ပြီး invalid output ကို ပယ်ရမည်။"
+    },
+    {
+      "question": "Classifier score 0.8 က 80% probability ဟုတ်မဟုတ် မည်သို့ စစ်မည်နည်း။",
+      "answer": "Validation data ပေါ်ရှိ 0.8 ဝန်းကျင် score များ၏ observed positive rate ကို calibration curve ဖြင့် နှိုင်းယှဉ်ရမည်။"
+    },
+    {
+      "question": "RAG chunk overlap များလွန်းလျှင် ဘာပြဿနာဖြစ်နိုင်သနည်း။",
+      "answer": "Index အရွယ်အစားနှင့် retrieved context ထဲတွင် ထပ်တူစာသားများလာပြီး အသုံးဝင်သော context နေရာကို ဖြုန်းနိုင်သည်။"
+    }
+  ],
+  "tags": ["review", "reliability", "rag"],
+  "status": "approved"
+}

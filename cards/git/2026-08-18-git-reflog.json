@@ -1,0 +1,19 @@
+{
+  "id": "git-reflog-find-lost-commit-001",
+  "stream": "dev",
+  "language": "my",
+  "date": "2026-08-18",
+  "category": "git",
+  "topic": "git-reflog-find-lost-commit",
+  "difficulty": "intermediate",
+  "title": "git reflog ဖြင့် ယခင် HEAD commit ကို ပြန်ရှာခြင်း",
+  "summary": "Branch ပြောင်းခြင်း သို့မဟုတ် rebase လုပ်ခြင်းနောက် commit တစ်ခု ပျောက်သွားသလို မြင်ရလျှင် reflog မှ ယခင် HEAD နေရာများကို ရှာနိုင်သည်။",
+  "command": "git reflog",
+  "explanation": "Reflog သည် local repository ထဲရှိ HEAD နှင့် reference ရွေ့လျားမှုများကို မှတ်တမ်းတင်ထားသည်။ ပျောက်သွားသလို မြင်ရသော commit hash ကို အရင်ရှာပြီး git show <hash> ဖြင့် စစ်ဆေးနိုင်သည်။ Reflog entry များသည် local ဖြစ်ပြီး အမြဲတမ်းသိမ်းထားမည်ဟု မယူဆသင့်ပါ။",
+  "use_case": "Interactive rebase ပြီးနောက် လိုအပ်သော commit တစ်ခု branch history ထဲ မတွေ့တော့သည့်အခါ commit hash ကို ပြန်ရှာရန်။",
+  "example": "git reflog\ngit show <commit-hash>",
+  "question": "Rebase ပြီးနောက် branch history ထဲ မတွေ့တော့သော ယခင် HEAD commit hash ကို ပထမဆုံး မည်သည့် command ဖြင့် ရှာသင့်သနည်း။",
+  "answer": "git reflog ဖြင့် local reference history ကို ကြည့်ပြီး သက်ဆိုင်ရာ hash ကို ရှာကာ git show <hash> ဖြင့် အကြောင်းအရာကို စစ်ဆေးသင့်သည်။",
+  "tags": ["git", "reflog", "recovery"],
+  "status": "approved"
+}

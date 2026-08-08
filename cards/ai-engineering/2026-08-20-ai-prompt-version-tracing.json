@@ -1,0 +1,18 @@
+{
+  "id": "ai-prompt-model-version-tracing-001",
+  "stream": "ai",
+  "language": "my",
+  "date": "2026-08-20",
+  "category": "ai-engineering",
+  "topic": "prompt-model-version-tracing",
+  "difficulty": "intermediate",
+  "title": "AI request တိုင်းတွင် prompt နှင့် model version မှတ်တမ်းတင်ခြင်း",
+  "summary": "AI output ပြဿနာကို ပြန်လည်စစ်ဆေးနိုင်ရန် request trace တွင် prompt version၊ model identifier နှင့် generation settings ကို ချိတ်ဆက်မှတ်တမ်းတင်ရသည်။",
+  "explanation": "Application code မပြောင်းသော်လည်း prompt template သို့မဟုတ် model version ပြောင်းလျှင် output behavior ပြောင်းနိုင်သည်။ Raw prompt သို့မဟုတ် sensitive user data ကို မလိုအပ်ဘဲ သိမ်းမည့်အစား version ID၊ request ID၊ model ID နှင့် temperature ကဲ့သို့ setting များကို trace တစ်ခုတည်းတွင် မှတ်တမ်းတင်ခြင်းက regression ကို သက်ဆိုင်ရာပြောင်းလဲမှုနှင့် ချိတ်ဆက်စေသည်။",
+  "use_case": "Deployment နောက်ပိုင်း answer quality ကျသွားသော request များက prompt revision အသစ်ကို သုံးထားသလား ရှာဖွေရန်။",
+  "example": "trace = {request_id: \"req-81\", prompt_version: \"support-v7\", model: \"model-release-3\", temperature: 0.2}",
+  "question": "AI output regression ကို စုံစမ်းရန် request ID တစ်ခုတည်းထက် prompt version နှင့် model ID ကိုပါ အဘယ်ကြောင့် မှတ်တမ်းတင်သင့်သနည်း။",
+  "answer": "Output ကို ထုတ်ခဲ့သည့် prompt နှင့် model အတိအကျကို ဖော်ထုတ်ပြီး behavior ပြောင်းလဲမှုကို deployment တစ်ခုနှင့် ချိတ်ဆက်နိုင်ရန် ဖြစ်သည်။ Sensitive raw input ကိုတော့ မလိုအပ်ဘဲ မသိမ်းသင့်ပါ။",
+  "tags": ["observability", "prompt-versioning", "tracing"],
+  "status": "approved"
+}

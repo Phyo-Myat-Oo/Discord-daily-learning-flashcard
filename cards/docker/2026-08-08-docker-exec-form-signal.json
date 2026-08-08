@@ -1,0 +1,19 @@
+{
+  "id": "docker-exec-form-signal-handling-001",
+  "stream": "dev",
+  "language": "my",
+  "date": "2026-08-08",
+  "category": "docker",
+  "topic": "docker-exec-form-signal-handling",
+  "difficulty": "intermediate",
+  "title": "Container process က signal တိုက်ရိုက်ရရန် exec form သုံးခြင်း",
+  "summary": "Dockerfile ၏ CMD သို့မဟုတ် ENTRYPOINT ကို exec form ဖြင့်ရေးလျှင် application က PID 1 အဖြစ် run နိုင်ပြီး stop signal ကို တိုက်ရိုက်လက်ခံနိုင်သည်။",
+  "command": "CMD [\"python\", \"app.py\"]",
+  "explanation": "JSON array ပုံစံ exec form သည် shell တစ်ဆင့်မခံဘဲ process ကို စတင်သည်။ Shell form ဖြစ်သော CMD python app.py က shell ကို PID 1 ဖြစ်စေနိုင်ပြီး SIGTERM ကို application ထံ မှန်ကန်စွာ မပို့လျှင် graceful shutdown မပြီးမီ container ကို အတင်းရပ်ရနိုင်သည်။",
+  "use_case": "Web API container ကို deploy ပြောင်းချိန်တွင် လက်ရှိ request များပြီးစီးအောင် application က SIGTERM ကို ကိုင်တွယ်ပြီး သေသပ်စွာ ပိတ်ရန်။",
+  "example": "CMD [\"python\", \"app.py\"] သုံးပြီး app.py ထဲတွင် SIGTERM ရသောအခါ server နှင့် database connection များကို သေသပ်စွာ ပိတ်ပါ။",
+  "question": "Container ပိတ်ချိန် SIGTERM ကို application က တိုက်ရိုက်ရစေရန် CMD ကို မည်သည့်ပုံစံဖြင့် ရေးသင့်သနည်း။",
+  "answer": "CMD [\"python\", \"app.py\"] ကဲ့သို့ exec form ဖြင့် ရေးသင့်သည်။ ထိုအခါ shell တစ်ဆင့်မခံဘဲ application က PID 1 အဖြစ် signal ကို တိုက်ရိုက်လက်ခံနိုင်သည်။",
+  "tags": ["dockerfile", "signals", "graceful-shutdown"],
+  "status": "approved"
+}
