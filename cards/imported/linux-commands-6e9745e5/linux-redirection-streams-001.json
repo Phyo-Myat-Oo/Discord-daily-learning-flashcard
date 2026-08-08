@@ -1,0 +1,39 @@
+{
+  "id": "linux-redirection-streams-001",
+  "stream": "linux",
+  "language": "my",
+  "category": "linux",
+  "topic": "shell-output-stream-redirection",
+  "difficulty": "intermediate",
+  "title": "Standard output နှင့် error ကို သီးခြား redirect လုပ်ခြင်း",
+  "summary": "Shell command များတွင် standard output ကို file descriptor 1၊ standard error ကို file descriptor 2 အဖြစ် သတ်မှတ်ထားသည်။",
+  "command": "command > output.log 2> error.log",
+  "explanation": "Shell သည် ပုံမှန်ရလဒ်နှင့် diagnostic message များကို သီးခြားစီ ပို့နိုင်သည်။ > က standard output ကို redirect လုပ်ပြီး 2> က standard error ကို redirect လုပ်သည်။",
+  "flags": [
+    {
+      "flag": ">",
+      "meaning": "File ၏ ယခင်အကြောင်းအရာကို အစားထိုး၍ standard output ကို ရေးရန်"
+    },
+    {
+      "flag": "2>",
+      "meaning": "Standard error ကို file ထဲ ရေးရန်"
+    }
+  ],
+  "use_case": "Data-processing command ကို run ရင်း အောင်မြင်သော ရလဒ်များနှင့် စစ်ဆေးရန်လိုသော error များကို သီးခြားထားရန်။",
+  "example": "python process.py > results.log 2> errors.log",
+  "question": "Command ၏ ပုံမှန် output ကို output.log ထဲနှင့် error များကို error.log ထဲ မည်သို့ သိမ်းမည်နည်း။",
+  "answer": "command > output.log 2> error.log ကို run ပါ။ > က stdout ကို redirect လုပ်ပြီး 2> က stderr ကို redirect လုပ်သည်။",
+  "tags": [
+    "shell",
+    "redirection",
+    "streams"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "ipynb",
+  "source_file": "linux-commands.ipynb",
+  "source_section": "24. Piping and Redirection",
+  "source_cell": 307,
+  "date": "2026-08-17"
+}

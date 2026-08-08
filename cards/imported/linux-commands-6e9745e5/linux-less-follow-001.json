@@ -1,0 +1,35 @@
+{
+  "id": "linux-less-follow-001",
+  "stream": "linux",
+  "language": "my",
+  "category": "linux",
+  "topic": "less-follow-growing-file",
+  "difficulty": "intermediate",
+  "title": "တိုးလာနေသော log ကို less ဖြင့် စောင့်ကြည့်စစ်ဆေးခြင်း",
+  "summary": "less +F သည် အသစ်ထပ်တိုးလာသော log output ကို ဆက်တိုက်ပြသပေးသလို less ၏ interactive navigation နှင့် search လုပ်ဆောင်ချက်များကိုလည်း ဆက်သုံးနိုင်စေသည်။",
+  "command": "less +F experiment.log",
+  "explanation": "+F သည် ပြောင်းလဲနေသော file ၏ အဆုံးမှ less ကို follow mode ဖြင့် စတင်သည်။ Ctrl+C နှိပ်လျှင် follow လုပ်ခြင်း ခေတ္တရပ်ပြီး အစောပိုင်းအကြောင်းအရာကို ရှာဖွေ သို့မဟုတ် လှည့်လည်ကြည့်နိုင်ကာ F နှိပ်၍ ပြန်လည်ဆက်လုပ်နိုင်သည်။",
+  "flags": [
+    {
+      "flag": "+F",
+      "meaning": "အသစ်ထပ်ဖြည့်လာသော အကြောင်းအရာကို ဆက်တိုက်ပြရန်"
+    }
+  ],
+  "use_case": "Experiment output ကို တိုက်ရိုက်စောင့်ကြည့်ပြီး အခြား tool မဖွင့်ဘဲ ခေတ္တရပ်ကာ အစောပိုင်း error ကို ရှာဖွေရန်။",
+  "example": "less +F training.log",
+  "question": "တိုးလာနေသော log ကို less ဖြင့် ဆက်တိုက်ကြည့်ရင်း line အဟောင်းများ စစ်ဆေးရန် မည်သို့ ခေတ္တရပ်နိုင်သနည်း။",
+  "answer": "less +F logfile ဖြင့် ဖွင့်ပါ။ Follow mode ကို ခေတ္တရပ်ရန် Ctrl+C နှိပ်ပြီး ပြန်ဆက်ရန် F နှိပ်ပါ။",
+  "tags": [
+    "less",
+    "logs",
+    "monitoring"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "ipynb",
+  "source_file": "linux-commands.ipynb",
+  "source_section": "14. less (opposite of more)",
+  "source_cell": 172,
+  "date": "2026-08-14"
+}

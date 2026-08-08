@@ -15,7 +15,7 @@ VALID_CATEGORIES = {"linux", "networking", "git", "docker", "python", "ai", "mlo
 VALID_DIFFICULTIES = {"beginner", "intermediate", "advanced"}
 VALID_STATUSES = {"candidate", "approved", "rejected", "scheduled"}
 VALID_PRIORITIES = {"low", "normal", "high"}
-REQUIRED = {"id", "stream", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"}
+REQUIRED = {"id", "stream", "language", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"}
 EMOJI = {"linux": "🐧", "networking": "🌐", "git": "🌿", "docker": "🐳", "python": "🐍", "ai": "🤖", "mlops": "⚙️", "ai-engineering": "🧩", "review": "🧠"}
 
 
@@ -67,17 +67,17 @@ def _code(value: Any) -> str:
 
 def format_discord(card: dict[str, Any]) -> str:
     category = card["category"]
-    heading = "Weekly Recall" if category == "review" else f"{category.replace('-', ' ').title()} — Daily Learning"
-    lines = [f"{EMOJI.get(category, '📚')} **{heading}**", "", f"**{_safe_inline(card['title'])}**", "", "**What does it teach?**", _safe_inline(card["summary"])]
+    heading = "အပတ်စဉ် ပြန်လည်မှတ်မိခြင်း" if category == "review" else f"{category.replace('-', ' ').title()} — နေ့စဉ်လေ့လာခြင်း"
+    lines = [f"{EMOJI.get(category, '📚')} **{heading}**", "", f"**{_safe_inline(card['title'])}**", "", "**ဘာကို လေ့လာမလဲ?**", _safe_inline(card["summary"])]
     if card.get("command"):
-        lines += ["", "**Useful command:**", f"```bash\n{_code(card['command'])}\n```"]
+        lines += ["", "**အသုံးဝင်သော command:**", f"```bash\n{_code(card['command'])}\n```"]
     if card.get("flags"):
-        lines += ["", "**Flags:**"] + [f"`{_safe_inline(item['flag'])}` → {_safe_inline(item['meaning'])}" for item in card["flags"]]
-    lines += ["", "**Why it matters**", _safe_inline(card["explanation"]), "", "**Real-world use case**", _safe_inline(card["use_case"])]
+        lines += ["", "**Flags များ:**"] + [f"`{_safe_inline(item['flag'])}` → {_safe_inline(item['meaning'])}" for item in card["flags"]]
+    lines += ["", "**ဘာကြောင့် အရေးကြီးသလဲ?**", _safe_inline(card["explanation"]), "", "**လက်တွေ့အသုံးချမှု**", _safe_inline(card["use_case"])]
     if card.get("example"):
         language = "bash" if card.get("command") else "text"
         lines += [f"```{language}\n{_code(card['example'])}\n```"]
-    lines += ["", "🧠 **Recall**"]
+    lines += ["", "🧠 **ပြန်လည်မှတ်မိခြင်း**"]
     if category == "review" and card.get("review_items"):
         for index, item in enumerate(card["review_items"], 1):
             lines += [f"{index}. {_safe_inline(item['question'])}", f"||{_safe_inline(item['answer'])}||", ""]

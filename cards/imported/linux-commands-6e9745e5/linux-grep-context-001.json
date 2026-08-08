@@ -1,0 +1,35 @@
+{
+  "id": "linux-grep-context-001",
+  "stream": "linux",
+  "language": "my",
+  "category": "linux",
+  "topic": "grep-match-context",
+  "difficulty": "beginner",
+  "title": "grep match အနီးရှိ context ကို ပြခြင်း",
+  "summary": "ကိုက်ညီသော log entry ကို သီးခြားတစ်ကြောင်းတည်း မကြည့်ရစေရန် grep က အနီးရှိ line များကိုပါ ထည့်ပြနိုင်သည်။",
+  "command": "grep -C 2 'ERROR' app.log",
+  "explanation": "-C N သည် match တစ်ခုစီ၏ ရှေ့နှင့် နောက်မှ line N ကြောင်းစီကို ပြသည်။ တန်ဖိုးတူသော -B N နှင့် -A N ကို ပေါင်းသုံးခြင်း၏ အတိုချုံးပုံစံ ဖြစ်သည်။",
+  "flags": [
+    {
+      "flag": "-C 2",
+      "meaning": "Match တစ်ခုစီ၏ ရှေ့နှင့် နောက်မှ line နှစ်ကြောင်းစီ ပြရန်"
+    }
+  ],
+  "use_case": "Application log ထဲရှိ error တစ်ခု၏ ရှေ့နောက်တွင် ချက်ချင်းဖြစ်ပျက်ခဲ့သည့် event များကို စစ်ဆေးရန်။",
+  "example": "grep -C 2 'ERROR' app.log",
+  "question": "Match တစ်ခုစီ၏ ရှေ့နှင့် နောက်မှ line နှစ်ကြောင်းစီကို မည်သည့် grep option က ပြသနည်း။",
+  "answer": "-C 2 ကို သုံးပါ။ ဥပမာ - grep -C 2 'ERROR' app.log",
+  "tags": [
+    "grep",
+    "logs",
+    "text-processing"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "ipynb",
+  "source_file": "linux-commands.ipynb",
+  "source_section": "27. grep (Global Regular Expression Print)",
+  "source_cell": 418,
+  "date": "2026-08-13"
+}

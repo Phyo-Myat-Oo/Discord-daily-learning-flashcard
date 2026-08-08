@@ -56,6 +56,8 @@ def validate(paths: list[Path]) -> list[str]:
                 errors.append(f"{path}: empty field: {key}")
         if card.get("category") not in VALID_CATEGORIES:
             errors.append(f"{path}: invalid category: {card.get('category')}")
+        if card.get("language") != "my":
+            errors.append(f"{path}: language must be 'my' (Burmese)")
         stream = card.get("stream")
         if stream not in streams:
             errors.append(f"{path}: unknown stream: {stream}")

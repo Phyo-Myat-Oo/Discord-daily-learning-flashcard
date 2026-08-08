@@ -1,0 +1,29 @@
+{
+  "id": "linux-time-measures-001",
+  "stream": "linux",
+  "language": "my",
+  "category": "linux",
+  "topic": "time-real-user-sys",
+  "difficulty": "intermediate",
+  "title": "time ၏ real၊ user နှင့် sys တန်ဖိုးများကို နားလည်ခြင်း",
+  "summary": "time သည် အမှန်တကယ် ကြာချိန်ကို user code နှင့် kernel လုပ်ဆောင်မှုအတွက် သုံးစွဲသော CPU time မှ ခွဲပြသည်။",
+  "command": "time COMMAND",
+  "explanation": "real သည် စတင်ချိန်မှ ပြီးဆုံးချိန်အထိ အမှန်တကယ် ကြာချိန်ဖြစ်သည်။ user သည် user-space code အတွက် သုံးသော CPU time ဖြစ်ပြီး sys သည် process အတွက် kernel အလုပ်များ လုပ်ဆောင်ရာတွင် သုံးသော CPU time ဖြစ်သည်။",
+  "use_case": "အစမှအဆုံး ကြာမြင့်သော job နှင့် CPU time အများအပြား သုံးစွဲသော job ကို ခွဲခြားရန်။",
+  "example": "time find ./project -name '*.sh'",
+  "question": "time output ထဲရှိ real၊ user နှင့် sys တို့ ဘာကွာခြားသနည်း။",
+  "answer": "real သည် အမှန်တကယ် ကြာချိန်ဖြစ်ပြီး user နှင့် sys သည် user-space နှင့် kernel-space အလုပ်များအတွက် အသီးသီး သုံးစွဲသော CPU time ဖြစ်သည်။",
+  "tags": [
+    "performance",
+    "time",
+    "processes"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "ipynb",
+  "source_file": "linux-commands.ipynb",
+  "source_section": "42. time (run programs and summarize system resource usage)",
+  "source_cell": 758,
+  "date": "2026-08-19"
+}

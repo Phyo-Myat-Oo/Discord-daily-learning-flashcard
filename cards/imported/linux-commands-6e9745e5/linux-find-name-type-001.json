@@ -1,0 +1,39 @@
+{
+  "id": "linux-find-name-type-001",
+  "stream": "linux",
+  "language": "my",
+  "category": "linux",
+  "topic": "find-files-by-name-and-type",
+  "difficulty": "beginner",
+  "title": "find ရလဒ်ကို အမည်နှင့် object type ဖြင့် ကန့်သတ်ခြင်း",
+  "summary": "File များကိုသာ လိုအပ်သည့်အခါ အမည်တူ directory များ မပါလာစေရန် find predicate များကို ပေါင်းစပ်သုံးနိုင်သည်။",
+  "command": "find PATH -type f -name '*.txt'",
+  "explanation": "-name က filename pattern ကို တိုက်စစ်ပြီး -type f က ရလဒ်ကို regular file များအဖြစ် ကန့်သတ်သည်။ Wildcard ကို quote လုပ်ထားခြင်းဖြင့် find ထံ မရောက်မီ shell က ချဲ့ထွင်ခြင်းကို တားဆီးသည်။",
+  "flags": [
+    {
+      "flag": "-type f",
+      "meaning": "Regular file များကိုသာ တိုက်စစ်ရန်"
+    },
+    {
+      "flag": "-name '*.txt'",
+      "meaning": ".txt ဖြင့် အဆုံးသတ်သော အမည်များကို တိုက်စစ်ရန်"
+    }
+  ],
+  "use_case": "Project directory အောက်ရှိ text file များကို အမည်တူ directory များ မပါစေဘဲ ရှာဖွေရန်။",
+  "example": "find ./project -type f -name '*.txt'",
+  "question": "./project အောက်ရှိ regular .txt file များကိုသာ recursive ရှာရန် မည်သို့ လုပ်မည်နည်း။",
+  "answer": "find ./project -type f -name '*.txt'",
+  "tags": [
+    "find",
+    "filesystem",
+    "shell"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "ipynb",
+  "source_file": "linux-commands.ipynb",
+  "source_section": "26. find (search for files in a directory hierarchy)",
+  "source_cell": 371,
+  "date": "2026-08-11"
+}

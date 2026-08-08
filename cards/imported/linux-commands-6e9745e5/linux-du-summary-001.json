@@ -1,0 +1,39 @@
+{
+  "id": "linux-du-summary-001",
+  "stream": "linux",
+  "language": "my",
+  "category": "linux",
+  "topic": "du-directory-disk-usage-summary",
+  "difficulty": "beginner",
+  "title": "Directory ၏ disk အသုံးပြုမှု စုစုပေါင်းကို ကြည့်ခြင်း",
+  "summary": "du -sh သည် သတ်မှတ်ထားသော path အောက်တွင် အသုံးပြုထားသည့် disk space စုစုပေါင်းကို ဖတ်ရလွယ်သော unit ဖြင့် တစ်ကြောင်းတည်း ပြသည်။",
+  "command": "du -sh PATH",
+  "explanation": "du သည် path အောက်ရှိ အချက်အလက်များကို လိုက်လံစစ်ဆေး၍ disk အသုံးပြုမှုကို ခန့်မှန်းသည်။ -s က ရလဒ်ကို စုစုပေါင်းတစ်ခုတည်းအဖြစ် ပြပြီး -h က size ကို ဖတ်ရလွယ်သော unit များဖြင့် ဖော်ပြသည်။",
+  "flags": [
+    {
+      "flag": "-s",
+      "meaning": "စုစုပေါင်းတစ်ခုတည်းကိုသာ ပြရန်"
+    },
+    {
+      "flag": "-h",
+      "meaning": "Size များကို ဖတ်ရလွယ်သော unit များဖြင့် ဖော်ပြရန်"
+    }
+  ],
+  "use_case": "Downloads သို့မဟုတ် experiment directory တစ်ခုက disk space အများအပြား သုံးနေခြင်းရှိမရှိ စစ်ဆေးရန်။",
+  "example": "du -sh ~/Downloads",
+  "question": "~/Downloads ၏ disk အသုံးပြုမှု စုစုပေါင်းကို ဖတ်ရလွယ်သော ပုံစံဖြင့် မည်သည့် command က ပြသနည်း။",
+  "answer": "du -sh ~/Downloads",
+  "tags": [
+    "du",
+    "storage",
+    "filesystem"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "ipynb",
+  "source_file": "linux-commands.ipynb",
+  "source_section": "46 du (estimate file space usage)",
+  "source_cell": 777,
+  "date": "2026-08-09"
+}

@@ -1,2 +1,12 @@
-{"imports": []}
-
+{
+  "imports": [
+    {
+      "source_file": "linux-commands.ipynb",
+      "source_type": "ipynb",
+      "sha256": "6e9745e5a8b2ba1fa0dcb58809a5a8788ae52f863e66c14223a70d0e7cb13690",
+      "processed_at": "2026-08-08T10:23:25.247309+00:00",
+      "cards_generated": 12,
+      "output_directory": "cards/imported/linux-commands-6e9745e5"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": "linux-tar-create-001",
+  "stream": "linux",
+  "language": "my",
+  "category": "linux",
+  "topic": "tar-create-archive",
+  "difficulty": "beginner",
+  "title": "Compression မပါသော tar archive ဖန်တီးခြင်း",
+  "summary": "tar သည် မူရင်း directory ကို မပြောင်းလဲဘဲ directory tree တစ်ခုကို archive တစ်ခုတည်းအဖြစ် စုစည်းနိုင်သည်။",
+  "command": "tar -cvf archive.tar DIRECTORY",
+  "explanation": "-c က archive ဖန်တီးသည်၊ -v က လုပ်ဆောင်နေသော path များကို စာရင်းပြပြီး -f က နောက် argument ကို archive filename အဖြစ် သတ်မှတ်သည်။ ဤပုံစံသည် file များကို archive လုပ်သော်လည်း compression မထည့်ပေးပါ။",
+  "flags": [
+    {
+      "flag": "-c",
+      "meaning": "Archive အသစ် ဖန်တီးရန်"
+    },
+    {
+      "flag": "-v",
+      "meaning": "လုပ်ဆောင်နေစဉ် file များကို စာရင်းပြရန်"
+    },
+    {
+      "flag": "-f",
+      "meaning": "နောက် argument ကို archive filename အဖြစ် သုံးရန်"
+    }
+  ],
+  "use_case": "Project ၏ screenshot များကို လွှဲပြောင်းရန် သို့မဟုတ် backup လုပ်ရန် file တစ်ခုတည်းအဖြစ် စုစည်းရန်။",
+  "example": "tar -cvf screen.tar ./screen/",
+  "question": "tar -cvf screen.tar ./screen/ က ဘာလုပ်သနည်း။",
+  "answer": "./screen/ မှ screen.tar ကို ဖန်တီးပြီး archive လုပ်သော path များကို အသေးစိတ် စာရင်းပြသည်။ ဤ command သည် compression မထည့်ပါ။",
+  "tags": [
+    "tar",
+    "archive",
+    "filesystem"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "ipynb",
+  "source_file": "linux-commands.ipynb",
+  "source_section": "53. tar (the tar archiving utility)",
+  "source_cell": 850,
+  "date": "2026-08-18"
+}
