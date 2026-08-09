@@ -143,7 +143,7 @@ python3 scripts/import_status.py
 
 Directories are deliberately non-recursive and capped. Normalized text is limited by `--max-source-chars` (120,000 by default), placed in ignored `.generated/`, and never staged by `generate.sh`. Original sources remain where they are. SHA-256 plus the selected section set prevents accidental repeat imports while allowing different chapters and changed revisions.
 
-New candidates are rich bilingual cards. English is drafted and checked first; Burmese expresses the same meaning naturally. Validation requires a mental model, compact explanatory text visual, real scenario, common mistake, practical tip, and recall question in both languages. Visuals use phone-readable flows, comparisons, state transitions, hierarchies, or annotated commands—not decoration. Discord sends the two languages as separate embeds while legacy Burmese-only cards remain supported during migration.
+New candidates are comprehension-first bilingual mini-lessons rather than summaries. Each language states one learning objective, introduces the idea concretely, explains cause and effect, provides a narrow mental-model visual, walks through an observable example, and separates the expected result from what the learner should notice. A mistake, practical tip, and aligned recall question complete the lesson. English is drafted first; Burmese is written independently in a patient technical-instructor voice using the shared terminology guide in `state/terminology.json`. Discord sends the two languages as equal-depth embeds while legacy Burmese-only cards remain supported.
 
 To remove manual approval, pass candidate directories from every configured stream through the AI review gate. The command invokes a separate Codex review, validates its corrections, and schedules only complete dates containing one card for every stream:
 
@@ -155,7 +155,7 @@ python3 scripts/ai_review_and_schedule.py \
   cards/imported/mlops-batch
 ```
 
-If AI review times out, rejects a card, validation fails, or a complete all-stream row is unavailable, nothing incomplete is scheduled. Post-scheduling validation is transactional: edited candidates are restored if the full repository fails validation.
+If AI review times out, rejects a card, validation fails, or a complete all-stream row is unavailable, nothing incomplete is scheduled. Each review run uses a unique nonce that Codex must write into every passing card, so a successful but no-op Codex process fails closed instead of silently scheduling unreviewed content. Post-scheduling validation is transactional: edited candidates are restored if the full repository fails validation.
 
 Candidates live in `cards/imported/<source-slug-hash>/` with `status: candidate`. Edit JSON freely, then approve without scheduling or approve and distribute cards across unused dates:
 

@@ -13,12 +13,13 @@
   "content": {
     "en": {
       "title": "End an Interactive Shell Deliberately",
-      "summary": "The `exit` builtin ends the current shell session. In a terminal window this often closes the tab; in SSH, containers, subshells, or root sessions it returns you to the parent context.",
-      "explanation": "Shells can be nested. Starting an SSH connection, entering a container, invoking another shell, or using an elevated shell creates a context that may look similar to its parent. `exit` terminates only the current shell, allowing the parent program or shell to resume if one exists.",
+      "learning_objective": "Use `exit` to leave only the current shell context and predict which parent shell or program will resume afterward.",
+      "simple_explanation": "The `exit` builtin ends the current shell session. In a terminal window this often closes the tab; in SSH, containers, subshells, or root sessions it returns you to the parent context. Shells can be nested. Starting an SSH connection, entering a container, invoking another shell, or using an elevated shell creates a context that may look similar to its parent. `exit` terminates only the current shell, allowing the parent program or shell to resume if one exists.",
       "how_it_works": "Because `exit` is handled by the shell itself, it can terminate that shell process and return a status to its parent. `Ctrl-D` commonly signals end-of-input and may have the same interactive effect, but `exit` is clearer to readers and can explicitly carry a status in scripts.",
-      "visual": "local shell\n  `ssh server` -> remote shell\n                     `exit`\nlocal shell   <- control returns here",
+      "visual": "[ Local shell ]\n       │ `ssh server`\n       ▼\n[ Remote shell ]\n       │ `exit`\n       ▼\n[ Local shell resumes ]",
       "use_case": "You used `sudo -i` for a short administrative task. Running `exit` immediately afterward returns to your regular user, reducing the chance that later commands accidentally run with root privileges.",
       "expected_result": "A nested shell returns to its parent prompt. If it was the terminal tab's main shell, the terminal tab may close.",
+      "what_to_notice": "A similar-looking prompt can belong to a different nested context. After `exit`, verify the hostname, user, or container context instead of assuming you returned to the intended machine.",
       "common_mistake": "Closing a terminal or exiting an SSH session can terminate foreground work attached to that session. Do not assume a long-running task will continue unless it was deliberately managed by a service, job-control tool, or terminal multiplexer.",
       "practical_tip": "Before exiting, check whether important foreground work is running and notice which context you are leaving. Prompt text, `whoami`, and hostname information help distinguish local, remote, root, and container shells.",
       "question": "What does `exit` terminate when shells are nested?",
@@ -26,12 +27,13 @@
     },
     "my": {
       "title": "Interactive Shell Session ကို ရည်ရွယ်ချက်ရှိရှိ ပိတ်ခြင်း",
-      "summary": "`exit` builtin က လက်ရှိ shell session ကို ပိတ်ပါတယ်။ Terminal window မှာ tab ပိတ်သွားနိုင်ပြီး SSH၊ container၊ subshell သို့မဟုတ် root shell မှာတော့ မူလ context ဆီ ပြန်ရောက်တတ်ပါတယ်။",
-      "explanation": "Shell တွေကို အဆင့်ဆင့် ထပ်ဖွင့်နိုင်ပါတယ်။ SSH ချိတ်ခြင်း၊ container ထဲဝင်ခြင်း၊ shell အသစ်ခေါ်ခြင်း သို့မဟုတ် elevated shell သုံးခြင်းက မူလ prompt နဲ့ ဆင်တူနိုင်တဲ့ context အသစ် ဖန်တီးပါတယ်။ `exit` က လက်ရှိ shell ကိုသာ ပိတ်ပြီး parent ရှိရင် အဲဒီဆီ ပြန်ပေးပါတယ်။",
+      "learning_objective": "`exit` နဲ့ လက်ရှိ shell context တစ်ခုတည်းက ထွက်ပြီးနောက် ဘယ် parent shell သို့မဟုတ် program ဆီ ပြန်ရောက်မလဲ ခန့်မှန်းနိုင်မယ်။",
+      "simple_explanation": "`exit` builtin က လက်ရှိ shell session ကို ပိတ်ပါတယ်။ Terminal window မှာ tab ပိတ်သွားနိုင်ပြီး SSH၊ container၊ subshell သို့မဟုတ် root shell မှာတော့ မူလ context ဆီ ပြန်ရောက်တတ်ပါတယ်။ Shell တွေကို အဆင့်ဆင့် ထပ်ဖွင့်နိုင်ပါတယ်။ SSH ချိတ်ခြင်း၊ container ထဲဝင်ခြင်း၊ shell အသစ်ခေါ်ခြင်း သို့မဟုတ် elevated shell သုံးခြင်းက မူလ prompt နဲ့ ဆင်တူနိုင်တဲ့ context အသစ် ဖန်တီးပါတယ်။ `exit` က လက်ရှိ shell ကိုသာ ပိတ်ပြီး parent ရှိရင် အဲဒီဆီ ပြန်ပေးပါတယ်။",
       "how_it_works": "`exit` ကို shell ကိုယ်တိုင် ကိုင်တွယ်တာကြောင့် လက်ရှိ shell process ကို အဆုံးသတ်ပြီး parent ဆီ status ပြန်ပို့နိုင်ပါတယ်။ `Ctrl-D` က end-of-input ပို့ပြီး interactive shell မှာ အလားတူဖြစ်နိုင်ပေမယ့် `exit` က လူဖတ်ရ ပိုရှင်းပါတယ်။",
-      "visual": "local shell\n  `ssh server` -> remote shell\n                     `exit`\nlocal shell   <- ဒီနေရာကို ပြန်ရောက်",
+      "visual": "[ Local shell ]\n       │ `ssh server`\n       ▼\n[ Remote shell ]\n       │ `exit`\n       ▼\n[ Local shell ကို ပြန်ရောက် ]",
       "use_case": "Administrative အလုပ်တိုတစ်ခုအတွက် `sudo -i` သုံးပြီးတာနဲ့ `exit` လုပ်လိုက်ရင် regular user ဆီ ပြန်ရောက်ပြီး နောက် command တွေကို root privilege နဲ့ မတော်တဆ run မိနိုင်ခြေ လျော့ပါတယ်။",
       "expected_result": "Nested shell ဖြစ်ရင် parent prompt ဆီ ပြန်ရောက်ပါမယ်။ Terminal tab ရဲ့ အဓိက shell ဖြစ်ရင် tab ပိတ်သွားနိုင်ပါတယ်။",
+      "what_to_notice": "Prompt ပုံစံတူနေပေမယ့် nested context မတူနိုင်ပါတယ်။ `exit` ပြီးရင် လိုချင်တဲ့စက်ဆီ ပြန်ရောက်ပြီလို့ မခန့်မှန်းဘဲ hostname၊ user သို့မဟုတ် container context ကို ပြန်စစ်ပါ။",
       "common_mistake": "Terminal သို့မဟုတ် SSH session ပိတ်လိုက်ရင် အဲဒီ session နဲ့ ချိတ်ထားတဲ့ foreground အလုပ်လည်း ရပ်သွားနိုင်ပါတယ်။ Service၊ job-control tool သို့မဟုတ် terminal multiplexer နဲ့ စီမံမထားရင် ဆက် run နေမယ်လို့ မယူဆပါနဲ့။",
       "practical_tip": "မထွက်မီ အရေးကြီး foreground အလုပ်ရှိမရှိနဲ့ ဘယ် context ကနေ ထွက်နေလဲ စစ်ပါ။ Prompt၊ `whoami` နဲ့ hostname ကိုကြည့်ရင် local၊ remote၊ root နဲ့ container shell ခွဲနိုင်ပါတယ်။",
       "question": "Shell တွေ အဆင့်ဆင့် ထပ်ဖွင့်ထားချိန် `exit` က ဘာကို ပိတ်သလဲ?",
@@ -56,7 +58,7 @@
   "sequence": 4,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

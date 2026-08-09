@@ -12,12 +12,13 @@
   "content": {
     "en": {
       "title": "Recognize When a System Learns from Data",
-      "summary": "Machine learning builds behavior from examples or experience instead of requiring a developer to write every decision rule explicitly. Learning should improve performance on a defined task and measurement.",
-      "explanation": "A useful ML definition connects three things: a task, experience in the form of data, and a performance measure. A spam filter can learn from labeled messages to improve classification accuracy. Merely storing a large document collection does not mean the computer has learned how to perform a task.",
+      "learning_objective": "Decide whether a system has learned by identifying its task, data-based experience, and measurable improvement on unseen examples.",
+      "simple_explanation": "Machine learning builds behavior from examples or experience instead of requiring a developer to write every decision rule explicitly. Learning should improve performance on a defined task and measurement. A useful ML definition connects three things: a task, experience in the form of data, and a performance measure. A spam filter can learn from labeled messages to improve classification accuracy. Merely storing a large document collection does not mean the computer has learned how to perform a task.",
       "how_it_works": "A learning algorithm searches for patterns or parameters that reduce error on training data. The resulting model applies those learned relationships to new inputs. Whether learning succeeded must be tested on suitable data that was not simply memorized during fitting.",
-      "visual": "examples (experience) -> learning algorithm -> model\nnew input             -> model              -> prediction\nheld-out data         -> measure performance",
+      "visual": "[ Examples ] ──▶ [ Learning ] ──▶ [ Model ]\n                                      │\n[ New input ] ────────────────────────┤\n                                      ▼\n                                [ Prediction ]\n                                      │\n[ Held-out data ] ───────────▶ [ Evaluate ]",
       "use_case": "Writing rules for every possible spam message is brittle because senders change words and tactics. Training on representative labeled examples can capture recurring evidence and be updated as the distribution changes.",
       "expected_result": "The output is a model that maps a new email to a prediction such as spam probability or class, not merely a copy of the training mailbox.",
+      "what_to_notice": "Low training error alone can mean memorization. The important evidence is better performance on suitable unseen data for the task that was defined before training.",
       "common_mistake": "A system is not useful merely because training accuracy is high. It may memorize examples, learn leakage, or optimize a metric that does not match the real operational cost of mistakes.",
       "practical_tip": "Before choosing an algorithm, write down the task, available experience, success metric, and how performance will be evaluated on unseen cases. This prevents technology-first projects with no measurable objective.",
       "question": "What three elements make the idea of machine learning operationally meaningful?",
@@ -25,12 +26,13 @@
     },
     "my": {
       "title": "System တစ်ခု Data မှ သင်ယူတယ်ဆိုတာ နားလည်ခြင်း",
-      "summary": "Machine learning က decision rule အားလုံးကို developer က လက်နဲ့ရေးစရာမလိုဘဲ example သို့မဟုတ် experience မှ behavior တည်ဆောက်ပါတယ်။ သင်ယူမှုက သတ်မှတ်ထားတဲ့ task နဲ့ measurement ပေါ်မှာ တိုးတက်ရပါတယ်။",
-      "explanation": "အသုံးဝင်တဲ့ ML အဓိပ္ပာယ်ဖွင့်ဆိုမှုမှာ task၊ data အဖြစ်ရတဲ့ experience နဲ့ performance measure သုံးခု ဆက်စပ်ပါတယ်။ Spam filter က label ပါတဲ့ email တွေမှ သင်ယူပြီး classification ပိုကောင်းလာနိုင်ပါတယ်။ Document အများကြီး သိမ်းထားတာတစ်ခုတည်းနဲ့ task တစ်ခု သင်ယူပြီးပြီလို့ မဆိုနိုင်ပါဘူး။",
+      "learning_objective": "System တစ်ခု တကယ်သင်ယူထားသလား ဆုံးဖြတ်ဖို့ task၊ data ကပေးတဲ့ experience နဲ့ unseen example ပေါ် တိုင်းတာနိုင်တဲ့ improvement ကို ခွဲထုတ်နိုင်မယ်။",
+      "simple_explanation": "Machine learning က decision rule အားလုံးကို developer က လက်နဲ့ရေးစရာမလိုဘဲ example သို့မဟုတ် experience မှ behavior တည်ဆောက်ပါတယ်။ သင်ယူမှုက သတ်မှတ်ထားတဲ့ task နဲ့ measurement ပေါ်မှာ တိုးတက်ရပါတယ်။ အသုံးဝင်တဲ့ ML အဓိပ္ပာယ်ဖွင့်ဆိုမှုမှာ task၊ data အဖြစ်ရတဲ့ experience နဲ့ performance measure သုံးခု ဆက်စပ်ပါတယ်။ Spam filter က label ပါတဲ့ email တွေမှ သင်ယူပြီး classification ပိုကောင်းလာနိုင်ပါတယ်။ Document အများကြီး သိမ်းထားတာတစ်ခုတည်းနဲ့ task တစ်ခု သင်ယူပြီးပြီလို့ မဆိုနိုင်ပါဘူး။",
       "how_it_works": "Learning algorithm က training data ပေါ် error လျော့စေမယ့် pattern သို့မဟုတ် parameter ကို ရှာပါတယ်။ ရလာတဲ့ model က အဲဒီ relationship ကို input အသစ်မှာ အသုံးချပါတယ်။ Fit လုပ်ချိန် မှတ်မိထားတာသာမဟုတ်ကြောင်း သင့်တော်တဲ့ unseen data နဲ့ စမ်းရပါတယ်။",
-      "visual": "example များ -> learning algorithm -> model\ninput အသစ်   -> model              -> prediction\nunseen data  -> performance စစ်ဆေးခြင်း",
+      "visual": "[ Examples ] ──▶ [ Learning ] ──▶ [ Model ]\n                                      │\n[ Input အသစ် ] ───────────────────────┤\n                                      ▼\n                                [ Prediction ]\n                                      │\n[ Unseen data ] ─────────────▶ [ Evaluate ]",
       "use_case": "Spam message ဖြစ်နိုင်သမျှအတွက် rule လက်နဲ့ရေးတာက sender တွေ စကားလုံးနဲ့ နည်းလမ်းပြောင်းတာကြောင့် လွယ်လွယ်ပျက်ပါတယ်။ ကိုယ်စားပြု label example တွေနဲ့ train လုပ်ရင် ထပ်တလဲလဲတွေ့ရတဲ့ evidence ကို ဖမ်းယူပြီး distribution ပြောင်းချိန် update လုပ်နိုင်ပါတယ်။",
       "expected_result": "Training mailbox ကို ကူးထားတာမဟုတ်ဘဲ email အသစ်ကို spam probability သို့မဟုတ် class အဖြစ် ခန့်မှန်းပေးနိုင်တဲ့ model ရလာပါတယ်။",
+      "what_to_notice": "Training error နည်းတာတစ်ခုတည်းက အလွတ်မှတ်ထားတာ ဖြစ်နိုင်ပါတယ်။ အရေးကြီးတဲ့သက်သေက training မတိုင်မီ သတ်မှတ်ထားတဲ့ task အတွက် သင့်တော်တဲ့ unseen data ပေါ် performance ကောင်းလာတာပါ။",
       "common_mistake": "Training accuracy မြင့်တာတစ်ခုတည်းနဲ့ system ကောင်းတယ်လို့ မဆိုနိုင်ပါဘူး။ Example ကို မှတ်ထားခြင်း၊ leakage သင်ယူခြင်း သို့မဟုတ် လက်တွေ့မှားယွင်းမှုကုန်ကျစရိတ်နဲ့ မကိုက်တဲ့ metric ကို optimize လုပ်ထားနိုင်ပါတယ်။",
       "practical_tip": "Algorithm မရွေးမီ task၊ ရနိုင်တဲ့ experience၊ success metric နဲ့ unseen case ပေါ် ဘယ်လို evaluate လုပ်မလဲ ရေးထားပါ။ ဒါက ရည်မှန်းချက်မရှိဘဲ technology ကို အရင်ရွေးတဲ့ project ကို ကာကွယ်ပါတယ်။",
       "question": "Machine learning ကို လက်တွေ့အဓိပ္ပာယ်ရှိစေတဲ့ အချက်သုံးခုက ဘာတွေလဲ?",
@@ -55,7 +57,7 @@
   "sequence": 1,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

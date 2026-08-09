@@ -12,12 +12,13 @@
   "content": {
     "en": {
       "title": "Recognize Feedback Loops in ML Products",
-      "summary": "Model predictions can change user behavior and therefore change the data collected for future training. The model is then learning partly from outcomes that its earlier decisions helped create.",
-      "explanation": "In passive datasets, examples may be treated as observations of the world. A deployed recommender, ranking system, or moderation model actively changes what users see and do. Logged clicks or labels therefore reflect both user preference and the policy that selected which opportunities were shown.",
+      "learning_objective": "Trace how a deployed model changes the data it later learns from and identify why logged responses may be biased training labels.",
+      "simple_explanation": "Model predictions can change user behavior and therefore change the data collected for future training. The model is then learning partly from outcomes that its earlier decisions helped create. In passive datasets, examples may be treated as observations of the world. A deployed recommender, ranking system, or moderation model actively changes what users see and do. Logged clicks or labels therefore reflect both user preference and the policy that selected which opportunities were shown.",
       "how_it_works": "The model chooses an action, the action affects exposure, and observed responses enter future datasets. Repeated training can amplify popular choices, suppress unexplored alternatives, or encode an earlier model's mistakes unless the collection and evaluation design accounts for selection effects.",
-      "visual": "model -> chooses exposure -> user response -> logged data\n  ^                                               |\n  +---------------- retraining -------------------+",
+      "visual": "[ Model ] ──▶ [ Exposure ] ──▶ [ Response ]\n    ▲                               │\n    │                               ▼\n    └────── retrain ◀────── [ Logged data ]",
       "use_case": "A recommender displays already-popular articles more often. Those articles receive more clicks because they receive more exposure, and the next model interprets the additional clicks as even stronger preference.",
       "expected_result": "Monitoring distinguishes exposure from response and tracks distribution changes, coverage, and long-term outcomes rather than treating every observed click as an unbiased preference label.",
+      "what_to_notice": "More clicks on an item do not necessarily prove stronger original preference; the item may simply have received more exposure. Evaluation must retain the decision context that created each observation.",
       "common_mistake": "More logged data does not automatically remove bias. If the system controls which examples can receive feedback, the growing dataset may reinforce the same narrow behavior.",
       "practical_tip": "Log the decision context and exposure, preserve a controlled exploration strategy where safe, and evaluate against holdouts or experiments designed to separate model influence from underlying demand.",
       "question": "Why can clicks collected from a recommender be biased training labels?",
@@ -25,12 +26,13 @@
     },
     "my": {
       "title": "ML Product ထဲက Feedback Loop ကို သိရှိခြင်း",
-      "summary": "Model prediction က user behavior ကို ပြောင်းစေနိုင်ပြီး နောက် training အတွက် စုတဲ့ data ကိုပါ ပြောင်းစေပါတယ်။ ဒါကြောင့် model က မိမိအရင်ဆုံးဖြတ်ချက်က ဖန်တီးခဲ့တဲ့ outcome မှ တစ်စိတ်တစ်ပိုင်း ပြန်သင်ယူနေတာ ဖြစ်နိုင်ပါတယ်။",
-      "explanation": "Passive dataset ကို ကမ္ဘာ့အခြေအနေ observation လို့ သဘောထားနိုင်ပေမယ့် deployed recommender၊ ranking သို့မဟုတ် moderation model က user မြင်တာနဲ့ လုပ်တာကို တိုက်ရိုက်ပြောင်းပါတယ်။ Logged click သို့မဟုတ် label က user preference သာမက ဘာပြမလဲ ရွေးတဲ့ policy ကိုပါ ထင်ဟပ်ပါတယ်။",
+      "learning_objective": "Deployed model က နောက်ပိုင်းသင်ယူမယ့် data ကို ဘယ်လိုပြောင်းစေသလဲ လိုက်ကြည့်ပြီး logged response က biased training label ဖြစ်နိုင်တဲ့အကြောင်း ခွဲထုတ်နိုင်မယ်။",
+      "simple_explanation": "Model prediction က user behavior ကို ပြောင်းစေနိုင်ပြီး နောက် training အတွက် စုတဲ့ data ကိုပါ ပြောင်းစေပါတယ်။ ဒါကြောင့် model က မိမိအရင်ဆုံးဖြတ်ချက်က ဖန်တီးခဲ့တဲ့ outcome မှ တစ်စိတ်တစ်ပိုင်း ပြန်သင်ယူနေတာ ဖြစ်နိုင်ပါတယ်။ Passive dataset ကို ကမ္ဘာ့အခြေအနေ observation လို့ သဘောထားနိုင်ပေမယ့် deployed recommender၊ ranking သို့မဟုတ် moderation model က user မြင်တာနဲ့ လုပ်တာကို တိုက်ရိုက်ပြောင်းပါတယ်။ Logged click သို့မဟုတ် label က user preference သာမက ဘာပြမလဲ ရွေးတဲ့ policy ကိုပါ ထင်ဟပ်ပါတယ်။",
       "how_it_works": "Model က action ရွေး၊ action က exposure ကို ပြောင်းပြီး observed response က future dataset ထဲ ဝင်ပါတယ်။ Selection effect ကို မထည့်စဉ်းစားရင် retraining ထပ်လုပ်တိုင်း popular choice ပိုကြီးလာ၊ alternative မမြင်ရတော့ သို့မဟုတ် model အဟောင်းအမှားကို ဆက်တိုးစေနိုင်ပါတယ်။",
-      "visual": "model -> ပြမယ့်အရာရွေး -> user response -> logged data\n  ^                                              |\n  +--------------- retraining -------------------+",
+      "visual": "[ Model ] ──▶ [ Exposure ] ──▶ [ Response ]\n    ▲                               │\n    │                               ▼\n    └────── retrain ◀────── [ Logged data ]",
       "use_case": "Recommender က popular article ကို ပိုပြရင် exposure များလို့ click ပိုရပါတယ်။ နောက် model က အဲဒီ click အပိုကို preference ပိုပြင်းတယ်လို့ ထပ်ယူဆနိုင်ပါတယ်။",
       "expected_result": "Monitoring က exposure နဲ့ response ကို ခွဲပြီး observed click တိုင်းကို unbiased label လို့ မယူဆဘဲ distribution၊ coverage နဲ့ long-term outcome ကို စောင့်ကြည့်ပါတယ်။",
+      "what_to_notice": "Item တစ်ခု click ပိုရတာက မူလ preference ပိုကောင်းကြောင်း အမြဲမပြပါဘူး။ Exposure ပိုရလို့ ဖြစ်နိုင်ပါတယ်။ Observation တစ်ခုဖြစ်လာစေတဲ့ decision context ကို evaluation မှာ မပျောက်စေရပါဘူး။",
       "common_mistake": "Logged data ပိုများတာနဲ့ bias အလိုအလျောက် ပျောက်မသွားပါဘူး။ ဘယ် example က feedback ရနိုင်မလဲကို system က ထိန်းနေရင် dataset ကြီးလာလည်း behavior တူတူကို ပိုအားပေးနိုင်ပါတယ်။",
       "practical_tip": "Decision context နဲ့ exposure ကို log လုပ်ပါ။ လုံခြုံတဲ့နေရာမှာ controlled exploration ထားပြီး model သက်ရောက်မှုနဲ့ မူလ demand ကို ခွဲနိုင်တဲ့ holdout သို့မဟုတ် experiment နဲ့ evaluate လုပ်ပါ။",
       "question": "Recommender မှ စုထားတဲ့ click ကို biased training label ဖြစ်စေနိုင်တာ ဘာကြောင့်လဲ?",
@@ -54,7 +56,7 @@
   "sequence": 4,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

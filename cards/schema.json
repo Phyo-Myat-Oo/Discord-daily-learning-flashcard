@@ -41,7 +41,8 @@
       "properties": {
         "status": {"enum": ["passed", "rejected"]},
         "reviewed_at": {"type": "string"},
-        "reviewer": {"type": "string"}
+        "reviewer": {"type": "string"},
+        "review_id": {"type": "string"}
       }
     },
     "content": {
@@ -66,15 +67,16 @@
   "$defs": {
     "richLanguage": {
       "type": "object",
-      "required": ["title", "summary", "explanation", "how_it_works", "visual", "use_case", "common_mistake", "practical_tip", "question", "answer"],
+      "required": ["title", "learning_objective", "simple_explanation", "how_it_works", "visual", "use_case", "expected_result", "what_to_notice", "common_mistake", "practical_tip", "question", "answer"],
       "properties": {
         "title": {"type": "string"},
-        "summary": {"type": "string"},
-        "explanation": {"type": "string"},
+        "learning_objective": {"type": "string", "minLength": 30, "maxLength": 220},
+        "simple_explanation": {"type": "string", "minLength": 140, "maxLength": 650},
         "how_it_works": {"type": "string"},
         "visual": {"type": "string", "minLength": 20, "maxLength": 500},
         "use_case": {"type": "string"},
-        "expected_result": {"type": "string"},
+        "expected_result": {"type": "string", "minLength": 50, "maxLength": 450},
+        "what_to_notice": {"type": "string", "minLength": 60, "maxLength": 450},
         "common_mistake": {"type": "string"},
         "practical_tip": {"type": "string"},
         "question": {"type": "string"},

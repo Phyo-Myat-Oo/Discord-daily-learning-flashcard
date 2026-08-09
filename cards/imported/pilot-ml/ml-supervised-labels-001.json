@@ -12,12 +12,13 @@
   "content": {
     "en": {
       "title": "Identify Supervised Learning by Its Targets",
-      "summary": "In supervised learning, each training example includes input features and a desired target or label. The model learns a mapping that can predict targets for new inputs.",
-      "explanation": "Labels provide the teaching signal. For classification the target is commonly a category, such as spam or not spam. For regression the target is a numeric value, such as a house price. The distinction concerns the target being predicted, not whether a human watches every training step.",
+      "learning_objective": "Identify supervised learning from its known targets and distinguish classification labels from regression targets.",
+      "simple_explanation": "In supervised learning, each training example includes input features and a desired target or label. The model learns a mapping that can predict targets for new inputs. Labels provide the teaching signal. For classification the target is commonly a category, such as spam or not spam. For regression the target is a numeric value, such as a house price. The distinction concerns the target being predicted, not whether a human watches every training step.",
       "how_it_works": "The model produces a prediction from features, a loss function compares that prediction with the known target, and training adjusts model parameters to reduce loss across examples. Evaluation then estimates how well that mapping generalizes beyond the training set.",
-      "visual": "features -> model -> prediction\n                      prediction + known label\n                              -> loss -> parameter update",
+      "visual": "[ Features ] ──▶ [ Model ] ──▶ [ Predict ]\n                                     │\n                              compare to label\n                                     ▼\n                                  [ Loss ]\n                                     │\n                                     ▼\n                             [ Update model ]",
       "use_case": "Historical houses have size, location, age, and recorded sale price. Those prices serve as labels, allowing a regression model to learn a relationship and estimate the price of a new listing.",
       "expected_result": "Given features for an unseen house, the trained model outputs an estimated numeric sale price together with any uncertainty handling designed by the system.",
+      "what_to_notice": "The label is available during training so loss can measure the prediction error. At inference time the label is absent—the trained model must estimate it from features alone.",
       "common_mistake": "A column is not a safe feature merely because it exists. If it reveals the target or information available only after the prediction time, the model can appear excellent during evaluation but fail in production.",
       "practical_tip": "For every feature, ask when it becomes available and whether it would exist at prediction time. Define the label and prediction timestamp before splitting or preprocessing data.",
       "question": "What makes a training dataset supervised?",
@@ -25,12 +26,13 @@
     },
     "my": {
       "title": "Target ပါဝင်မှုဖြင့် Supervised Learning ကို ခွဲခြားခြင်း",
-      "summary": "Supervised learning မှာ training example တစ်ခုစီက input feature နဲ့ လိုချင်တဲ့ target သို့မဟုတ် label ပါပါတယ်။ Model က input အသစ်အတွက် target ခန့်မှန်းနိုင်မယ့် mapping ကို သင်ယူပါတယ်။",
-      "explanation": "Label က သင်ကြားပေးတဲ့ signal ဖြစ်ပါတယ်။ Classification မှာ target က spam သို့မဟုတ် not spam လို category ဖြစ်တတ်ပြီး regression မှာ အိမ်ဈေးလို numeric value ဖြစ်တတ်ပါတယ်။ ဒီခွဲခြားမှုက ခန့်မှန်းမယ့် target နဲ့ ဆိုင်ပြီး training တစ်လျှောက် လူတစ်ယောက် စောင့်ကြည့်နေတာနဲ့ မဆိုင်ပါဘူး။",
+      "learning_objective": "Known target ပါဝင်မှုကိုကြည့်ပြီး supervised learning ကို ခွဲနိုင်မယ်။ Classification label နဲ့ regression target ကိုလည်း မှန်ကန်စွာ ခွဲနိုင်မယ်။",
+      "simple_explanation": "Supervised learning မှာ training example တစ်ခုစီက input feature နဲ့ လိုချင်တဲ့ target သို့မဟုတ် label ပါပါတယ်။ Model က input အသစ်အတွက် target ခန့်မှန်းနိုင်မယ့် mapping ကို သင်ယူပါတယ်။ Label က သင်ကြားပေးတဲ့ signal ဖြစ်ပါတယ်။ Classification မှာ target က spam သို့မဟုတ် not spam လို category ဖြစ်တတ်ပြီး regression မှာ အိမ်ဈေးလို numeric value ဖြစ်တတ်ပါတယ်။ ဒီခွဲခြားမှုက ခန့်မှန်းမယ့် target နဲ့ ဆိုင်ပြီး training တစ်လျှောက် လူတစ်ယောက် စောင့်ကြည့်နေတာနဲ့ မဆိုင်ပါဘူး။",
       "how_it_works": "Model က feature မှ prediction ထုတ်ပါတယ်။ Loss function က prediction နဲ့ သိထားတဲ့ target ကို နှိုင်းယှဉ်ပြီး training က example တွေပေါ် loss လျော့အောင် parameter ပြင်ပါတယ်။ Evaluation က training set အပြင်မှာ mapping ဘယ်လောက် generalize ဖြစ်သလဲ ခန့်မှန်းပါတယ်။",
-      "visual": "features -> model -> prediction\n                      prediction + label အမှန်\n                              -> loss -> parameter ပြင်",
+      "visual": "[ Features ] ──▶ [ Model ] ──▶ [ Predict ]\n                   │\n                   ▼\n          [ Label နဲ့ နှိုင်း ]\n                   │\n                   ▼\n                [ Loss ]\n                   │\n          [ Model ပြင် ]",
       "use_case": "အရင်ရောင်းပြီးသားအိမ်တွေမှာ size၊ location၊ age နဲ့ sale price မှတ်တမ်းရှိပါတယ်။ Price ကို label အဖြစ်သုံးပြီး regression model က relationship သင်ယူကာ listing အသစ်ရဲ့ ဈေးကို ခန့်မှန်းနိုင်ပါတယ်။",
       "expected_result": "မမြင်ဖူးသေးတဲ့ အိမ် feature တွေပေးရင် trained model က numeric sale price ခန့်မှန်းချက်နဲ့ system က ထည့်သွင်းထားရင် uncertainty အချက်အလက်ကို ထုတ်ပေးပါတယ်။",
+      "what_to_notice": "Training အချိန် label ရှိလို့ loss က prediction error ကို တိုင်းနိုင်ပါတယ်။ Inference အချိန်မှာ label မရှိတော့ဘဲ trained model က feature တွေကနေ target ကို ခန့်မှန်းရပါတယ်။",
       "common_mistake": "Column တစ်ခုရှိတာနဲ့ safe feature မဖြစ်ပါဘူး။ Target ကို ဖော်ထုတ်နေခြင်း သို့မဟုတ် prediction အချိန်နောက်မှသာ ရနိုင်တဲ့ data ဖြစ်ရင် evaluation ကောင်းပေမယ့် production မှာ ပျက်နိုင်ပါတယ်။",
       "practical_tip": "Feature တစ်ခုစီ ဘယ်အချိန်ရသလဲ၊ prediction လုပ်ချိန် ရှိနိုင်သလား မေးပါ။ Data split သို့မဟုတ် preprocessing မလုပ်မီ label နဲ့ prediction timestamp ကို အရင်သတ်မှတ်ပါ။",
       "question": "Training dataset တစ်ခုကို supervised ဖြစ်စေတဲ့ အချက်က ဘာလဲ?",
@@ -55,7 +57,7 @@
   "sequence": 2,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

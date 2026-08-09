@@ -60,6 +60,7 @@ def main() -> int:
         "missing_count": len(needed),
         "stream_date_slots": needed,
         "stream_configuration": load_channels(),
+        "terminology": json.loads((ROOT / "state/terminology.json").read_text(encoding="utf-8")),
         "covered_topics": topics.get("covered", []),
         "recent_cards": [{**{key: c.get(key) for key in ("id", "stream", "date", "category", "topic")}, "title": localized(c, "en", "title"), "question": localized(c, "en", "question")} for c in recent],
         "output_root": "cards/<category>/",

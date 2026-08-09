@@ -12,12 +12,13 @@
   "content": {
     "en": {
       "title": "Separate Research Success from Production Success",
-      "summary": "Research often optimizes model performance on a benchmark. Production systems must also satisfy latency, cost, reliability, maintainability, data availability, safety, and business constraints.",
-      "explanation": "A model can improve an offline metric yet be unsuitable for deployment. It may require unavailable features, exceed the response deadline, cost too much at expected traffic, or be impossible to monitor. Production success belongs to the complete system and its objective, not to a model score in isolation.",
+      "learning_objective": "Evaluate a model as part of a production system by balancing predictive quality with latency, cost, reliability, and monitoring constraints.",
+      "simple_explanation": "Research often optimizes model performance on a benchmark. Production systems must also satisfy latency, cost, reliability, maintainability, data availability, safety, and business constraints. A model can improve an offline metric yet be unsuitable for deployment. It may require unavailable features, exceed the response deadline, cost too much at expected traffic, or be impossible to monitor. Production success belongs to the complete system and its objective, not to a model score in isolation.",
       "how_it_works": "System design turns a model candidate into a repeatable data, training, evaluation, deployment, serving, and monitoring process. Each component adds constraints and failure modes. Tradeoffs determine whether a small quality gain is worth additional operational complexity.",
-      "visual": "offline score -> candidate model -> production system\n                                  |\n             latency + cost + reliability + monitoring",
+      "visual": "[ Candidate model ]\n        │\n        ├── Quality\n        ├── Latency\n        ├── Cost\n        ├── Reliability\n        └── Monitoring\n              ▼\n     [ Production decision ]",
       "use_case": "A larger model improves validation accuracy by 0.4 percentage points but triples latency and GPU cost. For a high-volume interactive product, the smaller model may produce better overall user and business outcomes.",
       "expected_result": "A deployment decision compares offline quality with service-level objectives, resource budgets, failure recovery, monitoring coverage, and the value of the predicted outcome.",
+      "what_to_notice": "The deployment choice is a multi-constraint decision, not a leaderboard ranking. A small offline gain can be the worse choice when it consumes the latency or cost budget needed by the product.",
       "common_mistake": "Choosing the highest benchmark score without defining production requirements moves important decisions to the end, when redesigning features or serving architecture is most expensive.",
       "practical_tip": "Before model selection, write measurable quality, latency, throughput, availability, and cost targets. Evaluate every candidate against the same end-to-end constraints.",
       "question": "Why is the model with the best offline score not automatically the best production choice?",
@@ -25,12 +26,13 @@
     },
     "my": {
       "title": "Research Success နဲ့ Production Success ကို ခွဲခြားခြင်း",
-      "summary": "Research မှာ benchmark ပေါ် model performance ကို အဓိက optimize လုပ်တတ်ပါတယ်။ Production system က latency၊ cost၊ reliability၊ maintainability၊ data availability၊ safety နဲ့ business constraint တွေကိုပါ ဖြည့်ဆည်းရပါတယ်။",
-      "explanation": "Offline metric ပိုကောင်းတဲ့ model တစ်ခု production အတွက် မသင့်နိုင်ပါဘူး။ မရနိုင်တဲ့ feature လိုတာ၊ response deadline ကျော်တာ၊ traffic များချိန် ကုန်ကျစရိတ်ကြီးတာ သို့မဟုတ် monitor လုပ်မရတာ ဖြစ်နိုင်ပါတယ်။ Production success က model score တစ်ခုတည်းမဟုတ်ဘဲ system အပြည့်နဲ့ objective ပေါ် မူတည်ပါတယ်။",
+      "learning_objective": "Model ကို production system အစိတ်အပိုင်းအဖြစ် သုံးသပ်ပြီး quality ကို latency၊ cost နဲ့ reliability constraint တွေနဲ့ ချိန်ညှိနိုင်မယ်။",
+      "simple_explanation": "Research မှာ benchmark ပေါ် model performance ကို အဓိက optimize လုပ်တတ်ပါတယ်။ Production system က latency၊ cost၊ reliability၊ maintainability၊ data availability၊ safety နဲ့ business constraint တွေကိုပါ ဖြည့်ဆည်းရပါတယ်။ Offline metric ပိုကောင်းတဲ့ model တစ်ခု production အတွက် မသင့်နိုင်ပါဘူး။ မရနိုင်တဲ့ feature လိုတာ၊ response deadline ကျော်တာ၊ traffic များချိန် ကုန်ကျစရိတ်ကြီးတာ သို့မဟုတ် monitor လုပ်မရတာ ဖြစ်နိုင်ပါတယ်။ Production success က model score တစ်ခုတည်းမဟုတ်ဘဲ system အပြည့်နဲ့ objective ပေါ် မူတည်ပါတယ်။",
       "how_it_works": "System design က model candidate ကို data၊ training၊ evaluation၊ deployment၊ serving နဲ့ monitoring အဆင့်တွေ ပြန်လုပ်နိုင်တဲ့ process အဖြစ် ပြောင်းပါတယ်။ Component တစ်ခုစီက constraint နဲ့ failure mode အသစ်ထည့်ပြီး quality gain က operational complexity နဲ့ ထိုက်တန်သလား tradeoff လုပ်ရပါတယ်။",
-      "visual": "offline score -> candidate model -> production system\n                                  |\n             latency + cost + reliability + monitoring",
+      "visual": "[ Candidate model ]\n        │\n        ├── Quality\n        ├── Latency\n        ├── Cost\n        ├── Reliability\n        └── Monitoring\n              ▼\n     [ Production decision ]",
       "use_case": "Model ကြီးတစ်ခုက validation accuracy 0.4 percentage point တိုးပေမယ့် latency နဲ့ GPU cost သုံးဆတက်တယ်ဆိုရင် high-volume interactive product အတွက် model အသေးက user နဲ့ business outcome ပိုကောင်းနိုင်ပါတယ်။",
       "expected_result": "Deployment decision မှာ offline quality နဲ့ service-level objective၊ resource budget၊ failure recovery၊ monitoring coverage နဲ့ prediction တန်ဖိုးကို အတူနှိုင်းယှဉ်ပါတယ်။",
+      "what_to_notice": "Deployment ရွေးချယ်မှုက leaderboard ranking မဟုတ်ပါဘူး။ Offline gain နည်းနည်းအတွက် product ရဲ့ latency သို့မဟုတ် cost budget ကျော်ရင် ပိုဆိုးတဲ့ရွေးချယ်မှု ဖြစ်နိုင်ပါတယ်။",
       "common_mistake": "Production requirement မသတ်မှတ်ဘဲ benchmark score အမြင့်ဆုံးကို ရွေးရင် အရေးကြီးဆုံးဆုံးဖြတ်ချက်တွေကို နောက်ဆုံးအချိန်ရောက်မှ လုပ်ရပြီး feature သို့မဟုတ် serving architecture ပြန်ဆောက်ရတာ စျေးကြီးပါတယ်။",
       "practical_tip": "Model မရွေးမီ quality၊ latency၊ throughput၊ availability နဲ့ cost target ကို တိုင်းတာနိုင်အောင် ရေးပါ။ Candidate တိုင်းကို end-to-end constraint တူတူနဲ့ evaluate လုပ်ပါ။",
       "question": "Offline score အကောင်းဆုံး model က production အတွက် အလိုအလျောက် အကောင်းဆုံးမဖြစ်တာ ဘာကြောင့်လဲ?",
@@ -54,7 +56,7 @@
   "sequence": 2,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

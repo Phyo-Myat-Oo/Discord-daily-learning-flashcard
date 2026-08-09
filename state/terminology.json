@@ -1,0 +1,31 @@
+{
+  "style": {
+    "english": "Use plain technical English. Define a term before relying on it and prefer short cause-and-effect sentences.",
+    "burmese": "Write like a patient Burmese technical instructor. Explain the meaning naturally; do not translate English sentence structure word for word. Keep sentences short."
+  },
+  "keep_in_english_when_clearer": [
+    "API",
+    "branch",
+    "command",
+    "commit",
+    "container",
+    "deployment",
+    "embedding",
+    "environment",
+    "feature",
+    "model",
+    "output",
+    "process",
+    "repository",
+    "request",
+    "shell",
+    "socket",
+    "terminal"
+  ],
+  "rules": [
+    "Never translate commands, flags, code, paths, filenames, acronyms, or product names.",
+    "When an English technical term is retained, explain what it does in natural Burmese at first use.",
+    "Prefer common Burmese verbs and direct actions over formal noun-heavy constructions.",
+    "Use the same preferred term consistently within and across cards."
+  ]
+}

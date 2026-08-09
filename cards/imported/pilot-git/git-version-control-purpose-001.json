@@ -13,12 +13,13 @@
   "content": {
     "en": {
       "title": "Treat Version Control as Recoverable History",
-      "summary": "Version control records changes to files over time so you can inspect earlier states, compare revisions, identify when a change appeared, and deliberately recover selected work.",
-      "explanation": "A version-control system stores structured project history rather than relying on folders named `final`, `final-2`, or dates copied by hand. Each recorded revision connects content with ordering and metadata, making it possible to reason about what changed and to restore a known state without replacing unrelated work blindly.",
+      "learning_objective": "Explain how recorded Git commits create recoverable project history and distinguish committed work from unrecorded working-tree changes.",
+      "simple_explanation": "Version control records changes to files over time so you can inspect earlier states, compare revisions, identify when a change appeared, and deliberately recover selected work. A version-control system stores structured project history rather than relying on folders named `final`, `final-2`, or dates copied by hand. Each recorded revision connects content with ordering and metadata, making it possible to reason about what changed and to restore a known state without replacing unrelated work blindly.",
       "how_it_works": "Git records commits that identify project snapshots and link to earlier commits. `git log --oneline` presents a compact history. The history is useful only when meaningful changes are committed, so uncommitted working files still require care and are not automatically recoverable through Git.",
-      "visual": "commit A -> commit B -> commit C (current)\n snapshot    snapshot    snapshot\n\nHistory can return to a recorded snapshot.",
+      "visual": "[ Commit A ] ──▶ [ Commit B ] ──▶ [ Commit C ]\n  snapshot        snapshot          current\n      ▲                                  │\n      └──── restore recorded state ──────┘",
       "use_case": "A configuration change broke an application. Instead of guessing which backup folder is correct, inspect the commit history, compare the suspected revision, and restore or revert only the responsible change.",
       "expected_result": "Each line shows a shortened commit identifier and its message, ordered with recent history first by default.",
+      "what_to_notice": "The log proves that a snapshot was recorded; it does not prove every current file is protected. Recovery is dependable only for content that entered a commit or another deliberate backup.",
       "common_mistake": "Git is not a complete backup strategy. Untracked files, ignored secrets, external databases, and unpushed commits may exist on only one machine and can still be lost.",
       "practical_tip": "Create small commits with messages explaining intent, inspect `git status` before committing, and push important history to an authorized remote. Keep separate backups for data that Git does not track.",
       "question": "What advantage does version control provide over manually copied project folders?",
@@ -26,12 +27,13 @@
     },
     "my": {
       "title": "Version Control ကို ပြန်လည်ရယူနိုင်သော History အဖြစ် သဘောထားခြင်း",
-      "summary": "Version control က file ပြောင်းလဲမှုတွေကို အချိန်လိုက် မှတ်တမ်းတင်လို့ အခြေအနေအဟောင်းကို ကြည့်ခြင်း၊ revision နှိုင်းယှဉ်ခြင်း၊ ပြောင်းလဲမှု စတင်ချိန်ရှာခြင်းနဲ့ လိုတဲ့အလုပ်ကို ပြန်ယူခြင်း လုပ်နိုင်ပါတယ်။",
-      "explanation": "Version-control system က `final`၊ `final-2` လို folder တွေကို လက်နဲ့ကူးထားတာအစား project history ကို ဖွဲ့စည်းပုံကျကျ သိမ်းပါတယ်။ Revision တစ်ခုစီမှာ content၊ အစီအစဉ်နဲ့ metadata ဆက်စပ်နေလို့ ဘာပြောင်းသလဲ နားလည်ပြီး မသက်ဆိုင်တဲ့အလုပ်ကို မဖျက်ဘဲ သိထားတဲ့အခြေအနေကို ပြန်ယူနိုင်ပါတယ်။",
+      "learning_objective": "Git commit တွေက ပြန်ယူနိုင်တဲ့ project history ဘယ်လိုဖန်တီးသလဲ ရှင်းပြပြီး committed work နဲ့ မမှတ်တမ်းတင်ရသေးတဲ့ working-tree change ကို ခွဲနိုင်မယ်။",
+      "simple_explanation": "Version control က file ပြောင်းလဲမှုတွေကို အချိန်လိုက် မှတ်တမ်းတင်လို့ အခြေအနေအဟောင်းကို ကြည့်ခြင်း၊ revision နှိုင်းယှဉ်ခြင်း၊ ပြောင်းလဲမှု စတင်ချိန်ရှာခြင်းနဲ့ လိုတဲ့အလုပ်ကို ပြန်ယူခြင်း လုပ်နိုင်ပါတယ်။ Version-control system က `final`၊ `final-2` လို folder တွေကို လက်နဲ့ကူးထားတာအစား project history ကို ဖွဲ့စည်းပုံကျကျ သိမ်းပါတယ်။ Revision တစ်ခုစီမှာ content၊ အစီအစဉ်နဲ့ metadata ဆက်စပ်နေလို့ ဘာပြောင်းသလဲ နားလည်ပြီး မသက်ဆိုင်တဲ့အလုပ်ကို မဖျက်ဘဲ သိထားတဲ့အခြေအနေကို ပြန်ယူနိုင်ပါတယ်။",
       "how_it_works": "Git က project snapshot ကို ကိုယ်စားပြုတဲ့ commit တွေကို မှတ်ပြီး အရင် commit နဲ့ ချိတ်ထားပါတယ်။ `git log --oneline` က history ကို အတိုချုံးပြပါတယ်။ Commit မလုပ်ထားတဲ့ working file တွေကို Git history က အလိုအလျောက် မကယ်နိုင်တာကို သတိထားရပါတယ်။",
-      "visual": "commit A -> commit B -> commit C (လက်ရှိ)\n snapshot    snapshot    snapshot\n\nမှတ်ထားတဲ့ snapshot ကို ပြန်ရှာနိုင်ပါတယ်။",
+      "visual": "[ Commit A ] ──▶ [ Commit B ] ──▶ [ Commit C ]\n  snapshot        snapshot          လက်ရှိ\n      ▲                                  │\n      └──── မှတ်ထားသော state ကို ပြန်ယူ ────┘",
       "use_case": "Configuration ပြောင်းပြီး application ပျက်သွားရင် ဘယ် backup folder မှန်လဲ ခန့်မှန်းမယ့်အစား commit history ကိုကြည့်၊ သံသယရှိ revision ကို နှိုင်းယှဉ်ပြီး ပြဿနာဖြစ်စေတဲ့ change ကိုသာ restore သို့မဟုတ် revert လုပ်နိုင်ပါတယ်။",
       "expected_result": "စာကြောင်းတစ်ကြောင်းစီမှာ shortened commit ID နဲ့ message ကို ပြပြီး ပုံမှန်အားဖြင့် အသစ်ဆုံး history က အရင်လာပါတယ်။",
+      "what_to_notice": "Log ထဲမှာ snapshot ရှိတာက မှတ်တမ်းတင်ပြီးကြောင်း ပြတာပါ။ လက်ရှိ file အားလုံး ကာကွယ်ထားတယ်လို့ မဆိုလိုပါဘူး။ Commit သို့မဟုတ် သီးခြား backup ထဲဝင်ပြီးသား content ကိုသာ ယုံကြည်စွာ ပြန်ယူနိုင်ပါတယ်။",
       "common_mistake": "Git ဟာ backup အပြည့်အစုံ မဟုတ်ပါဘူး။ Untracked file၊ ignored secret၊ external database နဲ့ မ push ရသေးတဲ့ commit တွေက စက်တစ်လုံးတည်းမှာပဲ ရှိပြီး ပျောက်နိုင်ပါတယ်။",
       "practical_tip": "ရည်ရွယ်ချက်ရှင်းတဲ့ commit အသေးတွေ ဖန်တီးပါ၊ commit မလုပ်မီ `git status` စစ်ပါ၊ အရေးကြီး history ကို ခွင့်ပြုထားတဲ့ remote ဆီ push ပါ။ Git မသိမ်းတဲ့ data အတွက် သီးခြား backup ထားပါ။",
       "question": "Project folder ကို လက်နဲ့ အကြိမ်ကြိမ်ကူးတာထက် version control က ဘာအားသာချက်ပေးသလဲ?",
@@ -56,7 +58,7 @@
   "sequence": 1,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

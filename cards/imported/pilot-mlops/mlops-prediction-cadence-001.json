@@ -12,12 +12,13 @@
   "content": {
     "en": {
       "title": "Choose Batch or Online Prediction by Decision Timing",
-      "summary": "Batch prediction produces many results on a schedule, while online prediction responds to individual requests under a latency deadline. The business decision determines which mode is appropriate.",
-      "explanation": "Prediction cadence is separate from training cadence. A model retrained monthly can still serve online requests, and a frequently updated model can produce scheduled batches. Serving mode changes infrastructure needs, feature freshness, failure handling, and the time available for computation.",
+      "learning_objective": "Choose batch or online prediction from when the business decision needs an answer, without confusing serving cadence with training cadence.",
+      "simple_explanation": "Batch prediction produces many results on a schedule, while online prediction responds to individual requests under a latency deadline. The business decision determines which mode is appropriate. Prediction cadence is separate from training cadence. A model retrained monthly can still serve online requests, and a frequently updated model can produce scheduled batches. Serving mode changes infrastructure needs, feature freshness, failure handling, and the time available for computation.",
       "how_it_works": "A batch job reads a bounded dataset, computes predictions, and stores results for later use. An online service receives a request, obtains current features, runs inference, and returns a result before the caller's deadline, so every dependency is part of the latency and reliability path.",
-      "visual": "BATCH:  dataset -> predict all -> store -> use later\nONLINE: request -> fresh features -> predict -> immediate response",
+      "visual": "BATCH\n[ Data ] ──▶ predict all ──▶ store\n                         └──▶ use later\n\nONLINE\n[ Request ] ──▶ features ──▶ predict\n                            └──▶ respond now",
       "use_case": "Tomorrow's inventory forecast can run overnight and write one result per product. Fraud detection during card authorization must respond before the transaction times out and therefore needs online prediction.",
       "expected_result": "The architecture documents when a decision is needed, acceptable staleness, volume, latency, fallback behavior, and where predictions will be stored or returned.",
+      "what_to_notice": "The nightly forecast can tolerate stored, slightly older results. Payment authorization cannot wait for a later batch, so its complete feature-and-inference path must satisfy the request deadline.",
       "common_mistake": "Online prediction and online learning are different. Real-time inference does not imply that the model updates itself after every request, and combining them carelessly can create unstable feedback loops.",
       "practical_tip": "Use batch prediction when the decision permits it because it is easier to reproduce and retry. Introduce online serving only when fresh per-request decisions justify the added complexity.",
       "question": "Does online prediction imply that the model is also trained online?",
@@ -25,12 +26,13 @@
     },
     "my": {
       "title": "Decision Timing အလိုက် Batch သို့မဟုတ် Online Prediction ရွေးခြင်း",
-      "summary": "Batch prediction က အချိန်ဇယားအလိုက် ရလဒ်အများကြီး ထုတ်ပြီး online prediction က request တစ်ခုစီကို latency deadline အတွင်း ဖြေပါတယ်။ ဘယ် mode သုံးမလဲဆိုတာ business decision လိုအပ်ချိန်က ဆုံးဖြတ်ပါတယ်။",
-      "explanation": "Prediction cadence နဲ့ training cadence မတူပါဘူး။ လစဉ် retrain လုပ်တဲ့ model က online request ဖြေနိုင်သလို မကြာခဏ update လုပ်တဲ့ model က scheduled batch ထုတ်နိုင်ပါတယ်။ Serving mode ပြောင်းရင် infrastructure၊ feature freshness၊ failure handling နဲ့ computation အတွက် ရချိန် ပြောင်းပါတယ်။",
+      "learning_objective": "Business decision က အဖြေဘယ်အချိန်လိုသလဲကို အခြေခံပြီး batch သို့မဟုတ် online prediction ရွေးနိုင်မယ်။ Serving cadence နဲ့ training cadence ကို မရောထွေးတော့ဘူး။",
+      "simple_explanation": "Batch prediction က အချိန်ဇယားအလိုက် ရလဒ်အများကြီး ထုတ်ပြီး online prediction က request တစ်ခုစီကို latency deadline အတွင်း ဖြေပါတယ်။ ဘယ် mode သုံးမလဲဆိုတာ business decision လိုအပ်ချိန်က ဆုံးဖြတ်ပါတယ်။ Prediction cadence နဲ့ training cadence မတူပါဘူး။ လစဉ် retrain လုပ်တဲ့ model က online request ဖြေနိုင်သလို မကြာခဏ update လုပ်တဲ့ model က scheduled batch ထုတ်နိုင်ပါတယ်။ Serving mode ပြောင်းရင် infrastructure၊ feature freshness၊ failure handling နဲ့ computation အတွက် ရချိန် ပြောင်းပါတယ်။",
       "how_it_works": "Batch job က သတ်မှတ် dataset ကို ဖတ်၊ prediction တွက်ပြီး နောက်သုံးဖို့ သိမ်းပါတယ်။ Online service က request လက်ခံ၊ current feature ယူ၊ inference run ပြီး caller deadline မတိုင်မီ ပြန်ပေးရလို့ dependency အားလုံး latency နဲ့ reliability path ထဲ ပါပါတယ်။",
-      "visual": "BATCH:  dataset -> အားလုံး predict -> သိမ်း -> နောက်မှသုံး\nONLINE: request -> fresh features -> predict -> ချက်ချင်းပြန်",
+      "visual": "BATCH\n[ Data ] ──▶ အားလုံး predict ──▶ သိမ်း\n                         └──▶ နောက်မှသုံး\n\nONLINE\n[ Request ] ──▶ features ──▶ predict\n                            └──▶ ချက်ချင်းပြန်",
       "use_case": "မနက်ဖြန် inventory forecast ကို ညဘက် run ပြီး product တစ်ခုစီအတွက် result သိမ်းနိုင်ပါတယ်။ Card authorization အတွင်း fraud detection က transaction timeout မဖြစ်မီ ဖြေရလို့ online prediction လိုပါတယ်။",
       "expected_result": "Architecture မှာ decision လိုအပ်ချိန်၊ လက်ခံနိုင်တဲ့ staleness၊ volume၊ latency၊ fallback behavior နဲ့ prediction သိမ်းမယ့် သို့မဟုတ် ပြန်ပေးမယ့်နေရာကို မှတ်တမ်းတင်ထားပါတယ်။",
+      "what_to_notice": "ညစဉ် forecast က သိမ်းထားတဲ့ အနည်းငယ်ဟောင်းသော result ကို လက်ခံနိုင်ပါတယ်။ Payment authorization က နောက် batch အထိ မစောင့်နိုင်လို့ feature ယူတာကနေ inference ပြန်တာအထိ request deadline အတွင်းပြီးရပါတယ်။",
       "common_mistake": "Online prediction နဲ့ online learning မတူပါဘူး။ Real-time inference လုပ်တာနဲ့ request တိုင်းပြီး model update လုပ်တယ်လို့ မဆိုလိုဘဲ နှစ်ခုကို မစဉ်းစားဘဲပေါင်းရင် unstable feedback loop ဖြစ်နိုင်ပါတယ်။",
       "practical_tip": "Decision အချိန်ခွင့်ပြုရင် reproduce နဲ့ retry လွယ်တဲ့ batch prediction ကို သုံးပါ။ Fresh per-request decision က complexity တိုးတာနဲ့ ထိုက်တန်မှ online serving ထည့်ပါ။",
       "question": "Online prediction လုပ်ရင် model ကိုလည်း online train လုပ်ရမလား?",
@@ -54,7 +56,7 @@
   "sequence": 3,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

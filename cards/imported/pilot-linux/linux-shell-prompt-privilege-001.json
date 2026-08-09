@@ -13,12 +13,13 @@
   "content": {
     "en": {
       "title": "Read the Shell Prompt as Context, Not Proof",
-      "summary": "A shell prompt indicates that the shell is ready for input and often includes the user, host, and working directory. `$` usually represents a regular user, while `#` commonly signals root privileges.",
-      "explanation": "Prompt text is produced by shell configuration and can change between systems. Its final character is a useful warning: a root shell commonly ends in `#`, because commands there can modify system-wide files without another privilege check. A regular interactive shell commonly ends in `$` and is limited by that user's permissions.",
+      "learning_objective": "Treat `$` and `#` as prompt hints, then verify the effective user with a system-reported identity before running privilege-sensitive commands.",
+      "simple_explanation": "A shell prompt indicates that the shell is ready for input and often includes the user, host, and working directory. `$` usually represents a regular user, while `#` commonly signals root privileges. Prompt text is produced by shell configuration and can change between systems. Its final character is a useful warning: a root shell commonly ends in `#`, because commands there can modify system-wide files without another privilege check. A regular interactive shell commonly ends in `$` and is limited by that user's permissions.",
       "how_it_works": "The prompt is displayed before each command and is normally controlled by a variable such as Bash's `PS1`. Because users can customize it, the symbol is a convention rather than a security boundary. `id -u -n` asks the system for the effective user name and is stronger evidence of identity.",
-      "visual": "prompt `$` or `#` -> visual hint only\n`id -u -n`       -> system-checked identity\n\nHint is not proof.",
+      "visual": "┌──────────────┬────────────────────────┐\n│ Prompt `$`/`#`│ Customizable hint      │\n├──────────────┼────────────────────────┤\n│ `id -u -n`   │ System-reported user   │\n└──────────────┴────────────────────────┘\n       HINT  ≠  PROOF",
       "use_case": "Before installing software or editing configuration, you notice a `#` prompt. Confirming the effective user prevents accidentally running an ordinary troubleshooting command with unrestricted system privileges.",
       "expected_result": "The command prints the effective account name, such as `phyo-myat-oo` or `root`.",
+      "what_to_notice": "The prompt symbol can warn you, but it is configurable text. The command result is stronger evidence because it asks the operating system which identity the current process is using.",
       "common_mistake": "Do not assume every line beginning with `#` is a root prompt; in scripts it often marks a comment. Also do not treat a customized `$` prompt as proof that the shell lacks elevated privileges.",
       "practical_tip": "When privilege matters, verify with `id`, read the command before pressing Enter, and leave an unnecessary root shell with `exit`. Use narrowly scoped `sudo` commands instead of working as root for long sessions.",
       "question": "Why should `#` make you pause before running a command?",
@@ -26,12 +27,13 @@
     },
     "my": {
       "title": "Shell Prompt ကို အခြေအနေပြ အချက်အလက်အဖြစ် ဖတ်ခြင်း",
-      "summary": "Shell prompt က shell ဟာ command လက်ခံဖို့ အဆင်သင့်ဖြစ်ကြောင်း ပြပြီး user၊ host နဲ့ လက်ရှိ directory ကိုပါ ထည့်ပြတတ်ပါတယ်။ `$` က regular user၊ `#` က root shell ကို ဆိုလိုလေ့ရှိပါတယ်။",
-      "explanation": "Prompt စာသားကို shell configuration က ဖန်တီးတာကြောင့် system တစ်ခုနဲ့တစ်ခု မတူနိုင်ပါဘူး။ နောက်ဆုံး `#` ပါရင် root privilege ရှိနေတတ်ပြီး system file တွေကို ထပ်မံခွင့်ပြုချက်မတောင်းဘဲ ပြောင်းနိုင်တာကြောင့် သတိပေးချက်တစ်ခုလို သဘောထားသင့်ပါတယ်။ `$` ကတော့ regular user shell ဖြစ်လေ့ရှိပါတယ်။",
+      "learning_objective": "Prompt ပေါ်က `$` နဲ့ `#` ကို hint အဖြစ်သာ သဘောထားပြီး privilege-sensitive command မ run မီ effective user ကို system ဆီက တိုက်ရိုက်စစ်နိုင်မယ်။",
+      "simple_explanation": "Shell prompt က shell ဟာ command လက်ခံဖို့ အဆင်သင့်ဖြစ်ကြောင်း ပြပြီး user၊ host နဲ့ လက်ရှိ directory ကိုပါ ထည့်ပြတတ်ပါတယ်။ `$` က regular user၊ `#` က root shell ကို ဆိုလိုလေ့ရှိပါတယ်။ Prompt စာသားကို shell configuration က ဖန်တီးတာကြောင့် system တစ်ခုနဲ့တစ်ခု မတူနိုင်ပါဘူး။ နောက်ဆုံး `#` ပါရင် root privilege ရှိနေတတ်ပြီး system file တွေကို ထပ်မံခွင့်ပြုချက်မတောင်းဘဲ ပြောင်းနိုင်တာကြောင့် သတိပေးချက်တစ်ခုလို သဘောထားသင့်ပါတယ်။ `$` ကတော့ regular user shell ဖြစ်လေ့ရှိပါတယ်။",
       "how_it_works": "Command တစ်ခုစီမတိုင်မီ prompt ကို ပြပြီး Bash မှာ `PS1` လို variable က ထိန်းချုပ်ပါတယ်။ Prompt ကို ကိုယ်တိုင်ပြင်နိုင်တာကြောင့် symbol က လုံခြုံရေးအတည်ပြုချက် မဟုတ်ပါဘူး။ `id -u -n` က system ထံမှ effective user name ကို တိုက်ရိုက်မေးတာဖြစ်ပါတယ်။",
-      "visual": "prompt `$` / `#` -> အမြင်နဲ့ခန့်မှန်းချက်\n`id -u -n`       -> system ကစစ်ထားတဲ့ identity\n\nခန့်မှန်းချက် != အတည်ပြုချက်",
+      "visual": "┌──────────────┬────────────────────────┐\n│ Prompt `$`/`#`│ ပြင်လို့ရသော hint       │\n├──────────────┼────────────────────────┤\n│ `id -u -n`   │ System ပြသော user      │\n└──────────────┴────────────────────────┘\n       HINT  ≠  PROOF",
       "use_case": "Software install လုပ်မယ့်အချိန် သို့မဟုတ် configuration ပြင်မယ့်အချိန် `#` prompt ကို တွေ့ရင် effective user ကို အရင်စစ်ခြင်းက troubleshooting command တစ်ခုကို မလိုအပ်ဘဲ root အဖြစ် run မိတာကို ကာကွယ်ပေးပါတယ်။",
       "expected_result": "`phyo-myat-oo` သို့မဟုတ် `root` လို လက်ရှိ effective account အမည်ကို ပြပါမယ်။",
+      "what_to_notice": "Prompt symbol က သတိပေးချက်ပေးနိုင်ပေမယ့် ပြင်လို့ရတဲ့စာသားပါ။ Command result ကတော့ လက်ရှိ process သုံးနေတဲ့ identity ကို operating system ဆီ တိုက်ရိုက်မေးထားလို့ ပိုယုံကြည်ရပါတယ်။",
       "common_mistake": "Script ထဲက `#` ဟာ comment စတဲ့ သင်္ကေတလည်း ဖြစ်နိုင်တာကြောင့် root prompt လို့ အမြဲမယူဆပါနဲ့။ Customize လုပ်ထားတဲ့ `$` ကိုလည်း privilege မရှိကြောင်း အထောက်အထားလို့ မယူဆသင့်ပါဘူး။",
       "practical_tip": "Privilege အရေးကြီးရင် `id` နဲ့ အတည်ပြုပါ၊ Enter မနှိပ်မီ command ကို ပြန်ဖတ်ပါ၊ မလိုတော့တဲ့ root shell ကနေ `exit` နဲ့ ထွက်ပါ။ Root session ကြာကြာသုံးမယ့်အစား လိုအပ်တဲ့ command ကိုသာ `sudo` သုံးပါ။",
       "question": "Command မ run မီ `#` prompt ကို တွေ့ရင် ဘာကြောင့် ခဏရပ်ပြီး စစ်သင့်သလဲ?",
@@ -56,7 +58,7 @@
   "sequence": 2,
   "ai_review": {
     "status": "passed",
-    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewed_at": "2026-08-09T05:12:12.153239+00:00",
     "reviewer": "codex"
   }
 }

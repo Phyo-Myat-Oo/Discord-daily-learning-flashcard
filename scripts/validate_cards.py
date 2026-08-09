@@ -56,6 +56,7 @@ def validate(paths: list[Path]) -> list[str]:
             continue
         required = BASE_REQUIRED | ({"content"} if card.get("language") == "bilingual" else LEGACY_REQUIRED)
         missing = required - card.keys()
+        renderable = not missing
         if missing:
             errors.append(f"{path}: missing fields: {', '.join(sorted(missing))}")
         for key, value in card.items():
@@ -75,17 +76,38 @@ def validate(paths: list[Path]) -> list[str]:
                 absent = RICH_REQUIRED - block.keys()
                 if absent:
                     errors.append(f"{path}: content.{language} missing fields: {', '.join(sorted(absent))}")
+                    renderable = False
                 for field, value in block.items():
                     if not isinstance(value, str) or not value.strip():
                         errors.append(f"{path}: content.{language}.{field} must be non-empty text")
-                if len(str(block.get("explanation", ""))) < (180 if language == "en" else 120):
-                    errors.append(f"{path}: content.{language}.explanation is too short for a rich card")
+                limits = {
+                    "learning_objective": (30, 220),
+                    "simple_explanation": ((140, 650) if language == "en" else (120, 750)),
+                    "how_it_works": ((220, 850) if language == "en" else (180, 950)),
+                    "use_case": ((100, 500) if language == "en" else (90, 600)),
+                    "expected_result": (50, 450),
+                    "what_to_notice": (60, 450),
+                }
+                for field, (minimum, maximum) in limits.items():
+                    size = len(str(block.get(field, "")))
+                    if not minimum <= size <= maximum:
+                        errors.append(f"{path}: content.{language}.{field} must contain {minimum}..{maximum} characters")
                 visual = str(block.get("visual", ""))
                 if visual and (len(visual) < 20 or len(visual) > 500 or visual.count("\n") > 8):
                     errors.append(f"{path}: content.{language}.visual must be a useful diagram of 20..500 characters and at most 9 lines")
-                instructional = " ".join(str(block.get(name, "")) for name in ("summary", "explanation", "how_it_works", "use_case", "common_mistake", "practical_tip"))
-                if len(instructional) < (550 if language == "en" else 400):
+                if any(len(line) > 48 for line in visual.splitlines()):
+                    errors.append(f"{path}: content.{language}.visual has a line wider than 48 characters (unsafe for Discord mobile)")
+                instructional = " ".join(str(block.get(name, "")) for name in ("simple_explanation", "how_it_works", "use_case", "expected_result", "what_to_notice", "common_mistake", "practical_tip"))
+                if len(instructional) < (900 if language == "en" else 750):
                     errors.append(f"{path}: content.{language} needs more instructional detail")
+                prose_fields = ("simple_explanation", "how_it_works", "use_case", "expected_result", "what_to_notice")
+                for index, field_a in enumerate(prose_fields):
+                    words_a = normalized_words(str(block.get(field_a, "")))
+                    for field_b in prose_fields[index + 1:]:
+                        words_b = normalized_words(str(block.get(field_b, "")))
+                        similarity = len(words_a & words_b) / max(1, min(len(words_a), len(words_b)))
+                        if len(words_a) >= 8 and len(words_b) >= 8 and similarity >= .8:
+                            errors.append(f"{path}: content.{language}.{field_a} and {field_b} repeat too much ({similarity:.0%})")
             my_text = " ".join(str(value) for value in content.get("my", {}).values()) if isinstance(content.get("my"), dict) else ""
             if not re.search(r"[က-႟]", my_text):
                 errors.append(f"{path}: Burmese content contains no Myanmar script")
@@ -147,7 +169,7 @@ def validate(paths: list[Path]) -> list[str]:
         safety_text = " ".join([str(card.get("explanation", "")), str(card.get("use_case", ""))] + [localized(card, lang, field) for lang in ("en", "my") for field in ("explanation", "use_case", "common_mistake", "practical_tip")])
         if DANGEROUS.search(command_text) and not WARN_WORDS.search(safety_text):
             errors.append(f"{path}: dangerous command lacks an explicit safety warning")
-        if not missing:
+        if renderable:
             payload = build_discord_payload(card)
             if len(payload.get("content", "")) > 1900:
                 errors.append(f"{path}: Discord content exceeds safe 1900-character limit")
@@ -158,9 +180,11 @@ def validate(paths: list[Path]) -> list[str]:
                     errors.append(f"{path}: Discord embed {index} title exceeds 256 characters")
                 if len(embed.get("description", "")) > 4096:
                     errors.append(f"{path}: Discord embed {index} description exceeds 4096 characters")
+                if len(embed.get("description", "")) > 2700:
+                    errors.append(f"{path}: Discord embed {index} description exceeds the teaching budget of 2700 characters")
                 embed_total += len(embed.get("title", "")) + len(embed.get("description", "")) + len(embed.get("footer", {}).get("text", ""))
-            if embed_total > 6000:
-                errors.append(f"{path}: Discord embeds contain {embed_total} characters (limit: 6000)")
+            if embed_total > 5800:
+                errors.append(f"{path}: Discord embeds contain {embed_total} characters (safe teaching limit: 5800)")
         key = (str(card.get("category", "")), str(card.get("topic", "")).lower().strip())
         topics[key].append((path, card))
     for (category, topic), items in topics.items():
