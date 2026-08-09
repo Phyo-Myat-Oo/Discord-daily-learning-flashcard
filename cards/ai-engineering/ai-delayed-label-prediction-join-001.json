@@ -1,0 +1,43 @@
+{
+  "id": "ai-delayed-label-prediction-join-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 14,
+  "date": "2026-08-22",
+  "category": "ai-engineering",
+  "topic": "delayed-label-prediction-join",
+  "difficulty": "intermediate",
+  "example": "Join a later fraud outcome to the exact prediction using a stable event ID, model version, and prediction timestamp.",
+  "content": {
+    "en": {
+      "title": "Join Delayed Labels to the Right Predictions",
+      "learning_objective": "Design and verify an identifier-based join that connects delayed outcomes to the exact predictions that were made, without using mutable feature values as keys.",
+      "simple_explanation": "Production outcomes often arrive after predictions. To measure real performance, each outcome label must be paired with the prediction made for the same event. This is a delayed-label join. A stable event ID identifies the event even if other fields later change. Without that identity, missing or duplicate matches can silently produce incorrect precision, recall, and slice metrics.",
+      "how_it_works": "At prediction time, log a stable event ID, prediction timestamp, model version, score, decision, and needed slice fields. When the outcome matures, join it by the stable ID and keep the label timestamp. Check unmatched predictions, unmatched labels, and duplicate IDs. Compute performance only for outcomes whose observation window is complete.",
+      "visual": "prediction: event_id + score + version\n                    │ stable ID\ndelayed label: event_id + outcome\n                    ▼\n              labeled prediction",
+      "use_case": "A fraud model scores transaction `tx-4821` today, but its confirmed outcome arrives 30 days later. Store `tx-4821` with the score and model version. After the label arrives, join on that ID and exclude newer transactions that have not completed the 30-day window.",
+      "expected_result": "Each eligible prediction has at most one matched outcome, and join-quality counts are visible. Metrics describe a complete outcome cohort and can be traced to the model version that produced each score.",
+      "what_to_notice": "Recent predictions without labels are not automatically negatives; their outcomes may still be pending. Excluding only mature outcomes would bias the measured population, so eligibility is based on a completed time window.",
+      "common_mistake": "Joining on mutable fields such as customer name, amount, or rounded timestamp can mismatch events. Treating every unmatched recent prediction as negative makes performance look falsely good or bad.",
+      "practical_tip": "Create the stable event ID before prediction and make uniqueness checks part of the metric job. Publish match rates and outcome-window rules beside every performance report.",
+      "question": "Why should recent predictions with no outcome yet be excluded rather than labeled negative?",
+      "answer": "Their observation window is incomplete, so no outcome is not evidence of a negative outcome; assigning one would bias the metrics."
+    },
+    "my": {
+      "title": "နောက်ကျရောက်လာသော Label ကို Prediction မှန်နဲ့ ချိတ်ခြင်း",
+      "learning_objective": "ပြောင်းလဲနိုင်တဲ့ feature value ကို key မလုပ်ဘဲ stable event ID သုံးပြီး နောက်ကျရောက်တဲ့ outcome ကို မူလ prediction အတိအကျနဲ့ ချိတ်ကာ စစ်ဆေးနိုင်မယ်။",
+      "simple_explanation": "Production မှာ outcome က prediction ထုတ်ပြီး အချိန်ကြာမှ ရတတ်ပါတယ်။ Performance တိုင်းဖို့ outcome label ကို event တူတဲ့ prediction နဲ့ ချိတ်ရပါတယ်။ ဒါကို delayed-label join လို့ခေါ်ပါတယ်။ Stable event ID က တခြား field ပြောင်းသွားလည်း event တစ်ခုကို ဖော်ထုတ်ပေးပါတယ်။ ID မခိုင်မာရင် match ပျောက်ခြင်းနဲ့ ထပ်ခြင်းက precision၊ recall နဲ့ slice metric ကို မှားစေနိုင်ပါတယ်။",
+      "how_it_works": "Prediction ထုတ်ချိန်မှာ stable event ID၊ timestamp၊ model version၊ score၊ decision နဲ့ slice field ကို log လုပ်ပါ။ Outcome ပြည့်စုံလာရင် stable ID နဲ့ join လုပ်ပြီး label timestamp ကို သိမ်းပါ။ Unmatched row နဲ့ ID အထပ်တွေကို စစ်ပါ။ Outcome window ပြည့်ပြီးသား event တွေအတွက်သာ performance တွက်ပါ။",
+      "visual": "prediction: event_id + score + version\n                    │ stable ID\ndelayed label: event_id + outcome\n                    ▼\n              labeled prediction",
+      "use_case": "Fraud model က ဒီနေ့ transaction `tx-4821` ကို score ထုတ်ပေမယ့် အတည်ပြု outcome က ရက် 30 ကြာမှ ရပါတယ်။ `tx-4821` ကို score နဲ့ model version အတူ သိမ်းပါ။ Label ရောက်လာရင် အဲဒီ ID နဲ့ join လုပ်ပြီး ရက် 30 မပြည့်သေးတဲ့ transaction အသစ်တွေကို metric ထဲ မထည့်ပါနဲ့။",
+      "expected_result": "Eligible prediction တစ်ခုစီမှာ outcome တစ်ခုထက်မပိုဘဲ match ဖြစ်ပြီး join-quality count တွေ မြင်ရပါမယ်။ Metric ကို score ထုတ်ခဲ့တဲ့ model version အထိ ပြန်ခြေရာခံနိုင်ပါတယ်။",
+      "what_to_notice": "Label မရသေးတဲ့ recent prediction က negative မဟုတ်ပါဘူး။ Outcome စောင့်နေဆဲ ဖြစ်နိုင်ပါတယ်။ Completed time window ကို eligibility အဖြစ် မသုံးရင် metric bias ဖြစ်နိုင်ပါတယ်။",
+      "common_mistake": "Customer name၊ amount သို့မဟုတ် rounded timestamp လို ပြောင်းနိုင်တဲ့ field နဲ့ join လုပ်ရင် event မှားချိတ်နိုင်ပါတယ်။ Recent unmatched prediction အားလုံးကို negative လုပ်တာလည်း performance ကို အတုအယောင် ပြောင်းစေပါတယ်။",
+      "practical_tip": "Prediction မထုတ်မီ stable event ID ဖန်တီးပြီး uniqueness check ကို metric job ထဲ ထည့်ပါ။ Performance report တိုင်းနဲ့အတူ match rate နဲ့ outcome-window rule ကို ဖော်ပြပါ။",
+      "question": "Outcome မရသေးတဲ့ recent prediction ကို negative မသတ်မှတ်ဘဲ ဘာကြောင့် ဖယ်ထားရသလဲ?",
+      "answer": "Outcome စောင့်ရမယ့် window မပြည့်သေးလို့ outcome မရှိသေးခြင်းက negative ဖြစ်ကြောင်း evidence မဟုတ်ပါဘူး။ Negative လို့သတ်မှတ်ရင် metric bias ဖြစ်ပါမယ်။"
+    }
+  },
+  "tags": ["monitoring", "delayed-labels", "data-quality"],
+  "status": "approved"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "dev-git-staged-unstaged-diff-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 6,
+  "date": "2026-08-14",
+  "category": "git",
+  "topic": "staged-versus-unstaged-diff",
+  "difficulty": "intermediate",
+  "command": "git diff; git diff --staged",
+  "example": "git diff -- app.py; git diff --staged -- app.py",
+  "content": {
+    "en": {
+      "title": "Inspect Both Sides of Git's Staging Boundary",
+      "learning_objective": "Use git diff and git diff --staged to distinguish edits still in the working tree from the exact patch prepared for the next commit.",
+      "simple_explanation": "A diff compares two versions. Git has both a working tree and an index, so 'show my changes' can mean two comparisons. Plain git diff shows tracked working-tree changes not staged yet. git diff --staged shows what the index would contribute to the next commit compared with HEAD, the current checked-out commit. Neither command changes files or staging.",
+      "how_it_works": "Edit app.py, run git add app.py, then edit it again. Run git diff -- app.py to see only the later, unstaged edit. Run git diff --staged -- app.py to see the earlier content copied into the index. The -- separates options and revisions from the path, avoiding ambiguity when filtering by filename.",
+      "visual": "HEAD\n  │ git diff --staged\n  ▼\nindex\n  │ git diff\n  ▼\nworking tree",
+      "use_case": "A developer is about to commit a bug fix but has started unrelated logging changes in the same file. The two diffs reveal which patch will be committed and which will remain unstaged.",
+      "expected_result": "The staged diff displays the patch selected for the next commit, while the plain diff displays later tracked edits that are still outside the index.",
+      "what_to_notice": "One file can appear in both outputs. That is not duplication: each command compares a different pair of states and can show different lines from the same file.",
+      "common_mistake": "Reviewing only git diff after staging can produce no output and falsely suggest there are no changes. The intended patch may already be entirely in the index.",
+      "practical_tip": "Before committing, pair git status --short with both diff commands. Treat git diff --staged as the final content review for the proposed commit.",
+      "question": "After git add app.py, why might plain git diff be empty while git diff --staged shows a patch?",
+      "answer": "The change is in the index. Plain git diff compares working tree to index, while --staged compares index to HEAD."
+    },
+    "my": {
+      "title": "Git Staging Boundary နှစ်ဖက်လုံးကို စစ်ခြင်း",
+      "learning_objective": "git diff နဲ့ git diff --staged သုံးပြီး working tree ထဲကျန်တဲ့ edit နဲ့ နောက် commit အတွက် ပြင်ထားတဲ့ patch အတိအကျကို ခွဲနိုင်မယ်။",
+      "simple_explanation": "Diff ဆိုတာ version နှစ်ခုကို နှိုင်းတာပါ။ Git မှာ working tree နဲ့ index နှစ်ခုရှိလို့ 'ငါ့ change ပြပါ' ဆိုတာ comparison နှစ်မျိုး ဖြစ်နိုင်ပါတယ်။ ရိုးရိုး git diff က tracked file တွေရဲ့ မ stage ရသေးတဲ့ change ကိုပြပါတယ်။ git diff --staged က index ထဲက content နဲ့ လက်ရှိ checked-out commit ဖြစ်တဲ့ HEAD ကို နှိုင်းပြီး နောက် commit ထဲဝင်မယ့် patch ကိုပြပါတယ်။ နှစ်ခုလုံးက file နဲ့ staging ကို မပြောင်းပါဘူး။",
+      "how_it_works": "app.py ကိုပြင်၊ git add app.py လုပ်ပြီး ထပ်ပြင်ပါ။ နောက်မှပြင်ထားတဲ့ unstaged edit ကို git diff -- app.py နဲ့ကြည့်ပါ။ Index ထဲ အရင်ကူးထားတဲ့ content ကို git diff --staged -- app.py နဲ့ကြည့်ပါ။ -- က option နဲ့ revision အပိုင်းကို path မှ ခွဲပေးလို့ filename နဲ့ filter လုပ်ရာမှာ မရှုပ်စေပါဘူး။",
+      "visual": "HEAD\n  │ git diff --staged\n  ▼\nindex\n  │ git diff\n  ▼\nworking tree",
+      "use_case": "Developer က bug fix ကို commit လုပ်တော့မယ်။ ဒါပေမယ့် file တစ်ခုတည်းမှာ မဆိုင်တဲ့ logging change ကိုပါ စထားပါတယ်။ Diff နှစ်မျိုးကြည့်လိုက်ရင် commit ထဲဝင်မယ့် patch နဲ့ unstaged ကျန်မယ့် patch ကို ခွဲမြင်ရပါတယ်။",
+      "expected_result": "Staged diff က နောက် commit အတွက် ရွေးထားတဲ့ patch ကိုပြမယ်။ ရိုးရိုး diff က index အပြင်မှာ ကျန်နေသေးတဲ့ tracked edit ကိုပြမယ်။",
+      "what_to_notice": "File တစ်ခုက output နှစ်ခုလုံးမှာ ပါနိုင်ပါတယ်။ ထပ်ပြတာမဟုတ်ပါဘူး။ Command တစ်ခုစီက state အတွဲမတူတာကို နှိုင်းလို့ line မတူတာတွေကို ပြနိုင်ပါတယ်။",
+      "common_mistake": "Stage လုပ်ပြီးမှ git diff တစ်ခုတည်းကြည့်ရင် output မရှိနိုင်လို့ change မရှိဘူးလို့ မှားထင်တတ်ပါတယ်။ Patch အားလုံး index ထဲ ရောက်နေနိုင်ပါတယ်။",
+      "practical_tip": "Commit မလုပ်မီ git status --short နဲ့ diff command နှစ်ခုလုံးကို တွဲသုံးပါ။ git diff --staged ကို proposed commit ရဲ့ နောက်ဆုံး content review လို့ သဘောထားပါ။",
+      "question": "git add app.py ပြီးနောက် ရိုးရိုး git diff က ဘာမှမပြပေမယ့် git diff --staged က patch ပြတာ ဘာကြောင့်လဲ?",
+      "answer": "Change က index ထဲ ရွေ့သွားလို့ပါ။ ရိုးရိုး git diff က working tree နဲ့ index ကို နှိုင်းပြီး --staged က index နဲ့ HEAD ကို နှိုင်းပါတယ်။"
+    }
+  },
+  "tags": ["git", "diff", "staging", "commit-review"],
+  "status": "approved"
+}

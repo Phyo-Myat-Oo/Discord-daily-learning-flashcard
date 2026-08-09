@@ -1,0 +1,43 @@
+{
+  "id": "mlops-shadow-deployment-comparison-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 10,
+  "date": "2026-08-18",
+  "category": "ai-engineering",
+  "topic": "shadow-deployment-comparison",
+  "difficulty": "intermediate",
+  "example": "Mirror sampled production requests to a candidate, discard its decisions, and compare outputs and latency by release ID.",
+  "content": {
+    "en": {
+      "title": "Test a Candidate with Shadow Traffic",
+      "learning_objective": "Use shadow traffic to compare a candidate with the current model on real requests without letting candidate outputs affect users.",
+      "simple_explanation": "A shadow deployment sends a copy of selected production requests to a candidate service. The current service still supplies the user-facing decision; the candidate output is recorded only for comparison. This reveals behavior on realistic traffic while limiting decision risk. Because the candidate is outside the response path, shadowing can measure output differences and candidate processing time, but not the full user-visible latency of a future cutover.",
+      "how_it_works": "Copy a sampled request after applying the same input validation and privacy controls. Send one copy to current release `R17.1` and another asynchronously to candidate `R18.1`. Join results with a non-sensitive correlation ID. Compare error rate, latency, score distribution, and decision disagreement. Discard the candidate decision so it cannot trigger an action.",
+      "visual": "production request\n├──▶ current ──▶ user decision\n└──▶ candidate ──▶ compare only\n                    output discarded",
+      "use_case": "Before replacing a fraud model, shadow 5% of eligible requests. Inspect disagreements by safe operational slices and investigate unexpected candidate errors before a canary rollout.",
+      "expected_result": "Users continue receiving current-model decisions while the team obtains paired candidate and current results for the same sampled requests.",
+      "what_to_notice": "Paired traffic reduces differences caused by request mix. It still does not reveal how candidate decisions would change user behavior or future labels because those decisions are not acted upon.",
+      "common_mistake": "Accidentally wiring shadow output to a downstream action turns an observation test into a live decision rollout.",
+      "practical_tip": "Set sampling, timeout, cost, and data-retention limits; tag every result with the complete release IDs so comparisons remain reproducible.",
+      "question": "What does a shadow deployment compare, and what important effect can it not measure?",
+      "answer": "It compares current and candidate behavior on paired real requests, but cannot measure consequences of acting on candidate decisions."
+    },
+    "my": {
+      "title": "Shadow Traffic နဲ့ Candidate ကို စမ်းခြင်း",
+      "learning_objective": "Candidate output ကို user ဆီမသုံးဘဲ production request အစစ်များပေါ်မှာ လက်ရှိ model နဲ့ နှိုင်းယှဉ်နိုင်မယ်။",
+      "simple_explanation": "Shadow deployment ဆိုတာ ရွေးထားတဲ့ production request ကို candidate service ဆီ copy တစ်စောင် ထပ်ပို့တာပါ။ User အတွက် ဆုံးဖြတ်ချက်ကို လက်ရှိ service ကပဲ ပေးပါတယ်။ Candidate output ကို နှိုင်းဖို့သာ မှတ်ပြီး အသုံးမချပါဘူး။ ဒါကြောင့် request အစစ်တွေနဲ့ behavior ကို အန္တရာယ်နည်းနည်း စစ်နိုင်ပါတယ်။ Candidate က response path အပြင်မှာရှိလို့ output ကွာခြားမှုနဲ့ သူ့ processing time ကိုတိုင်းနိုင်ပေမယ့် cutover ပြီးရင် user မြင်ရမယ့် latency အပြည့်ကို မတိုင်းနိုင်ပါဘူး။",
+      "how_it_works": "တူညီတဲ့ input validation နဲ့ privacy control လုပ်ပြီးနောက် request အချို့ကို copy လုပ်ပါ။ Copy တစ်ခုကို current release `R17.1` ဆီပို့ပြီး နောက်တစ်ခုကို candidate `R18.1` ဆီ asynchronous ပို့ပါ။ Sensitive data မပါတဲ့ correlation ID နဲ့ result နှစ်ခုကို ချိတ်ပါ။ Error rate၊ latency၊ score distribution နဲ့ decision မတူမှုကို နှိုင်းပါ။ Candidate decision ကို action မလုပ်ဘဲ ပယ်ပါ။",
+      "visual": "production request\n├──▶ current ──▶ user decision\n└──▶ candidate ──▶ နှိုင်းရုံ\n                    output ပယ်",
+      "use_case": "Fraud model အသစ်မတင်မီ သင့်တော်တဲ့ request 5% ကို shadow လုပ်ပါ။ လုံခြုံတဲ့ operational slice အလိုက် decision မတူတာကို စစ်ပြီး candidate error မမျှော်လင့်ဘဲ တက်လာရင် canary မစမီ ရှာပါ။",
+      "expected_result": "User တွေက current model ဆုံးဖြတ်ချက်ကိုပဲ ရမယ်။ Team ကတော့ sampled request တစ်ခုစီအတွက် current နဲ့ candidate result အတွဲကို ရမယ်။",
+      "what_to_notice": "Request တူတစ်ခုကို နှစ်ခုလုံးစမ်းလို့ traffic mix ကြောင့်ဖြစ်တဲ့ ကွာခြားမှု လျော့ပါတယ်။ Candidate decision ကို တကယ်မသုံးတဲ့အတွက် user behavior နဲ့ future label ဘယ်လိုပြောင်းမလဲကိုတော့ မသိနိုင်ပါဘူး။",
+      "common_mistake": "Shadow output ကို downstream action နဲ့ မတော်တဆချိတ်မိရင် စောင့်ကြည့်စမ်းသပ်မှု မဟုတ်တော့ဘဲ live rollout ဖြစ်သွားပါတယ်။",
+      "practical_tip": "Sampling၊ timeout၊ cost နဲ့ data-retention limit ထားပါ။ Result တိုင်းမှာ release ID အပြည့်အစုံ ထည့်ပြီး နောက်မှ ပြန်နှိုင်းနိုင်အောင်လုပ်ပါ။",
+      "question": "Shadow deployment က ဘာကိုနှိုင်းနိုင်ပြီး ဘယ်အရေးကြီးတဲ့ သက်ရောက်မှုကို မတိုင်းနိုင်သလဲ?",
+      "answer": "Request အစစ်တူတစ်ခုအပေါ် current နဲ့ candidate behavior ကို နှိုင်းနိုင်ပေမယ့် candidate decision ကို တကယ်အသုံးချရာမှ ဖြစ်လာမယ့် အကျိုးဆက်ကို မတိုင်းနိုင်ပါဘူး။"
+    }
+  },
+  "tags": ["ai-engineering", "shadow-deployment", "release-validation"],
+  "status": "approved"
+}

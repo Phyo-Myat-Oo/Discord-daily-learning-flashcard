@@ -1,0 +1,43 @@
+{
+  "id": "mlops-training-serving-feature-parity-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 6,
+  "date": "2026-08-14",
+  "category": "ai-engineering",
+  "topic": "training-serving-feature-parity",
+  "difficulty": "intermediate",
+  "example": "Compare one raw request processed by the training and serving feature code before deployment.",
+  "content": {
+    "en": {
+      "title": "Verify Training-Serving Feature Parity",
+      "learning_objective": "Detect training-serving skew by comparing feature values and definitions produced from the same raw example in both paths.",
+      "simple_explanation": "A feature is a value supplied to a model. Training-serving skew occurs when training and production compute that value differently. A model may pass offline evaluation yet fail after deployment because it receives values with different units, defaults, time windows, or category mappings. Matching feature names is not enough; the definitions and transformations must produce equivalent values from equivalent raw inputs.",
+      "how_it_works": "Choose a fixed raw example and timestamp. Run it through the training feature pipeline and the serving pipeline. Compare names, types, values, and ordering. For a `purchases_7d` feature, both paths must use the same seven-day boundary and event-time rules. Reusing versioned transformation code reduces divergence, while parity tests expose it before release.",
+      "visual": "same raw event + fixed time\n       ├──▶ training features\n       └──▶ serving features\n             │ compare values\n             └──▶ equal or investigate",
+      "use_case": "An offline fraud model uses purchase amounts in dollars, but the API sends cents. Feed one recorded, non-sensitive request to both transformations and compare the resulting vector before deploying.",
+      "expected_result": "Both paths produce the same feature schema and equivalent values for the fixture; a dollars-versus-cents mismatch fails the parity test before the model is promoted.",
+      "what_to_notice": "A healthy API and valid numeric types will not reveal a unit mismatch. Comparing outputs from the same raw input tests the semantic contract the model actually depends on.",
+      "common_mistake": "Checking only column names or duplicating feature logic in two codebases allows subtle differences in defaults, windows, and units to survive.",
+      "practical_tip": "Keep versioned feature definitions and add golden fixtures with fixed timestamps to CI; compare with an explicit tolerance only for genuine floating-point variation.",
+      "question": "What should a training-serving parity test compare for the same raw example?",
+      "answer": "It should compare feature names, types, ordering, and values produced under the same definitions and time context."
+    },
+    "my": {
+      "title": "Training နဲ့ Serving Feature တူညီမှုကို စစ်ခြင်း",
+      "learning_objective": "Raw example တစ်ခုတည်းမှ training နဲ့ serving path နှစ်ခုထုတ်တဲ့ feature definition နဲ့ value ကို နှိုင်းပြီး training-serving skew ကို ရှာနိုင်မယ်။",
+      "simple_explanation": "Feature ဆိုတာ model ထဲထည့်ပေးတဲ့ တန်ဖိုးပါ။ Training-serving skew ဆိုတာ training အချိန်နဲ့ production အချိန်မှာ အဲဒီတန်ဖိုးကို တွက်ပုံ မတူခြင်းဖြစ်ပါတယ်။ Offline evaluation ကောင်းပေမယ့် unit၊ default၊ time window သို့မဟုတ် category mapping မတူရင် deployment ပြီးနောက် မှားနိုင်ပါတယ်။ Feature name တူရုံ မလုံလောက်ပါဘူး။ Raw input တူရင် definition နဲ့ transformation က တန်ဖိုးတူထုတ်ရပါမယ်။",
+      "how_it_works": "Raw example နဲ့ timestamp တစ်ခုကို အသေထားပါ။ Training feature pipeline နဲ့ serving pipeline နှစ်ခုလုံးမှာ run ပါ။ Name၊ type၊ value နဲ့ order ကို နှိုင်းပါ။ `purchases_7d` ဆိုရင် ခုနစ်ရက် boundary နဲ့ event-time rule တူရပါမယ်။ Version ထားတဲ့ transformation code ကို ပြန်သုံးရင် ကွာခြားမှု လျော့ပြီး parity test က release မတိုင်မီ အမှားဖမ်းပေးပါတယ်။",
+      "visual": "raw event တူ + time အသေ\n       ├──▶ training features\n       └──▶ serving features\n             │ value နှိုင်း\n             └──▶ တူ / စစ်ဆေး",
+      "use_case": "Offline fraud model က amount ကို dollars နဲ့သုံးပေမယ့် API က cents ပို့တယ်ဆိုပါစို့။ Deploy မလုပ်မီ sensitive data မပါတဲ့ recorded request တစ်ခုကို path နှစ်ခုလုံးထဲထည့်ပြီး vector ကို နှိုင်းပါ။",
+      "expected_result": "Fixture တစ်ခုအတွက် path နှစ်ခုက feature schema တူပြီး value တူထုတ်ရမယ်။ Dollars နဲ့ cents ကွာခြားမှုရှိရင် model promote မလုပ်မီ test ကျမယ်။",
+      "what_to_notice": "API က ကောင်းကောင်း run နေပြီး numeric type မှန်နေလည်း unit မှားတာ မပေါ်နိုင်ပါဘူး။ Raw input တူတာမှ output နှိုင်းခြင်းက model မှီခိုတဲ့ အဓိပ္ပာယ်ဆိုင်ရာ contract ကို တိုက်ရိုက်စစ်တာပါ။",
+      "common_mistake": "Column name ပဲစစ်တာ သို့မဟုတ် feature logic ကို codebase နှစ်ခုမှာ သီးခြားရေးတာက default၊ window နဲ့ unit ကွာခြားမှုကို လွတ်စေပါတယ်။",
+      "practical_tip": "Feature definition ကို version ထားပါ။ Timestamp အသေပါတဲ့ golden fixture ကို CI ထဲထည့်ပါ။ Floating-point ကြောင့်သာ ကွာနိုင်တဲ့နေရာမှာ ရည်ရွယ်ချက်ရှိတဲ့ tolerance သုံးပါ။",
+      "question": "Raw example တစ်ခုတည်းအတွက် training-serving parity test က ဘာတွေကို နှိုင်းရမလဲ?",
+      "answer": "Definition နဲ့ time context တူအောင်ထားပြီး feature name၊ type၊ order နဲ့ ထွက်လာတဲ့ value ကို နှိုင်းရပါမယ်။"
+    }
+  },
+  "tags": ["feature-engineering", "training-serving-skew", "testing"],
+  "status": "approved"
+}

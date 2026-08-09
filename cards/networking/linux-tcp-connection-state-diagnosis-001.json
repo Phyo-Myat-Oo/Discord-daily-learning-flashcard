@@ -1,0 +1,44 @@
+{
+  "id": "linux-tcp-connection-state-diagnosis-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 14,
+  "date": "2026-08-22",
+  "category": "networking",
+  "topic": "tcp-connection-state-diagnosis",
+  "difficulty": "intermediate",
+  "command": "ss -tan state syn-sent",
+  "example": "ss -tan state syn-sent '( dport = :443 )'",
+  "content": {
+    "en": {
+      "title": "Use TCP State to Locate a Stalled Connection",
+      "learning_objective": "Interpret `SYN-SENT`, `ESTAB`, and immediate refusal as different stages of a TCP connection attempt before changing firewall or service settings.",
+      "simple_explanation": "A TCP client starts by sending a SYN packet and waiting for a reply. While waiting, its socket is `SYN-SENT`. After the handshake completes, the state becomes `ESTAB`. If the destination actively rejects the attempt, the client usually receives an immediate connection-refused error and the temporary socket may disappear quickly. These outcomes point to different investigation layers, although no state alone proves one exact cause.",
+      "how_it_works": "Start one connection attempt to a known destination in another terminal, then run `ss -tan state syn-sent '( dport = :443 )'`. `-t` selects TCP, `-a` includes all sockets, and `-n` avoids name lookup. A persistent matching row means the handshake is still waiting. Compare with `ss -tan state established` after a successful connection. The filter observes local sockets; it does not capture packets.",
+      "visual": "client sends SYN\n   ├─ waits ──▶ SYN-SENT\n   ├─ reply ──▶ ESTAB\n   └─ reject ─▶ refused",
+      "use_case": "HTTPS to one address hangs while another address fails immediately. Observing the socket state helps separate an unanswered handshake from an actively rejected connection before inspecting packet filters or the remote listener.",
+      "expected_result": "A waiting attempt appears as a `SYN-SENT` row with local and peer endpoints; a completed handshake appears under `ESTAB`, while a quick refusal may leave no lasting row.",
+      "what_to_notice": "`SYN-SENT` proves the local TCP handshake has not completed. It does not reveal whether loss occurs locally, in transit, or at the destination, so route and packet evidence may still be needed.",
+      "common_mistake": "Treating every timeout as proof of a local firewall can lead to unsafe rule changes. Remote filtering, routing, address selection, or packet loss can produce the same visible wait.",
+      "practical_tip": "Record the exact peer IP and port, confirm the selected route, and observe the state while the attempt is active before escalating to packet capture.",
+      "question": "What can a persistent `SYN-SENT` state tell you about a TCP connection attempt?",
+      "answer": "The client sent or is retrying the opening handshake but has not completed it; the state alone cannot locate where the reply was lost."
+    },
+    "my": {
+      "title": "TCP State ဖြင့် Connection ရပ်နေသည့်အဆင့်ကို စစ်ခြင်း",
+      "learning_objective": "Firewall သို့မဟုတ် service setting မပြင်မီ `SYN-SENT`၊ `ESTAB` နဲ့ ချက်ချင်း refusal ကို TCP ချိတ်ဆက်မှုအဆင့်မတူကြောင်း ခွဲဖတ်နိုင်မယ်။",
+      "simple_explanation": "TCP client က SYN packet ပို့ပြီး reply စောင့်ကာ connection စပါတယ်။ စောင့်နေချိန် socket state က `SYN-SENT` ဖြစ်ပါတယ်။ Handshake ပြီးရင် `ESTAB` ဖြစ်သွားတယ်။ Destination က ချက်ချင်းငြင်းရင် client မှာ connection-refused error မြန်မြန်ပေါ်ပြီး ခဏပေါ်တဲ့ socket က ပျောက်သွားနိုင်ပါတယ်။ Outcome မတူတာက ဆက်စစ်ရမယ့်အဆင့်ကို ညွှန်ပေမယ့် state တစ်ခုတည်းနဲ့ cause အတိအကျ မဆုံးဖြတ်နိုင်ပါဘူး။",
+      "how_it_works": "အခြား terminal မှာ သိထားတဲ့ destination ဆီ connection တစ်ခုစမ်းထားပြီး `ss -tan state syn-sent '( dport = :443 )'` run ပါ။ `-t` က TCP၊ `-a` က socket အားလုံး၊ `-n` က name lookup မလုပ်ဘဲ number အတိုင်း ပြခိုင်းတာပါ။ Matching row ကြာကြာရှိရင် handshake စောင့်နေပါတယ်။ Connection အောင်မြင်ရင် `ss -tan state established` နဲ့ နှိုင်းပါ။ ဒီ filter က local socket ကို ကြည့်တာဖြစ်ပြီး packet capture မဟုတ်ပါဘူး။",
+      "visual": "client က SYN ပို့\n   ├─ စောင့် ──▶ SYN-SENT\n   ├─ reply ──▶ ESTAB\n   └─ ငြင်း ──▶ refused",
+      "use_case": "Address တစ်ခုဆီ HTTPS ချိတ်ရင် ကြာကြာရပ်နေပြီး နောက်တစ်ခုက ချက်ချင်း fail တယ်။ Packet filter သို့မဟုတ် remote listener မစစ်မီ socket state က reply မရတဲ့ handshake နဲ့ တမင်ငြင်းတဲ့ connection ကို ခွဲပေးနိုင်ပါတယ်။",
+      "expected_result": "စောင့်နေတဲ့ attempt က local နဲ့ peer endpoint ပါသော `SYN-SENT` row အဖြစ် ပေါ်မယ်။ Handshake ပြီးရင် `ESTAB` မှာ ပေါ်ပြီး ချက်ချင်း refusal ဆို row ကြာကြာမကျန်နိုင်ပါဘူး။",
+      "what_to_notice": "`SYN-SENT` က local TCP handshake မပြီးသေးတာကို ပြပါတယ်။ Packet က local host၊ လမ်းကြောင်း သို့မဟုတ် destination ဘယ်နေရာမှာ ပျောက်သလဲ မပြလို့ route နဲ့ packet evidence ဆက်လိုနိုင်ပါတယ်။",
+      "common_mistake": "Timeout တိုင်းကို local firewall ကြောင့်လို့ ယူဆပြီး rule ပြင်တာ အန္တရာယ်ရှိပါတယ်။ Remote filtering၊ routing၊ address selection သို့မဟုတ် packet loss ကလည်း အတူတူ စောင့်နေရတဲ့ပုံစံ ဖြစ်စေနိုင်ပါတယ်။",
+      "practical_tip": "Peer IP နဲ့ port အတိအကျမှတ်ပါ။ ရွေးထားတဲ့ route ကို စစ်ပြီး attempt အသက်ဝင်နေချိန် state ကို ကြည့်ပြီးမှ packet capture အဆင့်ကို ဆက်သွားပါ။",
+      "question": "ကြာကြာရှိနေတဲ့ `SYN-SENT` state က TCP connection attempt အကြောင်း ဘာပြနိုင်သလဲ?",
+      "answer": "Client က အဖွင့် handshake ကို ပို့ထားသော်လည်း မပြီးသေးတာ ပြပါတယ်။ Reply ဘယ်နေရာမှာ ပျောက်သလဲကို state တစ်ခုတည်းနဲ့ မသိနိုင်ပါဘူး။"
+    }
+  },
+  "tags": ["tcp", "sockets", "troubleshooting"],
+  "status": "approved"
+}

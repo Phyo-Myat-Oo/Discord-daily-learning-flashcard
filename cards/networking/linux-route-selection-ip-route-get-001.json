@@ -1,0 +1,44 @@
+{
+  "id": "linux-route-selection-ip-route-get-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 12,
+  "date": "2026-08-20",
+  "category": "networking",
+  "topic": "kernel-route-selection-ip-route-get",
+  "difficulty": "intermediate",
+  "command": "ip route get 203.0.113.10",
+  "example": "ip route get 203.0.113.10",
+  "content": {
+    "en": {
+      "title": "Ask the Kernel Which Route It Would Use",
+      "learning_objective": "Use `ip route get` to predict the gateway, interface, and source address Linux selects for one destination without sending a packet.",
+      "simple_explanation": "After a name resolves to an IP address, Linux must choose how to reach that destination. A route maps a destination prefix to an outgoing interface and sometimes a gateway. The kernel prefers the most specific matching prefix, then applies routing policy and metrics where relevant. Reading the whole route table yourself can miss those interactions. `ip route get` asks for the resolved decision for one destination.",
+      "how_it_works": "Run `ip route get 203.0.113.10`. The command performs a route lookup but does not send a probe packet. Typical output names the destination, `via` gateway, `dev` interface, and `src` address. If an application binds a source address, add `from SOURCE_IP` because policy routing may then choose differently.",
+      "visual": "destination IP\n      ▼ route lookup\nmost specific rule\n      ▼\ngateway + dev + src",
+      "use_case": "A multihomed server can resolve an API hostname, but connections leave through the backup network with the wrong source address. Query the resolved IP to verify the kernel's selected path before changing routes.",
+      "expected_result": "The output shows the selected interface and source address, plus a gateway when the destination is reached through one; an unreachable decision returns an error.",
+      "what_to_notice": "This is a local routing decision, not proof that the gateway or remote host responds. It separates path selection from later failures such as filtering or service refusal.",
+      "common_mistake": "Looking only at the default route can be misleading because a more specific route or a policy rule may win for this destination and source.",
+      "practical_tip": "Resolve the exact hostname first, test each returned IP separately, and record the lookup output before making any routing change.",
+      "question": "What does `ip route get DESTINATION` prove, and what does it not prove?",
+      "answer": "It shows the kernel's selected local route; it does not prove that packets traverse the path or that the remote service responds."
+    },
+    "my": {
+      "title": "Kernel ရွေးမည့် Route ကို တိုက်ရိုက်မေးခြင်း",
+      "learning_objective": "Packet မပို့ဘဲ destination တစ်ခုအတွက် Linux ရွေးမည့် gateway၊ interface နဲ့ source address ကို `ip route get` ဖြင့် ခန့်မှန်းနိုင်မယ်။",
+      "simple_explanation": "Hostname က IP address ဖြစ်သွားပြီးနောက် Linux က အဲဒီ destination ဆီ ဘယ်လမ်းကသွားမလဲ ရွေးရပါတယ်။ Route ဆိုတာ destination prefix ကို ထွက်မယ့် interface နဲ့ လိုအပ်ရင် gateway တစ်ခုဆီ ချိတ်ပေးတဲ့ စည်းမျဉ်းပါ။ Kernel က ပိုတိကျတဲ့ prefix ကို ဦးစားပေးပြီး routing policy နဲ့ metric ကိုလည်း ထည့်တွက်ပါတယ်။ Route table အပြည့်ကို ကိုယ်တိုင်ကြည့်ရုံနဲ့ အပြန်အလှန်သက်ရောက်မှုတွေ လွတ်နိုင်လို့ `ip route get` နဲ့ destination တစ်ခုအတွက် ဆုံးဖြတ်ချက်ကို မေးနိုင်ပါတယ်။",
+      "how_it_works": "`ip route get 203.0.113.10` run ပါ။ ဒီ command က route lookup လုပ်ပေမယ့် probe packet မပို့ပါဘူး။ ပုံမှန် output မှာ destination၊ `via` gateway၊ `dev` interface နဲ့ `src` address ပါတတ်ပါတယ်။ Application က source address သတ်မှတ်ထားရင် policy routing ကြောင့် လမ်းမတူနိုင်လို့ `from SOURCE_IP` ထည့်စစ်ပါ။",
+      "visual": "destination IP\n      ▼ route lookup\nအတိကျဆုံး rule\n      ▼\ngateway + dev + src",
+      "use_case": "Network interface နှစ်ခုရှိတဲ့ server က API hostname ကို resolve လုပ်နိုင်ပေမယ့် connection က source address မှားပြီး backup network က ထွက်နေတယ်။ Route မပြင်မီ resolved IP အတွက် kernel ရွေးတဲ့လမ်းကို စစ်ပါ။",
+      "expected_result": "ရွေးထားတဲ့ interface၊ source address နဲ့ gateway လိုရင် gateway ကို output မှာ တွေ့မယ်။ သွားလို့မရတဲ့ route ဆုံးဖြတ်ချက်ဆို error ပြမယ်။",
+      "what_to_notice": "ဒါက local routing ဆုံးဖြတ်ချက်ကိုသာ ပြတာပါ။ Gateway သို့မဟုတ် remote host ပြန်ဖြေတယ်လို့ မသက်သေပြပါဘူး။ Path ရွေးတာနဲ့ filtering သို့မဟုတ် service refusal ကို ခွဲစစ်နိုင်စေပါတယ်။",
+      "common_mistake": "Default route တစ်ခုတည်းကြည့်ရင် ဒီ destination အတွက် ပိုတိကျတဲ့ route သို့မဟုတ် policy rule အနိုင်ရတာကို လွတ်နိုင်ပါတယ်။",
+      "practical_tip": "Hostname အတိအကျကို အရင် resolve လုပ်ပြီး ရလာတဲ့ IP တစ်ခုစီကို သီးခြားစစ်ပါ။ Route မပြောင်းမီ lookup output ကို မှတ်ထားပါ။",
+      "question": "`ip route get DESTINATION` က ဘာကို သက်သေပြပြီး ဘာကို မသက်သေပြနိုင်သလဲ?",
+      "answer": "Kernel ရွေးတဲ့ local route ကို ပြနိုင်ပေမယ့် packet တကယ်ရောက်တာနဲ့ remote service ပြန်ဖြေတာကို မသက်သေပြနိုင်ပါဘူး။"
+    }
+  },
+  "tags": ["routing", "iproute2", "troubleshooting"],
+  "status": "approved"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "dev-python-exception-chaining-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 9,
+  "date": "2026-08-17",
+  "category": "python",
+  "topic": "explicit-exception-chaining",
+  "difficulty": "intermediate",
+  "command": "python exception_demo.py",
+  "example": "try: int(value)\nexcept ValueError as exc: raise ConfigError('PORT must be an integer') from exc",
+  "content": {
+    "en": {
+      "title": "Preserve the Cause When Translating Exceptions",
+      "learning_objective": "Use raise NewError(...) from exc to add domain context while preserving the original Python exception as the explicit cause.",
+      "simple_explanation": "Low-level exceptions often describe syntax or I/O, while callers need an error from their own domain. Exception chaining links both views. You raise a clearer exception and retain the caught exception as its cause. The traceback then explains what failed underneath and what that failure means to the application.",
+      "how_it_works": "Set value = 'eight'. int(value) raises ValueError. Catch it as exc, then run raise ConfigError('PORT must be an integer') from exc. Python stores exc in the new exception's __cause__ and prints both tracebacks in causal order. The program still fails unless a caller handles ConfigError.",
+      "visual": "int('eight')\n  │ raises ValueError\n  ▼\nraise ConfigError(...) from exc\n  ▼\ntraceback shows both causes",
+      "use_case": "A configuration loader converts text into a port number. It exposes ConfigError to the application while retaining the conversion failure needed for debugging.",
+      "expected_result": "Running the example shows the original ValueError followed by ConfigError, joined by text saying the second exception was the direct cause of the first.",
+      "what_to_notice": "The outer exception explains the application's rule, while the cause preserves the exact failed operation. Callers can catch ConfigError without losing diagnostic evidence.",
+      "common_mistake": "Raising only ConfigError discards an explicit causal link. Logging the caught exception and continuing can also let invalid state travel farther from its source.",
+      "practical_tip": "Translate an exception only at a meaningful abstraction boundary, and catch the narrow exception type you actually expect.",
+      "question": "What does raise ConfigError(...) from exc add compared with raising ConfigError alone?",
+      "answer": "It records exc as the explicit cause, so the traceback preserves the low-level failure and the higher-level meaning."
+    },
+    "my": {
+      "title": "Exception ပြောင်းပေးချိန်မှာ မူလအကြောင်းရင်းကို ထိန်းထားခြင်း",
+      "learning_objective": "raise NewError(...) from exc ကိုသုံးပြီး domain အဓိပ္ပာယ် ထည့်ပေးသလို မူလ Python exception ကို cause အဖြစ် မပျောက်အောင် ထိန်းနိုင်မယ်။",
+      "simple_explanation": "အောက်ခြေအဆင့် exception က စာသားပြောင်းမရတာ၊ file ဖတ်မရတာလို နည်းပညာပိုင်းကို ပြောတတ်ပါတယ်။ Caller ကတော့ ကိုယ့် application အတွက် ဘာမှားသလဲ သိချင်ပါတယ်။ Exception chaining က အဓိပ္ပာယ်ရှင်းတဲ့ exception အသစ်နဲ့ မူလအမှားကို ချိတ်ပေးတာပါ။ Traceback ထဲမှာ အောက်ခြေပြဿနာနဲ့ application အဓိပ္ပာယ် နှစ်ခုလုံး တွေ့ရပါတယ်။",
+      "how_it_works": "value = 'eight' ဆိုရင် int(value) က ValueError ပစ်ပါတယ်။ အဲဒါကို exc အဖြစ်ဖမ်းပြီး raise ConfigError('PORT must be an integer') from exc လုပ်ပါ။ Python က exc ကို exception အသစ်ရဲ့ __cause__ ထဲ သိမ်းပြီး traceback နှစ်ခုကို အကြောင်းရင်းအစဉ်နဲ့ ပြပါတယ်။ Caller က ConfigError ကို မဖမ်းရင် program က ရပ်နေတုန်းပါပဲ။",
+      "visual": "int('eight')\n  │ ValueError ဖြစ်\n  ▼\nraise ConfigError(...) from exc\n  ▼\ntraceback မှာ cause နှစ်ခုမြင်",
+      "use_case": "Configuration loader က port စာသားကို number ပြောင်းပါတယ်။ Application ဘက်ကို ConfigError ပေးပြီး debug လုပ်ရန် conversion failure ကိုပါ ထိန်းထားပါတယ်။",
+      "expected_result": "Example ကို run ရင် မူလ ValueError အရင်ပေါ်ပြီး နောက်မှာ ConfigError ပေါ်မယ်။ နှစ်ခုကို direct cause ဖြစ်ကြောင်း စာသားနဲ့ ဆက်ပြမယ်။",
+      "what_to_notice": "အပြင်ဘက် exception က application rule ကိုရှင်းပြပြီး cause က ဘယ် operation ပျက်သလဲ ထိန်းထားပါတယ်။ Caller က ConfigError ကိုဖမ်းနိုင်ပေမယ့် debug အထောက်အထား မပျောက်ပါဘူး။",
+      "common_mistake": "ConfigError တစ်ခုတည်း ပြန်ပစ်ရင် cause ကို တိတိကျကျ မချိတ်ထားနိုင်ပါဘူး။ မူလ exception ကို log လုပ်ပြီး ဆက်သွားတာကလည်း မှားနေတဲ့ state ကို ပိုဝေးရာ သယ်သွားနိုင်ပါတယ်။",
+      "practical_tip": "အဓိပ္ပာယ်ရှိတဲ့ abstraction boundary ရောက်မှ exception ပြောင်းပါ။ မျှော်လင့်ထားတဲ့ exception type အတိအကျကိုသာ ဖမ်းပါ။",
+      "question": "raise ConfigError(...) from exc က ConfigError တစ်ခုတည်း ပစ်တာထက် ဘာထပ်ပေးသလဲ?",
+      "answer": "exc ကို တိကျတဲ့ cause အဖြစ် သိမ်းလို့ traceback မှာ အောက်ခြေအမှားနဲ့ အပေါ်အဆင့်အဓိပ္ပာယ် နှစ်ခုလုံး ကျန်ပါတယ်။"
+    }
+  },
+  "tags": ["python", "exceptions", "traceback", "debugging"],
+  "status": "approved"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "ai-probability-calibration-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 11,
+  "date": "2026-08-19",
+  "category": "ai",
+  "topic": "probability-calibration",
+  "difficulty": "intermediate",
+  "example": "Check whether cases scored near 0.8 are positive about 80% of the time on held-out data.",
+  "content": {
+    "en": {
+      "title": "Check Whether Scores Behave Like Probabilities",
+      "learning_objective": "Assess probability calibration on held-out data by comparing groups of predicted probabilities with their observed positive rates.",
+      "simple_explanation": "A model can rank risky cases well without producing trustworthy probabilities. Calibration describes agreement between a predicted probability and the observed frequency: among many similar cases scored near `0.8`, about 80% should be positive. This matters when a score drives expected cost, staffing, or risk communication rather than only ordering cases.",
+      "how_it_works": "On validation data, group predictions into probability ranges such as `0.7–0.8`. For each group, compare the mean predicted probability with the fraction actually positive. A reliability table or plot exposes systematic overconfidence or underconfidence. If calibration is fitted, train that calibrator only on development data, then evaluate the complete pipeline on test data.",
+      "visual": "predicted near 0.8\n        │\n        ▼ compare\nobserved positive rate near 80%\n        └─▶ calibrated",
+      "use_case": "A support team estimates staffing from expected escalations. In 100 held-out tickets scored near `0.8`, only 50 escalate. The ranking may still help prioritize work, but treating those scores as probabilities would overstate expected demand.",
+      "expected_result": "The calibration check shows whether predicted and observed rates align across useful score ranges. Large stable gaps identify scores that should not yet be interpreted literally as probabilities.",
+      "what_to_notice": "Calibration and discrimination answer different questions. A model can order positives above negatives effectively while every score is too high; good ranking does not prove probability accuracy.",
+      "common_mistake": "Checking calibration on the same rows used to fit the model or calibrator gives an optimistic picture. Tiny groups also create noisy observed rates that look meaningful by chance.",
+      "practical_tip": "Report the number of examples in every probability group and use representative held-out data. Recheck calibration when the population or positive rate changes.",
+      "question": "What would support interpreting scores near `0.8` as calibrated probabilities?",
+      "answer": "On representative held-out data, roughly 80% of many cases receiving scores near `0.8` should be positive."
+    },
+    "my": {
+      "title": "Score က Probability လို အဓိပ္ပာယ်ရှိမရှိ စစ်ခြင်း",
+      "learning_objective": "Held-out data ပေါ် predicted probability အုပ်စုနဲ့ တကယ်တွေ့ရတဲ့ positive rate ကို နှိုင်းပြီး probability calibration ကို စစ်နိုင်မယ်။",
+      "simple_explanation": "Model က risk အမြင့်အနိမ့်ကို ကောင်းကောင်းစီနိုင်ပေမယ့် ယုံကြည်ရတဲ့ probability မထုတ်နိုင်တာ ရှိပါတယ်။ Calibration ဆိုတာ predicted probability နဲ့ လက်တွေ့ဖြစ်ပွားနှုန်း ကိုက်ညီခြင်းပါ။ `0.8` အနီး score ရတဲ့ ဆင်တူ case အများကြီးထဲ 80% လောက် positive ဖြစ်သင့်ပါတယ်။ Score ကို အစီအစဉ်တင်ဖို့သာမဟုတ်ဘဲ expected cost၊ staffing သို့မဟုတ် risk ပြောဖို့သုံးရင် ဒီကိုက်ညီမှု အရေးကြီးပါတယ်။",
+      "how_it_works": "Validation data မှ prediction တွေကို `0.7–0.8` လို probability range အလိုက် အုပ်စုခွဲပါ။ အုပ်စုတစ်ခုစီရဲ့ mean predicted probability နဲ့ actual positive အချိုးကို နှိုင်းပါ။ Reliability table သို့မဟုတ် plot က အမြဲတမ်း ယုံကြည်မှုလွန်တာ၊ လျော့တာကို ပြပါတယ်။ Calibrator fit လုပ်ရင် development data ပေါ်သာ fit ပြီး complete pipeline ကို test ပေါ် evaluate လုပ်ပါ။",
+      "visual": "predicted 0.8 အနီး\n        │\n        ▼ နှိုင်း\nactual positive 80% အနီး\n        └─▶ calibrated",
+      "use_case": "Support team က expected escalation နဲ့ လူအင်အားစီစဉ်ပါတယ်။ Held-out ticket 100 ခုကို `0.8` အနီး score ပေးထားပေမယ့် 50 ခုပဲ escalate ဖြစ်ရင် ranking က အသုံးဝင်နိုင်သေးတယ်။ ဒါပေမယ့် score ကို probability အဖြစ်ယူရင် လိုအပ်မယ့်လူအင်အားကို ပိုတွက်မိပါမယ်။",
+      "expected_result": "Calibration စစ်ချက်က အသုံးဝင်တဲ့ score range တစ်ခုစီမှာ predicted rate နဲ့ observed rate ကိုက်မကိုက် ပြပါတယ်။ တည်ငြိမ်စွာ ကွာဟနေရင် အဲဒီ score ကို probability အဖြစ် တိုက်ရိုက်မဖတ်သင့်သေးပါဘူး။",
+      "what_to_notice": "Calibration နဲ့ discrimination က မေးခွန်းမတူပါဘူး။ Model က positive ကို negative ထက် အပေါ်ကောင်းကောင်းစီနိုင်ပေမယ့် score အားလုံး မြင့်လွန်းနိုင်ပါတယ်။ Ranking ကောင်းတာနဲ့ probability မှန်တယ်လို့ မဆိုနိုင်ပါဘူး။",
+      "common_mistake": "Model သို့မဟုတ် calibrator fit လုပ်ထားတဲ့ row တွေပေါ် ပြန်စစ်ရင် အမှန်ထက်ကောင်းမြင်ရပါတယ်။ အုပ်စုအလွန်သေးရင်လည်း chance ကြောင့် observed rate လှုပ်ရှားပြီး အဓိပ္ပာယ်ရှိသလို ထင်စေပါတယ်။",
+      "practical_tip": "Probability အုပ်စုတိုင်းမှာ example ဘယ်နှခုပါသလဲ report လုပ်ပြီး representative held-out data သုံးပါ။ Population သို့မဟုတ် positive rate ပြောင်းရင် calibration ပြန်စစ်ပါ။",
+      "question": "`0.8` အနီး score ကို calibrated probability လို့ယူနိုင်ဖို့ ဘယ် evidence လိုသလဲ?",
+      "answer": "Representative held-out data မှာ `0.8` အနီး score ရတဲ့ case အများကြီးထဲ 80% လောက် တကယ် positive ဖြစ်ရပါမယ်။"
+    }
+  },
+  "tags": ["probability", "calibration", "evaluation"],
+  "status": "approved"
+}

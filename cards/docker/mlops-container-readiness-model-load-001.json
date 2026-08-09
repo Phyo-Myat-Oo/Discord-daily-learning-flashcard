@@ -1,0 +1,44 @@
+{
+  "id": "mlops-container-readiness-model-load-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 11,
+  "date": "2026-08-19",
+  "category": "docker",
+  "topic": "container-readiness-after-model-load",
+  "difficulty": "intermediate",
+  "command": "docker inspect --format '{{json .State.Health}}' MODEL_CONTAINER",
+  "example": "Inspect container health while a model loads, then confirm readiness changes only after a local test inference succeeds.",
+  "content": {
+    "en": {
+      "title": "Mark an Inference Container Ready Only After Model Load",
+      "learning_objective": "Distinguish a running process from a ready inference service by inspecting health before and after model loading completes.",
+      "simple_explanation": "A container can be running while its inference service is still loading a large model or has failed to initialize it. Readiness means the service can accept useful prediction traffic now. A health check should therefore test a lightweight local readiness endpoint that stays unsuccessful until required artifacts are loaded and a minimal internal inference path works. Process existence alone proves only that the process has not exited.",
+      "how_it_works": "Start the container and inspect `docker inspect --format '{{json .State.Health}}' MODEL_CONTAINER`. During model loading, `/ready` returns a non-success status. After checksum verification, model initialization, and a tiny non-sensitive test inference succeed, it returns success. The traffic router should send requests only to instances whose readiness is successful.",
+      "visual": "process starts ──▶ running\nmodel loads ──▶ not ready\ntest inference passes\n      └──▶ ready ──▶ receive traffic",
+      "use_case": "A new model takes 40 seconds to load. Keep the container out of rotation during that interval instead of allowing early requests to fail or time out.",
+      "expected_result": "Health remains unsuccessful while initialization is incomplete, then becomes successful only when the container can execute its required inference path.",
+      "what_to_notice": "Readiness protects traffic during startup; it does not prove prediction quality on real data. A separate liveness policy may decide whether a stuck process should be restarted.",
+      "common_mistake": "Returning success as soon as the HTTP port opens sends traffic before the model, tokenizer, or other required artifact is usable.",
+      "practical_tip": "Keep the readiness test fast and local, give startup enough grace time, and inspect health history before restarting a repeatedly failing container.",
+      "question": "Why is an open HTTP port insufficient evidence that an inference container is ready?",
+      "answer": "The process may accept connections before required artifacts load and the inference path can complete successfully."
+    },
+    "my": {
+      "title": "Model Load ပြီးမှ Inference Container ကို Ready သတ်မှတ်ခြင်း",
+      "learning_objective": "Process run နေတာနဲ့ inference service တကယ် ready ဖြစ်တာကို model load မတိုင်မီနဲ့ ပြီးနောက် health စစ်ပြီး ခွဲနိုင်မယ်။",
+      "simple_explanation": "Container က running ဖြစ်နေပေမယ့် inference service က model အကြီးတစ်ခုကို load နေဆဲ သို့မဟုတ် initialize မအောင် ဖြစ်နိုင်ပါတယ်။ Readiness ဆိုတာ ဒီအချိန်မှာ အသုံးဝင်တဲ့ prediction request ကို လက်ခံနိုင်ပြီဟု ဆိုလိုပါတယ်။ ဒါကြောင့် health check က လိုအပ်တဲ့ artifact တွေ load ပြီး အတွင်းပိုင်း inference အနည်းငယ် အောင်မှ success ပြန်တဲ့ local endpoint ကို စစ်ရပါမယ်။ Process မပိတ်သေးတာက service အသင့်ဖြစ်ကြောင်း မပြပါဘူး။",
+      "how_it_works": "Container ကိုစပြီး `docker inspect --format '{{json .State.Health}}' MODEL_CONTAINER` နဲ့ health ကိုကြည့်ပါ။ Model load နေချိန် `/ready` က success မပြန်ရပါဘူး။ Checksum စစ်ခြင်း၊ model initialization နဲ့ sensitive data မပါတဲ့ test inference အသေးတစ်ခု အောင်ပြီးမှ success ပြန်ပါ။ Traffic router က readiness အောင်တဲ့ instance ဆီပဲ request ပို့ရပါမယ်။",
+      "visual": "process စ ──▶ running\nmodel load ──▶ not ready\ntest inference အောင်\n      └──▶ ready ──▶ traffic ဝင်",
+      "use_case": "Model အသစ် load ဖို့ 40 seconds ကြာတယ်ဆိုပါစို့။ အဲဒီအချိန် container ကို traffic rotation အပြင်ထားပြီး အစောပိုင်း request fail သို့မဟုတ် timeout မဖြစ်အောင်လုပ်ပါ။",
+      "expected_result": "Initialization မပြီးမချင်း health က unsuccessful ဖြစ်နေမယ်။ လိုအပ်တဲ့ inference path ကို run နိုင်မှ successful ဖြစ်မယ်။",
+      "what_to_notice": "Readiness က startup အချိန် traffic ကို ကာကွယ်ပါတယ်။ Data အစစ်ပေါ် prediction quality ကောင်းကြောင်း မပြပါဘူး။ Process stuck ဖြစ်ရင် restart လုပ်မလားကို liveness policy သီးခြားဆုံးဖြတ်နိုင်ပါတယ်။",
+      "common_mistake": "HTTP port ပွင့်တာနဲ့ success ပြန်ရင် model၊ tokenizer သို့မဟုတ် လိုအပ်တဲ့ artifact အသင့်မဖြစ်မီ traffic ဝင်လာပါတယ်။",
+      "practical_tip": "Readiness test ကို မြန်ပြီး local ဖြစ်အောင်ထားပါ။ Startup အတွက် grace time လုံလောက်စွာပေးပါ။ အကြိမ်ကြိမ် fail တဲ့ container ကို restart မလုပ်မီ health history ကြည့်ပါ။",
+      "question": "HTTP port ပွင့်နေရုံနဲ့ inference container ready ဖြစ်ကြောင်း ဘာကြောင့် မသက်သေပြနိုင်သလဲ?",
+      "answer": "လိုအပ်တဲ့ artifact မပြီးသေးဘဲ connection လက်ခံနိုင်ပေမယ့် inference path ကို အောင်မြင်စွာ မလုပ်နိုင်သေးတာ ဖြစ်နိုင်လို့ပါ။"
+    }
+  },
+  "tags": ["docker", "readiness", "model-serving"],
+  "status": "approved"
+}

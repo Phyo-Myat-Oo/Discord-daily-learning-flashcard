@@ -1,0 +1,44 @@
+{
+  "id": "mlops-container-memory-oom-diagnosis-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 14,
+  "date": "2026-08-22",
+  "category": "docker",
+  "topic": "container-memory-limit-oom-diagnosis",
+  "difficulty": "intermediate",
+  "command": "docker inspect --format '{{.State.OOMKilled}} {{.State.ExitCode}} {{.HostConfig.Memory}}' MODEL_CONTAINER",
+  "example": "Inspect `OOMKilled`, exit code, and configured memory after a model container exits during a large batch, then reproduce with a smaller batch before changing limits.",
+  "content": {
+    "en": {
+      "title": "Confirm Memory-Limit Kills Before Tuning",
+      "learning_objective": "Inspect container state and its configured memory limit to distinguish an out-of-memory kill from an ordinary application exit.",
+      "simple_explanation": "A model container may disappear during a large inference batch even though its logs show no application error. If the container exceeds its memory limit, the runtime can terminate it before the process writes a useful message. Docker records whether the container was killed for out-of-memory pressure. Inspect that evidence together with the exit code and configured limit before increasing memory or blaming the model code.",
+      "how_it_works": "After the failure, run `docker inspect --format '{{.State.OOMKilled}} {{.State.ExitCode}} {{.HostConfig.Memory}}' MODEL_CONTAINER`. `OOMKilled=true` supports a memory-limit diagnosis, and the byte value shows the configured ceiling; `0` means Docker did not set a container memory limit. Then inspect scoped logs and compare a smaller batch. A successful smaller batch supports the hypothesis that peak working memory scales with the request.",
+      "visual": "large batch\n    │ memory rises\n    ▼\nlimit crossed ──▶ OOMKilled=true\nsmaller batch ──▶ stays below limit",
+      "use_case": "An embedding worker exits only on batches of 256 items. Inspection reports `OOMKilled=true`; a batch of 32 completes, giving the team evidence to reduce batch size and measure throughput again.",
+      "expected_result": "The operator can state whether Docker recorded an OOM kill, what memory ceiling applied, and whether reducing the workload avoids the same failure.",
+      "what_to_notice": "Exit code alone is weaker evidence than the explicit OOM flag. A smaller successful batch identifies a peak-memory relationship but does not prove that raising the limit is safe for the host.",
+      "common_mistake": "Repeatedly restarting the container or removing its limit can hide the symptom while allowing one worker to exhaust memory needed by neighboring services.",
+      "practical_tip": "Preserve the failed container for inspection, measure representative peak memory, and prefer bounded batch size before making a capacity-tested limit change.",
+      "question": "What evidence should you collect before concluding that a model container exceeded its memory limit?",
+      "answer": "Inspect `OOMKilled`, exit code, and the configured memory ceiling, then compare scoped logs and a smaller representative workload."
+    },
+    "my": {
+      "title": "Memory Limit ကြောင့် Kill ဖြစ်တာကို အရင်အတည်ပြုခြင်း",
+      "learning_objective": "Container state နဲ့ သတ်မှတ်ထားတဲ့ memory limit ကိုကြည့်ပြီး out-of-memory kill နဲ့ application ပုံမှန် exit ကို ခွဲနိုင်မယ်။",
+      "simple_explanation": "Inference batch ကြီးချိန် model container ပျောက်သွားပေမယ့် log မှာ application error မရှိတာ ဖြစ်နိုင်ပါတယ်။ Container က memory limit ကျော်ရင် process က message မရေးနိုင်မီ runtime က ရပ်ပစ်နိုင်ပါတယ်။ Docker က out-of-memory pressure ကြောင့် kill လုပ်ခဲ့သလားကို state ထဲ မှတ်ပါတယ်။ Memory တိုးမပေးမီ အဲဒီအချက်ကို exit code နဲ့ limit တို့နဲ့ တွဲစစ်ပါ။",
+      "how_it_works": "အောက်က command ကို failure ပြီးနောက် run ပါ။ `OOMKilled=true` က memory-limit ပြဿနာကို ထောက်ခံပါတယ်။ Byte value က ceiling ဖြစ်ပြီး `0` ဆိုရင် Docker memory limit မသတ်မှတ်ထားပါဘူး။ Failure အချိန် log ကိုကြည့်ပြီး batch အသေးနဲ့ ထပ်စမ်းပါ။ Batch အသေးအောင်ရင် request အရွယ်နဲ့ peak memory ဆက်စပ်နိုင်ပါတယ်။",
+      "visual": "large batch\n    │ memory တက်\n    ▼\nlimit ကျော် ──▶ OOMKilled=true\nsmaller batch ──▶ limit အောက်နေ",
+      "use_case": "Embedding worker က item 256 မှာပဲ exit ဖြစ်ပြီး inspection မှာ `OOMKilled=true` တွေ့တယ်ဆိုပါစို့။ Item 32 နဲ့ အောင်ရင် batch size လျှော့ကာ throughput ပြန်တိုင်းပါ။",
+      "expected_result": "Docker က OOM kill မှတ်ထားသလား၊ memory ceiling ဘယ်လောက်ရှိသလဲနဲ့ workload လျှော့ရင် အလားတူ failure ရှောင်နိုင်သလားကို ပြောနိုင်မယ်။",
+      "what_to_notice": "Exit code ထက် OOM flag က ပိုတိကျပါတယ်။ Batch အသေးအောင်တာက peak memory ဆက်စပ်မှုကို ပြပေမယ့် limit တိုးတာ host အတွက် ဘေးကင်းကြောင်း မပြပါဘူး။",
+      "common_mistake": "Restart ထပ်လုပ်တာ သို့မဟုတ် limit ဖယ်တာက လက္ခဏာကိုဖုံးပြီး အနီးက service များလိုတဲ့ memory ကို ကုန်စေနိုင်ပါတယ်။",
+      "practical_tip": "Fail ဖြစ်တဲ့ container ကို inspection မပြီးမချင်း ထားပါ။ လက်တွေ့ workload နဲ့ peak memory တိုင်းပါ။ Capacity စစ်ပြီး limit မပြောင်းမီ bounded batch size ကို ဦးစားပေးပါ။",
+      "question": "Model container က memory limit ကျော်တယ်လို့ မဆုံးဖြတ်မီ ဘယ်သက်သေတွေ စုရမလဲ?",
+      "answer": "`OOMKilled`၊ exit code နဲ့ သတ်မှတ်ထားတဲ့ memory ceiling ကိုစစ်ပြီး failure အချိန် log နဲ့ ပိုသေးတဲ့ လက်တွေ့ workload ကို နှိုင်းရပါမယ်။"
+    }
+  },
+  "tags": ["docker", "memory-limit", "oom-diagnosis"],
+  "status": "approved"
+}

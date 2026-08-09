@@ -1,0 +1,49 @@
+{
+  "id": "dev-git-foundations-review-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 5,
+  "date": "2026-08-09",
+  "category": "review",
+  "topic": "git-foundations-workflow-review",
+  "difficulty": "intermediate",
+  "example": "Classify a changed file as modified, staged, or committed before choosing the next Git command.",
+  "content": {
+    "en": {
+      "title": "Review Git History and the Three Working States",
+      "learning_objective": "Given a local file change, identify whether it is modified, staged, or committed and predict whether it is part of recoverable repository history.",
+      "simple_explanation": "Git keeps project history as commits, which represent snapshots of the tracked project. A clone normally contains that history locally, so inspecting old commits usually needs no network. New work moves through three states: modified in the working tree, staged in the index for the next commit, and committed in repository history. Saving a file or running git add does not create a commit.",
+      "how_it_works": "Edit app.py, inspect with git status, then run git add app.py and inspect again. The file moves from an unstaged working-tree change to a staged index change. Only git commit records the staged snapshot in history. If more edits follow git add, one file can have staged and unstaged changes because the index retains the earlier content.",
+      "visual": "working tree: modified\n        │ git add\n        ▼\nindex: staged\n        │ git commit\n        ▼\nhistory: committed snapshot",
+      "use_case": "Before ending work, a developer sees app.py under 'Changes to be committed' and assumes it is safely in history. They verify its state and create a commit before switching machines.",
+      "expected_result": "git status first reports the edit as unstaged, then as staged after git add; after a successful commit, that staged change appears in local repository history.",
+      "what_to_notice": "Each action crosses one boundary. git add prepares content but creates no historical checkpoint; git commit records exactly the staged content, not every current file byte.",
+      "common_mistake": "Treating staged as a synonym for committed can leave important work outside history. Assuming a clone is only the latest files also hides why offline history inspection works.",
+      "practical_tip": "Run git status before and after git add, and again after committing. Read its section headings instead of relying only on file color in an editor.",
+      "question": "A file is under 'Changes to be committed.' Is it already in repository history, and what action records it there?",
+      "answer": "No. It is staged in the index; git commit records the staged snapshot in local repository history."
+    },
+    "my": {
+      "title": "Git History နဲ့ Working State သုံးခုကို ပြန်လေ့ကျင့်ခြင်း",
+      "learning_objective": "Local file ပြောင်းလဲမှုတစ်ခုကို modified၊ staged၊ committed ဘယ် state မှာရှိသလဲ ခွဲပြီး repository history ထဲ မှတ်တမ်းအဖြစ် ရှိမရှိ ခန့်မှန်းနိုင်မယ်။",
+      "simple_explanation": "Git က project history ကို commit များအဖြစ် သိမ်းပါတယ်။ Commit ဆိုတာ tracked project ရဲ့ အချိန်တစ်ခုက snapshot ပါ။ Clone တစ်ခုမှာ history ပါလာလေ့ရှိလို့ အင်တာနက်မရှိလည်း commit အဟောင်းတွေကို စစ်နိုင်ပါတယ်။ အလုပ်အသစ်က working tree ထဲ modified၊ နောက် commit အတွက် index ထဲ staged၊ ပြီးမှ history ထဲ committed ဆိုပြီး ရွေ့ပါတယ်။ File save လုပ်တာနဲ့ git add လုပ်တာက commit မဖန်တီးသေးပါဘူး။",
+      "how_it_works": "app.py ကိုပြင်ပြီး git status ကြည့်ပါ။ git add app.py လုပ်ကာ ထပ်ကြည့်ပါ။ Change က working tree ထဲက unstaged အခြေအနေမှ index ထဲ staged အခြေအနေသို့ ရွေ့ပါတယ်။ git commit လုပ်မှ staged snapshot ကို history ထဲ မှတ်တမ်းတင်ပါတယ်။ git add ပြီးနောက် ထပ်ပြင်ရင် index က အရင် content ကိုကိုင်ထားလို့ file တစ်ခုမှာ staged နဲ့ unstaged နှစ်မျိုးလုံး ရှိနိုင်ပါတယ်။",
+      "visual": "working tree: modified\n        │ git add\n        ▼\nindex: staged\n        │ git commit\n        ▼\nhistory: committed snapshot",
+      "use_case": "အလုပ်ပိတ်ခါနီး app.py ကို 'Changes to be committed' အောက်မှာတွေ့ပြီး history ထဲ ရောက်ပြီလို့ developer က ထင်နေပါတယ်။ Machine ပြောင်းမသွားမီ state ကိုစစ်ပြီး commit တစ်ခု ဖန်တီးရပါမယ်။",
+      "expected_result": "ပထမ git status မှာ edit ကို unstaged လို့ပြမယ်။ git add နောက် staged လို့ပြမယ်။ Commit အောင်မြင်ပြီးမှ အဲဒီ staged change က local repository history ထဲ ဝင်သွားမယ်။",
+      "what_to_notice": "Command တစ်ခုစီက boundary တစ်ခုသာ ကျော်စေပါတယ်။ git add က content ကို ပြင်ဆင်ပေးပေမယ့် history checkpoint မဖန်တီးပါဘူး။ git commit က staged content ကိုသာ မှတ်တမ်းတင်ပါတယ်။",
+      "common_mistake": "Staged ကို committed နဲ့ တူတယ်လို့ယူဆရင် အရေးကြီးတဲ့အလုပ်က history အပြင်မှာ ကျန်နိုင်ပါတယ်။ Clone မှာ နောက်ဆုံး file တွေပဲပါတယ်လို့ ထင်ရင် offline history ကို နားမလည်နိုင်ပါဘူး။",
+      "practical_tip": "git add မလုပ်မီနဲ့ လုပ်ပြီးနောက် git status ကြည့်ပါ။ Commit ပြီးလည်း ထပ်ကြည့်ပါ။ Editor အရောင်တစ်ခုတည်းမယုံဘဲ section heading ကိုဖတ်ပါ။",
+      "question": "File တစ်ခုက 'Changes to be committed' အောက်မှာရှိရင် history ထဲ ရောက်ပြီးပြီလား၊ ဘယ် action က မှတ်တမ်းတင်ပေးသလဲ?",
+      "answer": "မရောက်သေးပါဘူး။ Index ထဲ staged ဖြစ်နေပါတယ်။ git commit က staged snapshot ကို local repository history ထဲ မှတ်တမ်းတင်ပေးပါတယ်။"
+    }
+  },
+  "review_items": [
+    {"question": "What does version control add beyond copied backup folders?", "answer": "Structured history that lets you inspect and recover earlier project states."},
+    {"question": "Why can a clone usually show commit history offline?", "answer": "A normal clone stores the repository's reachable history locally."},
+    {"question": "Does Git duplicate every unchanged file for every snapshot?", "answer": "No. Git presents commits as snapshots while reusing unchanged stored content."},
+    {"question": "What boundary does git add cross?", "answer": "It copies selected working-tree content into the index; it does not create history."}
+  ],
+  "tags": ["git", "staging", "commits", "review"],
+  "status": "approved"
+}

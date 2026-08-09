@@ -1,0 +1,43 @@
+{
+  "id": "mlops-release-identity-record-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 9,
+  "date": "2026-08-17",
+  "category": "mlops",
+  "topic": "release-identity-record",
+  "difficulty": "intermediate",
+  "example": "Compare a running service's release record with the approved model, image digest, feature definition, and configuration versions.",
+  "content": {
+    "en": {
+      "title": "Record the Full Identity of an ML Release",
+      "learning_objective": "Build and inspect one release record that links the deployed model, container image, feature definition, and configuration versions.",
+      "simple_explanation": "An ML release combines several versioned parts, not just a model file. A release record is a small immutable document that names the exact model, image digest, feature definition, and configuration used together. Without that link, an incident responder may know that model `v18` is running but not which preprocessing or threshold accompanies it. A single release ID makes the deployed combination traceable.",
+      "how_it_works": "During promotion, create release ID `fraud-2026-08-17.1`. Store fields such as `model=v18`, `image=sha256:A`, `features=v7`, and `config=v12`. Publish the same release ID through service metadata or logs. During an incident, read that ID from the running service and retrieve the exact approved record instead of reconstructing versions from mutable tags.",
+      "visual": "release: R17.1\n├── model: v18\n├── image: sha256:A\n├── features: v7\n└── config: v12",
+      "use_case": "Predictions change after a rollout although the model version appears unchanged. Inspect the running release ID and discover that the new release record points to a different threshold configuration.",
+      "expected_result": "The running service reports one release ID whose stored record resolves to the exact approved versions of all four release components.",
+      "what_to_notice": "The record does not prove that the release is good. It makes test evidence, observed behavior, and rollback targets refer to one unambiguous combination.",
+      "common_mistake": "Recording only a model version or mutable image tag leaves feature and configuration changes invisible and prevents exact reconstruction.",
+      "practical_tip": "Generate the record in the release pipeline, make it append-only, and expose its release ID without exposing secrets or full environment values.",
+      "question": "Why should an ML release ID resolve to model, image, feature, and configuration versions together?",
+      "answer": "Because production behavior comes from their combination, and the complete record makes testing, diagnosis, and rollback unambiguous."
+    },
+    "my": {
+      "title": "ML Release တစ်ခုလုံး၏ Identity ကို မှတ်တမ်းတင်ခြင်း",
+      "learning_objective": "Deploy ထားတဲ့ model၊ container image၊ feature definition နဲ့ configuration version တို့ကို release record တစ်ခုတည်းနဲ့ ချိတ်ပြီး စစ်နိုင်မယ်။",
+      "simple_explanation": "ML release တစ်ခုမှာ model file တစ်ခုတည်း မပါပါဘူး။ Release record ဆိုတာ အတူသုံးထားတဲ့ model၊ image digest၊ feature definition နဲ့ configuration အတိအကျကို မှတ်ထားတဲ့ မပြောင်းလဲသင့်သော စာရင်းတိုတစ်ခုပါ။ ဒီချိတ်ဆက်မှုမရှိရင် model `v18` run နေတာ သိပေမယ့် ဘယ် preprocessing နဲ့ threshold ပါသလဲ မသိနိုင်ပါဘူး။ Release ID တစ်ခုက production ထဲက ပေါင်းစပ်မှုကို ပြန်လိုက်ရှာနိုင်စေပါတယ်။",
+      "how_it_works": "Promote လုပ်ချိန်မှာ `fraud-2026-08-17.1` ဆိုတဲ့ release ID ဖန်တီးပါ။ `model=v18`၊ `image=sha256:A`၊ `features=v7` နဲ့ `config=v12` ကို သိမ်းပါ။ Service metadata သို့မဟုတ် log မှာလည်း အဲဒီ ID ကို ထုတ်ပြပါ။ Incident ဖြစ်ရင် running service က ID ကိုဖတ်ပြီး mutable tag တွေကနေ မှန်းဆမနေဘဲ အတည်ပြုထားတဲ့ record ကို တိုက်ရိုက်ယူပါ။",
+      "visual": "release: R17.1\n├── model: v18\n├── image: sha256:A\n├── features: v7\n└── config: v12",
+      "use_case": "Rollout ပြီးနောက် prediction ပြောင်းသွားပေမယ့် model version က မပြောင်းဘူးဆိုပါစို့။ Running release ID ကိုစစ်တဲ့အခါ record အသစ်က threshold configuration အသစ်ကို ညွှန်နေတာ တွေ့မယ်။",
+      "expected_result": "Running service က release ID တစ်ခုကို ပြမယ်။ အဲဒီ ID ရဲ့ record မှာ အတည်ပြုထားတဲ့ component လေးခု၏ version အတိအကျ ရှိမယ်။",
+      "what_to_notice": "Record ရှိတာနဲ့ release ကောင်းကြောင်း မသက်သေပြပါဘူး။ Test evidence၊ production behavior နဲ့ rollback target တို့က ပေါင်းစပ်မှုတစ်ခုတည်းကို ရည်ညွှန်းနိုင်စေပါတယ်။",
+      "common_mistake": "Model version သို့မဟုတ် ရွှေ့နိုင်တဲ့ image tag တစ်ခုပဲ မှတ်ထားရင် feature နဲ့ configuration ပြောင်းလဲမှု ပျောက်နေပြီး အတိအကျ ပြန်တည်ဆောက်မရပါဘူး။",
+      "practical_tip": "Release pipeline က record ကိုဖန်တီးပြီး နောက်မှ မပြင်နိုင်အောင် append-only ထားပါ။ Secret နဲ့ environment value အပြည့်အစုံ မဖော်ဘဲ release ID ကို service မှာ ပြပါ။",
+      "question": "ML release ID တစ်ခုက model၊ image၊ feature နဲ့ configuration version အားလုံးကို ဘာကြောင့် အတူညွှန်ရသလဲ?",
+      "answer": "Production behavior က အဲဒီအစိတ်အပိုင်းများ ပေါင်းစပ်မှုကြောင့် ဖြစ်ပြီး record အပြည့်အစုံက test၊ diagnosis နဲ့ rollback ကို မရှုပ်အောင် လုပ်ပေးလို့ပါ။"
+    }
+  },
+  "tags": ["mlops", "release-metadata", "traceability"],
+  "status": "approved"
+}

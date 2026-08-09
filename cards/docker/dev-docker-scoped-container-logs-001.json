@@ -1,0 +1,44 @@
+{
+  "id": "dev-docker-scoped-container-logs-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 11,
+  "date": "2026-08-19",
+  "category": "docker",
+  "topic": "scoped-container-log-inspection",
+  "difficulty": "intermediate",
+  "command": "docker logs --since 10m --tail 100 api-demo",
+  "example": "docker inspect -f '{{.State.Status}} {{.State.ExitCode}}' api-demo; docker logs --since 10m --tail 100 api-demo",
+  "content": {
+    "en": {
+      "title": "Scope Container Logs to the Failure Window",
+      "learning_objective": "Combine container state with time- and line-bounded docker logs output to investigate a recent failure without confusing old messages for current evidence.",
+      "simple_explanation": "docker logs reads the standard output and standard error captured for a container by its logging setup. A long-lived container may contain messages from many attempts. --since limits messages by time, and --tail limits the number of recent lines. Scoping the output makes the current failure easier to distinguish from stale errors.",
+      "how_it_works": "First inspect status and exit code with docker inspect. Then run docker logs --since 10m --tail 100 api-demo. Docker returns at most the last 100 captured lines whose timestamps fall in the last ten minutes. This is observation only; it does not restart or modify the container.",
+      "visual": "container output over time\nold ──────│ last 10m ── now\n          │       last 100 lines\n          └──────► inspect here",
+      "use_case": "An API container exited after a new start attempt, but its history contains yesterday's database errors. The operator checks the exit code and reads only the recent output.",
+      "expected_result": "The inspect command reports the current state and exit code. The logs command returns a bounded recent window, or no lines if nothing was captured in that window.",
+      "what_to_notice": "An empty result does not prove the application was healthy. It may not have written to captured stdout or stderr, or the relevant message may fall outside the chosen window.",
+      "common_mistake": "Reading an unbounded log from the top can make an old error look like the cause of the latest exit. docker logs also does not read arbitrary files inside the container.",
+      "practical_tip": "Correlate the recent log window with container state and the observed failure time before widening --since or --tail.",
+      "question": "Why inspect container state and use both --since and --tail when diagnosing a recent exit?",
+      "answer": "State confirms the current outcome, while the two bounds isolate a manageable log window near that outcome and reduce stale evidence."
+    },
+    "my": {
+      "title": "Container ပျက်ချိန်အနီးက Log ကိုပဲ ကန့်သတ်စစ်ခြင်း",
+      "learning_objective": "Container state နဲ့ အချိန်၊ line အရေအတွက် ကန့်သတ်ထားတဲ့ docker logs ကိုတွဲပြီး အဟောင်း error ကို လက်ရှိအထောက်အထားလို့ မမှားဘဲ စစ်နိုင်မယ်။",
+      "simple_explanation": "docker logs က container ရဲ့ logging setup က ဖမ်းထားတဲ့ standard output နဲ့ standard error ကို ဖတ်ပေးပါတယ်။ ကြာကြာ run ထားတဲ့ container မှာ အရင်အကြိမ်များစွာရဲ့ message တွေ ရောနေနိုင်ပါတယ်။ --since က အချိန်အလိုက် ကန့်သတ်ပြီး --tail က နောက်ဆုံး line အရေအတွက်ကို ကန့်သတ်ပါတယ်။ ဒါကြောင့် လက်ရှိ failure ကို အဟောင်း error နဲ့ ခွဲရလွယ်ပါတယ်။",
+      "how_it_works": "docker inspect နဲ့ လက်ရှိ status၊ exit code ကို အရင်ကြည့်ပါ။ ပြီးရင် docker logs --since 10m --tail 100 api-demo လုပ်ပါ။ Docker က နောက်ဆုံးဆယ်မိနစ်အတွင်း ဖမ်းထားတဲ့ log ထဲမှ နောက်ဆုံး line 100 အထိ ပြပါတယ်။ ဒီ command တွေက စစ်ကြည့်ရုံပါ။ Container ကို restart သို့မဟုတ် ပြင်ဆင်မထားပါဘူး။",
+      "visual": "container output အချိန်လိုက်\nအဟောင်း ──│ နောက်ဆုံး 10m ── ယခု\n          │ နောက်ဆုံး 100 lines\n          └──────► ဒီမှာစစ်",
+      "use_case": "API container က start အသစ်လုပ်ပြီးနောက် exit ဖြစ်ပါတယ်။ Log history ထဲမှာ မနေ့က database error ပါ ရှိနေသေးလို့ operator က exit code နဲ့ လတ်တလော output ကိုပဲ တွဲစစ်ပါတယ်။",
+      "expected_result": "Inspect command က လက်ရှိ state နဲ့ exit code ကိုပြမယ်။ Logs command က ကန့်သတ်ထားတဲ့ လတ်တလော output ကိုပြမယ်။ အဲဒီအချိန်အတွင်း capture မရှိရင် ဘာမှမပေါ်နိုင်ပါဘူး။",
+      "what_to_notice": "Output မရှိတာနဲ့ application က ကောင်းတယ်လို့ မသက်သေပြနိုင်ပါဘူး။ Captured stdout သို့မဟုတ် stderr ဆီ မရေးတာ ဖြစ်နိုင်သလို message က ရွေးထားတဲ့အချိန်ပြင်ပ ရောက်နေနိုင်ပါတယ်။",
+      "common_mistake": "မကန့်သတ်ထားတဲ့ log ကို အစမှဖတ်ရင် အဟောင်း error ကို နောက်ဆုံး exit ရဲ့ အကြောင်းရင်းလို့ မှားနိုင်ပါတယ်။ docker logs က container အတွင်းက file အားလုံးကို ဖတ်ပေးတာလည်း မဟုတ်ပါဘူး။",
+      "practical_tip": "--since သို့မဟုတ် --tail ကို မချဲ့မီ recent log window ကို container state နဲ့ failure ဖြစ်ချိန်တို့နဲ့ အရင်တိုက်စစ်ပါ။",
+      "question": "Recent exit ကိုစစ်ရာမှာ container state နဲ့ --since၊ --tail နှစ်ခုလုံး ဘာကြောင့် တွဲသုံးသင့်သလဲ?",
+      "answer": "State က လက်ရှိရလဒ်ကိုပြပြီး ကန့်သတ်ချက်နှစ်ခုက အဲဒီရလဒ်အနီးရှိ log ကိုသာ ဖတ်ရလွယ်အောင် ခွဲပေးပါတယ်။"
+    }
+  },
+  "tags": ["docker", "logs", "container-state", "troubleshooting"],
+  "status": "approved"
+}

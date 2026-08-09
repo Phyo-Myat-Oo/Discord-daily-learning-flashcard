@@ -1,0 +1,43 @@
+{
+  "id": "ai-validation-set-model-selection-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 6,
+  "date": "2026-08-14",
+  "category": "ai",
+  "topic": "validation-set-model-selection",
+  "difficulty": "intermediate",
+  "example": "Fit two classifiers on train data, choose with validation data, then evaluate once on test data.",
+  "content": {
+    "en": {
+      "title": "Keep the Test Set Out of Model Selection",
+      "learning_objective": "Assign training, validation, and test data distinct roles so model selection does not bias the final estimate of performance on unseen cases.",
+      "simple_explanation": "A training set fits model parameters. A validation set compares model choices such as features, thresholds, or hyperparameters. A test set estimates final performance after those choices are fixed. Every time test results guide a choice, information from that set enters the design. The team can then overfit its decisions to the test set even though the model never directly trained on those rows.",
+      "how_it_works": "Split representative data before experimentation. Fit candidate A and B only on train. Compare their validation scores and select one. Freeze the complete procedure, refit as planned without touching test labels, then evaluate once on test. For small datasets, cross-validation can replace one fixed validation split, but the final test set remains separate.",
+      "visual": "train ──▶ fit A and B\n              │\nvalidation ──▶ choose B\n              │\ntest ────────▶ final estimate",
+      "use_case": "Two fraud classifiers have different regularization strengths. Train both on the training set, choose the strength using validation recall at an acceptable false-positive rate, and report the locked model's test result.",
+      "expected_result": "The validation result selects one fixed pipeline. The untouched test set then produces one less-biased estimate of how that selected pipeline may perform on similar unseen data.",
+      "what_to_notice": "The test set is not a second validation set. If its score causes another tuning round, that score is no longer a clean final estimate because it influenced the selected system.",
+      "common_mistake": "Trying many models against the test set and reporting the best score quietly turns test data into validation data and makes the reported performance optimistic.",
+      "practical_tip": "Record which split authorizes each decision. If you change the pipeline after seeing test performance, label the result exploratory and obtain fresh untouched test data when possible.",
+      "question": "Why should test-set results not be used to choose hyperparameters?",
+      "answer": "Because those choices adapt to the test set, biasing its score and removing its role as an independent final estimate."
+    },
+    "my": {
+      "title": "Model ရွေးရာတွင် Test Set ကို မသုံးခြင်း",
+      "learning_objective": "Training၊ validation နဲ့ test data တို့ရဲ့ တာဝန်ကို ခွဲသုံးပြီး model ရွေးချယ်မှုကြောင့် unseen case performance ခန့်မှန်းချက် မဘက်လိုက်အောင် လုပ်နိုင်မယ်။",
+      "simple_explanation": "Training set က model parameter ကို fit လုပ်ဖို့ပါ။ Validation set က feature၊ threshold သို့မဟုတ် hyperparameter လို model ရွေးချယ်မှုတွေကို နှိုင်းဖို့ပါ။ Test set က ရွေးချယ်မှုအားလုံး ပိတ်ပြီးမှ final performance ခန့်မှန်းဖို့ပါ။ Test result ကိုကြည့်ပြီး decision ပြောင်းတိုင်း အဲဒီ data ရဲ့ information က design ထဲဝင်လာပါတယ်။ Row တွေပေါ် တိုက်ရိုက် train မလုပ်ပေမယ့် team ရဲ့ decision က test set ကို overfit ဖြစ်နိုင်ပါတယ်။",
+      "how_it_works": "စမ်းသပ်မှုမစမီ ကိုယ်စားပြု data ကို split လုပ်ပါ။ Candidate A နဲ့ B ကို train data ပေါ်မှာသာ fit လုပ်ပါ။ Validation score နဲ့ တစ်ခုရွေးပါ။ Procedure အားလုံးကို ပိတ်ပြီး test label မကြည့်ဘဲ သတ်မှတ်ထားသလို refit လုပ်ကာ test ပေါ် တစ်ကြိမ် evaluate လုပ်ပါ။ Data နည်းရင် fixed validation split အစား cross-validation သုံးနိုင်ပေမယ့် final test set ကို သီးခြားထားရပါတယ်။",
+      "visual": "train ──▶ A နဲ့ B fit\n             │\nvalidation ─▶ B ရွေး\n             │\ntest ───────▶ final estimate",
+      "use_case": "Fraud classifier နှစ်ခုမှာ regularization strength မတူပါဘူး။ Training set ပေါ် fit လုပ်၊ လက်ခံနိုင်တဲ့ false-positive rate အတွင်း validation recall နဲ့ strength ရွေးပြီး ပိတ်ထားတဲ့ model ရဲ့ test result ကို report လုပ်ပါ။",
+      "expected_result": "Validation result က pipeline တစ်ခုကို အတည်ပြုရွေးပေးပါတယ်။ မထိရသေးတဲ့ test set က အဲဒီ pipeline ရဲ့ ဆင်တူ unseen data ပေါ် performance ကို ဘက်လိုက်မှုနည်းစွာ ခန့်မှန်းပေးပါတယ်။",
+      "what_to_notice": "Test set က validation set ဒုတိယတစ်ခု မဟုတ်ပါဘူး။ Test score ကြောင့် tuning ထပ်လုပ်ရင် အဲဒီ score က selected system ကို သက်ရောက်ပြီး clean final estimate မဟုတ်တော့ပါဘူး။",
+      "common_mistake": "Model အများကြီးကို test set နဲ့ စမ်းပြီး အကောင်းဆုံး score ကို report လုပ်တာက test data ကို validation အဖြစ် တိတ်တဆိတ်သုံးတာဖြစ်ပြီး performance ကို အမှန်ထက် ကောင်းပြစေပါတယ်။",
+      "practical_tip": "Decision တစ်ခုစီကို ဘယ် split က ခွင့်ပြုသလဲ မှတ်တမ်းတင်ပါ။ Test performance မြင်ပြီး pipeline ပြောင်းရင် exploratory result လို့ သတ်မှတ်ပြီး ဖြစ်နိုင်လျှင် untouched test data အသစ် ရယူပါ။",
+      "question": "Hyperparameter ရွေးဖို့ test-set result ကို ဘာကြောင့် မသုံးသင့်သလဲ?",
+      "answer": "ရွေးချယ်မှုက test set နဲ့ လိုက်လျောသွားပြီး score ဘက်လိုက်စေလို့ independent final estimate အဖြစ် မကျန်တော့တာကြောင့်ပါ။"
+    }
+  },
+  "tags": ["validation", "test-set", "model-selection"],
+  "status": "approved"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "dev-git-unstage-path-safely-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 10,
+  "date": "2026-08-18",
+  "category": "git",
+  "topic": "unstage-path-preserve-worktree",
+  "difficulty": "intermediate",
+  "command": "git restore --staged -- app.py",
+  "example": "git diff --staged -- app.py; git restore --staged -- app.py; git diff -- app.py",
+  "content": {
+    "en": {
+      "title": "Unstage a Path Without Discarding Its Edit",
+      "learning_objective": "Use git restore --staged with an explicit path to remove that path from the proposed commit while preserving its working-tree content.",
+      "simple_explanation": "Staging copies a file's current content into Git's index for the next commit. Unstaging should change the index, not erase the work. git restore --staged -- app.py resets the index version of app.py to HEAD while leaving the edited working-tree file intact. The edit moves from the staged comparison to the unstaged comparison.",
+      "how_it_works": "First inspect git diff --staged -- app.py. Run git restore --staged -- app.py, then inspect git status --short and git diff -- app.py. The -- ends command options and makes app.py unambiguously a path. No commit is rewritten, and the file's edited bytes remain in the working tree.",
+      "visual": "before: edit in index\n  │ restore --staged\n  ▼\nindex resets to HEAD\n  │ working file unchanged\n  ▼\nedit is now unstaged",
+      "use_case": "A developer accidentally stages a debug change with a bug fix. They remove only app.py from the proposed commit and keep editing it locally.",
+      "expected_result": "The path disappears from git diff --staged and appears in plain git diff. Opening app.py still shows the developer's edit.",
+      "what_to_notice": "The content was not deleted; only the boundary around the next commit changed. Git now compares the preserved working file against an index reset to HEAD.",
+      "common_mistake": "Using git restore app.py without --staged targets the working tree and can discard uncommitted edits instead of merely unstaging them.",
+      "practical_tip": "Preview the staged patch, unstage one explicit path, then immediately verify both git status --short and plain git diff.",
+      "question": "After git restore --staged -- app.py, where is the edit and what happened to the file content?",
+      "answer": "The edit remains in the working tree as unstaged work; the file content is preserved while the index entry resets to HEAD."
+    },
+    "my": {
+      "title": "File Edit မပျက်ဘဲ Path တစ်ခုကို Unstage လုပ်ခြင်း",
+      "learning_objective": "git restore --staged နဲ့ path အတိအကျ သုံးပြီး working tree ထဲက edit ကို ထိန်းထားရင်း proposed commit ထဲမှ အဲဒီ path ကို ဖယ်နိုင်မယ်။",
+      "simple_explanation": "Stage လုပ်တာက file ရဲ့ လက်ရှိ content ကို နောက် commit အတွက် Git index ထဲ ကူးထားတာပါ။ Unstage လုပ်တဲ့အခါ index ကိုပဲ ပြောင်းသင့်ပြီး ရေးထားတဲ့အလုပ် မပျက်သင့်ပါဘူး။ git restore --staged -- app.py က index ထဲက app.py ကို HEAD အတိုင်း ပြန်ထားပေမယ့် working tree ထဲက edited file ကို မထိပါဘူး။",
+      "how_it_works": "git diff --staged -- app.py နဲ့ အရင်စစ်ပါ။ git restore --staged -- app.py လုပ်ပြီး git status --short နဲ့ git diff -- app.py ကိုကြည့်ပါ။ -- က option အပိုင်းဆုံးကြောင်း ပြပြီး app.py ကို path အဖြစ် ရှင်းစေပါတယ်။ Commit ကို မပြင်ပါဘူး။ File ထဲက edit လည်း ကျန်ပါတယ်။",
+      "visual": "အစ: edit က index ထဲမှာ\n  │ restore --staged\n  ▼\nindex က HEAD သို့ပြန်\n  │ working file မပြောင်း\n  ▼\nedit က unstaged ဖြစ်",
+      "use_case": "Developer က bug fix နဲ့အတူ debug change ပါ မတော်တဆ stage လုပ်မိပါတယ်။ app.py တစ်ခုတည်းကို proposed commit မှ ဖယ်ပြီး local မှာ ဆက်ပြင်ချင်ပါတယ်။",
+      "expected_result": "Path က git diff --staged ထဲမှ ပျောက်ပြီး ရိုးရိုး git diff ထဲ ပေါ်လာမယ်။ app.py ကိုဖွင့်ကြည့်ရင် ရေးထားတဲ့ edit က ဆက်ရှိမယ်။",
+      "what_to_notice": "Content ပျက်သွားတာ မဟုတ်ပါဘူး။ နောက် commit ထဲ ဘာပါမလဲဆိုတဲ့ boundary ပဲ ပြောင်းတာပါ။ Working file ကို HEAD အတိုင်းပြန်ထားတဲ့ index နဲ့ နှိုင်းနေပြီ ဖြစ်ပါတယ်။",
+      "common_mistake": "--staged မပါဘဲ git restore app.py လုပ်ရင် working tree ကို သွားပြင်တာကြောင့် unstage သက်သက်မဟုတ်ဘဲ မ commit ရသေးတဲ့ edit ပျက်နိုင်ပါတယ်။",
+      "practical_tip": "Staged patch ကိုအရင်ကြည့်ပါ။ Path တစ်ခုကိုပဲ unstage လုပ်ပြီး git status --short နဲ့ ရိုးရိုး git diff နှစ်ခုလုံး ချက်ချင်းစစ်ပါ။",
+      "question": "git restore --staged -- app.py ပြီးရင် edit က ဘယ်မှာရှိပြီး file content ဘာဖြစ်သလဲ?",
+      "answer": "Edit က working tree ထဲ unstaged အဖြစ်ကျန်ပါတယ်။ File content မပျက်ဘဲ index entry ပဲ HEAD အတိုင်း ပြန်သွားပါတယ်။"
+    }
+  },
+  "tags": ["git", "staging", "restore", "safe-workflow"],
+  "status": "approved"
+}

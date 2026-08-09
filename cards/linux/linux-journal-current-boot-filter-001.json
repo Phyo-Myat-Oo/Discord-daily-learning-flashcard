@@ -1,0 +1,44 @@
+{
+  "id": "linux-journal-current-boot-filter-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 13,
+  "date": "2026-08-21",
+  "category": "linux",
+  "topic": "journal-current-boot-unit-filtering",
+  "difficulty": "intermediate",
+  "command": "journalctl -b -u ssh.service --since '-10 min'",
+  "example": "journalctl -b -u ssh.service --since '-10 min' --no-pager",
+  "content": {
+    "en": {
+      "title": "Scope Service Logs to the Relevant Boot and Time",
+      "learning_objective": "Filter the systemd journal by unit, current boot, and time window so stale messages do not mislead a service investigation.",
+      "simple_explanation": "The systemd journal can retain messages from many services and, when persistent storage is enabled, earlier boots. A correct error from yesterday may be irrelevant to today's process. `journalctl` filters structured log fields. Combining a unit filter with the current boot and a narrow time window creates evidence that matches the service instance you are investigating.",
+      "how_it_works": "After reproducing a problem, run `journalctl -b -u ssh.service --since '-10 min' --no-pager`. `-b` selects the current boot, `-u` selects messages associated with the unit, `--since` limits time, and `--no-pager` prints directly. Replace the example unit with the exact unit name. Reading some system messages may require journal-group or administrator access.",
+      "visual": "all journal entries\n  ▼ `-b` current boot\n  ▼ `-u` exact unit\n  ▼ `--since` recent time\nrelevant evidence",
+      "use_case": "A service fails after a restart, yet an unrestricted search shows an old configuration error. Filter to the current boot and the minutes around the failed restart before deciding the same cause returned.",
+      "expected_result": "The output contains only available messages matching the chosen boot, unit, and time boundary; no output means no accessible entries matched those filters.",
+      "what_to_notice": "A narrow, empty result is evidence about the filter, not proof that the service did nothing. The unit name, clock boundary, permissions, or logging path may need verification.",
+      "common_mistake": "Searching every boot and grepping one word can mix unrelated units and old incidents, making a historical error look current.",
+      "practical_tip": "Note the reproduction time, confirm the unit with `systemctl status UNIT`, then widen one filter at a time if the focused query is empty.",
+      "question": "Why combine `-b`, `-u`, and `--since` during a service investigation?",
+      "answer": "Together they restrict evidence to the relevant boot, service unit, and incident time instead of mixing in stale messages."
+    },
+    "my": {
+      "title": "Service Log ကို သက်ဆိုင်ရာ Boot နဲ့ အချိန်အတွင်း စစ်ခြင်း",
+      "learning_objective": "Service ပြဿနာစစ်ရာမှာ log အဟောင်းကြောင့် မလွဲစေရန် systemd journal ကို unit၊ current boot နဲ့ time window အလိုက် filter လုပ်နိုင်မယ်။",
+      "simple_explanation": "Systemd journal ထဲမှာ service အများကြီးရဲ့ message တွေ ပါပြီး persistent storage ဖွင့်ထားရင် အရင် boot တွေက log ပါ ကျန်နိုင်ပါတယ်။ မနေ့က မှန်ခဲ့တဲ့ error က ဒီနေ့ process ပြဿနာနဲ့ မဆိုင်နိုင်ပါဘူး။ `journalctl` က structured log field တွေကို filter လုပ်ပေးပါတယ်။ Unit တစ်ခု၊ လက်ရှိ boot နဲ့ အချိန်တိုတစ်ခုကို တွဲရွေးရင် စစ်နေတဲ့ service instance နဲ့ ကိုက်တဲ့ evidence ရပါတယ်။",
+      "how_it_works": "ပြဿနာကို ပြန်ဖြစ်စေပြီးနောက် `journalctl -b -u ssh.service --since '-10 min' --no-pager` run ပါ။ `-b` က current boot၊ `-u` က unit၊ `--since` က အချိန်ကန့်သတ်ပြီး `--no-pager` က output ကို တိုက်ရိုက်ထုတ်ပါတယ်။ Example unit နေရာမှာ အတိအကျ unit name ထည့်ပါ။ System message အချို့ဖတ်ဖို့ journal group သို့မဟုတ် administrator access လိုနိုင်ပါတယ်။",
+      "visual": "journal entry အားလုံး\n  ▼ `-b` current boot\n  ▼ `-u` exact unit\n  ▼ `--since` recent time\nသက်ဆိုင်ရာ evidence",
+      "use_case": "Service restart ပြီး fail သွားပေမယ့် filter မလုပ်ထားတဲ့ search မှာ configuration error အဟောင်းတစ်ခု တွေ့တယ်။ Cause တူတယ်လို့ မဆုံးဖြတ်မီ current boot နဲ့ failed restart အနီးက မိနစ်တွေကိုသာ ရွေးစစ်ပါ။",
+      "expected_result": "ရွေးထားတဲ့ boot၊ unit နဲ့ အချိန်အတွင်း ရှိပြီး ဖတ်ခွင့်ရတဲ့ message တွေကိုသာ တွေ့မယ်။ Output မရှိရင် အဲဒီ filter အားလုံးနဲ့ ကိုက်တဲ့ entry မတွေ့တာပါ။",
+      "what_to_notice": "Narrow query မှာ ဘာမှမပေါ်တာက service ဘာမှမလုပ်ဘူးလို့ မဆိုလိုပါဘူး။ Unit name၊ system clock၊ permission သို့မဟုတ် အခြား logging path ကို ဆက်စစ်ဖို့လိုနိုင်ပါတယ်။",
+      "common_mistake": "Boot အားလုံးကို word တစ်လုံးနဲ့ grep လုပ်ရင် မဆိုင်တဲ့ unit နဲ့ incident အဟောင်းတွေ ရောပြီး historical error ကို လက်ရှိ error လို့ မှားမြင်နိုင်ပါတယ်။",
+      "practical_tip": "ပြဿနာပြန်ဖြစ်တဲ့အချိန်ကို မှတ်ပါ။ `systemctl status UNIT` နဲ့ unit အတိအကျစစ်ပြီး focused query အလွတ်ဖြစ်ရင် filter တစ်ခုစီကို တဖြည်းဖြည်းချဲ့ပါ။",
+      "question": "Service စစ်ရာမှာ `-b`၊ `-u` နဲ့ `--since` ကို ဘာကြောင့် တွဲသုံးသင့်သလဲ?",
+      "answer": "Log အဟောင်းမရောဘဲ သက်ဆိုင်ရာ boot၊ service unit နဲ့ incident အချိန်က evidence ကိုသာ ကန့်သတ်ပေးလို့ပါ။"
+    }
+  },
+  "tags": ["systemd", "journalctl", "troubleshooting"],
+  "status": "approved"
+}

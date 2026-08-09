@@ -1,0 +1,43 @@
+{
+  "id": "ai-training-only-preprocessing-fit-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 7,
+  "date": "2026-08-15",
+  "category": "ai-engineering",
+  "topic": "training-only-preprocessing-fit",
+  "difficulty": "intermediate",
+  "example": "Fit a numeric scaler on train values, then transform validation and test values with the saved mean and scale.",
+  "content": {
+    "en": {
+      "title": "Fit Preprocessing on Training Data Only",
+      "learning_objective": "Prevent data leakage by fitting learned preprocessing values on training data and reusing those fixed values for validation, test, and inference inputs.",
+      "simple_explanation": "Some preprocessing learns values from data. A standard scaler learns a mean and scale; an imputer may learn a median; a vocabulary learns observed tokens. Fitting these steps on all data lets validation or test examples influence the pipeline before evaluation. That is data leakage: information unavailable during a real future prediction enters training indirectly and can make evaluation look better than deployment.",
+      "how_it_works": "Split data first. Fit the preprocessor on `X_train`, saving its learned values. Use that same fitted object to transform `X_train`, `X_valid`, and later `X_test`. Fit the model on transformed training data. A pipeline object helps keep preprocessing and model fitting together so cross-validation refits both inside each training fold.",
+      "visual": "X_train ──▶ fit preprocessor\n                 │ saved values\nX_valid ──▶ transform only\nX_test  ──▶ transform only",
+      "use_case": "Training ages have mean 40 and scale 10. Fit the scaler there. An age of 60 in validation becomes `(60-40)/10 = 2`. Do not recompute validation statistics, because production inputs will not arrive as a batch with known future statistics.",
+      "expected_result": "Validation and test rows are transformed using only values learned from training data, so their scores better represent how the fixed pipeline handles unseen inputs.",
+      "what_to_notice": "`transform` may use a validation value in its formula, but it must not learn new population statistics from validation. The saved training mean and scale stay unchanged.",
+      "common_mistake": "Scaling the entire dataset before splitting leaks aggregate information. Calling `fit_transform` separately on validation also creates a different coordinate system from the one used to train the model.",
+      "practical_tip": "Use one fitted pipeline artifact for evaluation and serving. In cross-validation, place every learned preprocessing step inside the pipeline so each fold learns from its training portion only.",
+      "question": "After a scaler is fitted on training data, what should happen to validation data?",
+      "answer": "Transform it with the saved training statistics; do not fit or recompute the scaler on validation data."
+    },
+    "my": {
+      "title": "Preprocessing ကို Training Data ပေါ်မှာသာ Fit လုပ်ခြင်း",
+      "learning_objective": "Preprocessing တန်ဖိုးတွေကို training data ပေါ်မှာသာ fit လုပ်ပြီး validation၊ test နဲ့ inference input အားလုံးမှာ ပြန်သုံးကာ data leakage ကို ကာကွယ်နိုင်မယ်။",
+      "simple_explanation": "Preprocessing အချို့က data ထဲက တန်ဖိုးကို သင်ယူပါတယ်။ Scaler က mean နဲ့ scale၊ imputer က median၊ vocabulary က token တွေကို သင်ယူနိုင်ပါတယ်။ Data အားလုံးပေါ် fit လုပ်ရင် validation သို့မဟုတ် test example က pipeline ကို ကြိုသက်ရောက်ပါတယ်။ ဒါကို data leakage လို့ခေါ်ပါတယ်။ Future prediction အချိန် မရနိုင်တဲ့ information ဝင်လာလို့ evaluation က deployment ထက် ကောင်းပြနိုင်ပါတယ်။",
+      "how_it_works": "Data ကို အရင် split လုပ်ပါ။ Preprocessor ကို `X_train` ပေါ် fit ပြီး တန်ဖိုးတွေ သိမ်းပါ။ အဲဒီ object နဲ့ `X_train`၊ `X_valid` နဲ့ `X_test` ကို transform လုပ်ပါ။ Transform လုပ်ထားတဲ့ training data နဲ့ model fit လုပ်ပါ။ Pipeline သုံးရင် cross-validation fold တစ်ခုစီရဲ့ training portion အတွင်း အဆင့်အားလုံးကို မှန်ကန်စွာ refit လုပ်နိုင်ပါတယ်။",
+      "visual": "X_train ──▶ preprocessor fit\n                 │ သိမ်းထားသောတန်ဖိုး\nX_valid ──▶ transform only\nX_test  ──▶ transform only",
+      "use_case": "Training age တွေရဲ့ mean က 40၊ scale က 10 ဆိုပါစို့။ Scaler ကို အဲဒီမှာ fit လုပ်ပါ။ Validation ထဲက age 60 က `(60-40)/10 = 2` ဖြစ်ပါတယ်။ Production input တွေက future statistics သိထားတဲ့ batch အဖြစ် မရောက်လို့ validation statistics ကို ပြန်မတွက်ပါနဲ့။",
+      "expected_result": "Validation နဲ့ test row တွေကို training data မှ သင်ယူထားတဲ့တန်ဖိုးနဲ့သာ transform လုပ်ထားလို့ score က fixed pipeline ရဲ့ unseen input ကို ကိုင်တွယ်ပုံကို ပိုမှန်ကန်စွာ ကိုယ်စားပြုပါတယ်။",
+      "what_to_notice": "`transform` က validation value ကို formula ထဲ သုံးနိုင်ပေမယ့် validation ထဲက population statistics အသစ် မသင်ယူရပါဘူး။ Training mean နဲ့ scale က မပြောင်းဘဲ ရှိရပါတယ်။",
+      "common_mistake": "Split မလုပ်မီ dataset အားလုံးကို scale လုပ်ရင် information ယိုစိမ့်ပါတယ်။ Validation ပေါ် `fit_transform` ခေါ်ရင်လည်း training နဲ့ မတူတဲ့ coordinate system ဖြစ်သွားပါတယ်။",
+      "practical_tip": "Evaluation နဲ့ serving နှစ်ခုလုံးမှာ fitted pipeline artifact တစ်ခုတည်း သုံးပါ။ Cross-validation မှာ သင်ယူရတဲ့ preprocessing step အားလုံးကို pipeline ထဲ ထည့်ထားလို့ fold တစ်ခုစီက training portion မှသာ သင်ယူပါစေ။",
+      "question": "Scaler ကို training data ပေါ် fit လုပ်ပြီးနောက် validation data ကို ဘာလုပ်ရမလဲ?",
+      "answer": "သိမ်းထားတဲ့ training statistics နဲ့ transform သာလုပ်ပါ။ Validation data ပေါ် scaler ကို fit သို့မဟုတ် ပြန်မတွက်ရပါဘူး။"
+    }
+  },
+  "tags": ["preprocessing", "data-leakage", "pipelines"],
+  "status": "approved"
+}

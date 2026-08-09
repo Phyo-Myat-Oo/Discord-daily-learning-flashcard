@@ -1,0 +1,43 @@
+{
+  "id": "ai-slice-based-error-analysis-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 13,
+  "date": "2026-08-21",
+  "category": "ai",
+  "topic": "slice-based-error-analysis",
+  "difficulty": "intermediate",
+  "example": "Compare recall and sample counts across device types instead of relying only on one overall recall value.",
+  "content": {
+    "en": {
+      "title": "Find Hidden Failures with Data Slices",
+      "learning_objective": "Calculate the same labeled performance metric for meaningful data slices and use sample counts to distinguish a localized failure from random variation.",
+      "simple_explanation": "An aggregate metric combines every example into one number. It can hide a weak subgroup, called a slice, when that slice is small or errors in other groups offset it. Slice-based error analysis computes the same metric for operationally meaningful groups such as device type, region, or input-quality band. It helps locate where a model fails; it does not explain the cause by itself.",
+      "how_it_works": "Choose slices connected to how data is produced or decisions are used. On one labeled evaluation window, compute the overall metric and the identical metric for each slice. Record each slice's example count and positive count. Investigate a large, repeatable gap, then inspect data quality and representative errors before changing the model.",
+      "visual": "all labeled examples ──▶ recall 90%\n        ├─ desktop ──▶ 94% (n=800)\n        └─ mobile  ──▶ 62% (n=40)",
+      "use_case": "A document classifier has 90% overall recall. Group predictions by capture device and recompute recall. Desktop images reach 94%, while mobile images reach 62%. Inspect mobile false negatives for blur, cropping, or a changed upload path.",
+      "expected_result": "The report shows the metric, example count, and positive count for every chosen slice. A persistent mobile gap creates a focused investigation instead of an unsupported claim that the whole model is equally reliable.",
+      "what_to_notice": "The overall score can remain high because the larger desktop slice dominates it. The small mobile count also makes its estimate less stable, so repeatability and uncertainty matter before escalation.",
+      "common_mistake": "Searching hundreds of arbitrary slices and reporting only the worst one can turn random noise into a convincing story. Comparing different metrics or time windows also makes gaps misleading.",
+      "practical_tip": "Define important slices before viewing results. Always display denominators, use the same evaluation window, and verify a surprising gap on another window before acting.",
+      "question": "Why should every slice metric be reported with its example and positive counts?",
+      "answer": "Counts show how much evidence supports the metric and whether a dramatic gap may be unstable because the slice or its positive class is small."
+    },
+    "my": {
+      "title": "Data Slice ခွဲပြီး ဖုံးနေသော Model Error ကိုရှာခြင်း",
+      "learning_objective": "အဓိပ္ပာယ်ရှိတဲ့ data slice တစ်ခုစီအတွက် labeled performance metric တူတူတွက်ပြီး sample count နဲ့ localized failure ဟုတ်မဟုတ် ခွဲနိုင်မယ်။",
+      "simple_explanation": "Aggregate metric ဆိုတာ example အားလုံးကို နံပါတ်တစ်ခုထဲ စုပေးတာပါ။ လူနည်းတဲ့အုပ်စု အားနည်းနေရင် အုပ်စုကြီးရဲ့ရလဒ်က ဖုံးသွားနိုင်ပါတယ်။ အဲဒီလို စစ်ချင်တဲ့အုပ်စုကို slice လို့ခေါ်ပါတယ်။ Device type၊ region သို့မဟုတ် input quality အလိုက် metric တူတူတွက်ရင် model ဘယ်နေရာမှာ လွဲသလဲ တွေ့နိုင်ပါတယ်။ ဒါပေမယ့် ဘာကြောင့်လွဲတယ်ဆိုတာကိုတော့ metric တစ်ခုတည်းက မရှင်းပြနိုင်ပါဘူး။",
+      "how_it_works": "Data ဝင်လာပုံ၊ decision အသုံးချပုံနဲ့ ဆက်စပ်တဲ့ slice ကိုရွေးပါ။ Labeled evaluation window တစ်ခုတည်းမှာ overall metric နဲ့ slice တစ်ခုစီရဲ့ metric တူတူတွက်ပါ။ Example count နဲ့ positive count ကိုပါ မှတ်ပါ။ ကြီးမားပြီး အကြိမ်ကြိမ်ပေါ်တဲ့ gap ကိုတွေ့မှ data quality နဲ့ ကိုယ်စားပြု error တွေကို စစ်ပြီး model ပြင်ရန် ဆုံးဖြတ်ပါ။",
+      "visual": "labeled examples ──▶ recall 90%\n        ├─ desktop ──▶ 94% (n=800)\n        └─ mobile  ──▶ 62% (n=40)",
+      "use_case": "Document classifier ရဲ့ overall recall က 90% ပါ။ Prediction တွေကို capture device အလိုက်ခွဲပြီး recall ပြန်တွက်ပါ။ Desktop က 94% ရပေမယ့် mobile က 62% သာရပါတယ်။ Mobile false negative တွေမှာ blur၊ crop ပြတ်ခြင်း သို့မဟုတ် upload path ပြောင်းခြင်း ရှိမရှိ စစ်ပါ။",
+      "expected_result": "ရွေးထားတဲ့ slice တစ်ခုစီအတွက် metric၊ example count နဲ့ positive count ပါတဲ့ report ရပါမယ်။ Mobile gap ဆက်တိုက်ရှိရင် model အားလုံးတူတူယုံရတယ်လို့ မယူဆဘဲ ဦးတည်ချက်ရှိရှိ စုံစမ်းနိုင်ပါတယ်။",
+      "what_to_notice": "Desktop slice က ပိုကြီးလို့ overall score ကို လွှမ်းမိုးပြီး mobile ပြဿနာကို ဖုံးထားနိုင်ပါတယ်။ Mobile count နည်းရင် metric လှုပ်ရှားလွယ်တာကြောင့် ထပ်ဖြစ်မဖြစ်နဲ့ မသေချာမှုကို ကြည့်ပြီးမှ အရေးယူရပါမယ်။",
+      "common_mistake": "သတ်မှတ်ချက်မရှိဘဲ slice ရာချီရှာပြီး အဆိုးဆုံးတစ်ခုသာ ထုတ်ပြရင် တိုက်ဆိုင်တဲ့ noise ကို တကယ့်ပြဿနာလို ထင်စေနိုင်ပါတယ်။ မတူတဲ့ metric သို့မဟုတ် time window ကို နှိုင်းတာလည်း မှားစေပါတယ်။",
+      "practical_tip": "Result မကြည့်မီ အရေးကြီး slice တွေကို သတ်မှတ်ပါ။ Denominator ကို အမြဲပြပြီး evaluation window တူတူသုံးပါ။ ထူးခြားတဲ့ gap ကို အခြား window တစ်ခုမှာ ထပ်စစ်ပြီးမှ အရေးယူပါ။",
+      "question": "Slice metric တိုင်းနဲ့အတူ example count နဲ့ positive count ကို ဘာကြောင့် ပြရသလဲ?",
+      "answer": "Metric ကို ထောက်ခံတဲ့ evidence ဘယ်လောက်ရှိသလဲနဲ့ slice သို့မဟုတ် positive class နည်းလို့ gap ကြီးကြီးက မတည်ငြိမ်တာ ဖြစ်နိုင်မဖြစ်နိုင် သိနိုင်လို့ပါ။"
+    }
+  },
+  "tags": ["evaluation", "error-analysis", "data-slices"],
+  "status": "approved"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "dev-docker-bind-mount-obscures-image-files-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 14,
+  "date": "2026-08-22",
+  "category": "docker",
+  "topic": "bind-mount-obscures-image-files",
+  "difficulty": "intermediate",
+  "command": "docker inspect -f '{{json .Mounts}}' web-demo",
+  "example": "docker inspect -f '{{json .Mounts}}' web-demo; docker run --rm web-image ls -la /app; docker exec web-demo ls -la /app",
+  "content": {
+    "en": {
+      "title": "Recognize When a Bind Mount Hides Image Files",
+      "learning_objective": "Compare an image-only container with a running bind-mounted container to determine whether a host directory is hiding files built into the image.",
+      "simple_explanation": "A bind mount exposes a host path at a path inside a container. If it is mounted at /app, the host directory becomes the visible content at /app while that container runs. Files that the image already placed there are not deleted, but the mount obscures them. An empty or wrong host directory can therefore make a correctly built application appear missing.",
+      "how_it_works": "Inspect .Mounts to find the source and destination. Run a temporary container from the same image without the bind mount and list /app. Then list /app in the running container. If files appear only without the mount, the image contains them and the bind mount is covering that path.",
+      "visual": "image /app: app.py, config\n  │ bind host ./app → /app\n  ▼\nrunning /app: host files only\nimage files still exist underneath",
+      "use_case": "A web image works in a deployment, but a local container reports that /app/app.py is missing after the developer starts it with -v ./app:/app.",
+      "expected_result": "Inspection shows the host source mounted at /app. The unmounted temporary container lists image files, while the running mounted container lists the host directory's different contents.",
+      "what_to_notice": "The comparison separates an image-build problem from a runtime-mount problem. Rebuilding the same image will not expose its /app files while the bind mount still covers that destination.",
+      "common_mistake": "Assuming COPY failed and repeatedly rebuilding, without checking whether a Compose volume or -v option replaces the visible directory at runtime.",
+      "practical_tip": "Inspect mounts before rebuilding. Verify the resolved host source path, especially when a relative path may be evaluated from an unexpected directory.",
+      "question": "How can a bind mount make files copied into an image appear missing, and how can you verify that cause?",
+      "answer": "The mount makes its host directory visible at the same container path, obscuring image files there. Compare that path in an unmounted container and inspect the running container's mounts."
+    },
+    "my": {
+      "title": "Bind Mount က Image File တွေကို ဖုံးထားနိုင်တယ်",
+      "learning_objective": "Image သက်သက်နဲ့စထားတဲ့ container ကို bind mount ပါတဲ့ running container နဲ့ နှိုင်းပြီး host directory က image ထဲက file တွေကို ဖုံးထားသလား စစ်နိုင်မယ်။",
+      "simple_explanation": "Bind mount ဆိုတာ host ပေါ်က path တစ်ခုကို container အတွင်း path တစ်ခုမှာ မြင်ရအောင် ချိတ်တာပါ။ /app မှာ mount လုပ်ရင် container run နေချိန် အဲဒီနေရာမှာ host directory ရဲ့ content ကိုပဲ မြင်ရတယ်။ Image build လုပ်တုန်းက /app ထဲထည့်ထားတဲ့ file တွေ မပျက်ပါဘူး။ Mount က ခဏဖုံးထားတာပါ။",
+      "how_it_works": ".Mounts ကိုစစ်ပြီး source နဲ့ destination ကိုရှာပါ။ တူညီတဲ့ image ကနေ bind mount မပါဘဲ temporary container တစ်ခု run ကာ /app ကို list လုပ်ပါ။ ပြီးရင် running container ထဲက /app ကို list လုပ်ပါ။ Mount မပါတဲ့ဘက်မှာသာ file တွေရှိရင် image က မှန်ပြီး bind mount က ဖုံးထားတာပါ။",
+      "visual": "image /app: app.py, config\n  │ bind host ./app → /app\n  ▼\nrunning /app: host files only\nimage files က အောက်မှာရှိနေသေး",
+      "use_case": "Web image က deployment မှာ အလုပ်လုပ်ပေမယ့် local မှာ -v ./app:/app နဲ့စတဲ့အခါ /app/app.py မရှိဘူးလို့ error တက်ပါတယ်။",
+      "expected_result": "Inspect output မှာ host source ကို /app သို့ mount ထားတာ တွေ့မယ်။ Mount မပါတဲ့ temporary container မှာ image file တွေပေါ်ပြီး running container မှာ host directory ရဲ့ မတူတဲ့ content ပေါ်မယ်။",
+      "what_to_notice": "ဒီနှိုင်းယှဉ်မှုက image build မှားတာနဲ့ runtime mount မှားတာကို ခွဲပေးတယ်။ Bind mount က /app ကို ဖုံးထားသရွေ့ တူညီတဲ့ image ကို rebuild လုပ်နေလည်း image file တွေ မမြင်ရပါဘူး။",
+      "common_mistake": "Compose volume သို့မဟုတ် -v က runtime မှာ directory ကို ဖုံးထားသလား မစစ်ဘဲ COPY မအောင်မြင်ဘူးထင်ပြီး image ကို ထပ်ခါထပ်ခါ build လုပ်တာပါ။",
+      "practical_tip": "Rebuild မလုပ်မီ mount ကိုစစ်ပါ။ Relative path ကို မမျှော်လင့်တဲ့ directory ကနေ တွက်ထားနိုင်လို့ host source path အတိအကျကိုပါ စစ်ပါ။",
+      "question": "Bind mount က image ထဲက file ကို မရှိသလို ဘယ်လိုဖြစ်စေသလဲ၊ ဒီအကြောင်းရင်းကို ဘယ်လိုစစ်မလဲ?",
+      "answer": "တူညီတဲ့ container path မှာ host directory ကို မြင်စေလို့ image file တွေ ဖုံးသွားတာပါ။ Mount မပါတဲ့ container နဲ့ နှိုင်းပြီး running container ရဲ့ mount စာရင်းကို စစ်နိုင်ပါတယ်။"
+    }
+  },
+  "tags": ["docker", "bind-mount", "image", "troubleshooting"],
+  "status": "approved"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "mlops-feature-artifact-parity-review-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 8,
+  "date": "2026-08-16",
+  "category": "review",
+  "topic": "feature-and-artifact-parity-review",
+  "difficulty": "intermediate",
+  "example": "Trace one release from a fixed raw request through feature parity testing to digest-pinned deployment.",
+  "content": {
+    "en": {
+      "title": "Review Feature and Artifact Parity",
+      "learning_objective": "Verify that production computes the tested feature values and runs the exact container image that passed release validation.",
+      "simple_explanation": "A reliable release preserves two identities. Feature parity means equivalent raw inputs produce equivalent model inputs during training and serving. Artifact parity means production runs the exact container image that tests approved. A shared feature name does not prove equal values, and a shared image tag does not prove equal bytes. Compare concrete feature outputs and pin the tested repository digest.",
+      "how_it_works": "Start with a non-sensitive fixture and fixed timestamp. Compare training and serving feature names, types, order, and values. Run release tests on the candidate image, record its `repository@sha256:...`, and put that digest in the deployment manifest. These checks isolate transformation skew from accidental artifact substitution.",
+      "visual": "raw fixture ──▶ feature parity test\n                      │ pass\n                      ▼\ncandidate image ──▶ release tests\n                      │ digest A\n                      ▼\nproduction ──▶ digest A",
+      "use_case": "A fraud API release shows different scores in staging and production. First compare feature vectors for the same fixture, then compare deployed and validated digests to locate which boundary changed.",
+      "expected_result": "The fixture yields equivalent feature vectors in both paths, and production reports the same repository digest stored by the successful release test.",
+      "what_to_notice": "These checks answer different questions. Feature parity protects the model's input meaning; digest pinning protects artifact identity. Neither check alone proves end-to-end model quality.",
+      "common_mistake": "Seeing matching feature names and matching tags can create false confidence because values may differ and tags may move.",
+      "practical_tip": "Store the golden-fixture comparison and tested digest as release evidence, then verify both during promotion and rollback.",
+      "question": "What two identities should an ML release preserve from validation to production?",
+      "answer": "The meaning and values of model features, and the exact tested container image identified by its repository digest."
+    },
+    "my": {
+      "title": "Feature နဲ့ Artifact တူညီမှုကို ပြန်လည်စစ်ဆေးခြင်း",
+      "learning_objective": "Production က test လုပ်ထားတဲ့ feature value တွေကို တွက်ပြီး release validation အောင်ထားတဲ့ container image အတိအကျကို run နေကြောင်း စစ်နိုင်မယ်။",
+      "simple_explanation": "ယုံကြည်ရတဲ့ release တစ်ခုမှာ identity နှစ်မျိုး ထိန်းရပါတယ်။ Feature parity ဆိုတာ raw input အဓိပ္ပာယ်တူရင် training နဲ့ serving မှာ model input တူရတာပါ။ Artifact parity ဆိုတာ production က test အောင်ထားတဲ့ container image အတိအကျကို run ရတာပါ။ Feature name တူရုံနဲ့ value တူကြောင်း မသက်သေပြပါဘူး။ Image tag တူရုံနဲ့ bytes တူကြောင်းလည်း မပြပါဘူး။ Feature output ကို နှိုင်းပြီး tested repository digest ကို pin လုပ်ရပါတယ်။",
+      "how_it_works": "Sensitive data မပါတဲ့ fixture နဲ့ timestamp အသေတစ်ခုက စပါ။ Training နဲ့ serving feature ရဲ့ name၊ type၊ order နဲ့ value ကို နှိုင်းပါ။ Candidate image ကို release test လုပ်ပြီး `repository@sha256:...` ကို မှတ်ပါ။ အဲဒီ digest ကို deployment manifest ထဲ ထည့်ပါ။ ဒီစစ်ဆေးမှုနှစ်ခုက transformation skew နဲ့ artifact မတော်တဆပြောင်းခြင်းကို ခွဲရှာပေးပါတယ်။",
+      "visual": "raw fixture ──▶ feature parity test\n                      │ pass\n                      ▼\ncandidate image ──▶ release tests\n                      │ digest A\n                      ▼\nproduction ──▶ digest A",
+      "use_case": "Fraud API score က staging နဲ့ production မှာ မတူဘူးဆိုပါစို့။ Fixture တူတစ်ခုရဲ့ feature vector ကို အရင်နှိုင်းပါ။ ပြီးရင် deploy ထားတဲ့ digest နဲ့ validation အောင်ထားတဲ့ digest ကို နှိုင်းပြီး ဘယ်နယ်နိမိတ် ပြောင်းသလဲရှာပါ။",
+      "expected_result": "Fixture တစ်ခုက path နှစ်ခုလုံးမှာ တူညီတဲ့ feature vector ထုတ်မယ်။ Production က အောင်မြင်တဲ့ release test မှတ်ထားတဲ့ repository digest တူတူကို ပြမယ်။",
+      "what_to_notice": "စစ်ဆေးမှုနှစ်ခုက မေးခွန်းမတူပါဘူး။ Feature parity က model input ရဲ့ အဓိပ္ပာယ်ကို ထိန်းပါတယ်။ Digest pinning က artifact identity ကို ထိန်းပါတယ်။ တစ်ခုတည်းနဲ့ end-to-end model quality ကို မသက်သေပြနိုင်ပါဘူး။",
+      "common_mistake": "Feature name တူပြီး tag တူတာကို မြင်လို့ စိတ်ချတာ မှားနိုင်ပါတယ်။ Value ကွာနိုင်သလို tag လည်း ရွှေ့နိုင်ပါတယ်။",
+      "practical_tip": "Golden-fixture နှိုင်းယှဉ်ရလဒ်နဲ့ tested digest ကို release evidence အဖြစ် သိမ်းပါ။ Promotion နဲ့ rollback အချိန် နှစ်ခုလုံးကို ပြန်စစ်ပါ။",
+      "question": "ML release က validation မှ production အထိ ဘယ် identity နှစ်မျိုးကို ထိန်းထားရမလဲ?",
+      "answer": "Model feature ရဲ့ အဓိပ္ပာယ်နဲ့ value တူညီမှု၊ repository digest နဲ့ သတ်မှတ်ထားတဲ့ tested container image အတိအကျတို့ကို ထိန်းရပါတယ်။"
+    }
+  },
+  "review_items": [
+    {"question": "What must a feature parity test compare beyond names?", "answer": "Types, ordering, and values produced from the same raw input and time context."},
+    {"question": "Why is an image tag insufficient proof of artifact identity?", "answer": "A later push can move the tag to different image content."},
+    {"question": "What does a repository digest preserve?", "answer": "The identity of the exact image manifest that was tested."}
+  ],
+  "tags": ["mlops", "feature-parity", "image-digest", "review"],
+  "status": "approved"
+}

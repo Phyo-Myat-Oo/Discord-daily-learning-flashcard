@@ -1,0 +1,44 @@
+{
+  "id": "linux-process-environment-inspection-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 11,
+  "date": "2026-08-19",
+  "category": "linux",
+  "topic": "running-process-environment-inspection",
+  "difficulty": "intermediate",
+  "command": "tr '\\0' '\\n' < /proc/4242/environ",
+  "example": "tr '\\0' '\\n' < /proc/4242/environ | grep '^PATH='",
+  "content": {
+    "en": {
+      "title": "Inspect the Environment a Process Actually Received",
+      "learning_objective": "Read `/proc/PID/environ` to verify a running process's startup environment without assuming it matches the current shell.",
+      "simple_explanation": "An environment is a set of name-value settings inherited when a process starts. A service may receive a different `PATH`, locale, proxy setting, or configuration variable than your interactive shell. Changing the shell later does not rewrite the running process's environment. On Linux, `/proc/PID/environ` exposes the startup environment for an accessible process as null-separated entries.",
+      "how_it_works": "Choose a freshly verified PID; suppose it is 4242. Run `tr '\\0' '\\n' < /proc/4242/environ | grep '^PATH='`. `tr` turns null separators into readable newlines, and the anchored pattern selects the exact `PATH` name. Compare it with the expected service configuration. Access may be denied for another user's process or by `/proc` security settings.",
+      "visual": "service configuration\n        ▼ starts\nprocess environment snapshot\n        ≠\ncurrent shell environment",
+      "use_case": "A command succeeds in your terminal but a background service reports that it cannot find the same executable. Inspect the service process's `PATH` before editing files or installing another copy.",
+      "expected_result": "The command prints one `PATH=...` entry when it exists and access is allowed; no match means the variable is absent, the PID disappeared, or access failed.",
+      "what_to_notice": "The value belongs to the running process, not to the shell performing the inspection. This explains why reproducing a service failure in an interactive terminal can give a different result.",
+      "common_mistake": "Running plain `env` shows the inspector's environment, not the target process's. Printing all entries can also expose secrets in terminal history or shared logs.",
+      "practical_tip": "Query only the variable needed, avoid copying full environment output, and restart the service through its manager after an intentional configuration change.",
+      "question": "Why can a running service keep using an old environment value after you change it in your shell?",
+      "answer": "It inherited an environment snapshot at startup; later shell changes do not update that running process."
+    },
+    "my": {
+      "title": "Process အမှန်တကယ်ရထားသော Environment ကို စစ်ခြင်း",
+      "learning_objective": "လက်ရှိ shell နဲ့တူမယ်လို့ မယူဆဘဲ `/proc/PID/environ` ကနေ running process စတင်ချိန်ရခဲ့တဲ့ environment ကို စစ်နိုင်မယ်။",
+      "simple_explanation": "Environment ဆိုတာ process စတင်ချိန်မှာ မိဘ process ဆီက လက်ဆင့်ကမ်းရတဲ့ name-value setting အစုပါ။ Service တစ်ခုရဲ့ `PATH`၊ locale၊ proxy setting သို့မဟုတ် configuration variable က interactive shell နဲ့ မတူနိုင်ပါတယ်။ နောက်မှ shell ထဲက value ပြင်တာက run နေပြီးသား process ကို မပြောင်းပါဘူး။ Linux မှာ access ရှိရင် `/proc/PID/environ` က စတင်ချိန် environment ကို null separator ခြားထားပြီး ပြပါတယ်။",
+      "how_it_works": "အသစ်စစ်ထားတဲ့ PID ကို သုံးပါ။ PID 4242 ဆိုရင် `tr '\\0' '\\n' < /proc/4242/environ | grep '^PATH='` run ပါ။ `tr` က null separator ကို ဖတ်လွယ်တဲ့ newline ပြောင်းပြီး anchored pattern က `PATH` အတိအကျကိုသာ ရွေးပါတယ်။ Expected service configuration နဲ့ တိုက်စစ်ပါ။ အခြား user ရဲ့ process သို့မဟုတ် `/proc` security setting ကြောင့် access denied ဖြစ်နိုင်ပါတယ်။",
+      "visual": "service configuration\n        ▼ စတင်\nprocess environment snapshot\n        ≠\nလက်ရှိ shell environment",
+      "use_case": "Terminal မှာ command တစ်ခု run လို့ရပေမယ့် background service က executable မတွေ့ဘူးလို့ ပြတယ်။ File မပြင်ခင်၊ copy အသစ်မသွင်းခင် service process ရဲ့ `PATH` ကို စစ်ပါ။",
+      "expected_result": "Variable ရှိပြီး access ရရင် `PATH=...` စာကြောင်းတစ်ကြောင်း ပေါ်မယ်။ မပေါ်ရင် variable မရှိတာ၊ PID ပျောက်သွားတာ သို့မဟုတ် access မရတာကို သီးခြားစစ်ရမယ်။",
+      "what_to_notice": "တွေ့ရတဲ့ value က စစ်နေတဲ့ shell ရဲ့ value မဟုတ်ဘဲ target process ရဲ့ value ပါ။ ဒါကြောင့် service error ကို terminal မှာ ပြန်စမ်းတဲ့အခါ result မတူနိုင်တာကို သိစေပါတယ်။",
+      "common_mistake": "ရိုးရိုး `env` run ရင် target process မဟုတ်ဘဲ ကိုယ့် shell environment ကိုသာ ပြပါတယ်။ Entry အားလုံးထုတ်ရင် secret တွေ terminal history သို့မဟုတ် shared log ထဲ ရောက်နိုင်ပါတယ်။",
+      "practical_tip": "လိုတဲ့ variable တစ်ခုကိုသာ ရွေးစစ်ပြီး environment အပြည့်ကို မကူးပါနဲ့။ Configuration ကို ရည်ရွယ်ချက်ရှိရှိပြင်ပြီးရင် service manager ကနေ restart လုပ်ပါ။",
+      "question": "Shell ထဲမှာ value ပြင်ပြီးနောက် running service က အဟောင်းကို ဆက်သုံးနိုင်တာ ဘာကြောင့်လဲ?",
+      "answer": "Service က စတင်ချိန် environment snapshot ကို ရထားပြီး နောက်ပိုင်း shell ပြောင်းလဲမှုက running process ကို update မလုပ်လို့ပါ။"
+    }
+  },
+  "tags": ["processes", "environment", "troubleshooting"],
+  "status": "approved"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ai-evaluation-leakage-review-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 8,
+  "date": "2026-08-16",
+  "category": "review",
+  "topic": "evaluation-and-leakage-review",
+  "difficulty": "intermediate",
+  "example": "Audit whether model choices and scaler statistics crossed the train, validation, and test boundaries.",
+  "content": {
+    "en": {
+      "title": "Review the Information Boundary Around Evaluation",
+      "learning_objective": "Audit a model-selection workflow for test-set reuse and preprocessing leakage, then restore a clean boundary around final evaluation data.",
+      "simple_explanation": "Reliable evaluation depends on controlling information flow. Training data may fit model parameters and learned preprocessing. Validation data may guide model choices, but it must not fit the selected pipeline. Test data should influence neither fitting nor selection; it supplies a final estimate after the procedure is fixed. Leakage occurs whenever information crosses those boundaries, even through a mean, vocabulary, feature choice, or repeated look at a test score.",
+      "how_it_works": "Audit each learned value and decision. Ask which rows produced it and which score authorized it. Fit the scaler and model on train, choose among candidates with validation, then lock the pipeline. Transform test using the saved training statistics and evaluate once. If test feedback causes a change, the old test set has joined the selection process and fresh evaluation data is needed for a clean estimate.",
+      "visual": "TRAIN: fit values + model\n          │\nVALID: choose candidate\n          │ lock\nTEST: transform only ──▶ estimate",
+      "use_case": "A team scaled all rows before splitting and selected the classifier with the best test score. Rebuild from the original split: fit scaling within training, select with validation, freeze the pipeline, and reserve untouched data for final evaluation.",
+      "expected_result": "Every learned preprocessing value comes from training rows, model choices come from validation evidence, and the final score comes from test data that did not shape the pipeline.",
+      "what_to_notice": "Leakage is about information, not only labels or explicit model fitting. A test-set mean or a decision triggered by a test score can both make the final estimate optimistic.",
+      "common_mistake": "Calling test data 'untouched' because it was not passed to `model.fit` ignores preprocessing fitted before the split and human tuning performed after viewing test results.",
+      "practical_tip": "Draw arrows from every dataset to each fitted value, code decision, and reported metric. Any arrow from test to fitting or selection marks a compromised final evaluation.",
+      "question": "What two information flows must be prevented to keep the final test estimate independent?",
+      "answer": "Test data must not fit preprocessing or model values, and test results must not guide model or pipeline selection."
+    },
+    "my": {
+      "title": "Evaluation ပတ်လည်ရှိ Information Boundary ကို ပြန်စစ်ခြင်း",
+      "learning_objective": "Model ရွေးချယ်မှုမှာ test-set ပြန်သုံးခြင်းနဲ့ preprocessing leakage ရှိမရှိ စစ်ပြီး final evaluation data ပတ်လည်က boundary ကို သန့်ရှင်းစွာ ပြန်တည်ဆောက်နိုင်မယ်။",
+      "simple_explanation": "ယုံကြည်ရတဲ့ evaluation ရဖို့ information စီးဆင်းရာကို ထိန်းရပါတယ်။ Training data က model parameter နဲ့ preprocessing တန်ဖိုးတွေကို fit လုပ်နိုင်ပါတယ်။ Validation data က model ရွေးရာမှာ လမ်းညွှန်နိုင်ပေမယ့် pipeline ကို fit မလုပ်ရပါဘူး။ Test data က fitting နဲ့ selection နှစ်ခုလုံးကို မသက်ရောက်ဘဲ procedure ပိတ်ပြီးမှ final estimate ပေးရပါတယ်။ Mean၊ vocabulary၊ feature choice သို့မဟုတ် test score ကို ထပ်ကြည့်ခြင်းကနေ boundary ကျော်ရင်လည်း leakage ဖြစ်ပါတယ်။",
+      "how_it_works": "သင်ယူထားတဲ့တန်ဖိုးနဲ့ decision တစ်ခုစီကို စစ်ပါ။ ဘယ် row တွေက ထုတ်ပေးသလဲ၊ ဘယ် score ကြောင့် ဆုံးဖြတ်သလဲ မေးပါ။ Scaler နဲ့ model ကို train ပေါ် fit၊ candidate ကို validation နဲ့ရွေးပြီး pipeline ကို ပိတ်ပါ။ သိမ်းထားတဲ့ training statistics နဲ့ test ကို transform လုပ်ကာ တစ်ကြိမ် evaluate လုပ်ပါ။ Test feedback ကြောင့် ပြောင်းလဲရင် test အဟောင်းက selection ထဲဝင်သွားလို့ clean estimate အတွက် evaluation data အသစ်လိုပါတယ်။",
+      "visual": "TRAIN: value + model fit\n          │\nVALID: candidate ရွေး\n          │ ပိတ်\nTEST: transform only ──▶ estimate",
+      "use_case": "Team က split မလုပ်မီ row အားလုံးကို scale လုပ်ပြီး test score အကောင်းဆုံး classifier ကို ရွေးထားပါတယ်။ မူလ split မှ ပြန်စပါ။ Training အတွင်း scaling fit၊ validation နဲ့ရွေး၊ pipeline ပိတ်ပြီး untouched data ကို final evaluation အတွက် သိမ်းပါ။",
+      "expected_result": "Audit မှတ်တမ်းမှာ arrow တွေက train မှ fitting ဆီ၊ validation မှ selection ဆီနဲ့ locked pipeline မှ test score ဆီသာ ဦးတည်နေတာကို မြင်ရပါမယ်။",
+      "what_to_notice": "Leakage က label သို့မဟုတ် `model.fit` တစ်ခုတည်းနဲ့ မဆိုင်ပါဘူး။ Test-set mean သို့မဟုတ် test score ကြောင့်ဖြစ်တဲ့ decision နှစ်ခုလုံးက final estimate ကို အမှန်ထက် ကောင်းပြနိုင်ပါတယ်။",
+      "common_mistake": "Test data ကို `model.fit` ထဲ မထည့်လို့ 'untouched' လို့ ခေါ်တာက split မတိုင်မီ fitted preprocessing နဲ့ test result မြင်ပြီးနောက် လူက tuning လုပ်တာကို လျစ်လျူရှုပါတယ်။",
+      "practical_tip": "Dataset တစ်ခုစီမှ fitted value၊ code decision နဲ့ reported metric ဆီ arrow ဆွဲပါ။ Test မှ fitting သို့မဟုတ် selection ဆီ arrow ရှိရင် final evaluation ပျက်နေပါတယ်။",
+      "question": "Final test estimate ကို independent ထားဖို့ ဘယ် information flow နှစ်ခုကို တားရမလဲ?",
+      "answer": "Test data က preprocessing သို့မဟုတ် model တန်ဖိုးကို fit မလုပ်ရသလို test result က model သို့မဟုတ် pipeline ရွေးချယ်မှုကိုလည်း မလမ်းညွှန်ရပါဘူး။"
+    }
+  },
+  "review_items": [
+    {"question": "Which split should choose hyperparameters?", "answer": "Validation data, or cross-validation performed only within the development data."},
+    {"question": "What data should fit a scaler's mean and scale?", "answer": "Training data only."},
+    {"question": "What changes if a test score triggers more tuning?", "answer": "That test set becomes part of selection and is no longer an independent final estimate."}
+  ],
+  "tags": ["evaluation", "data-leakage", "model-selection", "review"],
+  "status": "approved"
+}

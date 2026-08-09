@@ -1,0 +1,49 @@
+{
+  "id": "ai-learning-workflows-review-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 5,
+  "date": "2026-08-09",
+  "category": "review",
+  "topic": "learning-workflows-review",
+  "difficulty": "intermediate",
+  "example": "Classify a spam project by its target, update schedule, and prediction method.",
+  "content": {
+    "en": {
+      "title": "Review How a Learning System Gets and Uses Knowledge",
+      "learning_objective": "Classify a learning workflow by its training signal, update cadence, and storage of learned knowledge, then identify suitable evaluation evidence.",
+      "simple_explanation": "A useful description of an ML system answers separate questions. What task and metric define improvement? Do training examples contain known targets, making the workflow supervised? Are parameters replaced after periodic batch training or updated incrementally online? Does prediction compare stored instances or apply fitted model parameters? These choices describe different parts of the system and can be combined.",
+      "how_it_works": "Consider a spam filter trained nightly from labeled messages. The labels make training supervised. Replacing the model after each nightly run makes updating batch-based, even if an API serves predictions immediately. If prediction applies fitted parameters rather than searching stored messages, it is model-based. Held-out labeled messages test whether learning transfers to unseen cases.",
+      "visual": "known targets ──▶ supervised\nnightly replace ──▶ batch update\nfitted parameters ──▶ model-based\nheld-out data ──▶ evidence",
+      "use_case": "During a design review, describe one recommendation service without calling every real-time activity 'online learning.' Separate how it learns, when it updates, how it predicts, and how success is measured.",
+      "expected_result": "The spam example is classified as supervised, batch-updated, model-based learning with real-time serving; held-out performance supplies evidence of generalization.",
+      "what_to_notice": "Training style and serving style are independent. Likewise, having labels does not determine whether updates are batch or online, or whether prediction is instance-based or model-based.",
+      "common_mistake": "Using one vague label such as 'online AI' hides important choices. High training accuracy also cannot prove learning because memorization or leakage may produce it.",
+      "practical_tip": "Write four lines for any ML design: target and metric, training signal, update process, and prediction method. Then name the unseen data used for evaluation.",
+      "question": "A labeled spam model retrains nightly and serves an API all day. Is its learning batch or online?",
+      "answer": "Batch learning. Its parameters change in periodic training runs; real-time API serving does not make training online."
+    },
+    "my": {
+      "title": "Learning System က Knowledge ရယူသုံးစွဲပုံ ပြန်လည်လေ့ကျင့်ခြင်း",
+      "learning_objective": "Training signal၊ update cadence နဲ့ သင်ယူထားတဲ့ knowledge သိမ်းပုံကို ကြည့်ပြီး workflow ခွဲနိုင်မယ်။ သင့်တော်တဲ့ evaluation evidence ကိုလည်း ရွေးနိုင်မယ်။",
+      "simple_explanation": "ML system တစ်ခုကို ရှင်းပြရာမှာ မေးခွန်းအမျိုးမျိုးကို သီးခြားဖြေရပါတယ်။ ဘယ် task နဲ့ metric က တိုးတက်မှုကို သတ်မှတ်သလဲ။ Training example မှာ သိပြီးသား target ပါလို့ supervised ဖြစ်သလား။ Model parameter ကို အချိန်မှန် batch train ပြီး အစားထိုးသလား၊ data အသစ်နဲ့ တဖြည်းဖြည်း online update လုပ်သလား။ Prediction မှာ stored instance နဲ့ နှိုင်းသလား၊ fit လုပ်ထားတဲ့ parameter သုံးသလား။ ဒီရွေးချယ်မှုတွေကို ပေါင်းစပ်နိုင်ပါတယ်။",
+      "how_it_works": "Label ပါတဲ့ message တွေနဲ့ ညတိုင်း train လုပ်တဲ့ spam filter ကို ကြည့်ပါ။ Label ရှိလို့ supervised ဖြစ်ပါတယ်။ ညတိုင်း model အသစ်နဲ့ အစားထိုးလို့ batch update ဖြစ်ပါတယ်။ API က ချက်ချင်း prediction ပေးနေပေမယ့် training က online မဖြစ်သွားပါဘူး။ Stored message မရှာဘဲ fitted parameter သုံးရင် model-based ဖြစ်ပါတယ်။ Held-out message က unseen case ပေါ် သင်ယူမှုကို စစ်ပေးပါတယ်။",
+      "visual": "known target ──▶ supervised\nညတိုင်းအစားထိုး ──▶ batch update\nfitted parameter ──▶ model-based\nheld-out data ──▶ evidence",
+      "use_case": "Recommendation service design ကို review လုပ်တဲ့အခါ real-time လုပ်ဆောင်မှုတိုင်းကို 'online learning' လို့ မခေါ်ပါနဲ့။ ဘယ်လိုသင်ယူ၊ ဘယ်အချိန် update၊ ဘယ်လို predict နဲ့ ဘယ်လိုတိုင်းတာသလဲ ခွဲပြောပါ။",
+      "expected_result": "Spam ဥပမာကို supervised၊ batch-updated၊ model-based learning နဲ့ real-time serving ဟု မှန်ကန်စွာ ခွဲနိုင်ပြီး held-out performance ကို generalization evidence အဖြစ် သတ်မှတ်နိုင်ပါတယ်။",
+      "what_to_notice": "အမျိုးအစားတစ်ခုသိရုံနဲ့ system တစ်ခုလုံးကို မခွဲနိုင်ပါဘူး။ ဥပမာ API ချက်ချင်းဖြေတာကိုကြည့်ပြီး parameter ဘယ်အချိန်ပြောင်းသလဲ မသိနိုင်ပါဘူး။ မေးခွန်းတစ်ခုစီကို သီးခြားစစ်ရပါတယ်။",
+      "common_mistake": "'Online AI' လို နာမည်တစ်ခုတည်းနဲ့ အားလုံးဖော်ပြရင် အရေးကြီးတဲ့ရွေးချယ်မှုတွေ ပျောက်သွားပါတယ်။ Training accuracy မြင့်တာက memorization သို့မဟုတ် leakage ဖြစ်နိုင်လို့ သင်ယူမှုကို မသက်သေပြနိုင်ပါဘူး။",
+      "practical_tip": "ML design တိုင်းအတွက် target နဲ့ metric၊ training signal၊ update process နဲ့ prediction method ဆိုပြီး လေးကြောင်းရေးပါ။ ပြီးမှ evaluation အတွက် unseen data ကို နာမည်တပ်ပါ။",
+      "question": "Label ပါတဲ့ spam model ကို ညတိုင်း retrain လုပ်ပြီး API က တစ်နေ့လုံး serve လုပ်ရင် learning က batch လား online လား?",
+      "answer": "Batch learning ဖြစ်ပါတယ်။ Parameter က အချိန်မှန် training run မှာသာ ပြောင်းပြီး real-time API serving ကြောင့် training က online မဖြစ်ပါဘူး။"
+    }
+  },
+  "review_items": [
+    {"question": "What evidence distinguishes learning from memorization?", "answer": "Improvement on suitable unseen data for a defined task and metric."},
+    {"question": "What makes training supervised?", "answer": "Each training example includes a known target that supplies feedback."},
+    {"question": "Does real-time serving imply online learning?", "answer": "No. Online learning describes incremental model updates, not serving cadence."},
+    {"question": "Where does instance-based prediction get its information?", "answer": "By comparing the new input with stored training instances."}
+  ],
+  "tags": ["machine-learning", "training", "evaluation", "review"],
+  "status": "approved"
+}

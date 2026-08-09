@@ -1,0 +1,49 @@
+{
+  "id": "mlops-system-design-foundations-review-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 5,
+  "date": "2026-08-09",
+  "category": "review",
+  "topic": "mlops-system-design-foundations-review",
+  "difficulty": "intermediate",
+  "example": "Classify a fraud service by its data risk, production constraints, prediction cadence, and feedback path.",
+  "content": {
+    "en": {
+      "title": "Review the Boundaries of an ML System",
+      "learning_objective": "Diagnose an ML service by separating data-dependent quality, production constraints, prediction cadence, and feedback-loop risk.",
+      "simple_explanation": "A deployed model is only one part of an ML system. Its quality depends on current data, while production success also depends on latency, cost, reliability, and maintainability. Batch and online prediction describe when answers are produced, not when training occurs. Finally, predictions may change what users see, so collected outcomes can reflect the system's earlier choices rather than unbiased demand.",
+      "how_it_works": "Imagine a fraud model retrained monthly and called during each payment. It performs online prediction but batch training. A new payment method can reduce recall without breaking the API. Its latency must fit the authorization deadline. If blocked transactions never receive confirmed outcomes, later training data also reflects the model's decisions.",
+      "visual": "current data ──▶ prediction quality\nrequest deadline ──▶ serving mode\nmodel action ──▶ observed feedback\nall three ──▶ production outcome",
+      "use_case": "During an incident review, inspect service health, input changes, decision timing, and how labels were collected before concluding that the model artifact alone is faulty.",
+      "expected_result": "The fraud service is described as monthly batch-trained and online-served, with separate checks for latency, changed input patterns, outcome availability, and selection bias.",
+      "what_to_notice": "An HTTP 200 proves that inference completed, not that the prediction was useful. Real-time serving does not imply online learning, and observed labels may be shaped by prior model actions.",
+      "common_mistake": "Choosing the best offline score and then monitoring only uptime hides data drift, deadline failures, and biased feedback.",
+      "practical_tip": "For each deployment, write four lines: decision deadline, data assumptions, system constraints, and how actions affect future labels.",
+      "question": "A model retrains monthly but scores every request immediately. Which cadence is batch, and which is online?",
+      "answer": "Training is batch; prediction serving is online. The two cadences are independent."
+    },
+    "my": {
+      "title": "ML System ၏ နယ်နိမိတ်များကို ပြန်လည်စစ်ဆေးခြင်း",
+      "learning_objective": "Data ကြောင့် quality ပြောင်းခြင်း၊ production constraint၊ prediction cadence နဲ့ feedback-loop risk ကို ခွဲပြီး ML service ပြဿနာကို စစ်နိုင်မယ်။",
+      "simple_explanation": "Deploy လုပ်ထားတဲ့ model က ML system တစ်ခုလုံး မဟုတ်ပါဘူး။ Quality က လက်ရှိ data ပေါ်မူတည်ပြီး production အောင်မြင်ဖို့ latency၊ cost၊ reliability နဲ့ ထိန်းသိမ်းရလွယ်ကူမှုလည်း လိုပါတယ်။ Batch နဲ့ online prediction က အဖြေဘယ်အချိန်ထုတ်သလဲကို ပြောတာပါ။ Training ဘယ်အချိန်လုပ်သလဲကို မပြောပါဘူး။ Prediction က user မြင်ရတာကို ပြောင်းနိုင်လို့ စုလာတဲ့ outcome မှာ system အဟောင်းရဲ့ ရွေးချယ်မှု ပါနေနိုင်ပါတယ်။",
+      "how_it_works": "လစဉ် retrain လုပ်ပြီး payment တိုင်းကို ချက်ချင်းစစ်တဲ့ fraud model ကို ကြည့်ပါ။ Training က batch ဖြစ်ပြီး prediction က online ဖြစ်ပါတယ်။ Payment method အသစ်ကြောင့် API မပျက်ဘဲ recall ကျနိုင်ပါတယ်။ Latency က authorization deadline အတွင်း ရှိရပါမယ်။ Block ခံရတဲ့ transaction ရဲ့ outcome မရရင် နောက် training data ကို model ဆုံးဖြတ်ချက်ကလည်း ပုံဖော်ထားပါတယ်။",
+      "visual": "current data ──▶ quality\ndeadline ──▶ serving mode\nmodel action ──▶ feedback\nအားလုံး ──▶ outcome",
+      "use_case": "Incident review မှာ model artifact ကို တန်းအပြစ်မတင်မီ service health၊ input ပြောင်းလဲမှု၊ decision timing နဲ့ label စုဆောင်းပုံကို ခွဲစစ်ပါ။",
+      "expected_result": "Fraud service ကို လစဉ် batch train၊ online serve ဟု ခွဲပြနိုင်ပြီး latency၊ input pattern အသစ်၊ outcome ရရှိမှုနဲ့ selection bias ကို သီးခြားစစ်နိုင်မယ်။",
+      "what_to_notice": "HTTP 200 က inference ပြီးကြောင်းသာ ပြပါတယ်။ Prediction အသုံးဝင်ကြောင်း မပြပါဘူး။ Real-time serving က online learning မဟုတ်သလို observed label က အရင် model action ကြောင့် ပြောင်းထားနိုင်ပါတယ်။",
+      "common_mistake": "Offline score အမြင့်ဆုံး model ကိုရွေးပြီး uptime သာ စောင့်ကြည့်ရင် data ပြောင်းခြင်း၊ deadline လွတ်ခြင်းနဲ့ biased feedback ကို မမြင်နိုင်ပါဘူး။",
+      "practical_tip": "Deployment တိုင်းအတွက် decision deadline၊ data assumption၊ system constraint နဲ့ action က future label ကို ဘယ်လိုပြောင်းသလဲဟူ၍ လေးကြောင်းရေးပါ။",
+      "question": "Model ကို လစဉ် retrain လုပ်ပြီး request တိုင်းကို ချက်ချင်း score ပေးရင် ဘယ် cadence က batch၊ ဘယ် cadence က online ဖြစ်သလဲ?",
+      "answer": "Training က batch ဖြစ်ပြီး prediction serving က online ဖြစ်ပါတယ်။ Cadence နှစ်ခုက သီးခြားရွေးချယ်မှုပါ။"
+    }
+  },
+  "review_items": [
+    {"question": "Why can quality fall while inference health checks stay green?", "answer": "Current data can stop matching the patterns or relationships represented during training."},
+    {"question": "Why is the best offline score insufficient for production selection?", "answer": "The system must also meet constraints such as latency, cost, reliability, and maintainability."},
+    {"question": "Does online prediction require online training?", "answer": "No. Serving cadence and training cadence are independent."},
+    {"question": "Why may recommender clicks be biased labels?", "answer": "Earlier recommendations control exposure and therefore which items can receive clicks."}
+  ],
+  "tags": ["mlops", "system-design", "review"],
+  "status": "approved"
+}

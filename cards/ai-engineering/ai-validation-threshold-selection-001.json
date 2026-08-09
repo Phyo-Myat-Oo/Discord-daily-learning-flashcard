@@ -1,0 +1,43 @@
+{
+  "id": "ai-validation-threshold-selection-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 10,
+  "date": "2026-08-18",
+  "category": "ai-engineering",
+  "topic": "validation-threshold-selection",
+  "difficulty": "intermediate",
+  "example": "Choose a fraud-alert score threshold on validation data while enforcing a minimum recall requirement.",
+  "content": {
+    "en": {
+      "title": "Choose a Decision Threshold on Validation Data",
+      "learning_objective": "Select and freeze a score threshold on validation data to meet an explicit precision, recall, or capacity requirement before final testing.",
+      "simple_explanation": "A classifier often returns a score, not a finished business decision. A threshold converts that score into actions such as alert or ignore. Lowering the threshold usually catches more positives but creates more false alarms; raising it usually does the reverse. The default `0.5` has no guarantee of matching investigation cost, missed-case cost, or team capacity.",
+      "how_it_works": "Run the fixed model on validation data. For candidate thresholds, calculate the confusion matrix and operational metric. Apply a rule such as 'maximize precision while recall is at least 90%.' Choose one threshold, record it with the model artifact, and freeze it. Evaluate that complete decision rule once on untouched test data.",
+      "visual": "lower threshold\n  ├─▶ more alerts, recall usually ↑\nhigher threshold\n  └─▶ fewer alerts, precision may ↑",
+      "use_case": "A fraud team can inspect at most 200 alerts daily and requires at least 90% recall. Compare thresholds on representative validation data, discard those exceeding capacity or missing the recall floor, then select the highest-precision feasible option.",
+      "expected_result": "One documented threshold satisfies the validation constraints and travels with the model. The final test score measures the frozen model-plus-threshold decision rule, not a newly tuned variant.",
+      "what_to_notice": "The threshold is a fitted decision, even though model weights do not change. Choosing it after viewing test results leaks test information into the deployed rule and biases the estimate.",
+      "common_mistake": "Using `0.5` without checking costs assumes the score has a suitable meaning and that false positives and false negatives have an acceptable tradeoff there.",
+      "practical_tip": "Version the threshold beside the model and log score distributions. Revisit it with new labeled validation data when costs, prevalence, or operating capacity changes.",
+      "question": "Why must a classification threshold be chosen before examining final test performance?",
+      "answer": "Because the threshold is part of model selection; test-guided tuning would compromise the test set's independent estimate."
+    },
+    "my": {
+      "title": "Decision Threshold ကို Validation Data နဲ့ ရွေးခြင်း",
+      "learning_objective": "Final test မလုပ်မီ သတ်မှတ်ထားတဲ့ precision၊ recall သို့မဟုတ် capacity လိုအပ်ချက်ပြည့်အောင် validation data ပေါ် score threshold ရွေးပြီး အတည်ပြုနိုင်မယ်။",
+      "simple_explanation": "Classifier က မကြာခဏ အပြီးသတ်လုပ်ငန်း decision မဟုတ်ဘဲ score တစ်ခု ထုတ်ပေးပါတယ်။ Threshold က အဲဒီ score ကို alert ထုတ်မလား၊ လျစ်လျူရှုမလားဆိုတဲ့ action ပြောင်းပေးပါတယ်။ Threshold လျှော့ရင် positive ပိုဖမ်းမိပေမယ့် false alarm ပိုများတတ်ပါတယ်။ မြှင့်ရင် ဆန့်ကျင်ဘက် ဖြစ်တတ်ပါတယ်။ Default `0.5` က စစ်ဆေးကုန်ကျစရိတ်၊ missed-case cost သို့မဟုတ် team capacity နဲ့ ကိုက်မယ်လို့ အာမခံမထားပါဘူး။",
+      "how_it_works": "Fixed model ကို validation data ပေါ် run ပါ။ Candidate threshold တစ်ခုစီအတွက် confusion matrix နဲ့ operational metric တွက်ပါ။ ဥပမာ 'recall အနည်းဆုံး 90% ရှိစဉ် precision အများဆုံးရွေး' ဆိုတဲ့ rule သုံးပါ။ Threshold တစ်ခုရွေး၊ model artifact နဲ့အတူ မှတ်တမ်းတင်ပြီး မပြောင်းတော့ပါနဲ့။ Untouched test data ပေါ် complete decision rule ကို တစ်ကြိမ်သာ evaluate လုပ်ပါ။",
+      "visual": "threshold နိမ့်\n  ├─▶ alert ပိုများ၊ recall များတတ်\nthreshold မြင့်\n  └─▶ alert ပိုနည်း၊ precision များနိုင်",
+      "use_case": "Fraud team က နေ့စဉ် alert 200 အများဆုံး စစ်နိုင်ပြီး recall အနည်းဆုံး 90% လိုပါတယ်။ Representative validation data ပေါ် threshold တွေ နှိုင်းပါ။ Capacity ကျော်တာနဲ့ recall မပြည့်တာ ဖယ်ပြီး ကျန်တာထဲ precision အမြင့်ဆုံးကို ရွေးပါ။",
+      "expected_result": "Validation constraint ပြည့်တဲ့ threshold တစ်ခုကို မှတ်တမ်းတင်ပြီး model နဲ့အတူ သုံးနိုင်ပါတယ်။ Final test score က အသစ်ထပ်ညှိထားတာမဟုတ်ဘဲ ပိတ်ထားတဲ့ model နဲ့ threshold နှစ်ခုလုံးကို တိုင်းတာပါတယ်။",
+      "what_to_notice": "Model weight မပြောင်းပေမယ့် threshold က data ပေါ်မူတည်ရွေးထားတဲ့ decision ဖြစ်ပါတယ်။ Test result မြင်ပြီးမှ ရွေးရင် test information က deployed rule ထဲဝင်ပြီး estimate ဘက်လိုက်ပါတယ်။",
+      "common_mistake": "ကုန်ကျစရိတ် မစစ်ဘဲ `0.5` သုံးတာက score meaning သင့်တော်ပြီး FP နဲ့ FN tradeoff လက်ခံနိုင်မယ်လို့ အလိုလိုယူဆတာ ဖြစ်ပါတယ်။",
+      "practical_tip": "Threshold ကို model နဲ့အတူ version တပ်ပြီး score distribution ကို log လုပ်ပါ။ Cost၊ prevalence သို့မဟုတ် team capacity ပြောင်းရင် labeled validation data အသစ်နဲ့ ပြန်စစ်ပါ။",
+      "question": "Final test performance မကြည့်မီ classification threshold ကို ဘာကြောင့် ရွေးထားရသလဲ?",
+      "answer": "Threshold က model selection ရဲ့အစိတ်အပိုင်းဖြစ်လို့ test ကိုကြည့်ပြီး tuning လုပ်ရင် independent estimate ပျက်သွားတာကြောင့်ပါ။"
+    }
+  },
+  "tags": ["classification", "threshold", "validation", "operations"],
+  "status": "approved"
+}

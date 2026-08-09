@@ -1,0 +1,43 @@
+{
+  "id": "mlops-prediction-trace-correlation-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 13,
+  "date": "2026-08-21",
+  "category": "ai-engineering",
+  "topic": "prediction-trace-correlation",
+  "difficulty": "intermediate",
+  "example": "Send one test request with `request_id=req-42`, then query logs for that ID to connect the gateway event, model release, latency, and response status.",
+  "content": {
+    "en": {
+      "title": "Trace One Prediction Across Service Boundaries",
+      "learning_objective": "Use one correlation ID to reconstruct a prediction request across gateway and inference logs without recording sensitive feature values.",
+      "simple_explanation": "A prediction request often crosses a gateway, feature service, and model server. A correlation ID is a non-secret identifier copied into each component's log entry. It lets an operator follow one request even when many requests run concurrently. Record operational facts such as model release ID, status, and latency. Do not solve traceability by logging raw personal data or secret inputs.",
+      "how_it_works": "Send a test request carrying `request_id=req-42`. Each service preserves that value and logs its own event with a timestamp. The inference service also records release `R18.1`, success or failure, and duration. Query all service logs for `req-42`, order events by time, and verify that the same ID reaches the final response. Generate a unique ID at the first trusted boundary when the client does not supply one.",
+      "visual": "gateway: req-42\n      ▼\nfeature service: req-42\n      ▼\nmodel R18.1: req-42",
+      "use_case": "A user reports one slow prediction while aggregate latency looks normal. The shared ID reveals that the feature lookup, not model inference, consumed most of that request's time.",
+      "expected_result": "A search for `req-42` returns an ordered path through the participating services and identifies the model release, outcome, and slow or failing stage.",
+      "what_to_notice": "The ID connects events; it does not explain them by itself. Stage timestamps and release identity turn that connection into evidence about where the request spent time.",
+      "common_mistake": "Giving each service a new unrelated ID breaks the chain, while logging full feature payloads creates unnecessary privacy and security exposure.",
+      "practical_tip": "Use structured fields with one consistent name, propagate the ID in both success and error paths, and test log retention and redaction with a synthetic request.",
+      "question": "What must services do with a correlation ID so one prediction can be reconstructed safely?",
+      "answer": "Preserve the same non-secret ID across boundaries and log it with stage, timing, outcome, and release metadata without sensitive payloads."
+    },
+    "my": {
+      "title": "Prediction တစ်ခုကို Service များကြား ခြေရာခံခြင်း",
+      "learning_objective": "Sensitive feature value မသိမ်းဘဲ correlation ID တစ်ခုနဲ့ prediction request ကို gateway မှ inference log အထိ ပြန်စီနိုင်မယ်။",
+      "simple_explanation": "Prediction request တစ်ခုက gateway၊ feature service နဲ့ model server ကို ဖြတ်သွားတတ်ပါတယ်။ Correlation ID ဆိုတာ secret မဟုတ်တဲ့ အမှတ်အသားတစ်ခုကို component တိုင်းရဲ့ log ထဲ အတူထည့်ထားတာပါ။ Request အများကြီး တစ်ပြိုင်နက် run နေလည်း တစ်ခုတည်းရဲ့လမ်းကြောင်းကို ပြန်ရှာနိုင်ပါတယ်။ Model release ID၊ status နဲ့ latency လို လည်ပတ်မှုဆိုင်ရာအချက်ကို မှတ်ပါ။ လူကိုဖော်ထုတ်နိုင်တဲ့ data သို့မဟုတ် secret input အစစ်ကို မမှတ်ပါနဲ့။",
+      "how_it_works": "`request_id=req-42` ပါတဲ့ test request တစ်ခုပို့ပါ။ Service တိုင်းက ဒီ value ကို မပြောင်းဘဲ timestamp နဲ့အတူ ကိုယ့် event မှာ မှတ်ပါ။ Inference service က release `R18.1`၊ success သို့မဟုတ် failure နဲ့ ကြာချိန်ကိုပါ မှတ်ပါ။ Log အားလုံးထဲ `req-42` ရှာပြီး အချိန်လိုက်စီကာ နောက်ဆုံး response အထိ ID တူကြောင်းစစ်ပါ။ Client က ID မပေးရင် ပထမဆုံး ယုံကြည်ရတဲ့ boundary မှာ unique ID ထုတ်ပါ။",
+      "visual": "gateway: req-42\n      ▼\nfeature service: req-42\n      ▼\nmodel R18.1: req-42",
+      "use_case": "User တစ်ယောက်က prediction တစ်ခုနှေးတယ်လို့ ပြောပေမယ့် စုစုပေါင်း latency က ပုံမှန်ဖြစ်နေတယ်ဆိုပါစို့။ ID တူတဲ့ event တွေကိုဆက်ကြည့်တဲ့အခါ model inference မဟုတ်ဘဲ feature lookup မှာ အချိန်အများဆုံးကုန်ကြောင်း တွေ့နိုင်ပါတယ်။",
+      "expected_result": "`req-42` ကိုရှာရင် ပါဝင်တဲ့ service များတစ်လျှောက် အချိန်လိုက်လမ်းကြောင်း၊ သုံးခဲ့တဲ့ model release၊ outcome နဲ့ နှေးသည့် သို့မဟုတ် fail သည့်အဆင့်ကို တွေ့မယ်။",
+      "what_to_notice": "ID က event တွေကို ဆက်ပေးရုံပါ။ Stage timestamp နဲ့ release identity ပါမှ ဘယ်အဆင့်မှာ အချိန်ကုန်သလဲဆိုတဲ့ သက်သေဖြစ်လာပါတယ်။",
+      "common_mistake": "Service တိုင်းမှာ ID အသစ်ပြောင်းလိုက်ရင် လမ်းကြောင်းပြတ်သွားပါတယ်။ Feature payload အပြည့် log လုပ်ရင် privacy နဲ့ security risk မလိုအပ်ဘဲ တိုးလာပါတယ်။",
+      "practical_tip": "Structured log field ကို နာမည်တစ်မျိုးတည်းသုံးပါ။ Success နဲ့ error path နှစ်ခုစလုံးမှာ ID ကို ဆက်ပို့ပါ။ Synthetic request နဲ့ log retention၊ redaction ကို စမ်းပါ။",
+      "question": "Prediction တစ်ခုကို ဘေးကင်းစွာ ပြန်စီနိုင်ဖို့ service များက correlation ID ကို ဘယ်လိုကိုင်တွယ်ရမလဲ?",
+      "answer": "Secret မဟုတ်တဲ့ ID တစ်ခုတည်းကို boundary များကြား မပြောင်းဘဲ ဆက်ပို့ပြီး sensitive payload မပါဘဲ stage၊ timing၊ outcome နဲ့ release metadata တို့နဲ့ မှတ်ရပါမယ်။"
+    }
+  },
+  "tags": ["mlops", "observability", "request-tracing"],
+  "status": "approved"
+}

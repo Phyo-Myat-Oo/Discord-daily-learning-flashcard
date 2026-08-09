@@ -1,0 +1,49 @@
+{
+  "id": "dev-change-and-port-boundaries-review-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 8,
+  "date": "2026-08-16",
+  "category": "review",
+  "topic": "git-diff-and-docker-port-boundaries-review",
+  "difficulty": "intermediate",
+  "example": "Verify the boundary containing a Git change and the boundary crossed by a Docker port mapping before troubleshooting deeper.",
+  "content": {
+    "en": {
+      "title": "Review Boundaries Before Changing Git or Docker",
+      "learning_objective": "Choose the correct inspection command for a Git staging or Docker port question, then explain what its result proves and what remains unchecked.",
+      "simple_explanation": "Many Git and Docker mistakes come from confusing two sides of a boundary. In Git, the index sits between the working tree and HEAD; each diff compares one side. In Docker, a published host endpoint forwards to a separate container endpoint. Start troubleshooting by naming both endpoints or states. Then inspect the mapping instead of guessing from one port number or one empty diff.",
+      "how_it_works": "For a proposed commit, run both git diff and git diff --staged; an empty plain diff says only that working tree and index match. For a container, read -p 127.0.0.1:8080:80 as host endpoint to container destination and verify with docker port NAME. If the mapping is correct, separately check whether the application listens on the destination port.",
+      "visual": "Git: HEAD ─ index ─ working tree\n         inspect each gap\nDocker: host:8080\n           │ mapping\n           ▼\n        container:80",
+      "use_case": "A change seems missing before a commit, while a local container page also fails to open. The developer checks both Git diffs and the recorded Docker mapping, narrowing each problem without restaging files or recreating the container blindly.",
+      "expected_result": "The Git checks identify whether the patch is staged or unstaged, and the Docker check identifies the configured host-to-container port mapping without claiming that the application is healthy.",
+      "what_to_notice": "Inspection proves configuration at one boundary. It does not prove the next layer: a staged patch is not yet committed, and a valid Docker mapping does not prove a process listens inside the container.",
+      "common_mistake": "Reacting to an empty git diff by staging everything, or reacting to a failed request by changing port numbers, can alter the system before the actual boundary is understood.",
+      "practical_tip": "State each comparison aloud: working tree versus index, index versus HEAD, or host endpoint to container endpoint. Then choose the command that observes that relationship.",
+      "question": "What does each command prove: git diff --staged and docker port web-demo?",
+      "answer": "The first shows the index patch relative to HEAD; the second shows Docker's configured port mapping, not whether the container application is listening."
+    },
+    "my": {
+      "title": "Git သို့ Docker မပြင်မီ Boundary ကို ပြန်စစ်ခြင်း",
+      "learning_objective": "Git staging သို့မဟုတ် Docker port မေးခွန်းအတွက် မှန်ကန်တဲ့ inspection command ကိုရွေးပြီး result က ဘာကိုသက်သေပြသလဲ၊ ဘာကျန်သေးသလဲ ရှင်းပြနိုင်မယ်။",
+      "simple_explanation": "Git နဲ့ Docker ပြဿနာအများစုက boundary နှစ်ဖက်ကို ရောထွေးရာက စပါတယ်။ Git မှာ index က working tree နဲ့ HEAD ကြားမှာရှိပြီး diff တစ်ခုစီက တစ်ဖက်စီကို နှိုင်းပါတယ်။ Docker မှာ published host endpoint က သီးခြား container endpoint ဆီ ပို့ပါတယ်။ Troubleshooting စလုပ်ရင် state သို့မဟုတ် endpoint နှစ်ဖက်ကို အမည်တပ်ပါ။ ပြီးမှ port နံပါတ်တစ်ခု သို့မဟုတ် output မရှိတဲ့ diff တစ်ခုကို ခန့်မှန်းမနေဘဲ mapping ကို စစ်ပါ။",
+      "how_it_works": "Commit လုပ်မယ့် content အတွက် git diff နဲ့ git diff --staged နှစ်ခုလုံးကြည့်ပါ။ ရိုးရိုး diff အလွတ်က working tree နဲ့ index တူတယ်ဆိုတာပဲ ပြပါတယ်။ Container အတွက် -p 127.0.0.1:8080:80 ကို host endpoint မှ container destination ဆီလို့ဖတ်ပြီး docker port NAME နဲ့စစ်ပါ။ Mapping မှန်ရင် application က destination port ကို နားထောင်မထောင် သီးခြားစစ်ရပါမယ်။",
+      "visual": "Git: HEAD ─ index ─ working tree\n         gap တစ်ခုစီ စစ်\nDocker: host:8080\n           │ mapping\n           ▼\n        container:80",
+      "use_case": "Commit မလုပ်မီ change တစ်ခု ပျောက်နေသလိုဖြစ်ပြီး local container page လည်း မပွင့်ပါဘူး။ Developer က file အားလုံးကို ပြန် stage သို့မဟုတ် container ကို မျက်ကန်းပြန်မဖန်တီးဘဲ Git diff နှစ်ခုနဲ့ Docker mapping ကို အရင်စစ်ပါတယ်။",
+      "expected_result": "စစ်ပြီးနောက် Git change တစ်ခုစီရဲ့ နောက်တစ်ဆင့်နဲ့ request သွားရမယ့် host URL ကို တိတိကျကျ ရေးနိုင်မယ်။ မသေချာသေးတဲ့ listener အခြေအနေကိုလည်း သီးခြားမှတ်ထားမယ်။",
+      "what_to_notice": "Inspection တစ်ခုက boundary တစ်ခုရဲ့ configuration ကိုသာ သက်သေပြပါတယ်။ Staged patch က commit မဖြစ်သေးသလို Docker mapping မှန်တာက container အတွင်း process နားထောင်နေတယ်လို့ မသက်သေပြပါဘူး။",
+      "common_mistake": "git diff အလွတ်ကိုမြင်ပြီး အားလုံးပြန် stage လုပ်ခြင်း သို့မဟုတ် request မအောင်မြင်လို့ port number ပြောင်းခြင်းက ပြဿနာ boundary ကို မသိမီ system ကို ပြောင်းလိုက်တာ ဖြစ်ပါတယ်။",
+      "practical_tip": "working tree နဲ့ index၊ index နဲ့ HEAD၊ host endpoint မှ container endpoint လို့ comparison ကို အရင်ပြောပါ။ ပြီးမှ အဲဒီ relationship ကို ကြည့်နိုင်တဲ့ command ကို ရွေးပါ။",
+      "question": "git diff --staged နဲ့ docker port web-demo တစ်ခုစီက ဘာကို သက်သေပြသလဲ?",
+      "answer": "ပထမ command က index ထဲက patch ကို HEAD နဲ့ နှိုင်းပြပါတယ်။ ဒုတိယ command က Docker သတ်မှတ်ထားတဲ့ port mapping ကိုပြပေမယ့် container application နားထောင်နေတယ်လို့ မသက်သေပြပါဘူး။"
+    }
+  },
+  "review_items": [
+    {"question": "What does plain git diff compare?", "answer": "Tracked working-tree content against the index, showing unstaged changes."},
+    {"question": "What does git diff --staged compare?", "answer": "The index against HEAD, showing the patch prepared for the next commit."},
+    {"question": "How should 8080:80 be read in a Docker publish option?", "answer": "Host port 8080 forwards to container port 80."},
+    {"question": "Does a valid port mapping prove the application is listening?", "answer": "No. It proves the mapping; the listener must be checked separately."}
+  ],
+  "tags": ["git", "docker", "troubleshooting", "review"],
+  "status": "approved"
+}

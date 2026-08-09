@@ -1,0 +1,43 @@
+{
+  "id": "ai-feature-drift-monitoring-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 12,
+  "date": "2026-08-20",
+  "category": "ai-engineering",
+  "topic": "feature-drift-monitoring",
+  "difficulty": "intermediate",
+  "example": "Compare a live feature distribution with the training reference while delayed labels are unavailable.",
+  "content": {
+    "en": {
+      "title": "Use Feature Drift as an Early Warning",
+      "learning_objective": "Compare live feature distributions with a training reference, investigate meaningful drift, and avoid claiming performance loss without label evidence.",
+      "simple_explanation": "Feature drift means the input distribution has changed from a chosen reference, such as training data. It can provide an early warning when true labels arrive weeks later. Drift does not by itself prove that predictions are worse: a feature can shift without affecting decisions, or performance can degrade while monitored marginals look stable.",
+      "how_it_works": "Save representative reference statistics when releasing the model. For a comparable live window, check schema, missingness, categories, and numeric distributions. Alert only on sustained, operationally meaningful changes, then segment by source or cohort. When labels arrive, measure task performance to confirm or reject the suspected impact.",
+      "visual": "training reference\n        │ compare\nlive feature window ──▶ drift alert\n        │\n        └─▶ investigate ──▶ labels confirm",
+      "use_case": "A loan model's `income` values suddenly shift downward. Before retraining, verify units, missing-value handling, client version, and customer mix. A cents-versus-dollars ingestion bug and a real market change require different responses.",
+      "expected_result": "Monitoring identifies which feature, window, and cohort changed. The team opens a focused investigation, while labeled outcome metrics later determine whether model quality actually declined.",
+      "what_to_notice": "A drift metric compares data distributions, not correctness. Its alert is evidence that an assumption changed and deserves investigation; it is not a performance verdict or automatic retraining command.",
+      "common_mistake": "Automatically retraining after any statistical alert can learn from broken inputs or temporary traffic. Comparing unlike time windows can also manufacture seasonal drift.",
+      "practical_tip": "Pair each drift alert with feature name, reference and live windows, sample counts, missingness, and affected cohorts. Keep delayed label-based performance monitoring as the deciding evidence.",
+      "question": "What can a feature-drift alert establish, and what can it not establish by itself?",
+      "answer": "It establishes that an input distribution changed relative to a reference; alone, it cannot prove model performance degraded."
+    },
+    "my": {
+      "title": "Feature Drift ကို ကြိုတင်သတိပေးချက်အဖြစ် သုံးခြင်း",
+      "learning_objective": "Live feature distribution ကို training reference နဲ့ နှိုင်း၊ အရေးပါတဲ့ drift ကို စုံစမ်းပြီး label evidence မရှိဘဲ performance ကျတယ်လို့ မဆုံးဖြတ်နိုင်မယ်။",
+      "simple_explanation": "Feature drift ဆိုတာ input distribution က training data လို သတ်မှတ်ထားတဲ့ reference နဲ့ မတူတော့တာပါ။ True label ရဖို့ ရက်သတ္တပတ်စောင့်ရချိန်မှာ အစောပိုင်း သတိပေးနိုင်ပါတယ်။ ဒါပေမယ့် drift ရှိရုံနဲ့ prediction ပိုဆိုးတယ်လို့ မသက်သေပြနိုင်ပါဘူး။ Feature ပြောင်းပေမယ့် decision မထိနိုင်သလို monitored distribution တည်ငြိမ်နေပေမယ့် performance ကျနိုင်ပါတယ်။",
+      "how_it_works": "Model release လုပ်ချိန်မှာ ကိုယ်စားပြု reference statistics သိမ်းပါ။ နှိုင်းလို့ရတဲ့ live window မှာ schema၊ missingness၊ category နဲ့ numeric distribution စစ်ပါ။ အချိန်တစ်ခုကြာ ဆက်ရှိပြီး လုပ်ငန်းအရ အရေးပါတဲ့ပြောင်းလဲမှုကိုသာ alert ထုတ်ပါ။ Source သို့မဟုတ် cohort အလိုက် ခွဲစုံစမ်းပါ။ Label ရလာမှ task performance တိုင်းပြီး သက်ရောက်မှုရှိမရှိ အတည်ပြုပါ။",
+      "visual": "training reference\n        │ နှိုင်း\nlive feature window ──▶ drift alert\n        │\n        └─▶ စုံစမ်း ──▶ label နဲ့အတည်ပြု",
+      "use_case": "Loan model ရဲ့ `income` value တွေ ရုတ်တရက် နိမ့်သွားပါတယ်။ Retrain မလုပ်မီ unit၊ missing-value handling၊ client version နဲ့ customer mix ကို စစ်ပါ။ Cents နဲ့ dollars မှားဝင်တဲ့ bug နဲ့ စျေးကွက်တကယ်ပြောင်းတာက ဖြေရှင်းပုံမတူပါဘူး။",
+      "expected_result": "Monitoring က ဘယ် feature၊ ဘယ်အချိန် window နဲ့ ဘယ် cohort ပြောင်းသလဲ ဖော်ပြပါတယ်။ Team က ဦးတည်ချက်ရှိစွာ စုံစမ်းနိုင်ပြီး နောက်မှရတဲ့ labeled outcome metric က model quality တကယ်ကျမကျ ဆုံးဖြတ်ပေးပါတယ်။",
+      "what_to_notice": "Drift metric က data distribution ကို နှိုင်းတာဖြစ်ပြီး correctness ကို မတိုင်းပါဘူး။ Alert က assumption တစ်ခု ပြောင်းလဲလို့ စုံစမ်းသင့်ကြောင်း ပြတာသာဖြစ်ပြီး performance verdict သို့မဟုတ် အလိုအလျောက် retrain command မဟုတ်ပါဘူး။",
+      "common_mistake": "Statistical alert ရတိုင်း အလိုအလျောက် retrain လုပ်ရင် ပျက်နေတဲ့ input သို့မဟုတ် ယာယီ traffic ကို သင်ယူမိနိုင်ပါတယ်။ မတူတဲ့ time window တွေ နှိုင်းရင် seasonal drift အတုလည်း ဖြစ်နိုင်ပါတယ်။",
+      "practical_tip": "Drift alert တိုင်းမှာ feature name၊ reference နဲ့ live window၊ sample count၊ missingness နဲ့ ထိခိုက်တဲ့ cohort ထည့်ပါ။ နောက်ကျမှရတဲ့ label-based performance ကို အဆုံးအဖြတ် evidence အဖြစ် ဆက်စောင့်ကြည့်ပါ။",
+      "question": "Feature-drift alert က ဘာကို သက်သေပြနိုင်ပြီး သူတစ်ခုတည်းနဲ့ ဘာကို မသက်သေပြနိုင်သလဲ?",
+      "answer": "Reference နဲ့နှိုင်းရင် input distribution ပြောင်းတာကို သက်သေပြနိုင်ပေမယ့် model performance ကျတာကို သူတစ်ခုတည်းနဲ့ မသက်သေပြနိုင်ပါဘူး။"
+    }
+  },
+  "tags": ["monitoring", "feature-drift", "data-quality"],
+  "status": "approved"
+}

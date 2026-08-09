@@ -1,0 +1,44 @@
+{
+  "id": "mlops-container-image-digest-deployment-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 7,
+  "date": "2026-08-15",
+  "category": "docker",
+  "topic": "container-image-digest-deployment",
+  "difficulty": "intermediate",
+  "command": "docker image inspect --format '{{index .RepoDigests 0}}' IMAGE",
+  "example": "Inspect the tested image's RepoDigest, then record that exact name@sha256:... reference in the deployment manifest.",
+  "content": {
+    "en": {
+      "title": "Deploy the Exact Image You Tested",
+      "learning_objective": "Use a container image digest to identify and deploy the exact immutable image content that passed an MLOps validation run.",
+      "simple_explanation": "An image tag such as `fraud-api:prod` is a movable label: a later push can make the same tag point to different content. A digest such as `sha256:...` is derived from image content and identifies a specific manifest. If testing records only a tag, deployment may pull bytes that were never validated. Pinning the resolved `name@sha256:...` reference connects the tested artifact to the deployed artifact.",
+      "how_it_works": "Pull or build the candidate, then inspect its repository digest with `docker image inspect --format '{{index .RepoDigests 0}}' IMAGE`. Save the returned `repository@sha256:...` in release metadata and use it in the deployment manifest. If a tag later moves, the digest reference still resolves to the recorded image content.",
+      "visual": "tag: prod ──▶ may move\n                 v1 today / v2 later\n\ndigest: sha256:A ──▶ exact manifest\ntest A ──▶ deploy A",
+      "use_case": "A model API passes smoke and compatibility tests. Before promotion, the release job records its repository digest and production deploys that digest rather than resolving `prod` again.",
+      "expected_result": "The deployment references the same image digest recorded by validation, so moving the human-friendly tag cannot silently substitute another image during rollout.",
+      "what_to_notice": "A digest proves artifact identity, not model quality or safety. Tests supply the evidence; the digest preserves which tested artifact that evidence belongs to.",
+      "common_mistake": "Pinning only a tag assumes it will remain fixed. Copying a local image ID instead of a registry repository digest may also produce a reference the deployment cannot pull.",
+      "practical_tip": "Keep readable version tags for discovery, but promote and deploy by repository digest. Record the digest beside model and configuration versions for rollback audits.",
+      "question": "Why deploy `repository@sha256:...` after testing instead of resolving the same tag again?",
+      "answer": "The digest identifies the exact tested image manifest, while the tag may have moved to different content."
+    },
+    "my": {
+      "title": "Test လုပ်ထားတဲ့ Image အတိအကျကို Deploy လုပ်ခြင်း",
+      "learning_objective": "MLOps validation အောင်ထားတဲ့ container image content အတိအကျကို digest နဲ့ သတ်မှတ်ပြီး deployment မှာ မပြောင်းမလဲ အသုံးပြုနိုင်မယ်။",
+      "simple_explanation": "`fraud-api:prod` လို image tag က ရွှေ့နိုင်တဲ့ label ပါ။ နောက်တစ်ခါ push လုပ်ရင် tag တူပေမယ့် content အသစ်ကို ညွှန်နိုင်ပါတယ်။ `sha256:...` လို digest က image content မှ ဆင်းသက်လာပြီး manifest တစ်ခုအတိအကျကို သတ်မှတ်ပါတယ်။ Test ရလဒ်မှာ tag ပဲမှတ်ထားရင် deployment က မစမ်းရသေးတဲ့ bytes ကို pull လုပ်နိုင်ပါတယ်။ `name@sha256:...` ကို pin လုပ်ရင် စမ်းထားတဲ့ artifact နဲ့ deploy လုပ်တဲ့ artifact ကို ချိတ်ထားနိုင်ပါတယ်။",
+      "how_it_works": "Candidate image ကို pull သို့မဟုတ် build လုပ်ပါ။ `docker image inspect --format '{{index .RepoDigests 0}}' IMAGE` နဲ့ repository digest ကြည့်ပါ။ ပြန်ရတဲ့ `repository@sha256:...` ကို release metadata မှာ သိမ်းပြီး deployment manifest ထဲ သုံးပါ။ နောက်မှ tag ရွှေ့သွားလည်း digest က မှတ်ထားတဲ့ image content ကိုပဲ ညွှန်ပါတယ်။",
+      "visual": "tag: prod ──▶ ရွှေ့နိုင်\n                 ယနေ့ v1 / နောက် v2\n\ndigest: sha256:A ──▶ manifest အသေ\ntest A ──▶ deploy A",
+      "use_case": "Model API က smoke test နဲ့ compatibility test အောင်ပြီး production တင်မယ်ဆိုပါစို့။ Release job က repository digest ကို မှတ်ပြီး `prod` tag ကို ပြန်မရှာဘဲ အဲဒီ digest ကို deploy လုပ်ပါတယ်။",
+      "expected_result": "Deployment မှာ validation မှတ်ထားတဲ့ image digest တူတူကို သုံးမယ်။ လူဖတ်လွယ်တဲ့ tag နောက်မှရွှေ့လည်း rollout အချိန် image တခြားတစ်ခု တိတ်တဆိတ်ဝင်မလာနိုင်ပါဘူး။",
+      "what_to_notice": "Digest က artifact အတူတူဖြစ်ကြောင်းပဲ သက်သေပြပါတယ်။ Model quality သို့မဟုတ် safety ကို မသက်သေပြပါဘူး။ Test က evidence ပေးပြီး digest က အဲဒီ evidence ဘယ် artifact အတွက်လဲကို ထိန်းထားပါတယ်။",
+      "common_mistake": "Tag တစ်ခုတည်း pin လုပ်ပြီး မပြောင်းဘူးလို့ ယူဆတာ မှားပါတယ်။ Registry repository digest အစား local image ID ကူးသုံးရင် deployment က pull မလုပ်နိုင်တာလည်း ဖြစ်နိုင်ပါတယ်။",
+      "practical_tip": "ရှာဖွေဖို့ version tag ကို ထားပါ။ Promote နဲ့ deploy ကို repository digest နဲ့လုပ်ပါ။ Rollback စစ်ဆေးဖို့ model နဲ့ configuration version ဘေးမှာ digest ကို မှတ်ပါ။",
+      "question": "Test ပြီးနောက် tag တူတာကို ပြန် resolve မလုပ်ဘဲ `repository@sha256:...` ကို ဘာကြောင့် deploy လုပ်သင့်သလဲ?",
+      "answer": "Digest က စမ်းထားတဲ့ image manifest အတိအကျကို သတ်မှတ်ပြီး tag ကတော့ တခြား content ဆီ ရွှေ့နိုင်လို့ပါ။"
+    }
+  },
+  "tags": ["docker", "image-digest", "deployment", "reproducibility"],
+  "status": "approved"
+}

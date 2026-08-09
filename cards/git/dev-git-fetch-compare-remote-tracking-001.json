@@ -1,0 +1,44 @@
+{
+  "id": "dev-git-fetch-compare-remote-tracking-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 13,
+  "date": "2026-08-21",
+  "category": "git",
+  "topic": "fetch-before-remote-tracking-comparison",
+  "difficulty": "intermediate",
+  "command": "git fetch origin && git log --oneline HEAD..origin/main",
+  "example": "git fetch origin && git log --oneline HEAD..origin/main && git log --oneline origin/main..HEAD",
+  "content": {
+    "en": {
+      "title": "Fetch Before Comparing with the Remote Branch",
+      "learning_objective": "Refresh origin/main with git fetch, then identify commits that exist only remotely or only on the current local branch before choosing how to integrate them.",
+      "simple_explanation": "origin/main is a local remote-tracking reference: Git's last recorded position for main on origin. It does not update merely because another developer pushes. git fetch origin downloads new objects and refreshes that reference without changing your working files. Only after fetching does a comparison against origin/main describe the remote state Git just observed.",
+      "how_it_works": "Run git fetch origin. Then HEAD..origin/main selects commits reachable from the refreshed origin/main but not from HEAD. Reverse the range to origin/main..HEAD to see local-only commits. These commands inspect history; fetch does not merge, rebase, or switch your branch.",
+      "visual": "git fetch origin\n  │ refreshes\n  ▼\norigin/main\n  ├─ HEAD..origin/main → remote-only\n  └─ origin/main..HEAD → local-only",
+      "use_case": "Before opening a pull request, a developer wants to know whether teammates added commits to main and whether the feature branch also has unpublished work.",
+      "expected_result": "The first log lists remote-only commits; the reversed range lists local-only commits. Either command prints nothing when its selected side has no unique commits.",
+      "what_to_notice": "The two ranges answer different questions. Freshness comes from fetch, while an empty one-sided log means only that no commit is unique on that side—not that both branch tips are identical.",
+      "common_mistake": "Comparing with origin/main before fetching can produce a confident but stale answer because the reference may still record an older remote position.",
+      "practical_tip": "Fetch first, inspect both range directions, and check git status before deciding whether merge or rebase fits the team's workflow.",
+      "question": "Why run git fetch before comparing HEAD with origin/main, and what does HEAD..origin/main show?",
+      "answer": "Fetch refreshes the local record of the remote branch; HEAD..origin/main then shows commits present on that refreshed remote-tracking branch but absent from HEAD."
+    },
+    "my": {
+      "title": "Remote Branch နဲ့ မနှိုင်းမီ Fetch လုပ်ပါ",
+      "learning_objective": "git fetch နဲ့ origin/main ကို လတ်တလောအခြေအနေဖြစ်အောင်လုပ်ပြီး remote မှာပဲရှိတဲ့ commit နဲ့ local branch မှာပဲရှိတဲ့ commit ကို ခွဲစစ်နိုင်မယ်။",
+      "simple_explanation": "origin/main က remote ပေါ်က main ကို Git က နောက်ဆုံးတွေ့ခဲ့တဲ့နေရာအဖြစ် local repository ထဲ မှတ်ထားတဲ့ remote-tracking reference ပါ။ တခြားသူ push လုပ်တိုင်း သူ့ဘာသာ မပြောင်းပါဘူး။ git fetch origin က အသစ်ရောက်လာတဲ့ object တွေယူပြီး ဒီ reference ကို ပြန်လည်တင်ပေးတယ်။ Working file တွေကိုတော့ မပြောင်းပါဘူး။",
+      "how_it_works": "git fetch origin ကို အရင်လုပ်ပါ။ HEAD..origin/main က အသစ်ပြန်တင်ထားတဲ့ origin/main မှာရှိပြီး HEAD မှာမရှိတဲ့ commit တွေကို ရွေးပြတယ်။ origin/main..HEAD လို့ ပြောင်းစစ်ရင် local မှာပဲရှိတာတွေ တွေ့မယ်။ Fetch က merge၊ rebase သို့မဟုတ် branch ပြောင်းတာ မလုပ်ပါဘူး။",
+      "visual": "git fetch origin\n  │ ပြန်လည်တင်\n  ▼\norigin/main\n  ├─ HEAD..origin/main → remote-only\n  └─ origin/main..HEAD → local-only",
+      "use_case": "Pull request မဖွင့်မီ main ပေါ်မှာ အသင်းသားတွေ commit အသစ်တင်ထားသလား၊ ကိုယ့် feature branch မှာလည်း သီးခြား commit ရှိသလား သိချင်ပါတယ်။",
+      "expected_result": "ပထမ log မှာ remote-only commit တွေ ပေါ်မယ်။ Range ပြောင်းထားတဲ့ log မှာ local-only commit တွေ ပေါ်မယ်။ ရွေးထားတဲ့ဘက်မှာ သီးခြား commit မရှိရင် output မပေါ်ပါဘူး။",
+      "what_to_notice": "Range နှစ်ခုက မေးခွန်းမတူပါဘူး။ Fetch က အချက်အလက်ကို လတ်ဆတ်စေတယ်။ တစ်ဘက် log အလွတ်ဖြစ်တာက အဲဒီဘက်မှာ သီးခြား commit မရှိတာသာ ပြပြီး branch tip နှစ်ခု တူကြောင်း မဆိုလိုပါဘူး။",
+      "common_mistake": "Fetch မလုပ်ဘဲ origin/main နဲ့ နှိုင်းရင် အဟောင်း remote နေရာကို မှတ်ထားတဲ့ reference သုံးမိပြီး မှားနေတဲ့ရလဒ်ကို မှန်တယ်ထင်နိုင်ပါတယ်။",
+      "practical_tip": "Fetch အရင်လုပ်ပါ။ Range နှစ်ဘက်လုံး စစ်ပါ။ ပြီးမှ အသင်း workflow အရ merge သို့မဟုတ် rebase ဘယ်ဟာသင့်လဲ ဆုံးဖြတ်ပါ။",
+      "question": "HEAD ကို origin/main နဲ့ မနှိုင်းမီ git fetch ဘာကြောင့်လုပ်ရသလဲ၊ HEAD..origin/main က ဘာပြသလဲ?",
+      "answer": "Fetch က remote branch ရဲ့ local မှတ်တမ်းကို လတ်တလောဖြစ်စေတယ်။ HEAD..origin/main က အဲဒီ remote-tracking branch မှာရှိပြီး HEAD မှာမရှိတဲ့ commit တွေကို ပြတယ်။"
+    }
+  },
+  "tags": ["git", "fetch", "remote-tracking", "history-comparison"],
+  "status": "approved"
+}

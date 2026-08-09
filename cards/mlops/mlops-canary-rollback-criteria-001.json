@@ -1,0 +1,43 @@
+{
+  "id": "mlops-canary-rollback-criteria-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "sequence": 12,
+  "date": "2026-08-20",
+  "category": "mlops",
+  "topic": "canary-rollback-criteria",
+  "difficulty": "intermediate",
+  "example": "Route 5% of eligible traffic to a ready candidate and evaluate prewritten error, latency, and decision-rate rollback rules.",
+  "content": {
+    "en": {
+      "title": "Set Canary Rollback Criteria Before Rollout",
+      "learning_objective": "Evaluate a small canary rollout against precommitted guardrails and decide whether to continue, pause, or restore the previous release.",
+      "simple_explanation": "A canary rollout sends a small share of live traffic to a candidate whose decisions can affect users. Guardrails are measurable safety limits such as error rate, latency, or an operational decision rate. Write thresholds, comparison method, minimum sample, and observation window before rollout. Otherwise, normal noise can trigger a needless rollback, or enthusiasm for the release can excuse a real regression.",
+      "how_it_works": "Send 5% of eligible traffic to ready release `R18.1` and keep `R17.1` available. For example, require at least 2,000 canary requests and 30 minutes, then rollback if error rate exceeds 1% or p95 latency is over 250 ms for two evaluation windows. Also pause on a large unexpected decision-rate shift. Compare equivalent traffic slices and record the decision.",
+      "visual": "5% traffic ──▶ candidate R18.1\n                 │ guardrails pass\n                 ├──▶ increase share\n                 └ fail\n                   └──▶ restore R17.1",
+      "use_case": "A shadow test looked healthy, so a fraud service starts a 5% canary. Candidate timeouts breach the prewritten latency rule twice, and routing returns to the previous release ID.",
+      "expected_result": "The rollout advances only after enough comparable observations pass every required guardrail; a sustained breach restores the known previous release.",
+      "what_to_notice": "A tiny sample can look extreme by chance, while a fleet-wide average can hide canary failure. Scope metrics by release ID and require enough exposure before judging non-emergency signals.",
+      "common_mistake": "Choosing thresholds after seeing canary graphs invites inconsistent decisions and makes the apparent result determine the rule.",
+      "practical_tip": "Test the rollback path before rollout, preserve the previous complete release record, and allow immediate rollback for severe safety failures without waiting for the normal sample minimum.",
+      "question": "Why define canary thresholds, sample size, and observation window before sending live traffic?",
+      "answer": "Precommitting makes noisy measurements and regressions produce consistent decisions instead of changing the rule after seeing results."
+    },
+    "my": {
+      "title": "Canary Rollout မစမီ Rollback စည်းမျဉ်း သတ်မှတ်ခြင်း",
+      "learning_objective": "Canary rollout အသေးတစ်ခုကို ကြိုရေးထားတဲ့ guardrail များနဲ့ စစ်ပြီး ဆက်တိုးမလား၊ ခဏရပ်မလား၊ အရင် release ပြန်သုံးမလား ဆုံးဖြတ်နိုင်မယ်။",
+      "simple_explanation": "Canary rollout ဆိုတာ live traffic အနည်းငယ်ကို candidate ဆီပို့ပြီး သူ့ဆုံးဖြတ်ချက်ကို user အပေါ် တကယ်သုံးတာပါ။ Guardrail ဆိုတာ error rate၊ latency သို့မဟုတ် operational decision rate လို တိုင်းနိုင်တဲ့ ဘေးကင်းရေးကန့်သတ်ချက်ပါ။ Rollout မစမီ threshold၊ နှိုင်းပုံ၊ အနည်းဆုံး sample နဲ့ ကြည့်မယ့်အချိန်ကို ရေးထားရပါမယ်။ မရေးထားရင် ပုံမှန်အတက်အကျကြောင့် မလိုအပ်ဘဲ rollback လုပ်နိုင်သလို release အသစ်ကို သဘောကျလို့ တကယ့်ပြဿနာကို လျှော့တွက်နိုင်ပါတယ်။",
+      "how_it_works": "သင့်တော်တဲ့ traffic 5% ကို ready ဖြစ်တဲ့ `R18.1` ဆီပို့ပြီး `R17.1` ကို ပြန်သုံးနိုင်အောင်ထားပါ။ ဥပမာ request 2,000 နဲ့ 30 minutes အနည်းဆုံးစောင့်ပါ။ Error rate 1% ကျော်ရင် သို့မဟုတ် p95 latency 250 ms ကျော်တာ window နှစ်ခါဆက်ဖြစ်ရင် rollback လုပ်ပါ။ Decision rate မမျှော်လင့်ဘဲ အများကြီးပြောင်းရင် pause လုပ်ပါ။ Traffic slice တူတာကို နှိုင်းပြီး ဆုံးဖြတ်ချက်မှတ်ပါ။",
+      "visual": "5% traffic ──▶ candidate R18.1\n                 │ guardrail အောင်\n                 ├──▶ share တိုး\n                 └ မအောင်\n                   └──▶ R17.1 ပြန်သုံး",
+      "use_case": "Shadow test ကောင်းလို့ fraud service က 5% canary စတယ်ဆိုပါစို့။ Candidate timeout ကြောင့် ကြိုရေးထားတဲ့ latency rule နှစ်ခါဆက်ကျော်သွားရင် routing ကို အရင် release ID ဆီ ပြန်ပို့ပါ။",
+      "expected_result": "နှိုင်းလို့ရတဲ့ observation လုံလောက်ပြီး လိုအပ်တဲ့ guardrail အားလုံး အောင်မှ rollout ကိုတိုးမယ်။ ဆက်တိုက်ချိုးဖောက်ရင် သိပြီးသား အရင် release ကို ပြန်သုံးမယ်။",
+      "what_to_notice": "Sample အလွန်နည်းရင် ကံအားလျော်စွာ အတက်အကျကြီးနိုင်ပါတယ်။ Fleet-wide average ကတော့ canary ပြဿနာကို ဖုံးနိုင်ပါတယ်။ Metric ကို release ID အလိုက်ခွဲပြီး emergency မဟုတ်တဲ့ signal ကို sample လုံလောက်မှ ဆုံးဖြတ်ပါ။",
+      "common_mistake": "Canary graph မြင်ပြီးမှ threshold ရွေးရင် result ကိုလိုက်ပြီး rule ပြောင်းသလိုဖြစ်ကာ ဆုံးဖြတ်ချက် မတည်ငြိမ်ပါဘူး။",
+      "practical_tip": "Rollout မစမီ rollback path ကို စမ်းပါ။ အရင် complete release record ကို ထိန်းထားပါ။ ပြင်းထန်တဲ့ safety failure ဖြစ်ရင် ပုံမှန် sample minimum မစောင့်ဘဲ ချက်ချင်း rollback လုပ်နိုင်အောင်ထားပါ။",
+      "question": "Live traffic မပို့မီ canary threshold၊ sample size နဲ့ observation window ကို ဘာကြောင့် ကြိုသတ်မှတ်ရသလဲ?",
+      "answer": "Result မြင်ပြီးမှ rule ပြောင်းတာမဖြစ်စေဘဲ noise နဲ့ regression တွေအပေါ် တသမတ်တည်း ဆုံးဖြတ်နိုင်ဖို့ပါ။"
+    }
+  },
+  "tags": ["mlops", "canary-release", "rollback"],
+  "status": "approved"
+}

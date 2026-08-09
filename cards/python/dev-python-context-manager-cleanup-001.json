@@ -1,0 +1,44 @@
+{
+  "id": "dev-python-context-manager-cleanup-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 12,
+  "date": "2026-08-20",
+  "category": "python",
+  "topic": "context-manager-guaranteed-cleanup",
+  "difficulty": "intermediate",
+  "command": "python context_demo.py",
+  "example": "with open('report.txt', encoding='utf-8') as report:\n    first_line = report.readline()",
+  "content": {
+    "en": {
+      "title": "Guarantee Resource Cleanup with with",
+      "learning_objective": "Use a Python context manager to guarantee cleanup when a block finishes normally or exits because an exception was raised.",
+      "simple_explanation": "A resource such as an open file must be released after use. A context manager defines setup and cleanup around a block. Python's with statement enters that context, binds the resource, and runs its exit behavior when control leaves the block. Cleanup therefore does not depend on remembering close() on every path.",
+      "how_it_works": "Open report.txt inside a with block and read one line. When the indented block ends, the file object's exit method closes the file. If readline or later code raises an exception, Python still calls the exit method before propagating that exception unless the context manager explicitly suppresses it.",
+      "visual": "enter context → file open\n       │\n       ▼\nrun block ── normal or exception\n       │\n       ▼\nexit context → file closed",
+      "use_case": "A parser reads an uploaded report. Invalid input may raise an exception midway, but the file descriptor must still be returned to the operating system.",
+      "expected_result": "After control leaves the with block, report.closed is True whether the read completed normally or an exception escaped from the block.",
+      "what_to_notice": "with guarantees that exit behavior runs; it does not automatically catch the failure. Resource cleanup and exception handling are separate decisions.",
+      "common_mistake": "Opening a file before a large try block and calling close() only at the end leaks the descriptor when an earlier statement raises an exception.",
+      "practical_tip": "Keep the with block as small as practical so the resource lifetime is obvious and cleanup happens as soon as the resource is no longer needed.",
+      "question": "What does a with block guarantee when an exception occurs inside it, and what does it not guarantee?",
+      "answer": "It guarantees the context manager's exit behavior runs; it does not guarantee the exception is caught or suppressed."
+    },
+    "my": {
+      "title": "with သုံးပြီး Resource ကို မပျက်မကွက် ပိတ်ခြင်း",
+      "learning_objective": "Block က ပုံမှန်ပြီးသွားတာဖြစ်စေ exception ကြောင့် ထွက်သွားတာဖြစ်စေ cleanup လုပ်မယ့် Python context manager ကို သုံးနိုင်မယ်။",
+      "simple_explanation": "ဖွင့်ထားတဲ့ file လို resource ကို သုံးပြီးရင် ပြန်လွှတ်ရပါတယ်။ Context manager က block တစ်ခုရဲ့ အစမှာ ဘာဖွင့်မလဲ၊ အဆုံးမှာ ဘာရှင်းမလဲ သတ်မှတ်ထားတာပါ။ with statement က context ထဲဝင်ပြီး resource ကိုပေးပါတယ်။ Block မှ ထွက်တဲ့အခါ cleanup ကို အလိုအလျောက် ခေါ်လို့ လမ်းကြောင်းတိုင်းမှာ close() ရေးထားဖို့ မလိုပါဘူး။",
+      "how_it_works": "report.txt ကို with block ထဲဖွင့်ပြီး line တစ်ကြောင်းဖတ်ပါ။ Indented block ပြီးတာနဲ့ file object ရဲ့ exit လုပ်ဆောင်ချက်က file ကိုပိတ်ပါတယ်။ readline သို့မဟုတ် နောက် code က exception ပစ်ရင်လည်း Python က အဲဒီ exception ကို အပေါ်ဆက်မပို့မီ exit ကို ခေါ်ပါတယ်။ Context manager က အထူးတလည် မဖျောက်ရင် exception က ဆက်တက်ပါတယ်။",
+      "visual": "context ဝင် → file ဖွင့်\n       │\n       ▼\nblock → ပုံမှန် သို့ exception\n       │\n       ▼\ncontext ထွက် → file ပိတ်",
+      "use_case": "Parser က upload လုပ်ထားတဲ့ report ကိုဖတ်ပါတယ်။ မမှန်တဲ့ input ကြောင့် အလယ်မှာ exception ဖြစ်နိုင်ပေမယ့် file descriptor ကို operating system ဆီ ပြန်ပေးရပါမယ်။",
+      "expected_result": "Read က ပုံမှန်ပြီးသည်ဖြစ်စေ exception က block အပြင်ထွက်သည်ဖြစ်စေ with block မှ ထွက်ပြီးနောက် report.closed က True ဖြစ်မယ်။",
+      "what_to_notice": "with က exit cleanup လုပ်ဆောင်ချက် ခေါ်မယ်လို့ အာမခံတာပါ။ Failure ကို အလိုအလျောက် ဖမ်းပေးမယ်လို့ မဆိုလိုပါဘူး။ Resource cleanup နဲ့ exception handling က ဆုံးဖြတ်ချက်နှစ်ခုပါ။",
+      "common_mistake": "File ကို try block အကြီးကြီးမတိုင်မီ ဖွင့်ပြီး အဆုံးမှာသာ close() ခေါ်ရင် အရင် statement တစ်ခု exception ဖြစ်ချိန် file descriptor မပိတ်ဘဲ ကျန်နိုင်ပါတယ်။",
+      "practical_tip": "Resource ကို ဘယ်အချိန်ထိ သုံးသလဲ ရှင်းအောင် with block ကို လိုသလောက်သာ တိုတိုထားပါ။ မလိုတော့တာနဲ့ cleanup မြန်မြန်ဖြစ်ပါတယ်။",
+      "question": "with block အတွင်း exception ဖြစ်ရင် ဘာကို အာမခံပြီး ဘာကို အာမမခံသလဲ?",
+      "answer": "Context manager ရဲ့ exit cleanup ခေါ်မယ်လို့ အာမခံပါတယ်။ Exception ကို ဖမ်းမယ် သို့မဟုတ် ဖျောက်မယ်လို့ အာမမခံပါဘူး။"
+    }
+  },
+  "tags": ["python", "context-manager", "resource-cleanup", "exceptions"],
+  "status": "approved"
+}

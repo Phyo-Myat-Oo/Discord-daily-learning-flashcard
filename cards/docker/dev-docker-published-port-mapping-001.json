@@ -1,0 +1,44 @@
+{
+  "id": "dev-docker-published-port-mapping-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "sequence": 7,
+  "date": "2026-08-15",
+  "category": "docker",
+  "topic": "published-host-container-port-mapping",
+  "difficulty": "intermediate",
+  "command": "docker run --rm -p 127.0.0.1:8080:80 nginx",
+  "example": "docker run --rm -d --name web-demo -p 127.0.0.1:8080:80 nginx; docker port web-demo",
+  "content": {
+    "en": {
+      "title": "Map a Host Port to the Container's Listening Port",
+      "learning_objective": "Read and verify a Docker HOST_PORT:CONTAINER_PORT mapping, including the effect of binding the published host port to loopback.",
+      "simple_explanation": "A container has its own network context. A service listening on port 80 inside it is not automatically available at host port 80 or 8080. Docker publishing creates a forwarding rule from a host address and port to a container port. In -p 127.0.0.1:8080:80, clients contact host port 8080, and Docker forwards that traffic to port 80 in the container.",
+      "how_it_works": "Start Nginx with docker run --rm -d --name web-demo -p 127.0.0.1:8080:80 nginx. Run docker port web-demo, then request http://127.0.0.1:8080. The explicit 127.0.0.1 host address restricts this endpoint to host loopback. The application must still listen on container port 80; publishing the wrong container port cannot make it listen there.",
+      "visual": "client on host\n      │ 127.0.0.1:8080\n      ▼\nDocker port mapping\n      │ container:80\n      ▼\nNginx listener",
+      "use_case": "A developer runs a local web container for testing but does not want the development endpoint exposed on every host interface. They bind the published port to 127.0.0.1 and verify the mapping before testing the page.",
+      "expected_result": "docker port web-demo reports a mapping to 127.0.0.1:8080, and a request from the host to that address reaches Nginx on container port 80.",
+      "what_to_notice": "The two port numbers belong to different network contexts and need not match. Loopback binding limits where the host accepts traffic; it does not alter the port used inside the container.",
+      "common_mistake": "Reading 8080:80 backwards leads people to test the wrong endpoint or change the application unnecessarily. Omitting the host address may publish on broader host interfaces than intended.",
+      "practical_tip": "Read mappings from left to right as host endpoint then container destination. Use docker port NAME to verify Docker's mapping before debugging the application.",
+      "question": "In -p 127.0.0.1:8080:80, where does a client connect, and where is the container service expected to listen?",
+      "answer": "The client connects to host loopback port 8080; Docker forwards to a service listening on port 80 inside the container."
+    },
+    "my": {
+      "title": "Host Port ကို Container Listener ဆီ ချိတ်ခြင်း",
+      "learning_objective": "Docker ရဲ့ HOST_PORT:CONTAINER_PORT mapping ကို ဖတ်နိုင်ပြီး published host port ကို loopback နဲ့ bind လုပ်ထားခြင်းရဲ့ သက်ရောက်မှုကို စစ်နိုင်မယ်။",
+      "simple_explanation": "Container တစ်ခုမှာ ကိုယ်ပိုင် network context ရှိပါတယ်။ အထဲမှာ port 80 ကို နားထောင်နေတဲ့ service က host ရဲ့ port 80 သို့မဟုတ် 8080 မှာ အလိုအလျောက် မရနိုင်ပါဘူး။ Docker port publishing က host address နဲ့ port မှ container port ဆီ ပို့မယ့် rule ဖန်တီးပေးပါတယ်။ -p 127.0.0.1:8080:80 မှာ client က host port 8080 ကို ဆက်သွယ်ပြီး Docker က container port 80 ဆီ ပို့ပါတယ်။",
+      "how_it_works": "docker run --rm -d --name web-demo -p 127.0.0.1:8080:80 nginx နဲ့ Nginx စပါ။ docker port web-demo ကြည့်ပြီး http://127.0.0.1:8080 ကို request ပို့ပါ။ Host address ကို 127.0.0.1 လို့ ရေးထားလို့ endpoint ကို host loopback မှသာ လက်ခံပါတယ်။ Application က container port 80 ကို တကယ်နားထောင်ရပါမယ်။ မှားတဲ့ container port publish လုပ်ရုံနဲ့ application က အဲဒီ port ကို နားမထောင်လာပါဘူး။",
+      "visual": "host ပေါ်က client\n      │ 127.0.0.1:8080\n      ▼\nDocker port mapping\n      │ container:80\n      ▼\nNginx listener",
+      "use_case": "Developer က local test အတွက် web container တစ်ခု run ပေမယ့် development endpoint ကို host interface အားလုံးပေါ် မဖွင့်ချင်ပါဘူး။ Published port ကို 127.0.0.1 နဲ့ bind လုပ်ပြီး page မစမ်းမီ mapping ကို စစ်ပါတယ်။",
+      "expected_result": "Browser သို့မဟုတ် curl မှာ Nginx ရဲ့ welcome page ရမယ်။ Mapping စစ်တဲ့ output မှာ host ဘက် 127.0.0.1:8080 နဲ့ container ဘက် 80 ကို တွဲမြင်ရမယ်။",
+      "what_to_notice": "Port နံပါတ်နှစ်ခုက network context မတူတာကို ကိုယ်စားပြုလို့ တူစရာမလိုပါဘူး။ Loopback bind က host ဘယ်နေရာမှာ traffic လက်ခံမလဲ ကန့်သတ်ပေမယ့် container အတွင်းသုံးတဲ့ port ကို မပြောင်းပါဘူး။",
+      "common_mistake": "8080:80 ကို ပြောင်းပြန်ဖတ်ရင် endpoint မှားစမ်းတာ သို့မဟုတ် application ကို မလိုဘဲပြင်တာ ဖြစ်တတ်ပါတယ်။ Host address မရေးရင် ရည်ရွယ်ထားတာထက် host interface ပိုများတဲ့နေရာမှာ publish ဖြစ်နိုင်ပါတယ်။",
+      "practical_tip": "Mapping ကို ဘယ်မှညာ host endpoint ပြီး container destination လို့ဖတ်ပါ။ Application ကို debug မလုပ်မီ docker port NAME နဲ့ Docker mapping ကို အရင်စစ်ပါ။",
+      "question": "-p 127.0.0.1:8080:80 မှာ client က ဘယ်နေရာကို ဆက်သွယ်ပြီး container service က ဘယ်နေရာမှာ နားထောင်ရမလဲ?",
+      "answer": "Client က host loopback port 8080 ကို ဆက်သွယ်ပါတယ်။ Docker က container အတွင်း port 80 ပေါ် နားထောင်နေတဲ့ service ဆီ ပို့ပါတယ်။"
+    }
+  },
+  "tags": ["docker", "port-publishing", "networking", "troubleshooting"],
+  "status": "approved"
+}

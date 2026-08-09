@@ -1,0 +1,43 @@
+{
+  "id": "ai-precision-recall-class-imbalance-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "sequence": 9,
+  "date": "2026-08-17",
+  "category": "ai",
+  "topic": "precision-recall-class-imbalance",
+  "difficulty": "intermediate",
+  "example": "Compare accuracy, precision, and recall for a fraud classifier that flags 20 of 1,000 transactions.",
+  "content": {
+    "en": {
+      "title": "Read Precision and Recall When Positives Are Rare",
+      "learning_objective": "Compute precision and recall from prediction counts, then choose which metric exposes the costly error in an imbalanced classification task.",
+      "simple_explanation": "An imbalanced dataset has one class much rarer than another. Accuracy can then hide failure. If only 10 of 1,000 transactions are fraud, predicting every transaction as legitimate is 99% accurate but catches no fraud. Precision asks what fraction of flagged cases are truly positive. Recall asks what fraction of all true positives were found.",
+      "how_it_works": "Count true positives (TP), false positives (FP), and false negatives (FN). Precision is `TP/(TP+FP)`; false alarms lower it. Recall is `TP/(TP+FN)`; missed positives lower it. The business cost decides which metric needs protection. Always report the counts or confusion matrix because one rate alone hides the other error.",
+      "visual": "flagged: TP + FP ──▶ precision\nactual:  TP + FN ──▶ recall\nFP = false alarm\nFN = missed positive",
+      "use_case": "Among 1,000 transactions, 10 are fraud. A model flags 20: 8 are fraud and 12 are legitimate. It misses 2 frauds. Calculate precision as `8/20 = 40%` and recall as `8/10 = 80%`.",
+      "expected_result": "The model has 40% precision and 80% recall. Its high overall accuracy does not erase the operational facts: 12 investigations are false alarms and 2 frauds are missed.",
+      "what_to_notice": "Precision uses all predicted positives as its denominator, while recall uses all actual positives. The same 8 true positives answer different questions because the denominators differ.",
+      "common_mistake": "Reporting accuracy alone on rare-event data can make a useless majority-class predictor look excellent. Precision and recall also should not be compared without naming the positive class.",
+      "practical_tip": "Start metric selection by writing the cost of an FP and an FN. Then inspect precision, recall, and raw confusion-matrix counts on validation data at the intended threshold.",
+      "question": "A detector finds 8 of 10 real frauds and raises 20 alerts. What are its precision and recall?",
+      "answer": "Precision is `8/20 = 40%`; recall is `8/10 = 80%`."
+    },
+    "my": {
+      "title": "Positive နည်းချိန် Precision နဲ့ Recall ဖတ်ခြင်း",
+      "learning_objective": "Prediction count တွေကနေ precision နဲ့ recall တွက်ပြီး imbalanced classification မှာ ကုန်ကျစရိတ်ကြီးတဲ့ error ကို ဖော်ပြပေးမယ့် metric ရွေးနိုင်မယ်။",
+      "simple_explanation": "Imbalanced dataset ဆိုတာ class တစ်မျိုးက အခြား class ထက် အလွန်နည်းတာပါ။ ဒီအခါ အများစု class ကိုပဲ အမြဲရွေးတဲ့ model တောင် accuracy မြင့်နိုင်လို့ အဲဒီ metric တစ်ခုတည်းနဲ့ အားနည်းချက် မမြင်ရပါဘူး။ Precision က model သတိပေးထားသမျှထဲ မှန်ကန်တဲ့ positive အချိုးကို တိုင်းပါတယ်။ Recall က လက်တွေ့ရှိနေတဲ့ positive အားလုံးထဲ ရှာတွေ့နိုင်တဲ့အချိုးကို တိုင်းပါတယ်။",
+      "how_it_works": "True positive (TP)၊ false positive (FP) နဲ့ false negative (FN) ကို ရေတွက်ပါ။ Precision က `TP/(TP+FP)` ဖြစ်လို့ false alarm များရင် ကျပါတယ်။ Recall က `TP/(TP+FN)` ဖြစ်လို့ လွတ်သွားတဲ့ positive များရင် ကျပါတယ်။ ဘယ် metric ကို ဦးစားပေးမလဲဆိုတာ လုပ်ငန်းကုန်ကျစရိတ်က ဆုံးဖြတ်ပါတယ်။ Rate တစ်ခုတည်းမကြည့်ဘဲ count တွေပါကြည့်ပါ။",
+      "visual": "alert: TP + FP ──▶ precision\nactual: TP + FN ──▶ recall\nFP = false alarm\nFN = လွတ်သွားသော positive",
+      "use_case": "Transaction 1,000 မှာ fraud 10 ခုရှိပါတယ်။ Model က 20 ခုကို alert ထုတ်ရာ fraud 8 ခုနဲ့ legitimate 12 ခု ပါပါတယ်။ Fraud 2 ခု လွတ်သွားပါတယ်။ Precision က `8/20 = 40%`၊ recall က `8/10 = 80%` ဖြစ်ပါတယ်။",
+      "expected_result": "Model ရဲ့ precision က 40% နဲ့ recall က 80% ဖြစ်ပါတယ်။ Overall accuracy မြင့်နေလည်း false alarm 12 ခု စစ်ရမယ်၊ fraud 2 ခု လွတ်မယ်ဆိုတဲ့ လက်တွေ့အကျိုးဆက် မပျောက်ပါဘူး။",
+      "what_to_notice": "Precision ရဲ့ denominator က predicted positive အားလုံးဖြစ်ပြီး recall ရဲ့ denominator က actual positive အားလုံး ဖြစ်ပါတယ်။ TP 8 ခုတူပေမယ့် နှိုင်းယှဉ်တဲ့အုပ်စု မတူလို့ မေးခွန်းမတူပါဘူး။",
+      "common_mistake": "Rare-event data မှာ accuracy တစ်ခုတည်း report လုပ်ရင် အသုံးမဝင်တဲ့ majority-class predictor ကို အလွန်ကောင်းသလို မြင်စေပါတယ်။ Positive class ကို မပြောဘဲ precision နဲ့ recall ကိုလည်း မဖတ်သင့်ပါဘူး။",
+      "practical_tip": "FP တစ်ခုနဲ့ FN တစ်ခုရဲ့ ကုန်ကျစရိတ်ကို အရင်ရေးပါ။ ပြီးမှ ရည်ရွယ်ထားတဲ့ threshold မှာ validation data ရဲ့ precision၊ recall နဲ့ confusion-matrix count ကို အတူစစ်ပါ။",
+      "question": "Detector က fraud အစစ် 10 ခုထဲ 8 ခုဖမ်းပြီး alert 20 ခုထုတ်ရင် precision နဲ့ recall ဘယ်လောက်လဲ?",
+      "answer": "Precision က `8/20 = 40%` ဖြစ်ပြီး recall က `8/10 = 80%` ဖြစ်ပါတယ်။"
+    }
+  },
+  "tags": ["classification", "precision", "recall", "class-imbalance"],
+  "status": "approved"
+}
