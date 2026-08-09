@@ -1,0 +1,49 @@
+{
+  "id": "linux-foundations-review-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 5,
+  "date": "2026-08-09",
+  "category": "review",
+  "topic": "terminal-shell-context-review",
+  "difficulty": "beginner",
+  "example": "Predict what handles input and where `exit` returns before running it.",
+  "content": {
+    "en": {
+      "title": "Review Shell Context Before Acting",
+      "learning_objective": "Given an interactive command-line situation, identify the terminal, shell, effective user, recalled command, and context that `exit` will leave.",
+      "simple_explanation": "A safe command-line workflow starts by identifying context. The terminal carries keyboard input and displays output; the shell interprets commands. The prompt may hint at the user, host, and directory, but configurable text is not proof. Shell history can restore editable text, yet that text may contain an old path or target. Shells may also be nested, so `exit` leaves the current shell rather than every surrounding session.",
+      "how_it_works": "Imagine a local terminal running a regular shell. From it, you open a remote shell and recall an earlier diagnostic command with Up Arrow. The terminal transports the keystrokes. The remote shell interprets the command. Before Enter, inspect the entire recalled line and use `id -u -n` when identity matters. After the check, `exit` ends that remote shell and lets the local parent shell resume.",
+      "visual": "[ Terminal ]\n      ▼\n[ Shell: user + host ]\n      ▼ inspect history\n[ Run ] ── `exit` ──▶ [ Parent shell ]",
+      "use_case": "You finish troubleshooting over SSH and recall a long command before disconnecting. First predict its target, confirm the effective user, edit any stale path, and run it only if the context is correct. Then use `exit` and verify that the local prompt returns.",
+      "expected_result": "The diagnostic runs in the verified remote context, and one `exit` returns control to the local parent shell rather than closing every shell automatically.",
+      "what_to_notice": "Each safety check answers a different question: the terminal is the interface, the shell applies syntax, `id` reports identity, history supplies editable text, and `exit` changes one nesting level.",
+      "common_mistake": "Treating a familiar prompt or recalled command as trustworthy can run the right syntax as the wrong user, on the wrong host, or against an outdated path.",
+      "practical_tip": "Before Enter, use a short context scan: user, host, working directory, command target. Before `exit`, note which shell is current and whether foreground work is attached.",
+      "question": "Why should you inspect both shell context and recalled command text before pressing Enter?",
+      "answer": "Because history may contain stale targets, while the current shell may belong to a different user, host, directory, or nesting level."
+    },
+    "my": {
+      "title": "Command မလုပ်မီ Shell Context ကို ပြန်စစ်ခြင်း",
+      "learning_objective": "Command-line အခြေအနေတစ်ခုမှာ terminal၊ shell၊ effective user၊ history က ပြန်ယူထားတဲ့ command နဲ့ `exit` ထွက်မယ့် context ကို ခွဲပြနိုင်မယ်။",
+      "simple_explanation": "Command မ run မီ ကိုယ်ရောက်နေတဲ့ context ကို သိရပါမယ်။ Terminal က keyboard input ကို ပို့ပြီး output ကို ပြပေးတဲ့ interface ပါ။ Shell က command ကို ဖတ်ပြီး အဓိပ္ပာယ်ဖော်ပါတယ်။ Prompt က user၊ host နဲ့ directory ကို hint ပေးတတ်ပေမယ့် စိတ်ကြိုက်ပြင်နိုင်လို့ အတည်ပြုချက် မဟုတ်ပါဘူး။ History က command အဟောင်းကို ပြန်တင်ပေးပေမယ့် path သို့မဟုတ် target ဟောင်း ပါနေနိုင်ပါတယ်။",
+      "how_it_works": "Local shell ကနေ SSH နဲ့ remote shell ထဲ ဝင်ထားတယ်လို့ စဉ်းစားပါ။ Up Arrow နဲ့ diagnostic command ကို ပြန်ယူတဲ့အခါ terminal က key တွေ ပို့ပေးပြီး remote shell က command ကို နားလည်ပါတယ်။ Enter မနှိပ်မီ စာကြောင်းတစ်ခုလုံးကို ဖတ်ပါ။ Identity အရေးကြီးရင် `id -u -n` နဲ့ စစ်ပါ။ `exit` လုပ်ရင် လက်ရှိ remote shell တစ်ဆင့်သာ ပိတ်ပြီး local parent shell ဆီ ပြန်ရောက်ပါတယ်။",
+      "visual": "[ Terminal ]\n      ▼\n[ Shell: user + host ]\n      ▼ history ကိုစစ်\n[ Run ] ── `exit` ──▶ [ Parent shell ]",
+      "use_case": "SSH နဲ့ troubleshooting ပြီးခါနီး long command တစ်ခုကို history ကနေ ပြန်ယူထားတယ်။ Target ကို ခန့်မှန်း၊ effective user ကိုစစ်၊ path ဟောင်းရှိရင် ပြင်ပြီး context မှန်မှ run ပါ။ ပြီးရင် `exit` လုပ်ကာ local prompt ပြန်ရောက်တာ စစ်ပါ။",
+      "expected_result": "Diagnostic output ကို မျှော်လင့်ထားတဲ့စက်မှာ ရပါမယ်။ ပြီးနောက် `exit` တစ်ကြိမ်လုပ်လျှင် SSH မချိတ်မီ မြင်ခဲ့သော မူလ prompt ပြန်ပေါ်လာပါမယ်။",
+      "what_to_notice": "စစ်ချက်တိုင်းရဲ့ အလုပ်မတူပါဘူး။ Terminal က interface၊ shell က syntax ကိုင်တွယ်သူ၊ `id` က identity ပြသူ၊ history က ပြင်လို့ရတဲ့စာသားပေးသူ၊ `exit` က nesting တစ်ဆင့် ပြောင်းသူပါ။",
+      "common_mistake": "မြင်နေကျ prompt သို့မဟုတ် history command ကို အလိုအလျောက် ယုံလိုက်ရင် user မှား၊ host မှား သို့မဟုတ် path ဟောင်းပေါ်မှာ မှန်ကန်တဲ့ command ကို run မိနိုင်ပါတယ်။",
+      "practical_tip": "Enter မနှိပ်မီ user၊ host၊ working directory နဲ့ command target ကို အတိုချုံးစစ်ပါ။ `exit` မလုပ်မီ လက်ရှိ shell ဘာလဲနဲ့ foreground အလုပ်ရှိမရှိ ကြည့်ပါ။",
+      "question": "Enter မနှိပ်မီ shell context နဲ့ history က ပြန်ယူထားတဲ့ command နှစ်ခုလုံးကို ဘာကြောင့် စစ်ရသလဲ?",
+      "answer": "Command ထဲမှာ target ဟောင်း ပါနိုင်သလို လက်ရှိ shell ကလည်း user၊ host၊ directory သို့မဟုတ် nesting level မတူနိုင်လို့ပါ။"
+    }
+  },
+  "review_items": [
+    {"question": "What different jobs do the terminal and shell perform?", "answer": "The terminal handles interaction and display; the shell interprets commands and starts programs."},
+    {"question": "Why is a `#` prompt a warning rather than proof of identity?", "answer": "It commonly indicates root, but prompt text is configurable; verify with a system-reported identity."},
+    {"question": "What happens before Enter when Up Arrow recalls a command?", "answer": "The shell places editable command text on the command line; it has not executed yet."},
+    {"question": "What does one `exit` do in nested shells?", "answer": "It ends the current shell and returns to its parent context if one exists."}
+  ],
+  "tags": ["shell", "context", "safety", "review"],
+  "status": "approved"
+}

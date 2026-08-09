@@ -1,0 +1,48 @@
+{
+  "id": "linux-resolution-listener-review-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 8,
+  "date": "2026-08-16",
+  "category": "review",
+  "topic": "command-resolution-and-listener-review",
+  "difficulty": "intermediate",
+  "example": "Predict the selected executable with `command -v`, then classify a listener with `ss -ltn`.",
+  "content": {
+    "en": {
+      "title": "Review Resolution Before Changing Systems",
+      "learning_objective": "Diagnose two common ambiguities by proving which executable a shell selects and which interfaces a TCP socket accepts before changing configuration.",
+      "simple_explanation": "Operational problems often come from assuming a name means one thing. A shell command name can resolve to an alias, function, builtin, or the first executable found through `PATH`. A service name or port can exist while its socket listens only on loopback. In both cases, inspect the system's selected endpoint first. `command -v` or `type -a` examines command resolution; `ss -ltn` examines listening TCP addresses.",
+      "how_it_works": "For a wrong-program symptom, run `type -a name` and `command -v name`, then compare `PATH` across the environments that disagree. For a remote-connection symptom, inspect the expected port with `ss -ltn`, read its Local Address, test on the host, and only then test across the network. These workflows separate selection from downstream access problems and reduce speculative changes.",
+      "visual": "command name ──▶ shell resolution\n                         ▼\n                   executable\n\nTCP port ─────▶ bind address ──▶ network path",
+      "use_case": "A deployment check invokes an unexpected Python, while its health endpoint works only on the server. First prove the executable selected by the deployment environment. Then prove whether the health service binds to loopback or network interfaces before examining firewall rules.",
+      "expected_result": "You obtain two concrete facts: the executable target chosen by the shell and the local address of the listening socket. Each fact identifies the next layer to investigate.",
+      "what_to_notice": "Resolution and reachability are chains. Finding the chosen executable explains command selection, not program correctness. Finding a wildcard listener explains binding, not whether routing and firewalls permit access.",
+      "common_mistake": "Changing `PATH`, reinstalling software, or weakening firewall rules before observing the selected executable and bind address can hide evidence and create additional failures.",
+      "practical_tip": "Record the exact environment and outputs before making one reversible change. Re-run the same inspections afterward so the result can confirm or reject your hypothesis.",
+      "question": "What should you prove before editing `PATH` or firewall rules during these two investigations?",
+      "answer": "Prove which executable the shell resolves and which local address the TCP socket is listening on."
+    },
+    "my": {
+      "title": "System မပြင်မီ Resolution ကို ပြန်စစ်ခြင်း",
+      "learning_objective": "Configuration မပြင်မီ shell က ရွေးတဲ့ executable နဲ့ TCP socket လက်ခံတဲ့ interface ကို သက်သေပြပြီး မရှင်းလင်းမှုနှစ်မျိုးကို စစ်ဆေးနိုင်မယ်။",
+      "simple_explanation": "နာမည်တစ်ခုက အရာတစ်ခုတည်းကိုပဲ ဆိုလိုမယ်လို့ ယူဆတာကြောင့် operational ပြဿနာ ဖြစ်တတ်ပါတယ်။ Shell command name က alias၊ function၊ builtin သို့မဟုတ် `PATH` က အရင်တွေ့တဲ့ executable ဖြစ်နိုင်ပါတယ်။ Service port ရှိပေမယ့် socket က loopback ပေါ်မှာသာ နားထောင်နေနိုင်ပါတယ်။ အခြေအနေနှစ်ခုလုံးမှာ system က အမှန်တကယ်ရွေးထားတဲ့ endpoint ကို အရင်စစ်ပါ။ `command -v` နဲ့ `type -a` က command resolution၊ `ss -ltn` က TCP listener ကို ပြပါတယ်။",
+      "how_it_works": "Program မှား run တယ်ဆိုရင် `type -a name` နဲ့ `command -v name` run ပြီး မတူတဲ့ environment တွေရဲ့ `PATH` ကို နှိုင်းပါ။ Remote connection မရရင် `ss -ltn` နဲ့ expected port ကိုရှာပြီး Local Address ကို ဖတ်ပါ။ Host ပေါ်မှာ အရင်စမ်းကာ network ကနေ နောက်မှစမ်းပါ။ ဒီအစဉ်က ဘယ် target ရွေးသလဲဆိုတာနဲ့ နောက်တစ်ဆင့် access ပြဿနာကို ခွဲပေးပါတယ်။",
+      "visual": "command name ──▶ shell resolution\n                         ▼\n                   executable\n\nTCP port ─────▶ bind address ──▶ network path",
+      "use_case": "Deployment check က မမျှော်လင့်တဲ့ Python ကို ခေါ်ပြီး health endpoint က server ပေါ်မှာသာ အလုပ်လုပ်ပါတယ်။ Deployment environment ရွေးတဲ့ executable ကို အရင်သက်သေပြပါ။ ပြီးမှ service က loopback သို့မဟုတ် network interface ဘယ်မှာ bind လုပ်ထားသလဲ စစ်ကာ firewall ကို နောက်ဆုံးစဉ်းစားပါ။",
+      "expected_result": "Shell ရွေးထားတဲ့ executable target နဲ့ listening socket ရဲ့ local address ဆိုတဲ့ အချက်နှစ်ခု ရပါမယ်။ တစ်ခုစီက နောက်ထပ် ဘယ် layer ကို စစ်ရမလဲ လမ်းညွှန်ပေးပါတယ်။",
+      "what_to_notice": "Resolution နဲ့ reachability နှစ်ခုလုံးက အဆင့်ဆင့်ဆက်ထားပါတယ်။ Executable သိတာက program မှန်ကန်ကြောင်း မပြပါဘူး။ Wildcard listener သိတာကလည်း routing နဲ့ firewall ဖြတ်နိုင်ကြောင်း မပြပါဘူး။",
+      "common_mistake": "ရွေးထားတဲ့ executable နဲ့ bind address ကို မကြည့်မီ `PATH` ပြင်ခြင်း၊ software ပြန်သွင်းခြင်း သို့မဟုတ် firewall rule လျှော့ခြင်းက အထောက်အထားပျောက်စေပြီး ပြဿနာအသစ် ထပ်ဖန်တီးနိုင်ပါတယ်။",
+      "practical_tip": "ဘာမှမပြင်မီ environment အတိအကျနဲ့ output ကို မှတ်ထားပါ။ ပြန်ပြင်လို့ရတဲ့ change တစ်ခုသာလုပ်ပြီးနောက် inspection တူတူ ပြန် run ကာ ယူဆချက်မှန်မမှန် စစ်ပါ။",
+      "question": "ဒီစစ်ဆေးမှုနှစ်ခုမှာ `PATH` သို့မဟုတ် firewall rule မပြင်မီ ဘာကို သက်သေပြရမလဲ?",
+      "answer": "Shell က ဘယ် executable ကို resolve လုပ်သလဲနဲ့ TCP socket က ဘယ် local address ပေါ် နားထောင်သလဲ သက်သေပြရပါမယ်။"
+    }
+  },
+  "review_items": [
+    {"question": "Why can identical command names select different programs?", "answer": "Shell constructs or ordered `PATH` directories can differ between environments."},
+    {"question": "What does `127.0.0.1:8000` say about a listener?", "answer": "It accepts connections through IPv4 loopback from the same host."},
+    {"question": "Does `0.0.0.0:8000` prove remote reachability?", "answer": "No. Routing, firewalls, namespaces, and later application behavior still matter."}
+  ],
+  "tags": ["troubleshooting", "path", "tcp", "review"],
+  "status": "approved"
+}

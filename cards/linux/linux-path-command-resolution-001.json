@@ -1,0 +1,44 @@
+{
+  "id": "linux-path-command-resolution-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 6,
+  "date": "2026-08-14",
+  "category": "linux",
+  "topic": "path-command-resolution",
+  "difficulty": "intermediate",
+  "command": "type -a python3",
+  "example": "type -a python3; command -v python3",
+  "content": {
+    "en": {
+      "title": "Trace Which Command the Shell Will Run",
+      "learning_objective": "Use `type -a` and `command -v` to determine how the current shell resolves a command name before changing `PATH` or installing another program.",
+      "simple_explanation": "Typing a command name does not necessarily select the file you expect. The shell first resolves the name. It may find an alias, function, builtin, or executable file. For an external executable, the shell searches directories listed in `PATH` from left to right and normally uses the first matching file. `type -a` explains every visible resolution in shell terms; `command -v` gives the resolution the shell would use for one invocation.",
+      "how_it_works": "Run `type -a python3`, then `command -v python3`. If several executables exist, their directory order in `PATH` controls which one wins after higher-priority shell constructs are considered. Compare `printf '%s\\n' \"$PATH\"` when interactive and automated environments behave differently. This is an inspection workflow: it changes neither `PATH` nor the installed files.",
+      "visual": "command name\n     ▼\nalias/function/builtin?\n     ▼ no\nPATH: left ──▶ right ──▶ first match",
+      "use_case": "A script uses a different `python3` than your interactive shell. Inspect resolution in both environments, then compare their `PATH` values. A virtual environment or user-local directory may appear earlier in one `PATH`, causing a different executable to run.",
+      "expected_result": "The commands print how `python3` resolves and usually show an executable path such as `/usr/bin/python3`; `type -a` may list additional matches.",
+      "what_to_notice": "The first executable directory in search order matters, but aliases, functions, and builtins can take precedence. An absolute path bypasses `PATH` search and names one file directly.",
+      "common_mistake": "Installing another copy because `python3` looks wrong can add ambiguity without fixing the environment that selected it. Also, `which` may not describe aliases or functions consistently across shells.",
+      "practical_tip": "Inspect with the current shell's `type` or portable `command -v` first. When automation needs one known executable, use a controlled `PATH` or a verified absolute path.",
+      "question": "Why can two shells run different programs for the same command name?",
+      "answer": "Their aliases, functions, builtins, or ordered `PATH` directories can differ, so name resolution selects different targets."
+    },
+    "my": {
+      "title": "Shell က ဘယ် Command ကို Run မလဲ ခြေရာခံခြင်း",
+      "learning_objective": "`PATH` မပြင်မီ သို့မဟုတ် program အသစ်မသွင်းမီ `type -a` နဲ့ `command -v` သုံးပြီး လက်ရှိ shell က command name ကို ဘယ်လိုရွေးသလဲ စစ်နိုင်မယ်။",
+      "simple_explanation": "Command name တစ်ခုရိုက်တာနဲ့ ကိုယ်ထင်တဲ့ file ကို အမြဲ run မယ်လို့ မဆိုလိုပါဘူး။ Shell က name ကို အရင်ဖြေရှင်းပါတယ်။ Alias၊ function၊ builtin သို့မဟုတ် executable file ဖြစ်နိုင်ပါတယ်။ External executable ကိုရှာရင် `PATH` ထဲက directory တွေကို ဘယ်မှညာ အစဉ်လိုက်ကြည့်ပြီး ပထမဆုံးကို သုံးလေ့ရှိပါတယ်။ `type -a` က shell မြင်တဲ့ resolution အားလုံးကို ရှင်းပြပြီး `command -v` က လက်ရှိရွေးမယ့် target ကို ပြပါတယ်။",
+      "how_it_works": "`type -a python3` run ပြီး `command -v python3` နဲ့ ထပ်စစ်ပါ။ Executable အများကြီးရှိရင် shell construct တွေကို အရင်စဉ်းစားပြီးနောက် `PATH` ထဲက directory အစဉ်က ဘယ် file အနိုင်ရမလဲ ဆုံးဖြတ်ပါတယ်။ Interactive environment နဲ့ automation မတူရင် `env` output ထဲက `PATH` ကို နှိုင်းပါ။ ဒီစစ်ဆေးမှုက file နဲ့ `PATH` ကို မပြောင်းပါဘူး။",
+      "visual": "command name\n     ▼\nalias/function/builtin?\n     ▼ မရှိ\nPATH: ဘယ် ──▶ ညာ ──▶ ပထမ match",
+      "use_case": "Script က interactive shell နဲ့မတူတဲ့ `python3` ကို သုံးနေတယ်။ Environment နှစ်ခုလုံးမှာ resolution နဲ့ `PATH` ကို စစ်ပါ။ Virtual environment သို့မဟုတ် user-local directory က တစ်ခုရဲ့ `PATH` ရှေ့ပိုင်းမှာ ရှိနေလို့ executable မတူတာ ဖြစ်နိုင်ပါတယ်။",
+      "expected_result": "`python3` ကို ဘယ်လို resolve လုပ်သလဲ ပြပြီး `/usr/bin/python3` လို executable path တစ်ခု တွေ့ရတတ်ပါတယ်။ `type -a` က အခြား match တွေကိုပါ ပြနိုင်ပါတယ်။",
+      "what_to_notice": "Output စာကြောင်းအစမှာ `python3 is aliased to` လို့ ပေါ်ရင် disk ပေါ်က program မရွေးရသေးပါဘူး။ `/usr/bin/python3` လို location ပေါ်ရင်တော့ ရွေးထားတဲ့ file ကို တိတိကျကျ သိနိုင်ပါတယ်။",
+      "common_mistake": "`python3` မှားနေတာမြင်လို့ copy အသစ်ထပ်သွင်းခြင်းက ရွေးချယ်တဲ့ environment ကို မပြင်ဘဲ ပိုရှုပ်စေနိုင်ပါတယ်။ `which` ကလည်း shell အားလုံးမှာ alias နဲ့ function ကို တစ်သမတ်တည်း မပြနိုင်ပါဘူး။",
+      "practical_tip": "လက်ရှိ shell ရဲ့ `type` သို့မဟုတ် portable ဖြစ်တဲ့ `command -v` နဲ့ အရင်စစ်ပါ။ Automation မှာ target တစ်ခုတည်းလိုရင် ထိန်းချုပ်ထားတဲ့ `PATH` သို့မဟုတ် စစ်ဆေးထားတဲ့ absolute path သုံးပါ။",
+      "question": "Command name တူပေမယ့် shell နှစ်ခုက program မတူတာကို ဘာကြောင့် run နိုင်သလဲ?",
+      "answer": "Alias၊ function၊ builtin သို့မဟုတ် အစဉ်မတူတဲ့ `PATH` directory တွေကြောင့် name resolution က target မတူတာကို ရွေးနိုင်လို့ပါ။"
+    }
+  },
+  "tags": ["shell", "path", "troubleshooting"],
+  "status": "approved"
+}

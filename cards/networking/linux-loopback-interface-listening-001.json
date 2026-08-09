@@ -1,0 +1,44 @@
+{
+  "id": "linux-loopback-interface-listening-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 7,
+  "date": "2026-08-15",
+  "category": "networking",
+  "topic": "loopback-versus-network-listener",
+  "difficulty": "intermediate",
+  "command": "ss -ltn",
+  "example": "ss -ltn | grep ':8000'",
+  "content": {
+    "en": {
+      "title": "Distinguish a Local Listener from a Reachable Service",
+      "learning_objective": "Read `ss -ltn` output to tell whether a TCP service listens only on loopback or on network interfaces, without assuming that listening guarantees reachability.",
+      "simple_explanation": "A listening socket is an operating-system endpoint waiting for connections. Its local address limits which interfaces may receive traffic for it. `127.0.0.1:8000` is IPv4 loopback, so only the same host can connect through that address. `0.0.0.0:8000` means all current IPv4 local interfaces. This wider bind does not prove remote access: a firewall, routing problem, container boundary, or application failure after connection can still block useful service.",
+      "how_it_works": "Run `ss -ltn | grep ':8000'` on a host where you expect TCP port 8000. `-l` selects listening sockets, `-t` selects TCP, and `-n` keeps addresses and ports numeric. Read the Local Address column. Test locally with the appropriate client first; then test from another host if remote access is required. Each test narrows a different layer of the failure.",
+      "visual": "127.0.0.1:8000 ──▶ same host only\n0.0.0.0:8000   ──▶ IPv4 interfaces\n                         ▼\n                firewall/routing still apply",
+      "use_case": "A development web server works with `curl http://127.0.0.1:8000` on the server but a colleague cannot reach it. `ss -ltn` shows whether the process is bound only to loopback before you investigate host firewalls or upstream routing.",
+      "expected_result": "A matching row shows `LISTEN` and a local address. Loopback indicates host-only acceptance; a wildcard address indicates that the socket accepts traffic arriving on IPv4 interfaces.",
+      "what_to_notice": "Binding answers where the kernel accepts connection attempts. Reachability also depends on the path to the host and filtering rules, so a wildcard listener is necessary in many remote cases but not sufficient.",
+      "common_mistake": "Disabling a firewall immediately because a service is unreachable skips the safer first question: is a process listening on the expected port and address at all?",
+      "practical_tip": "Inspect the listener before changing configuration. Expose only the interfaces that need access, and remember that IPv6 `::` wildcard behavior can depend on operating-system settings.",
+      "question": "If `ss -ltn` shows `127.0.0.1:8000`, why can a remote client not connect to that listener?",
+      "answer": "Because `127.0.0.1` is loopback; the socket accepts connections through the same host, not traffic arriving on its network interfaces."
+    },
+    "my": {
+      "title": "Local Listener နဲ့ Reachable Service ကို ခွဲခြားခြင်း",
+      "learning_objective": "`ss -ltn` output ကိုဖတ်ပြီး TCP service က loopback ပေါ်မှာသာ နားထောင်သလား၊ network interface တွေပေါ်မှာပါ နားထောင်သလား ခွဲနိုင်မယ်။",
+      "simple_explanation": "Listening socket ဆိုတာ connection လက်ခံဖို့ operating system က စောင့်နေတဲ့ endpoint ပါ။ Local address က ဘယ် interface ကလာတဲ့ traffic ကို လက်ခံမလဲ ကန့်သတ်ပါတယ်။ `127.0.0.1:8000` က IPv4 loopback ဖြစ်လို့ အဲဒီ host ကိုယ်တိုင်ကသာ ချိတ်နိုင်ပါတယ်။ `0.0.0.0:8000` က လက်ရှိ IPv4 interface အားလုံးကို ဆိုလိုပါတယ်။ ဒီလို bind ထားတာနဲ့ remote က အမှန်တကယ်ရောက်မယ်လို့ မသေချာသေးပါဘူး။ Firewall၊ routing နဲ့ container boundary တွေက ဆက်တားနိုင်ပါတယ်။",
+      "how_it_works": "TCP port 8000 ကို စောင့်နေမယ်လို့ မျှော်လင့်တဲ့ host ပေါ်မှာ `ss -ltn | grep ':8000'` run ပါ။ `-l` က listening socket၊ `-t` က TCP၊ `-n` က address နဲ့ port ကို number အတိုင်း ပြခိုင်းတာပါ။ Local Address column ကို ဖတ်ပါ။ Local client နဲ့ အရင်စမ်းပြီး remote access လိုရင် အခြား host ကနေ ထပ်စမ်းပါ။ စမ်းသပ်ချက်တိုင်းက failure layer တစ်ခုစီကို ခွဲပေးပါတယ်။",
+      "visual": "127.0.0.1:8000 ──▶ ဒီ host သာ\n0.0.0.0:8000   ──▶ IPv4 interfaces\n                         ▼\n                 firewall/routing စစ်ရန်",
+      "use_case": "Server ပေါ်မှာ `curl http://127.0.0.1:8000` အလုပ်လုပ်ပေမယ့် အခြားသူက မချိတ်နိုင်ပါဘူး။ Firewall သို့မဟုတ် upstream routing ကို မစစ်မီ `ss -ltn` နဲ့ process က loopback ကိုသာ bind လုပ်ထားသလား အရင်သိနိုင်ပါတယ်။",
+      "expected_result": "ကိုက်ညီတဲ့ row မှာ `LISTEN` နဲ့ local address ပေါ်ပါမယ်။ Loopback ဖြစ်ရင် host အတွင်းသာ လက်ခံပြီး wildcard address ဖြစ်ရင် IPv4 interface တွေကလာတာ လက်ခံပါတယ်။",
+      "what_to_notice": "Bind address က kernel ဘယ်နေရာက connection attempt ကို လက်ခံမလဲသာ ဖြေပါတယ်။ Host ဆီသွားတဲ့လမ်းနဲ့ filtering rule တွေလည်း reachability ကို ဆုံးဖြတ်လို့ wildcard listener ရှိရုံနဲ့ မလုံလောက်ပါဘူး။",
+      "common_mistake": "Service မရောက်တာနဲ့ firewall ကို ချက်ချင်းပိတ်ခြင်းက ပိုလုံခြုံတဲ့ ပထမစစ်ချက်ကို ကျော်သွားပါတယ်။ Expected port နဲ့ address ပေါ်မှာ process တစ်ခု နားထောင်နေသလား အရင်ကြည့်ရပါမယ်။",
+      "practical_tip": "Configuration မပြင်မီ listener ကို စစ်ပါ။ လိုအပ်တဲ့ interface တွေပေါ်မှာသာ ဖွင့်ပါ။ IPv6 `::` wildcard အပြုအမူက operating-system setting ပေါ် မူတည်နိုင်တာကိုလည်း မှတ်ထားပါ။",
+      "question": "`ss -ltn` မှာ `127.0.0.1:8000` ပြနေရင် remote client က ဘာကြောင့် မချိတ်နိုင်သလဲ?",
+      "answer": "`127.0.0.1` က loopback ဖြစ်လို့ socket က host ကိုယ်တိုင်က connection ကိုသာ လက်ခံပြီး network interface ကလာတာကို မလက်ခံလို့ပါ။"
+    }
+  },
+  "tags": ["tcp", "sockets", "troubleshooting"],
+  "status": "approved"
+}

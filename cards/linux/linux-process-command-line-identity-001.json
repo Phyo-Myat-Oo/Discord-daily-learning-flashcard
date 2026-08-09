@@ -1,0 +1,48 @@
+{
+  "id": "linux-process-command-line-identity-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 9,
+  "date": "2026-08-17",
+  "category": "linux",
+  "topic": "process-command-line-identity",
+  "difficulty": "intermediate",
+  "command": "ps -ww -p 4242 -o pid,ppid,user,lstart,args",
+  "example": "ps -ww -p 4242 -o pid,ppid,user,lstart,args",
+  "content": {
+    "en": {
+      "title": "Verify a Running Process by PID and Arguments",
+      "learning_objective": "Use `pgrep -a` and targeted `ps` output to verify a process's owner, start time, parent, and startup arguments.",
+      "simple_explanation": "A program name alone is weak evidence. Several copies may run with different owners, start times, configuration paths, or flags. A process ID (PID) identifies one current process. Its argument list shows how that instance started. `pgrep -a` finds candidate PIDs with command lines; targeted `ps` output supplies the fields that distinguish them.",
+      "how_it_works": "Run `pgrep -a nginx` without changing any process. Choose a PID from fresh output; suppose it is 4242. Run `ps -ww -p 4242 -o pid,ppid,user,lstart,args`. `-p` targets that PID, `-ww` avoids normal width truncation, and `-o` selects columns. Compare the owner, start time, and arguments with the service you expect. PPID can identify its supervisor.",
+      "visual": "program name\n  ▼ `pgrep -a`\nPID + arguments\n  ▼ targeted `ps`\nowner + start + parent",
+      "use_case": "A configuration edit has no effect after reload, and two server processes exist. Inspect both PIDs. The active instance may still name an old configuration file or may have been launched manually by another user.",
+      "expected_result": "The output shows one PID, parent PID, owner, start timestamp, and argument list. If the PID exited before inspection, only the header may appear.",
+      "what_to_notice": "A name match does not prove the expected configuration is active. Start time and arguments connect observed behavior to one instance; a missing PID means earlier evidence is stale.",
+      "common_mistake": "Acting on the first result from `ps | grep` can select grep itself, a worker rather than its supervisor, or an unrelated process with similar text.",
+      "practical_tip": "Copy a PID from fresh output and inspect it immediately. Rerun the targeted query before signaling because a PID can be reused after its process exits.",
+      "question": "Why inspect PID, start time, owner, and arguments instead of trusting a program name?",
+      "answer": "They distinguish one current instance and show whether it started with the expected identity and configuration."
+    },
+    "my": {
+      "title": "PID နဲ့ Arguments သုံးပြီး Process ကို စစ်ခြင်း",
+      "learning_objective": "`pgrep -a` နဲ့ targeted `ps` output သုံးပြီး process ရဲ့ owner၊ စတင်ချိန်၊ parent နဲ့ arguments ကို အတည်ပြုနိုင်မယ်။",
+      "simple_explanation": "Program name တစ်ခုတည်းနဲ့ running process ကို အတည်မပြုနိုင်ပါဘူး။ Copy အများကြီးက owner၊ စတင်ချိန်၊ configuration path နဲ့ flag မတူဘဲ run နေနိုင်ပါတယ်။ PID ဆိုတာ လက်ရှိ process တစ်ခုကို ခွဲပေးတဲ့ နံပါတ်ပါ။ Argument list က အဲဒီ instance ဘယ်လိုစခဲ့သလဲ ပြပါတယ်။ `pgrep -a` က candidate PID နဲ့ command line ကိုရှာပြီး `ps` က ခွဲခြားဖို့လိုတဲ့ field တွေ ပြပါတယ်။",
+      "how_it_works": "ဘာမှမပြောင်းဘဲ `pgrep -a nginx` run ပါ။ အသစ်ရတဲ့ output က PID တစ်ခုကိုရွေးပါ။ 4242 ဆိုပါစို့။ `ps -ww -p 4242 -o pid,ppid,user,lstart,args` run ပါ။ `-p` က PID ကိုသတ်မှတ်တယ်။ `-ww` က output မဖြတ်စေဘဲ `-o` က column ရွေးပါတယ်။ Owner၊ စတင်ချိန်နဲ့ arguments ကို expected service နဲ့ တိုက်စစ်ပါ။ PPID က supervisor ကို သိစေနိုင်ပါတယ်။",
+      "visual": "program name\n  ▼ `pgrep -a`\nPID + arguments\n  ▼ targeted `ps`\nowner + start + parent",
+      "use_case": "Configuration ပြင်ပြီး reload လုပ်ပေမယ့် မပြောင်းဘဲ server process နှစ်ခုရှိနေတယ်။ PID နှစ်ခုကိုစစ်ပါ။ Active instance က config အဟောင်းသုံးနေတာ သို့မဟုတ် အခြား user က manual စထားတာ ဖြစ်နိုင်ပါတယ်။",
+      "expected_result": "PID၊ parent PID၊ owner၊ စတင်ချိန်နဲ့ argument ပါတဲ့ row ရပါမယ်။ PID ထွက်သွားပြီဆိုရင် header သာ ပေါ်နိုင်ပါတယ်။",
+      "what_to_notice": "Name ကိုက်တာနဲ့ expected configuration သုံးတယ်လို့ မဆိုလိုပါဘူး။ Start time နဲ့ arguments က behavior ကို instance တစ်ခုနဲ့ ချိတ်ပေးပါတယ်။ PID မရှိတော့ရင် evidence ဟောင်းသွားပါပြီ။",
+      "common_mistake": "`ps | grep` ရဲ့ ပထမ result ကိုယူရင် grep ကိုယ်တိုင်၊ supervisor မဟုတ်တဲ့ worker သို့မဟုတ် စာသားဆင်တူတဲ့ process ကို မှားရွေးနိုင်ပါတယ်။",
+      "practical_tip": "PID ကို fresh output ကယူပြီး ချက်ချင်းစစ်ပါ။ Process ထွက်ပြီးနောက် PID ပြန်သုံးနိုင်လို့ signal မပို့မီ query ထပ် run ပါ။",
+      "question": "Program name ကိုသာမယုံဘဲ PID၊ start time၊ owner နဲ့ arguments ကို ဘာကြောင့်စစ်သင့်သလဲ?",
+      "answer": "Current instance တစ်ခုကို ခွဲပြီး expected identity နဲ့ configuration ဖြင့် စထားသလား ပြပေးလို့ပါ။"
+    }
+  },
+  "tags": [
+    "processes",
+    "ps",
+    "troubleshooting"
+  ],
+  "status": "approved"
+}

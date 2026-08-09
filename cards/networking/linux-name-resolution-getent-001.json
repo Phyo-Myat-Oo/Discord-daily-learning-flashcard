@@ -1,0 +1,48 @@
+{
+  "id": "linux-name-resolution-getent-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "sequence": 10,
+  "date": "2026-08-18",
+  "category": "networking",
+  "topic": "system-name-resolution-getent",
+  "difficulty": "intermediate",
+  "command": "getent ahosts app.internal",
+  "example": "getent ahosts app.internal",
+  "content": {
+    "en": {
+      "title": "Test the System's Hostname Resolution Path",
+      "learning_objective": "Use `getent ahosts` to inspect addresses returned by the local system resolver before blaming network connectivity.",
+      "simple_explanation": "Applications resolve a hostname before connecting to an IP address. The Linux system resolver may consult several configured sources, not only DNS. `/etc/hosts`, DNS, and other services can participate according to `/etc/nsswitch.conf`. `getent ahosts` asks this normal system path for addresses, so its result resembles what many local applications receive better than a DNS-only query.",
+      "how_it_works": "Run `getent ahosts app.internal` in the same host or container as the failing application. Each row begins with an address and includes a socket type. No row means resolution failed through this configured path. If rows appear, record every address rather than only the first. Testing the required service at a returned address then separates resolution from routing, filtering, and listener behavior.",
+      "visual": "hostname\n  ▼ system resolver\nconfigured `hosts:` sources\n  ▼\naddresses → connection",
+      "use_case": "A URL works on a laptop but fails on a server. Run the lookup in both places. An `/etc/hosts` override or different DNS answer may make identical application settings reach different destinations.",
+      "expected_result": "Successful resolution prints one or more IPv4 or IPv6 addresses. Empty output with a nonzero exit status means the resolver found no usable result.",
+      "what_to_notice": "Resolution proves only that a name became addresses. It does not prove a route, open port, or working application protocol. Multiple addresses may also behave differently.",
+      "common_mistake": "Using only `dig` and assuming the application sees its answer can miss `/etc/hosts`, source ordering, or another system resolver mechanism.",
+      "practical_tip": "Run the lookup in the application's real host or container. Compare successful and failing address lists before changing resolver configuration.",
+      "question": "Why can `getent ahosts` represent an application's lookup better than a DNS-only query?",
+      "answer": "It follows the configured system name-service path, which may combine DNS, `/etc/hosts`, and other sources."
+    },
+    "my": {
+      "title": "System Hostname Resolution လမ်းကြောင်းကို စစ်ခြင်း",
+      "learning_objective": "Network ကို အပြစ်မတင်မီ `getent ahosts` နဲ့ local system resolver ပြန်ပေးတဲ့ address တွေကို စစ်နိုင်မယ်။",
+      "simple_explanation": "Application က hostname ကို IP address အဖြစ် အရင်ဖြေရှင်းပြီးမှ ချိတ်ပါတယ်။ Linux system resolver က DNS တစ်ခုတည်းကို မမေးပါဘူး။ `/etc/nsswitch.conf` သတ်မှတ်ချက်အတိုင်း `/etc/hosts`၊ DNS နဲ့ အခြား service တွေ ပါနိုင်ပါတယ်။ `getent ahosts` က ဒီပုံမှန် system လမ်းကြောင်းကို မေးတာမို့ DNS-only query ထက် local application အများစုမြင်တဲ့ result နဲ့ ပိုနီးစပ်ပါတယ်။",
+      "how_it_works": "Fail ဖြစ်တဲ့ application ရှိတဲ့ host သို့မဟုတ် container ထဲမှာ `getent ahosts app.internal` run ပါ။ Row တစ်ခုစီမှာ address နဲ့ socket type ပါတယ်။ Row မရှိရင် ဒီ configured path က resolution မလုပ်နိုင်တာပါ။ Address ရရင် ပထမတစ်ခုသာမဟုတ်ဘဲ အားလုံးမှတ်ပါ။ ပြီးမှ service ကို returned address နဲ့စမ်းပြီး resolution ကို routing၊ filtering နဲ့ listener ပြဿနာကနေ ခွဲပါ။",
+      "visual": "hostname\n  ▼ system resolver\nconfigured `hosts:` sources\n  ▼\naddresses → connection",
+      "use_case": "URL က laptop မှာရပေမယ့် server မှာမရပါဘူး။ နှစ်နေရာလုံးမှာ lookup လုပ်ပါ။ `/etc/hosts` override သို့မဟုတ် DNS answer မတူလို့ setting တူပေမယ့် destination မတူနိုင်ပါတယ်။",
+      "expected_result": "အောင်မြင်ရင် IPv4 သို့မဟုတ် IPv6 address တစ်ခုထက်ပိုရပါမယ်။ Output မရှိဘဲ exit status nonzero ဖြစ်ရင် resolver က result မတွေ့တာပါ။",
+      "what_to_notice": "Resolution အောင်မြင်တာက name ကို address ပြောင်းနိုင်တာသာ သက်သေပြပါတယ်။ Route၊ open port နဲ့ application protocol အောင်မြင်မယ်လို့ မဆိုလိုပါဘူး။",
+      "common_mistake": "`dig` တစ်ခုတည်းရဲ့ answer ကို application လည်းမြင်တယ်လို့ယူဆရင် `/etc/hosts`၊ source အစဉ်နဲ့ အခြား resolver mechanism ကို လွတ်နိုင်ပါတယ်။",
+      "practical_tip": "Application တကယ် run နေတဲ့ host သို့မဟုတ် container မှာ lookup လုပ်ပါ။ Configuration မပြင်မီ address list နှစ်ဖက်ကို နှိုင်းပါ။",
+      "question": "`getent ahosts` က DNS-only query ထက် application lookup ကို ဘာကြောင့် ပိုကိုယ်စားပြုနိုင်သလဲ?",
+      "answer": "DNS၊ `/etc/hosts` နဲ့ အခြား source ပါနိုင်တဲ့ configured system name-service path ကို သုံးလို့ပါ။"
+    }
+  },
+  "tags": [
+    "dns",
+    "name-resolution",
+    "troubleshooting"
+  ],
+  "status": "approved"
+}
