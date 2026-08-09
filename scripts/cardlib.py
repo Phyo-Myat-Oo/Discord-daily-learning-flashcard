@@ -18,7 +18,7 @@ VALID_PRIORITIES = {"low", "normal", "high"}
 BASE_REQUIRED = {"id", "stream", "language", "category", "topic", "difficulty", "example", "tags", "status"}
 LEGACY_REQUIRED = BASE_REQUIRED | {"title", "summary", "explanation", "use_case", "question", "answer"}
 REQUIRED = LEGACY_REQUIRED  # Backward-compatible import for older scripts.
-RICH_REQUIRED = {"title", "summary", "explanation", "how_it_works", "use_case", "common_mistake", "practical_tip", "question", "answer"}
+RICH_REQUIRED = {"title", "summary", "explanation", "how_it_works", "visual", "use_case", "common_mistake", "practical_tip", "question", "answer"}
 EMOJI = {"linux": "🐧", "networking": "🌐", "git": "🌿", "docker": "🐳", "python": "🐍", "ai": "🤖", "mlops": "⚙️", "ai-engineering": "🧩", "review": "🧠"}
 
 
@@ -81,13 +81,15 @@ def localized(card: dict[str, Any], language: str, field: str, default: str = ""
 
 def _rich_description(card: dict[str, Any], language: str) -> str:
     labels = {
-        "en": {"learn": "What will you learn?", "works": "How it works", "case": "Real-world scenario", "result": "How to interpret it", "mistake": "Common mistake", "tip": "Practical tip", "recall": "Recall"},
-        "my": {"learn": "ဘာကို လေ့လာမလဲ?", "works": "ဘယ်လိုအလုပ်လုပ်သလဲ?", "case": "လက်တွေ့အခြေအနေ", "result": "ရလဒ်ကို ဘယ်လိုနားလည်မလဲ?", "mistake": "မကြာခဏ မှားတတ်သည့်အချက်", "tip": "လက်တွေ့အသုံးဝင်သော အကြံပြုချက်", "recall": "ပြန်လည်မှတ်မိခြင်း"},
+        "en": {"learn": "What will you learn?", "works": "How it works", "visual": "See the idea", "case": "Real-world scenario", "result": "How to interpret it", "mistake": "Common mistake", "tip": "Practical tip", "recall": "Recall"},
+        "my": {"learn": "ဘာကို လေ့လာမလဲ?", "works": "ဘယ်လိုအလုပ်လုပ်သလဲ?", "visual": "ပုံဖော်ကြည့်ရအောင်", "case": "လက်တွေ့အခြေအနေ", "result": "ရလဒ်ကို ဘယ်လိုနားလည်မလဲ?", "mistake": "မကြာခဏ မှားတတ်သည့်အချက်", "tip": "လက်တွေ့အသုံးဝင်သော အကြံပြုချက်", "recall": "ပြန်လည်မှတ်မိခြင်း"},
     }[language]
     block = card["content"][language]
     lines = [f"**{labels['learn']}**", _safe_inline(block["summary"]), "", f"**{labels['works']}**", _safe_inline(block["explanation"])]
     if block.get("how_it_works"):
         lines += ["", _safe_inline(block["how_it_works"])]
+    if block.get("visual"):
+        lines += ["", f"**{labels['visual']}**", f"```text\n{_code(block['visual'])}\n```"]
     if card.get("command"):
         lines += ["", "**Command**", f"```bash\n{_code(card['command'])}\n```"]
     if card.get("flags"):

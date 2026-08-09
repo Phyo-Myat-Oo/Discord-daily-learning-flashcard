@@ -143,7 +143,7 @@ python3 scripts/import_status.py
 
 Directories are deliberately non-recursive and capped. Normalized text is limited by `--max-source-chars` (120,000 by default), placed in ignored `.generated/`, and never staged by `generate.sh`. Original sources remain where they are. SHA-256 plus the selected section set prevents accidental repeat imports while allowing different chapters and changed revisions.
 
-New candidates are rich bilingual cards. English is drafted and checked first; Burmese expresses the same meaning naturally. Validation requires a mental model, real scenario, common mistake, practical tip, and recall question in both languages. Discord sends the two languages as separate embeds while legacy Burmese-only cards remain supported during migration.
+New candidates are rich bilingual cards. English is drafted and checked first; Burmese expresses the same meaning naturally. Validation requires a mental model, compact explanatory text visual, real scenario, common mistake, practical tip, and recall question in both languages. Visuals use phone-readable flows, comparisons, state transitions, hierarchies, or annotated commands—not decoration. Discord sends the two languages as separate embeds while legacy Burmese-only cards remain supported during migration.
 
 To remove manual approval, pass candidate directories from every configured stream through the AI review gate. The command invokes a separate Codex review, validates its corrections, and schedules only complete dates containing one card for every stream:
 

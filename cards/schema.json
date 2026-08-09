@@ -66,12 +66,13 @@
   "$defs": {
     "richLanguage": {
       "type": "object",
-      "required": ["title", "summary", "explanation", "how_it_works", "use_case", "common_mistake", "practical_tip", "question", "answer"],
+      "required": ["title", "summary", "explanation", "how_it_works", "visual", "use_case", "common_mistake", "practical_tip", "question", "answer"],
       "properties": {
         "title": {"type": "string"},
         "summary": {"type": "string"},
         "explanation": {"type": "string"},
         "how_it_works": {"type": "string"},
+        "visual": {"type": "string", "minLength": 20, "maxLength": 500},
         "use_case": {"type": "string"},
         "expected_result": {"type": "string"},
         "common_mistake": {"type": "string"},

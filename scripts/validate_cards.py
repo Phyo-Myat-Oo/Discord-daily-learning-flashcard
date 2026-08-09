@@ -80,6 +80,9 @@ def validate(paths: list[Path]) -> list[str]:
                         errors.append(f"{path}: content.{language}.{field} must be non-empty text")
                 if len(str(block.get("explanation", ""))) < (180 if language == "en" else 120):
                     errors.append(f"{path}: content.{language}.explanation is too short for a rich card")
+                visual = str(block.get("visual", ""))
+                if visual and (len(visual) < 20 or len(visual) > 500 or visual.count("\n") > 8):
+                    errors.append(f"{path}: content.{language}.visual must be a useful diagram of 20..500 characters and at most 9 lines")
                 instructional = " ".join(str(block.get(name, "")) for name in ("summary", "explanation", "how_it_works", "use_case", "common_mistake", "practical_tip"))
                 if len(instructional) < (550 if language == "en" else 400):
                     errors.append(f"{path}: content.{language} needs more instructional detail")
