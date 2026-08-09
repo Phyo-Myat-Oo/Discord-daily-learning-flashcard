@@ -1,0 +1,42 @@
+{
+  "curriculum_version": 1,
+  "candidate_budget": {
+    "quick": 3,
+    "normal": 6,
+    "deep": 10
+  },
+  "tracks": {
+    "linux-shell": {
+      "stream": "linux",
+      "category": "linux",
+      "primary_book": "linux-command-line-7e",
+      "next_track_sequence": 5,
+      "pilot": {"section": "1 — What Is the Shell?", "source_pages": "26-30", "candidate_cards": 4},
+      "status": "pilot-review"
+    },
+    "git": {
+      "stream": "dev",
+      "category": "git",
+      "primary_book": "pro-git-2e",
+      "next_track_sequence": 5,
+      "pilot": {"section": "Chapter 1 — Getting Started", "source_pages": "16-31", "candidate_cards": 4},
+      "status": "pilot-review"
+    },
+    "machine-learning": {
+      "stream": "ai",
+      "category": "ai",
+      "primary_book": "hands-on-ml-pytorch",
+      "next_track_sequence": 5,
+      "pilot": {"section": "Chapter 1 — The Machine Learning Landscape", "source_pages": "33-70", "candidate_cards": 4},
+      "status": "pilot-review"
+    },
+    "mlops": {
+      "stream": "mlops",
+      "category": "mlops",
+      "primary_book": "designing-ml-systems",
+      "next_track_sequence": 5,
+      "pilot": {"section": "Chapter 1. Overview of Machine Learning Systems", "source_locator": "EPUB item: ch01.xhtml", "candidate_cards": 4},
+      "status": "pilot-review"
+    }
+  }
+}

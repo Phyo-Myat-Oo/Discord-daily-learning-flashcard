@@ -35,7 +35,7 @@ chmod +x scripts/generate.sh scripts/*.py
 python3 scripts/validate_cards.py
 ```
 
-Only PDF extraction needs the `pypdf` dependency; the daily sender uses Python's standard library. Install and authenticate the Codex CLI, then verify `codex exec --help` works. The generation scripts use an ephemeral, workspace-write session rooted at this repository. They never give Codex Git push responsibility.
+PDF extraction prefers `pypdf` for document outlines and falls back to Ubuntu's `pdftotext` from `poppler-utils`. EPUB and daily delivery use Python's standard library. Install and authenticate the Codex CLI, then verify `codex exec --help` works. The generation scripts use an ephemeral, workspace-write session rooted at this repository. They never give Codex Git push responsibility.
 
 Configure Git once if needed:
 
@@ -119,17 +119,43 @@ If this repository is elsewhere, edit both `WorkingDirectory` and `ExecStart` in
 
 ## 6. Import private/local study sources
 
-Supported in version 1: PDF, Jupyter notebook, Markdown, text, and Python. Extraction is separate from generation. Notebook metadata, images, widgets, large outputs, and execution counters are omitted. PDFs retain explicit page markers when text extraction succeeds.
+Supported: PDF, EPUB, Jupyter notebook, Markdown, text, and Python. Extraction is separate from generation. Use only sources you are legally permitted to process. Keep purchased/private books outside this repository and never commit them.
+
+The extractor preserves reading order and emits bounded sections rather than passing an entire book to Codex. PDF outlines become sections when `pypdf` exposes them; otherwise the Ubuntu fallback creates safe page windows. Recurring headers and footers are removed, split words are repaired, and page locators remain visible. EPUB follows its spine and removes markup, scripts, styles, and non-reading assets. Notebooks are grouped by headings while metadata, images, widgets, large outputs, and execution counters are omitted.
+
+Inspect detected sections before generating anything:
 
 ```bash
-python3 scripts/import_source.py ~/papers/paper.pdf --depth quick --max-cards 8
+python3 scripts/import_source.py ~/Books/LinuxCommand.pdf --list-sections
+python3 scripts/import_source.py ~/Books/book.epub --list-sections
+```
+
+Then import one coherent chapter or a small group. `--section` accepts a 1-based number or case-insensitive title fragment and may be repeated:
+
+```bash
+python3 scripts/import_source.py ~/Books/LinuxCommand.pdf --section 2 --depth normal --max-cards 8
+python3 scripts/import_source.py ~/Books/book.epub --section "Data Model" --max-cards 10
 python3 scripts/import_source.py lecture.ipynb --depth deep --max-cards 30 --priority high
 python3 scripts/import_source.py sources/inbox/ --max-files 20
 python3 scripts/review_cards.py
 python3 scripts/import_status.py
 ```
 
-Directories are deliberately non-recursive and capped. Normalized text is placed in ignored `.generated/`; original sources remain where they are and are never staged by `generate.sh`. A SHA-256 history in `state/imports.json` prevents reprocessing identical content while allowing changed revisions.
+Directories are deliberately non-recursive and capped. Normalized text is limited by `--max-source-chars` (120,000 by default), placed in ignored `.generated/`, and never staged by `generate.sh`. Original sources remain where they are. SHA-256 plus the selected section set prevents accidental repeat imports while allowing different chapters and changed revisions.
+
+New candidates are rich bilingual cards. English is drafted and checked first; Burmese expresses the same meaning naturally. Validation requires a mental model, real scenario, common mistake, practical tip, and recall question in both languages. Discord sends the two languages as separate embeds while legacy Burmese-only cards remain supported during migration.
+
+To remove manual approval, pass candidate directories from every configured stream through the AI review gate. The command invokes a separate Codex review, validates its corrections, and schedules only complete dates containing one card for every stream:
+
+```bash
+python3 scripts/ai_review_and_schedule.py \
+  cards/imported/linux-batch \
+  cards/imported/ai-batch \
+  cards/imported/dev-batch \
+  cards/imported/mlops-batch
+```
+
+If AI review times out, rejects a card, validation fails, or a complete all-stream row is unavailable, nothing incomplete is scheduled. Post-scheduling validation is transactional: edited candidates are restored if the full repository fails validation.
 
 Candidates live in `cards/imported/<source-slug-hash>/` with `status: candidate`. Edit JSON freely, then approve without scheduling or approve and distribute cards across unused dates:
 

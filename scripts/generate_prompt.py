@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 from datetime import date, timedelta
-from cardlib import ROOT, all_cards, load_channels
+from cardlib import ROOT, all_cards, load_channels, localized
 
 
 def missing_slots(target_override: int | None = None, today: date | None = None, stream_filter: str | None = None) -> list[dict[str, str]]:
@@ -17,6 +17,7 @@ def missing_slots(target_override: int | None = None, today: date | None = None,
             continue
         target = target_override or int(config.get("buffer_target", 14))
         occupied = {date.fromisoformat(c["date"]) for _, c in cards if c.get("stream") == stream and c.get("date") and date.fromisoformat(c["date"]) >= today and c.get("status") in {"approved", "scheduled"}}
+        next_sequence = max((int(c.get("sequence", 0)) for _, c in cards if c.get("stream") == stream), default=0) + 1
         cursor = today
         planned: set[date] = set()
         categories = config["categories"]
@@ -24,7 +25,15 @@ def missing_slots(target_override: int | None = None, today: date | None = None,
             if cursor not in occupied:
                 planned.add(cursor)
                 suggested = "review" if cursor.weekday() == 6 else categories[cursor.weekday() % len(categories)]
-                result.append({"stream": stream, "date": cursor.isoformat(), "suggested_category": suggested})
+                progression = config.get("progression", {})
+                if next_sequence <= int(progression.get("beginner_through", 5)):
+                    stage = "beginner"
+                elif next_sequence <= int(progression.get("intermediate_through", 20)):
+                    stage = "intermediate"
+                else:
+                    stage = "advanced"
+                result.append({"stream": stream, "date": cursor.isoformat(), "sequence": next_sequence, "required_difficulty": stage, "suggested_category": suggested})
+                next_sequence += 1
             cursor += timedelta(days=1)
     return result
 
@@ -52,7 +61,7 @@ def main() -> int:
         "stream_date_slots": needed,
         "stream_configuration": load_channels(),
         "covered_topics": topics.get("covered", []),
-        "recent_cards": [{key: c.get(key) for key in ("id", "stream", "date", "category", "topic", "title", "question")} for c in recent],
+        "recent_cards": [{**{key: c.get(key) for key in ("id", "stream", "date", "category", "topic")}, "title": localized(c, "en", "title"), "question": localized(c, "en", "question")} for c in recent],
         "output_root": "cards/<category>/",
     }
     print(template + "\n## Dynamic context\n\n```json\n" + json.dumps(context, indent=2) + "\n```\n")

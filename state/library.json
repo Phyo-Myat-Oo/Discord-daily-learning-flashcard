@@ -1,0 +1,116 @@
+{
+  "library_version": 1,
+  "source_root": "~/Downloads/pdf_daily",
+  "books": [
+    {
+      "id": "linux-command-line-7e",
+      "title": "The Linux Command Line, 7th Internet Edition",
+      "filename": "LinuxCommand.pdf",
+      "format": "pdf",
+      "sha256": "c6c564db237ea1d5f5758c5a0df5d8c804041ef483585259687d04d9ecf2cd05",
+      "tracks": ["linux-shell"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "pro-git-2e",
+      "title": "Pro Git, 2nd Edition",
+      "filename": "progit.pdf",
+      "format": "pdf",
+      "sha256": "403f4051cdca2c585361d85f6e87d5dd87d8c544fc91dced007711babe81e8ef",
+      "tracks": ["git"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "hands-on-ml-pytorch",
+      "title": "Hands-On Machine Learning with Scikit-Learn and PyTorch",
+      "filename": "Hands-On-Machine-Learning.pdf",
+      "format": "pdf",
+      "sha256": "341210fc509c43113ca7bd6ac86a3f560c0c3150cbd10685d51ef3f1a5149ee1",
+      "tracks": ["machine-learning"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "how-linux-works-3e",
+      "title": "How Linux Works, 3rd Edition",
+      "filename": "How Linux Works, 3rd Edition -- Brian Ward -- 1, 2021 .epub",
+      "format": "epub",
+      "sha256": "5ab06c2ae0ea074dbbdc41b3d7ff1047460cfdae27706b18a0ea883ba4135b67",
+      "tracks": ["linux-administration"],
+      "role": "secondary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "computer-networking-top-down-7e",
+      "title": "Computer Networking: A Top-Down Approach, 7th Edition",
+      "filename": "Computer Networking_ A Top-Down Approach -- James F_ Kurose, Keith Ross, Keith W_ Ross -- 7th ed_, 2016 -- Pearson Education, Limt.pdf",
+      "format": "pdf",
+      "sha256": "391502fcaa82936b49f154b61013774bb6ad861c042cebc3a06a45b2835c0588",
+      "tracks": ["networking"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "python-crash-course-3e",
+      "title": "Python Crash Course, 3rd Edition",
+      "filename": "Python Crash Course, 3rd Edition _ A Hands-On, Project-Based -- Eric Matthes -- 3, 2022 -- No Starch Press, .epub",
+      "format": "epub",
+      "sha256": "6d6f17bcd7bac9521857fda5241ffe9b171b68c34fa1626449d4555324f0d9c3",
+      "tracks": ["python"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "fluent-python-2e",
+      "title": "Fluent Python, 2nd Edition",
+      "filename": "Fluent Python, 2nd Edition -- Luciano Ramalho -- 2, 2020 -- O'Reilly Media, Inc_ .epub",
+      "format": "epub",
+      "sha256": "951fc9371498004cf5040ccd49fc21c7e649cae558250e62f3df384f7ab601e6",
+      "tracks": ["python"],
+      "role": "secondary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "docker-up-running-3e",
+      "title": "Docker: Up & Running, 3rd Edition",
+      "filename": "Docker-Up-and-Running-3e.epub",
+      "format": "epub",
+      "sha256": "4547cea817094bb842cb1b108facc49f5a84b237d53ae8f339a76167ad6e3d99",
+      "tracks": ["docker"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "dive-into-deep-learning",
+      "title": "Dive into Deep Learning",
+      "filename": "Deeplearning.pdf",
+      "format": "pdf",
+      "sha256": "4175422c67bf52031c9f0cb0e964a28f4495c087080c80321470fa9c77238952",
+      "tracks": ["deep-learning"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "designing-ml-systems",
+      "title": "Designing Machine Learning Systems",
+      "filename": "Designing machine learning systems _ an iterative process -- Chip Huyen; Safari, an O'Reilly Media Company -- O'Reilly Media, [N_p_], 2022 -- O'Reilly -.epub",
+      "format": "epub",
+      "sha256": "65d1701891c6b9673d875c954ff414afb99b0a3d6e07f7dffc4b66cae2398052",
+      "tracks": ["mlops"],
+      "role": "primary",
+      "access": "user-provided-local"
+    },
+    {
+      "id": "ai-engineering-chip-huyen",
+      "title": "AI Engineering: Building Applications with Foundation Models",
+      "filename": "AI Engineering_ Building Applications with Foundation Models -- Chip Huyen -- 2024 -- O'Reilly Media,.epub",
+      "format": "epub",
+      "sha256": "bcc217e8cdb76760346442f8a23643754816b2260d0b5cd8cc3a4994d9a034ae",
+      "tracks": ["ai-engineering"],
+      "role": "primary",
+      "access": "user-provided-local"
+    }
+  ]
+}

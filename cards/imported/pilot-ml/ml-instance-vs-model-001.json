@@ -1,0 +1,59 @@
+{
+  "id": "ml-instance-vs-model-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "category": "ai",
+  "topic": "instance-versus-model-based-learning",
+  "concept_key": "ml.fundamentals.instance-vs-model",
+  "track": "machine-learning",
+  "track_sequence": 4,
+  "difficulty": "beginner",
+  "example": "k-nearest neighbors compares stored examples; linear regression applies learned parameters",
+  "content": {
+    "en": {
+      "title": "Compare Instance-Based and Model-Based Learning",
+      "summary": "Instance-based methods predict by comparing new inputs with stored examples. Model-based methods fit a parameterized representation of the data and use that model to make predictions.",
+      "explanation": "A nearest-neighbor classifier can store training instances and use a similarity measure at prediction time. Linear regression instead learns coefficients describing a relationship and then applies the equation to new inputs. Both approaches generalize, but they place computation and assumptions in different places.",
+      "how_it_works": "Instance-based learning needs a meaningful distance or similarity function and often performs substantial work during inference. Model-based learning chooses a model family, objective, and fitted parameters during training, usually making each later prediction relatively compact.",
+      "use_case": "For matching a new support ticket to highly similar historical tickets, instance-based retrieval may preserve useful local examples. For estimating a smooth numeric trend, a fitted regression model may be smaller and easier to interpret.",
+      "expected_result": "The instance-based method returns a prediction influenced by nearby stored examples; the model-based method returns a prediction computed from learned parameters.",
+      "common_mistake": "Instance-based does not mean there is no design choice: distance, feature scaling, neighborhood size, and storage strongly affect results. Model-based does not guarantee a correct model; restrictive assumptions can underfit reality.",
+      "practical_tip": "Ask where prediction cost should live, how much data can be stored, whether similarity is meaningful, and what assumptions are acceptable. Standardize scale-sensitive features before distance-based comparison.",
+      "question": "Where does an instance-based method obtain most of the information used for a new prediction?",
+      "answer": "From comparisons between the new input and stored training instances, using a chosen similarity or distance measure."
+    },
+    "my": {
+      "title": "Instance-Based နဲ့ Model-Based Learning ကို နှိုင်းယှဉ်ခြင်း",
+      "summary": "Instance-based method က input အသစ်ကို သိမ်းထားတဲ့ example တွေနဲ့ နှိုင်းယှဉ်ပြီး ခန့်မှန်းပါတယ်။ Model-based method က data ကို ကိုယ်စားပြုတဲ့ parameterized model ကို fit လုပ်ပြီး အဲဒီ model နဲ့ prediction ထုတ်ပါတယ်။",
+      "explanation": "Nearest-neighbor classifier က training instance တွေကို သိမ်းထားပြီး prediction လုပ်ချိန် similarity measure သုံးနိုင်ပါတယ်။ Linear regression ကတော့ relationship ကို ဖော်ပြတဲ့ coefficient သင်ယူပြီး input အသစ်မှာ equation ကို အသုံးချပါတယ်။ နှစ်မျိုးလုံး generalize လုပ်ပေမယ့် computation နဲ့ assumption ထားတဲ့နေရာ မတူပါဘူး။",
+      "how_it_works": "Instance-based learning မှာ အဓိပ္ပာယ်ရှိတဲ့ distance သို့မဟုတ် similarity function လိုပြီး inference အချိန် အလုပ်များတတ်ပါတယ်။ Model-based learning က training အချိန် model family၊ objective နဲ့ parameter ကို fit လုပ်လို့ နောက်ပိုင်း prediction တစ်ခုစီ ပိုတိုတောင်းတတ်ပါတယ်။",
+      "use_case": "Support ticket အသစ်ကို အလွန်ဆင်တူတဲ့ ticket အဟောင်းနဲ့ ချိတ်လိုရင် instance-based retrieval က local example ကို ထိန်းထားနိုင်ပါတယ်။ Smooth numeric trend ခန့်မှန်းရင် regression model က ပိုသေးပြီး ရှင်းပြရလွယ်နိုင်ပါတယ်။",
+      "expected_result": "Instance-based method ရဲ့ prediction ကို အနီးဆုံး stored example တွေက သက်ရောက်ပြီး model-based method က learned parameter တွေမှ တွက်ထားတဲ့ prediction ထုတ်ပါတယ်။",
+      "common_mistake": "Instance-based မှာ design choice မရှိတာ မဟုတ်ပါဘူး။ Distance၊ feature scaling၊ neighborhood size နဲ့ storage က ရလဒ်ကို အလွန်သက်ရောက်ပါတယ်။ Model-based ဖြစ်တာနဲ့ model မှန်မယ်လို့လည်း မဆိုနိုင်ဘဲ assumption တင်းလွန်းရင် underfit ဖြစ်ပါတယ်။",
+      "practical_tip": "Prediction ကုန်ကျစရိတ် ဘယ်နေရာထားမလဲ၊ data ဘယ်လောက်သိမ်းနိုင်လဲ၊ similarity အဓိပ္ပာယ်ရှိလားနဲ့ ဘယ် assumption လက်ခံနိုင်လဲ မေးပါ။ Distance သုံးမယ်ဆို scale-sensitive feature ကို standardize လုပ်ပါ။",
+      "question": "Instance-based method က input အသစ်ခန့်မှန်းဖို့ အဓိကအချက်အလက်ကို ဘယ်ကရသလဲ?",
+      "answer": "ရွေးထားတဲ့ similarity သို့မဟုတ် distance နဲ့ input အသစ်ကို သိမ်းထားတဲ့ training instance တွေနဲ့ နှိုင်းယှဉ်ရာမှ ရပါတယ်။"
+    }
+  },
+  "tags": [
+    "instance-based",
+    "model-based",
+    "generalization"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "pdf",
+  "source_file": "Hands-On-Machine-Learning.pdf",
+  "source_title": "Hands-On Machine Learning with Scikit-Learn and PyTorch",
+  "source_section": "Chapter 1 — The Machine Learning Landscape",
+  "source_page": 51,
+  "needs_review": false,
+  "date": "2026-08-13",
+  "sequence": 4,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

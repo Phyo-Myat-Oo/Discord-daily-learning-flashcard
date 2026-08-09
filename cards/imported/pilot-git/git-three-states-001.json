@@ -1,0 +1,60 @@
+{
+  "id": "git-three-states-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "category": "git",
+  "topic": "git-three-states",
+  "concept_key": "git.fundamentals.three-states",
+  "track": "git",
+  "track_sequence": 4,
+  "difficulty": "beginner",
+  "command": "git status --short",
+  "example": "git status --short",
+  "content": {
+    "en": {
+      "title": "Separate Modified, Staged, and Committed Work",
+      "summary": "Git's basic workflow distinguishes files changed in the working tree, changes selected in the staging area, and snapshots already stored in the repository as commits.",
+      "explanation": "A modified file differs from the checked-out snapshot. Staging selects a particular version of a change for the next commit. Committing records the staged snapshot in the local repository. These states let you edit several things while deliberately choosing which coherent change becomes history next.",
+      "how_it_works": "The working tree contains editable files. The index, commonly called the staging area, records proposed content for the next commit. `HEAD` normally identifies the current committed snapshot. `git status --short` compares these areas and reports paths whose states differ.",
+      "use_case": "You fixed a bug and also began an unrelated refactor in the same file set. Stage only the bug-fix changes, review them, commit that focused snapshot, and leave the refactor modifications for a later commit.",
+      "expected_result": "Changed paths appear with two status columns: the first describes the index and the second the working tree. No output normally means Git sees no tracked changes or untracked paths to report.",
+      "common_mistake": "Running `git add` does not permanently save a commit or push anything. It copies the selected current content into the staging area; editing the file afterward can create both staged and unstaged changes.",
+      "practical_tip": "Use `git diff` for unstaged changes, `git diff --staged` for the next proposed commit, and `git status` before committing. This three-view habit prevents accidental mixed commits.",
+      "question": "What does `git add` do in the three-state model?",
+      "answer": "It places selected content into the staging area for the next commit; it does not commit or push it."
+    },
+    "my": {
+      "title": "Modified၊ Staged နဲ့ Committed အခြေအနေများကို ခွဲခြားခြင်း",
+      "summary": "Git workflow အခြေခံမှာ working tree ထဲ ပြင်ထားတဲ့ file၊ staging area ထဲ ရွေးထားတဲ့ change နဲ့ repository ထဲ commit အဖြစ် သိမ်းပြီးသား snapshot ကို ခွဲထားပါတယ်။",
+      "explanation": "Modified file က checkout လုပ်ထားတဲ့ snapshot နဲ့ မတူတော့တာဖြစ်ပါတယ်။ Staging က နောက် commit ထဲ ထည့်မယ့် change version ကို ရွေးပါတယ်။ Commit လုပ်တာက staged snapshot ကို local repository ထဲ မှတ်တမ်းတင်ပါတယ်။ ဒီအခြေအနေတွေကြောင့် အလုပ်အများကြီး ပြင်ထားလည်း နောက် history ထဲ ဘာဝင်မလဲ ရည်ရွယ်ချက်ရှိရှိ ရွေးနိုင်ပါတယ်။",
+      "how_it_works": "Working tree မှာ ပြင်နိုင်တဲ့ file တွေရှိပါတယ်။ Index လို့လည်းခေါ်တဲ့ staging area က နောက် commit အတွက် အဆိုပြု content ကို မှတ်ထားပါတယ်။ `HEAD` က လက်ရှိ committed snapshot ကို ညွှန်းလေ့ရှိပြီး `git status --short` က ဒီနေရာတွေကြား ကွာခြားမှုကို ပြပါတယ်။",
+      "use_case": "Bug fix လုပ်ရင်း မသက်ဆိုင်တဲ့ refactor ကိုပါ စထားရင် bug-fix change ကိုသာ stage၊ ပြန်စစ်ပြီး focused commit လုပ်နိုင်ပါတယ်။ Refactor modification ကို နောက် commit အတွက် working tree မှာ ချန်ထားနိုင်ပါတယ်။",
+      "expected_result": "ပြောင်းထားတဲ့ path ကို status column နှစ်ခုနဲ့ ပြပါတယ်။ ပထမတစ်ခုက index၊ ဒုတိယက working tree အခြေအနေပါ။ Output မရှိရင် report လုပ်စရာ tracked change သို့မဟုတ် untracked path မရှိတာဖြစ်လေ့ရှိပါတယ်။",
+      "common_mistake": "`git add` လုပ်တာက commit အပြီးသိမ်းတာ သို့မဟုတ် push လုပ်တာ မဟုတ်ပါဘူး။ လက်ရှိရွေးထားတဲ့ content ကို staging area ထဲ ကူးတာဖြစ်ပြီး နောက်ထပ် file ပြင်ရင် staged နဲ့ unstaged change နှစ်မျိုးလုံး ရှိနိုင်ပါတယ်။",
+      "practical_tip": "Unstaged change အတွက် `git diff`၊ နောက် commit အတွက် `git diff --staged`၊ commit မလုပ်မီ `git status` သုံးပါ။ ဒီ view သုံးမျိုး စစ်တဲ့အလေ့အကျင့်က mixed commit မတော်တဆဖြစ်တာ ကာကွယ်ပေးပါတယ်။",
+      "question": "Three-state model ထဲမှာ `git add` က ဘာလုပ်သလဲ?",
+      "answer": "ရွေးထားတဲ့ content ကို နောက် commit အတွက် staging area ထဲ ထည့်တာဖြစ်ပြီး commit သို့မဟုတ် push မလုပ်ပါဘူး။"
+    }
+  },
+  "tags": [
+    "working-tree",
+    "staging",
+    "commits"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "pdf",
+  "source_file": "progit.pdf",
+  "source_title": "Pro Git, 2nd Edition",
+  "source_section": "Chapter 1 — Getting Started",
+  "source_page": 22,
+  "needs_review": false,
+  "date": "2026-08-13",
+  "sequence": 4,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

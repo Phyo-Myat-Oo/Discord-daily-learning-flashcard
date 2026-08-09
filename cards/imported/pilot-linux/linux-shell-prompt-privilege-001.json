@@ -1,0 +1,60 @@
+{
+  "id": "linux-shell-prompt-privilege-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "category": "linux",
+  "topic": "shell-prompt-privilege-indicator",
+  "concept_key": "linux.shell.prompt-privilege",
+  "track": "linux-shell",
+  "track_sequence": 2,
+  "difficulty": "beginner",
+  "command": "id -u -n",
+  "example": "id -u -n",
+  "content": {
+    "en": {
+      "title": "Read the Shell Prompt as Context, Not Proof",
+      "summary": "A shell prompt indicates that the shell is ready for input and often includes the user, host, and working directory. `$` usually represents a regular user, while `#` commonly signals root privileges.",
+      "explanation": "Prompt text is produced by shell configuration and can change between systems. Its final character is a useful warning: a root shell commonly ends in `#`, because commands there can modify system-wide files without another privilege check. A regular interactive shell commonly ends in `$` and is limited by that user's permissions.",
+      "how_it_works": "The prompt is displayed before each command and is normally controlled by a variable such as Bash's `PS1`. Because users can customize it, the symbol is a convention rather than a security boundary. `id -u -n` asks the system for the effective user name and is stronger evidence of identity.",
+      "use_case": "Before installing software or editing configuration, you notice a `#` prompt. Confirming the effective user prevents accidentally running an ordinary troubleshooting command with unrestricted system privileges.",
+      "expected_result": "The command prints the effective account name, such as `phyo-myat-oo` or `root`.",
+      "common_mistake": "Do not assume every line beginning with `#` is a root prompt; in scripts it often marks a comment. Also do not treat a customized `$` prompt as proof that the shell lacks elevated privileges.",
+      "practical_tip": "When privilege matters, verify with `id`, read the command before pressing Enter, and leave an unnecessary root shell with `exit`. Use narrowly scoped `sudo` commands instead of working as root for long sessions.",
+      "question": "Why should `#` make you pause before running a command?",
+      "answer": "It commonly indicates a root shell where commands can make unrestricted system-wide changes."
+    },
+    "my": {
+      "title": "Shell Prompt ကို အခြေအနေပြ အချက်အလက်အဖြစ် ဖတ်ခြင်း",
+      "summary": "Shell prompt က shell ဟာ command လက်ခံဖို့ အဆင်သင့်ဖြစ်ကြောင်း ပြပြီး user၊ host နဲ့ လက်ရှိ directory ကိုပါ ထည့်ပြတတ်ပါတယ်။ `$` က regular user၊ `#` က root shell ကို ဆိုလိုလေ့ရှိပါတယ်။",
+      "explanation": "Prompt စာသားကို shell configuration က ဖန်တီးတာကြောင့် system တစ်ခုနဲ့တစ်ခု မတူနိုင်ပါဘူး။ နောက်ဆုံး `#` ပါရင် root privilege ရှိနေတတ်ပြီး system file တွေကို ထပ်မံခွင့်ပြုချက်မတောင်းဘဲ ပြောင်းနိုင်တာကြောင့် သတိပေးချက်တစ်ခုလို သဘောထားသင့်ပါတယ်။ `$` ကတော့ regular user shell ဖြစ်လေ့ရှိပါတယ်။",
+      "how_it_works": "Command တစ်ခုစီမတိုင်မီ prompt ကို ပြပြီး Bash မှာ `PS1` လို variable က ထိန်းချုပ်ပါတယ်။ Prompt ကို ကိုယ်တိုင်ပြင်နိုင်တာကြောင့် symbol က လုံခြုံရေးအတည်ပြုချက် မဟုတ်ပါဘူး။ `id -u -n` က system ထံမှ effective user name ကို တိုက်ရိုက်မေးတာဖြစ်ပါတယ်။",
+      "use_case": "Software install လုပ်မယ့်အချိန် သို့မဟုတ် configuration ပြင်မယ့်အချိန် `#` prompt ကို တွေ့ရင် effective user ကို အရင်စစ်ခြင်းက troubleshooting command တစ်ခုကို မလိုအပ်ဘဲ root အဖြစ် run မိတာကို ကာကွယ်ပေးပါတယ်။",
+      "expected_result": "`phyo-myat-oo` သို့မဟုတ် `root` လို လက်ရှိ effective account အမည်ကို ပြပါမယ်။",
+      "common_mistake": "Script ထဲက `#` ဟာ comment စတဲ့ သင်္ကေတလည်း ဖြစ်နိုင်တာကြောင့် root prompt လို့ အမြဲမယူဆပါနဲ့။ Customize လုပ်ထားတဲ့ `$` ကိုလည်း privilege မရှိကြောင်း အထောက်အထားလို့ မယူဆသင့်ပါဘူး။",
+      "practical_tip": "Privilege အရေးကြီးရင် `id` နဲ့ အတည်ပြုပါ၊ Enter မနှိပ်မီ command ကို ပြန်ဖတ်ပါ၊ မလိုတော့တဲ့ root shell ကနေ `exit` နဲ့ ထွက်ပါ။ Root session ကြာကြာသုံးမယ့်အစား လိုအပ်တဲ့ command ကိုသာ `sudo` သုံးပါ။",
+      "question": "Command မ run မီ `#` prompt ကို တွေ့ရင် ဘာကြောင့် ခဏရပ်ပြီး စစ်သင့်သလဲ?",
+      "answer": "System တစ်ခုလုံးကို အကန့်အသတ်မရှိ ပြောင်းနိုင်တဲ့ root shell ဖြစ်နေတတ်လို့ပါ။"
+    }
+  },
+  "tags": [
+    "shell",
+    "permissions",
+    "root"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "pdf",
+  "source_file": "LinuxCommand.pdf",
+  "source_title": "The Linux Command Line, 7th Internet Edition",
+  "source_section": "Chapter 1 — What Is the Shell?",
+  "source_page": 27,
+  "needs_review": false,
+  "date": "2026-08-11",
+  "sequence": 2,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

@@ -2,20 +2,24 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Daily Learning Flashcard",
   "type": "object",
-  "required": ["id", "stream", "language", "category", "topic", "difficulty", "title", "summary", "explanation", "use_case", "example", "question", "answer", "tags", "status"],
+  "required": ["id", "stream", "language", "category", "topic", "difficulty", "example", "tags", "status"],
   "properties": {
     "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
     "stream": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
-    "language": {"enum": ["my"]},
+    "language": {"enum": ["my", "bilingual"]},
+    "sequence": {"type": "integer", "minimum": 1},
     "date": {"type": "string", "format": "date"},
     "category": {"enum": ["linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "review"]},
     "topic": {"type": "string"},
+    "concept_key": {"type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"},
+    "track": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
+    "track_sequence": {"type": "integer", "minimum": 1},
     "difficulty": {"enum": ["beginner", "intermediate", "advanced"]},
     "title": {"type": "string"},
     "summary": {"type": "string"},
     "command": {"type": "string"},
     "explanation": {"type": "string"},
-    "flags": {"type": "array", "items": {"type": "object", "required": ["flag", "meaning"], "properties": {"flag": {"type": "string"}, "meaning": {"type": "string"}}}},
+    "flags": {"type": "array", "items": {"type": "object", "required": ["flag"], "properties": {"flag": {"type": "string"}, "meaning": {"type": "string"}, "en": {"type": "string"}, "my": {"type": "string"}}}},
     "use_case": {"type": "string"},
     "example": {"type": "string"},
     "question": {"type": "string"},
@@ -24,13 +28,31 @@
     "status": {"enum": ["candidate", "approved", "rejected", "scheduled"]},
     "priority": {"enum": ["low", "normal", "high"]},
     "generated_from_source": {"type": "boolean"},
-    "source_type": {"enum": ["pdf", "ipynb", "md", "txt", "py"]},
+    "source_type": {"enum": ["pdf", "epub", "ipynb", "md", "txt", "py"]},
     "source_file": {"type": "string"},
     "source_title": {"type": "string"},
     "source_section": {"type": "string"},
     "source_page": {"type": "integer", "minimum": 1},
     "source_cell": {"type": "integer", "minimum": 0},
-    "needs_review": {"type": "boolean"}
+    "needs_review": {"type": "boolean"},
+    "ai_review": {
+      "type": "object",
+      "required": ["status", "reviewed_at", "reviewer"],
+      "properties": {
+        "status": {"enum": ["passed", "rejected"]},
+        "reviewed_at": {"type": "string"},
+        "reviewer": {"type": "string"}
+      }
+    },
+    "content": {
+      "type": "object",
+      "required": ["en", "my"],
+      "properties": {
+        "en": {"$ref": "#/$defs/richLanguage"},
+        "my": {"$ref": "#/$defs/richLanguage"}
+      },
+      "additionalProperties": false
+    }
     ,"review_items": {
       "type": "array",
       "minItems": 2,
@@ -40,5 +62,31 @@
         "properties": {"question": {"type": "string"}, "answer": {"type": "string"}}
       }
     }
-  }
+  },
+  "$defs": {
+    "richLanguage": {
+      "type": "object",
+      "required": ["title", "summary", "explanation", "how_it_works", "use_case", "common_mistake", "practical_tip", "question", "answer"],
+      "properties": {
+        "title": {"type": "string"},
+        "summary": {"type": "string"},
+        "explanation": {"type": "string"},
+        "how_it_works": {"type": "string"},
+        "use_case": {"type": "string"},
+        "expected_result": {"type": "string"},
+        "common_mistake": {"type": "string"},
+        "practical_tip": {"type": "string"},
+        "question": {"type": "string"},
+        "answer": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"language": {"const": "bilingual"}}},
+      "then": {"required": ["content"]},
+      "else": {"required": ["title", "summary", "explanation", "use_case", "question", "answer"]}
+    }
+  ]
 }

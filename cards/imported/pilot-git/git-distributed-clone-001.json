@@ -1,0 +1,60 @@
+{
+  "id": "git-distributed-clone-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "category": "git",
+  "topic": "distributed-clone-history",
+  "concept_key": "git.fundamentals.distributed-clone",
+  "track": "git",
+  "track_sequence": 2,
+  "difficulty": "beginner",
+  "command": "git clone REPOSITORY_URL",
+  "example": "git clone https://github.com/example/project.git",
+  "content": {
+    "en": {
+      "title": "Understand What a Distributed Git Clone Contains",
+      "summary": "A normal Git clone obtains the repository's history and metadata, not merely the newest files. This allows most inspection and commit operations to work locally without continuous server access.",
+      "explanation": "Git is a distributed version-control system. Each developer normally has a local repository containing commits, references, and objects plus a checked-out working tree. A hosting service is important for collaboration, but it is not the only place where project history exists.",
+      "how_it_works": "`git clone` creates a new directory, copies reachable repository data from the remote, configures that source as `origin`, and checks out an initial branch. Later, `fetch` transfers new remote objects and references; local work does not automatically become remote work until it is pushed.",
+      "use_case": "Your network connection disappears while traveling. In a complete clone you can still inspect history, compare branches, create commits, and organize work locally, then exchange new history with the remote after connectivity returns.",
+      "expected_result": "Git creates a project directory containing a working tree and a hidden `.git` repository, then reports transferred objects and checkout progress.",
+      "common_mistake": "Calling every clone a guaranteed backup is too broad. Shallow or filtered clones may omit history, local untracked files are outside the repository, and data needed from external services is not included.",
+      "practical_tip": "After cloning, inspect `git remote -v`, `git status`, and `git log --oneline`. Confirm the source and branch before beginning work, especially when similarly named forks exist.",
+      "question": "Why can Git history inspection usually work without a network connection after cloning?",
+      "answer": "Because a normal clone stores repository objects and history locally rather than only downloading the newest files."
+    },
+    "my": {
+      "title": "Distributed Git Clone ထဲမှာ ဘာတွေပါသလဲ နားလည်ခြင်း",
+      "summary": "ပုံမှန် Git clone တစ်ခုက နောက်ဆုံး file တွေကိုသာ မယူဘဲ repository history နဲ့ metadata ကိုပါ ရယူပါတယ်။ ဒါကြောင့် server အမြဲမချိတ်ထားလည်း history စစ်ခြင်းနဲ့ commit အများစုကို local မှာ လုပ်နိုင်ပါတယ်။",
+      "explanation": "Git ဟာ distributed version-control system ဖြစ်ပါတယ်။ Developer တစ်ယောက်စီမှာ commits၊ references၊ objects ပါတဲ့ local repository နဲ့ checkout လုပ်ထားတဲ့ working tree ရှိတတ်ပါတယ်။ Hosting service က ပူးပေါင်းလုပ်ဖို့ အရေးကြီးပေမယ့် project history ရှိတဲ့ တစ်ခုတည်းသောနေရာ မဟုတ်ပါဘူး။",
+      "how_it_works": "`git clone` က directory အသစ်ဖန်တီး၊ remote မှ ရောက်ရှိနိုင်တဲ့ repository data ကို ကူး၊ အဲဒီ source ကို `origin` အဖြစ်သတ်မှတ်ပြီး initial branch ကို checkout လုပ်ပါတယ်။ နောက်ပိုင်း `fetch` က remote data အသစ်ယူပြီး local commit ကတော့ push မလုပ်မချင်း remote မရောက်ပါဘူး။",
+      "use_case": "ခရီးသွားရင်း network ပြတ်သွားလည်း complete clone ရှိရင် history ကြည့်၊ branch နှိုင်းယှဉ်၊ commit ဖန်တီးပြီး local မှာ အလုပ်စီမံနိုင်ပါတယ်။ Connection ပြန်ရမှ remote နဲ့ history အသစ် ဖလှယ်နိုင်ပါတယ်။",
+      "expected_result": "Git က working tree နဲ့ hidden `.git` repository ပါတဲ့ project directory ဖန်တီးပြီး object transfer နဲ့ checkout progress ကို ပြပါမယ်။",
+      "common_mistake": "Clone တိုင်းကို backup အပြည့်လို့ မခေါ်နိုင်ပါဘူး။ Shallow သို့မဟုတ် filtered clone မှာ history မပြည့်နိုင်သလို untracked file နဲ့ external service data တွေလည်း မပါပါဘူး။",
+      "practical_tip": "Clone ပြီးရင် `git remote -v`၊ `git status` နဲ့ `git log --oneline` ကို စစ်ပါ။ အမည်တူ fork တွေရှိနိုင်လို့ အလုပ်မစမီ source နဲ့ branch မှန်ကြောင်း အတည်ပြုပါ။",
+      "question": "Clone ပြီးနောက် network မရှိလည်း Git history ကို အများအားဖြင့် ဘာကြောင့် ကြည့်နိုင်သလဲ?",
+      "answer": "ပုံမှန် clone က နောက်ဆုံး file သာမက repository object နဲ့ history ကို local မှာ သိမ်းထားလို့ပါ။"
+    }
+  },
+  "tags": [
+    "distributed-git",
+    "clone",
+    "repository"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "pdf",
+  "source_file": "progit.pdf",
+  "source_title": "Pro Git, 2nd Edition",
+  "source_section": "Chapter 1 — Getting Started",
+  "source_page": 18,
+  "needs_review": false,
+  "date": "2026-08-11",
+  "sequence": 2,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

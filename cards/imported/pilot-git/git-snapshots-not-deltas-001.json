@@ -1,0 +1,60 @@
+{
+  "id": "git-snapshots-not-deltas-001",
+  "stream": "dev",
+  "language": "bilingual",
+  "category": "git",
+  "topic": "git-snapshot-model",
+  "concept_key": "git.fundamentals.snapshot-model",
+  "track": "git",
+  "track_sequence": 3,
+  "difficulty": "beginner",
+  "command": "git show --stat HEAD",
+  "example": "git show --stat HEAD",
+  "content": {
+    "en": {
+      "title": "Think of Git Commits as Project Snapshots",
+      "summary": "Git's conceptual model is a sequence of project snapshots. A commit identifies the state of tracked content at a point in history and links it to parent history.",
+      "explanation": "Many older systems are explained primarily as a base set of files plus accumulated changes. Git instead presents each commit as a snapshot of the tracked project. For efficiency it does not store another physical copy of every unchanged file; unchanged content can be referenced again by its object identifier.",
+      "how_it_works": "Git content is identified by hashes. A commit points to a tree describing directories and files, along with parent commit information and metadata. Commands may display differences between snapshots, but those diffs are a comparison view rather than the complete conceptual identity of the commit.",
+      "use_case": "When deciding what a commit should contain, think about the coherent project state you want another developer to check out, not merely a bag of unrelated edited lines. This encourages focused, testable commits.",
+      "expected_result": "The command shows metadata for `HEAD` plus a summary of files changed relative to its parent. `HEAD` names the currently checked-out commit.",
+      "common_mistake": "A snapshot model does not mean Git wastes space by duplicating every file for every commit. It reuses unchanged objects and applies storage optimizations while preserving snapshot semantics.",
+      "practical_tip": "Before committing, use `git diff --staged` to inspect the proposed snapshot change. If unrelated work appears together, stage and commit it in separate coherent units.",
+      "question": "If Git uses snapshots, does it need to duplicate every unchanged file in every commit?",
+      "answer": "No. Unchanged content can be referenced again; snapshots are the logical model, not repeated full physical copies."
+    },
+    "my": {
+      "title": "Git Commit ကို Project Snapshot အဖြစ် စဉ်းစားခြင်း",
+      "summary": "Git ရဲ့ အဓိက mental model က project snapshot အစီအစဉ်ဖြစ်ပါတယ်။ Commit တစ်ခုက အချိန်တစ်ခုမှာ tracked content ဘယ်လိုရှိသလဲကို ကိုယ်စားပြုပြီး parent history နဲ့ ချိတ်ထားပါတယ်။",
+      "explanation": "Version-control system အဟောင်းအချို့ကို မူလ file နဲ့ နောက်ထပ်ပြောင်းလဲချက်တွေ စုပေါင်းသည့်ပုံစံအဖြစ် ရှင်းပြတတ်ပါတယ်။ Git ကတော့ commit တစ်ခုစီကို tracked project ရဲ့ snapshot အဖြစ် ပြပါတယ်။ ထိရောက်စွာ သိမ်းဖို့ မပြောင်းတဲ့ file ကို physical copy အသစ် မလုပ်ဘဲ object ID တူတာကို ပြန်ညွှန်းနိုင်ပါတယ်။",
+      "how_it_works": "Git content ကို hash နဲ့ သတ်မှတ်ပါတယ်။ Commit က directory နဲ့ file ဖော်ပြတဲ့ tree၊ parent commit နဲ့ metadata ကို ညွှန်းပါတယ်။ Command တွေက snapshot နှစ်ခုကြား diff ပြနိုင်ပေမယ့် diff ဟာ နှိုင်းယှဉ်ကြည့်တဲ့ view ဖြစ်ပြီး commit ရဲ့ အပြည့်အစုံ identity မဟုတ်ပါဘူး။",
+      "use_case": "Commit ထဲ ဘာထည့်မလဲ ဆုံးဖြတ်တဲ့အခါ ပြင်ထားတဲ့ line အစုအဝေးလို့ မစဉ်းစားဘဲ အခြား developer checkout လုပ်နိုင်မယ့် ကိုက်ညီသော project state လို့ စဉ်းစားပါ။ ဒါက focused ဖြစ်ပြီး test လုပ်နိုင်တဲ့ commit ဖြစ်စေပါတယ်။",
+      "expected_result": "`HEAD` commit ရဲ့ metadata နဲ့ parent နဲ့နှိုင်းယှဉ်ထားတဲ့ changed file အကျဉ်းကို ပြပါမယ်။ `HEAD` က လက်ရှိ checkout လုပ်ထားတဲ့ commit ကို ဆိုလိုပါတယ်။",
+      "common_mistake": "Snapshot model ဆိုတာ commit တိုင်းအတွက် file အားလုံးကို ထပ်ကူးပြီး space ဖြုန်းတယ်လို့ မဆိုလိုပါဘူး။ Git က unchanged object ကို ပြန်သုံးပြီး storage optimization လုပ်ပါတယ်။",
+      "practical_tip": "Commit မလုပ်မီ `git diff --staged` နဲ့ အဆိုပြု snapshot change ကို ကြည့်ပါ။ မသက်ဆိုင်တဲ့အလုပ်တွေ ရောနေရင် coherent unit ခွဲပြီး stage နဲ့ commit လုပ်ပါ။",
+      "question": "Git က snapshot သုံးတာကြောင့် commit တိုင်းမှာ unchanged file အားလုံးကို ထပ်ကူးသိမ်းရသလား?",
+      "answer": "မလိုပါဘူး။ Unchanged content ကို ပြန်ညွှန်းနိုင်ပြီး snapshot က logical model ဖြစ်ပါတယ်။"
+    }
+  },
+  "tags": [
+    "commits",
+    "snapshots",
+    "objects"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "pdf",
+  "source_file": "progit.pdf",
+  "source_title": "Pro Git, 2nd Edition",
+  "source_section": "Chapter 1 — Getting Started",
+  "source_page": 21,
+  "needs_review": false,
+  "date": "2026-08-12",
+  "sequence": 3,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

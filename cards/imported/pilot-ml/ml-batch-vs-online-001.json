@@ -1,0 +1,59 @@
+{
+  "id": "ml-batch-vs-online-001",
+  "stream": "ai",
+  "language": "bilingual",
+  "category": "ai",
+  "topic": "batch-versus-online-learning",
+  "concept_key": "ml.fundamentals.batch-vs-online-learning",
+  "track": "machine-learning",
+  "track_sequence": 3,
+  "difficulty": "beginner",
+  "example": "Nightly retraining on a full snapshot versus incremental updates from new events",
+  "content": {
+    "en": {
+      "title": "Distinguish Batch Learning from Online Learning",
+      "summary": "Batch learning trains on a collected dataset and deploys a fixed model until the next training run. Online learning updates the model incrementally as new data arrives in small batches or individual examples.",
+      "explanation": "The distinction describes how model parameters are updated, not how predictions are served. A batch-trained model can answer real-time API requests, and an online-trained model can still produce offline reports. Batch retraining is simpler to reproduce; online updates can adapt faster but require tighter controls.",
+      "how_it_works": "A batch pipeline periodically assembles a training snapshot, fits a new model, evaluates it, and replaces the deployed version after approval. An online learner repeatedly applies updates using recent examples and a learning rate that controls how strongly new data changes the model.",
+      "use_case": "A recommendation system sees preferences change rapidly. Incremental learning may adapt sooner than monthly retraining, while a stable compliance model with carefully reviewed datasets may favor controlled batch releases.",
+      "expected_result": "Both approaches produce predictions; the observable difference is the model-update process, cadence, reproducibility, and response to changing data.",
+      "common_mistake": "Online learning does not automatically mean learning from every event without validation. Bad, adversarial, or biased data can rapidly damage the model, and an excessive learning rate can cause catastrophic forgetting.",
+      "practical_tip": "Choose the update strategy from drift speed, data quality, rollback needs, cost, and evaluation latency. Keep model versions and monitor performance regardless of the training mode.",
+      "question": "Can a model trained in batches still serve predictions online in real time?",
+      "answer": "Yes. Batch versus online describes model updating, not whether prediction requests are real-time."
+    },
+    "my": {
+      "title": "Batch Learning နဲ့ Online Learning ကို ခွဲခြားခြင်း",
+      "summary": "Batch learning က စုဆောင်းထားတဲ့ dataset နဲ့ train လုပ်ပြီး နောက် training run မတိုင်မီ model ကို မပြောင်းဘဲ deploy ထားပါတယ်။ Online learning က data အသစ်ရောက်လာသလို example သို့မဟုတ် batch အသေးနဲ့ model ကို တဖြည်းဖြည်း update လုပ်ပါတယ်။",
+      "explanation": "ဒီခွဲခြားမှုက model parameter ကို ဘယ်လို update လုပ်သလဲ ဆိုတာဖြစ်ပြီး prediction ကို ဘယ်လို serve လုပ်သလဲ ဆိုတာ မဟုတ်ပါဘူး။ Batch-trained model က real-time API ကို ဖြေနိုင်သလို online-trained model က offline report ထုတ်နိုင်ပါတယ်။ Batch က reproduce လုပ်ရလွယ်ပြီး online က မြန်မြန်လိုက်လျောနိုင်ပေမယ့် control ပိုလိုပါတယ်။",
+      "how_it_works": "Batch pipeline က အချိန်အလိုက် training snapshot စု၊ model အသစ် fit၊ evaluate လုပ်ပြီး အတည်ပြုပြီးမှ deployed version အစားထိုးပါတယ်။ Online learner က recent example နဲ့ ထပ်ခါတလဲလဲ update လုပ်ပြီး learning rate က data အသစ်ရဲ့ သက်ရောက်မှုကို ထိန်းပါတယ်။",
+      "use_case": "Recommendation system မှာ user preference မြန်မြန်ပြောင်းရင် incremental learning က လစဉ် retraining ထက် ပိုမြန်လိုက်နိုင်ပါတယ်။ Review လုပ်ထားတဲ့ data လိုတဲ့ compliance model ကတော့ controlled batch release ကို ရွေးနိုင်ပါတယ်။",
+      "expected_result": "နှစ်မျိုးလုံး prediction ထုတ်ပေးပါတယ်။ ကွာခြားတာက model update process၊ အကြိမ်ရေ၊ reproducibility နဲ့ data ပြောင်းလဲမှုကို တုံ့ပြန်ပုံ ဖြစ်ပါတယ်။",
+      "common_mistake": "Online learning ဆိုတာ event တိုင်းကို validation မရှိဘဲ ချက်ချင်းသင်ယူတာ မဟုတ်ပါဘူး။ မကောင်းတဲ့၊ တိုက်ခိုက်ထားတဲ့ သို့မဟုတ် bias ရှိတဲ့ data က model ကို မြန်မြန်ပျက်စေနိုင်ပြီး learning rate ကြီးလွန်းရင် အရင်သင်ယူထားတာ မေ့နိုင်ပါတယ်။",
+      "practical_tip": "Drift မြန်နှုန်း၊ data quality၊ rollback လိုအပ်ချက်၊ ကုန်ကျစရိတ်နဲ့ evaluation ကြာချိန်ပေါ်မူတည်ပြီး update strategy ရွေးပါ။ Training mode မည်သို့ပင်ဖြစ်စေ model version သိမ်းပြီး performance စောင့်ကြည့်ပါ။",
+      "question": "Batch နဲ့ train လုပ်ထားတဲ့ model က real-time prediction API ကို serve လုပ်နိုင်သလား?",
+      "answer": "လုပ်နိုင်ပါတယ်။ Batch နဲ့ online ဆိုတာ model update ပုံကို ခွဲတာဖြစ်ပြီး prediction request real-time ဖြစ်မဖြစ်ကို မခွဲပါဘူး။"
+    }
+  },
+  "tags": [
+    "batch-learning",
+    "online-learning",
+    "model-updates"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "pdf",
+  "source_file": "Hands-On-Machine-Learning.pdf",
+  "source_title": "Hands-On Machine Learning with Scikit-Learn and PyTorch",
+  "source_section": "Chapter 1 — The Machine Learning Landscape",
+  "source_page": 47,
+  "needs_review": false,
+  "date": "2026-08-12",
+  "sequence": 3,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

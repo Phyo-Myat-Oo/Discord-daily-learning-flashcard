@@ -4,25 +4,29 @@
       "display_name": "Linux & Networking",
       "categories": ["linux", "networking"],
       "webhook_env": "DISCORD_WEBHOOK_LINUX",
-      "buffer_target": 14
+      "buffer_target": 14,
+      "progression": {"beginner_through": 5, "intermediate_through": 20}
     },
     "ai": {
       "display_name": "AI & Machine Learning",
       "categories": ["ai", "ai-engineering"],
       "webhook_env": "DISCORD_WEBHOOK_AI",
-      "buffer_target": 14
+      "buffer_target": 14,
+      "progression": {"beginner_through": 3, "intermediate_through": 20}
     },
     "dev": {
       "display_name": "Python, Git & Docker",
       "categories": ["python", "git", "docker"],
       "webhook_env": "DISCORD_WEBHOOK_DEV",
-      "buffer_target": 14
+      "buffer_target": 14,
+      "progression": {"beginner_through": 3, "intermediate_through": 20}
     },
     "mlops": {
       "display_name": "MLOps & AI Engineering",
       "categories": ["mlops", "ai-engineering", "docker"],
       "webhook_env": "DISCORD_WEBHOOK_MLOPS",
-      "buffer_target": 14
+      "buffer_target": 14,
+      "progression": {"beginner_through": 3, "intermediate_through": 20}
     }
   }
 }

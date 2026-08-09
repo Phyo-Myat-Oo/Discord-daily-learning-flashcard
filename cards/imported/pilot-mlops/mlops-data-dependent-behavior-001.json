@@ -1,0 +1,58 @@
+{
+  "id": "mlops-data-dependent-behavior-001",
+  "stream": "mlops",
+  "language": "bilingual",
+  "category": "mlops",
+  "topic": "ml-systems-data-dependent-behavior",
+  "concept_key": "mlops.systems.data-dependent-behavior",
+  "track": "mlops",
+  "track_sequence": 1,
+  "difficulty": "beginner",
+  "example": "Same model code + changed production inputs → changed prediction quality",
+  "content": {
+    "en": {
+      "title": "Treat Data as Part of ML System Behavior",
+      "summary": "An ML system's behavior depends on both code and data. Unchanged model code can produce worse outcomes when production inputs, labels, collection processes, or user behavior change.",
+      "explanation": "Traditional software behavior is largely specified by code and configuration. An ML model also learns behavior from training data, so data quality and distribution become operational dependencies. A technically healthy service can return predictions on time while the usefulness of those predictions silently declines.",
+      "how_it_works": "Training converts patterns in historical examples into model parameters. Production requests are then interpreted through those learned patterns. If production data no longer resembles the conditions represented during training, the mapping may no longer support the intended objective even though inference succeeds.",
+      "use_case": "A fraud model was trained before a new payment method launched. Requests still receive HTTP 200 responses, but the new transaction patterns are unfamiliar and fraud recall drops. Service uptime alone cannot reveal this failure.",
+      "expected_result": "Operational monitoring includes input distributions, prediction behavior, delayed outcome quality, and business metrics in addition to CPU, latency, and error rate.",
+      "common_mistake": "Passing unit tests and infrastructure health checks does not prove that an ML system is correct. Those checks may never measure whether predictions remain useful on current data.",
+      "practical_tip": "Version training data and feature definitions with the model, record representative production statistics, and define an outcome-based metric before deployment so degradation has a detectable signal.",
+      "question": "Why can prediction quality change when model code has not changed?",
+      "answer": "Because ML behavior also depends on data, and production data or its relationship to outcomes can change."
+    },
+    "my": {
+      "title": "Data ကို ML System Behavior ၏ အစိတ်အပိုင်းအဖြစ် သဘောထားခြင်း",
+      "summary": "ML system ရဲ့ behavior က code တစ်ခုတည်းမဟုတ်ဘဲ data ပေါ်လည်း မူတည်ပါတယ်။ Model code မပြောင်းလည်း production input၊ label၊ data စုဆောင်းပုံ သို့မဟုတ် user behavior ပြောင်းရင် ရလဒ် ပိုဆိုးနိုင်ပါတယ်။",
+      "explanation": "Traditional software behavior ကို code နဲ့ configuration က အဓိကသတ်မှတ်ပါတယ်။ ML model က training data မှ behavior သင်ယူလို့ data quality နဲ့ distribution က operational dependency ဖြစ်လာပါတယ်။ Service က အချိန်မီ prediction ပြန်ပေးနေလည်း prediction အသုံးဝင်မှု တဖြည်းဖြည်းကျနိုင်ပါတယ်။",
+      "how_it_works": "Training က historical example ထဲက pattern ကို model parameter အဖြစ် ပြောင်းပါတယ်။ Production request ကို အဲဒီ learned pattern နဲ့ အဓိပ္ပာယ်ဖော်ပါတယ်။ Production data က training အခြေအနေနဲ့ မတူတော့ရင် inference အောင်မြင်နေလည်း intended objective အတွက် mapping မအသုံးဝင်တော့နိုင်ပါတယ်။",
+      "use_case": "Fraud model train ပြီးနောက် payment method အသစ် ထွက်လာတယ်ဆိုပါစို့။ Request တွေ HTTP 200 ပြန်ရပေမယ့် transaction pattern အသစ်ကို model မသိလို့ fraud recall ကျနိုင်ပါတယ်။ Uptime တစ်ခုတည်းနဲ့ ဒီပြဿနာ မမြင်နိုင်ပါဘူး။",
+      "expected_result": "Operational monitoring မှာ CPU၊ latency နဲ့ error rate အပြင် input distribution၊ prediction behavior၊ နောက်ကျမှရတဲ့ outcome quality နဲ့ business metric ပါဝင်သင့်ပါတယ်။",
+      "common_mistake": "Unit test နဲ့ infrastructure health check အောင်တာက ML system မှန်ကြောင်း မပြနိုင်ပါဘူး။ အဲဒီ check တွေက လက်ရှိ data ပေါ် prediction အသုံးဝင်သေးလား မတိုင်းတာနိုင်ပါဘူး။",
+      "practical_tip": "Training data နဲ့ feature definition ကို model နဲ့အတူ version လုပ်ပါ။ Production statistic ကို မှတ်ပြီး deployment မတိုင်မီ outcome-based metric သတ်မှတ်ထားပါ။",
+      "question": "Model code မပြောင်းဘဲ prediction quality ဘာကြောင့် ပြောင်းနိုင်သလဲ?",
+      "answer": "ML behavior က data ပေါ်လည်း မူတည်ပြီး production data သို့မဟုတ် outcome နဲ့ ဆက်နွယ်မှု ပြောင်းနိုင်လို့ပါ။"
+    }
+  },
+  "tags": [
+    "ml-systems",
+    "data-quality",
+    "monitoring"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "epub",
+  "source_file": "Designing machine learning systems _ an iterative process -- Chip Huyen; Safari, an O'Reilly Media Company -- O'Reilly Media, [N_p_], 2022 -- O'Reilly -.epub",
+  "source_title": "Designing Machine Learning Systems",
+  "source_section": "Chapter 1. Overview of Machine Learning Systems",
+  "needs_review": false,
+  "date": "2026-08-10",
+  "sequence": 1,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

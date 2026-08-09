@@ -1,0 +1,60 @@
+{
+  "id": "linux-command-history-001",
+  "stream": "linux",
+  "language": "bilingual",
+  "category": "linux",
+  "topic": "interactive-command-history",
+  "concept_key": "linux.shell.command-history",
+  "track": "linux-shell",
+  "track_sequence": 3,
+  "difficulty": "beginner",
+  "command": "history | tail",
+  "example": "history | tail",
+  "content": {
+    "en": {
+      "title": "Reuse Commands Safely with Shell History",
+      "summary": "Interactive shells remember earlier commands so you can recall, inspect, edit, and rerun them. History reduces typing, but recalled commands must be reviewed because their original context may have changed.",
+      "explanation": "Pressing the Up Arrow normally places an earlier command back on the editable command line; it does not immediately execute it. Bash also provides the `history` builtin to display numbered entries. This makes a previous command a starting point that you can correct or adapt before pressing Enter.",
+      "how_it_works": "The interactive shell maintains a history list for the session and commonly saves it to a history file. Configuration controls its size and persistence. The terminal only delivers the key press; the shell decides how history navigation behaves and what commands are stored.",
+      "use_case": "You ran a long diagnostic command against one log file and now need the same filters for a different file. Recall the command, change only the path, verify the result, and then execute it instead of retyping every option.",
+      "expected_result": "The last several recorded commands appear with history numbers. Exact entries depend on the current shell and its configuration.",
+      "common_mistake": "Blindly pressing Enter after recalling a command can repeat an operation in the wrong directory, against the wrong host, or with stale arguments. Commands containing leading spaces may also be omitted under some Bash configurations.",
+      "practical_tip": "Treat recalled text as untrusted input: read the entire line, confirm the working directory and target, edit it, and only then execute it. Avoid entering secrets directly on command lines because history may persist them.",
+      "question": "Does pressing Up Arrow normally execute the previous command immediately?",
+      "answer": "No. It recalls the command onto the editable command line; Enter executes it."
+    },
+    "my": {
+      "title": "Shell History ဖြင့် Command များကို လုံခြုံစွာ ပြန်သုံးခြင်း",
+      "summary": "Interactive shell က ယခင် command တွေကို မှတ်ထားလို့ ပြန်ခေါ်၊ စစ်၊ ပြင်ပြီး ပြန် run နိုင်ပါတယ်။ စာရိုက်ချိန်သက်သာပေမယ့် မူလအခြေအနေ ပြောင်းနေနိုင်တာကြောင့် မ run မီ ပြန်ဖတ်ရပါတယ်။",
+      "explanation": "Up Arrow နှိပ်ရင် ယခင် command ကို ပြင်ဆင်နိုင်တဲ့ command line ပေါ် ပြန်တင်ပေးတာဖြစ်ပြီး ချက်ချင်း execute မလုပ်ပါဘူး။ Bash ရဲ့ `history` builtin က number ပါတဲ့ history entry တွေကို ပြပါတယ်။ အဲဒီ command ကို အစအဖြစ်ယူပြီး လိုအပ်သလို ပြင်ကာ Enter နှိပ်နိုင်ပါတယ်။",
+      "how_it_works": "Interactive shell က လက်ရှိ session အတွက် history list ထိန်းထားပြီး ပုံမှန်အားဖြင့် history file ထဲပါ သိမ်းတတ်ပါတယ်။ Size နဲ့ သိမ်းဆည်းပုံကို configuration က ဆုံးဖြတ်ပါတယ်။ Terminal က key press ကို ပို့ပေးတာသာဖြစ်ပြီး history အပြုအမူကို shell က ကိုင်တွယ်ပါတယ်။",
+      "use_case": "Log file တစ်ခုအတွက် option အများကြီးပါတဲ့ diagnostic command ကို run ပြီး အခြား file မှာ filter တူတူ သုံးချင်ရင် command ကို ပြန်ခေါ်၊ path ကိုသာ ပြောင်း၊ ပြန်စစ်ပြီးမှ execute လုပ်နိုင်ပါတယ်။",
+      "expected_result": "နောက်ဆုံး မှတ်တမ်းတင်ထားတဲ့ command အချို့ကို history number နဲ့ ပြပါမယ်။ အတိအကျပါဝင်တာက shell နဲ့ configuration ပေါ်မူတည်ပါတယ်။",
+      "common_mistake": "ပြန်ခေါ်ထားတဲ့ command ကို မဖတ်ဘဲ Enter နှိပ်ရင် directory မှားတာ၊ host မှားတာ သို့မဟုတ် argument အဟောင်းနဲ့ operation ပြန်လုပ်မိနိုင်ပါတယ်။ Bash configuration အချို့မှာ space နဲ့ စတဲ့ command ကို history ထဲ မသိမ်းနိုင်ပါဘူး။",
+      "practical_tip": "ပြန်ခေါ်ထားတဲ့စာကြောင်းကို input အသစ်လို သဘောထားပြီး အပြည့်အစုံဖတ်ပါ။ လက်ရှိ directory နဲ့ target ကို စစ်၊ လိုတာပြင်ပြီးမှ run ပါ။ Secret တွေကို command line ပေါ် တိုက်ရိုက်မထည့်သင့်ပါဘူး။",
+      "question": "Up Arrow နှိပ်တာနဲ့ ယခင် command ကို ချက်ချင်း execute လုပ်သလား?",
+      "answer": "မလုပ်ပါဘူး။ ပြင်ဆင်နိုင်တဲ့ command line ပေါ် ပြန်ခေါ်ပေးပြီး Enter နှိပ်မှ execute လုပ်ပါတယ်။"
+    }
+  },
+  "tags": [
+    "shell",
+    "history",
+    "workflow"
+  ],
+  "status": "scheduled",
+  "priority": "high",
+  "generated_from_source": true,
+  "source_type": "pdf",
+  "source_file": "LinuxCommand.pdf",
+  "source_title": "The Linux Command Line, 7th Internet Edition",
+  "source_section": "Chapter 1 — What Is the Shell?",
+  "source_page": 27,
+  "needs_review": false,
+  "date": "2026-08-12",
+  "sequence": 3,
+  "ai_review": {
+    "status": "passed",
+    "reviewed_at": "2026-08-09T03:32:57.390059+00:00",
+    "reviewer": "codex"
+  }
+}

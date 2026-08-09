@@ -11,11 +11,13 @@ During curriculum generation, modify only new files below `cards/<category>/` an
 - Follow `cards/schema.json`; store one JSON object per card and one atomic concept per card.
 - Every card has a `stream` from `config/channels.json`. Its category must be allowed by that stream. Dates are unique within a stream, so different streams may each have a card on the same day.
 - Every card needs one useful explanation, one realistic example, one real-world use case, and one active-recall question/answer.
-- Every card uses `language: my`. Write the title, summary, explanation, flag meanings, use case, recall question, and prose answer naturally in Burmese. Keep commands, code, flags, filenames, standard acronyms, and technical terms in their accurate original form when translation would reduce clarity. Do not produce awkward word-for-word translations.
+- New cards use `language: bilingual` with complete `content.en` and `content.my` blocks. Draft and verify English first, then express the same meaning in natural Burmese rather than translating word-for-word. Keep commands, code, flags, filenames, standard acronyms, and technical terms in their accurate original form when translation would reduce clarity. Legacy `language: my` cards remain valid during migration.
+- A bilingual card must be substantial but atomic: explain the mental model, how it works, a realistic use case, a genuine common mistake, a practical tip, and one recall question. Prefer useful interpretation and operational judgment over length-padding.
+- Source-based curriculum cards use a stable `concept_key`, `track`, and `track_sequence`. Progress each subject independently even when several subjects share one Discord stream.
 - Use categories: linux, networking, git, docker, python, ai, mlops, ai-engineering, or review. Difficulty is beginner, intermediate, or advanced.
 - Curriculum cards are `approved` and dated. Each configured stream maintains its own future buffer. Source-derived cards are initially `candidate`, normally undated, include a valid stream, reliable source metadata, `generated_from_source: true`, and a priority.
 - Sunday review cards use `category: review` plus at least two atomic `review_items`, each containing a question and answer. Keep the normal recall fields as a concise description/fallback.
-- Keep Discord output concise. Never turn a card into a tutorial.
+- Keep each language comfortably inside one Discord embed and keep combined embed text below Discord's aggregate limit. Never turn a card into a giant tutorial.
 - Prefer practical operational knowledge. Avoid trivia and repetitive basics.
 - Inspect every card and `state/topics.json` before writing. Do not duplicate an equivalent question; a repeated topic must teach a meaningfully different application or deeper skill.
 - Infer a few consistent, useful tags rather than inventing many near-synonyms.

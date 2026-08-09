@@ -9,13 +9,13 @@ import urllib.error
 import urllib.request
 from datetime import date
 
-from cardlib import find_card, format_discord, load_channels
+from cardlib import build_discord_payload, find_card, format_discord, load_channels
 
 
-def prepare(day: str, stream_names: list[str], dry_run: bool) -> tuple[list[tuple[str, str, str]], list[str]]:
+def prepare(day: str, stream_names: list[str], dry_run: bool) -> tuple[list[tuple[str, str, dict, str]], list[str]]:
     """Preflight every stream before any network request is made."""
     channels = load_channels()
-    prepared: list[tuple[str, str, str]] = []
+    prepared: list[tuple[str, str, dict, str]] = []
     errors: list[str] = []
     for stream in stream_names:
         if stream not in channels:
@@ -29,16 +29,14 @@ def prepare(day: str, stream_names: list[str], dry_run: bool) -> tuple[list[tupl
         if not match:
             errors.append(f"{stream}: no approved or scheduled card exists for {day}")
             continue
-        message = format_discord(match[1])
-        if len(message) > 1900:
-            errors.append(f"{stream}: message is {len(message)} characters; run validation")
-            continue
+        payload = build_discord_payload(match[1])
+        preview = format_discord(match[1])
         env_name = channels[stream].get("webhook_env", "")
         webhook = "dry-run" if dry_run else os.environ.get(env_name, "")
         if not webhook:
             errors.append(f"{stream}: required environment variable {env_name} is not set")
             continue
-        prepared.append((stream, webhook, message))
+        prepared.append((stream, webhook, payload, preview))
     return prepared, errors
 
 
@@ -60,12 +58,12 @@ def main() -> int:
         for error in errors: print(error, file=sys.stderr)
         return 2
     if args.dry_run:
-        for index, (stream, _, message) in enumerate(prepared):
+        for index, (stream, _, _, preview) in enumerate(prepared):
             if index: print("\n" + "=" * 72 + "\n")
-            print(f"[{stream} → {channels[stream]['display_name']}]\n{message}")
+            print(f"[{stream} → {channels[stream]['display_name']}]\n{preview}")
         return 0
-    for stream, webhook, message in prepared:
-        request = urllib.request.Request(webhook, data=json.dumps({"content": message, "allowed_mentions": {"parse": []}}).encode(), headers={"Content-Type": "application/json", "User-Agent": "daily-learning/1.0"}, method="POST")
+    for stream, webhook, payload, _ in prepared:
+        request = urllib.request.Request(webhook, data=json.dumps(payload).encode(), headers={"Content-Type": "application/json", "User-Agent": "daily-learning/1.0"}, method="POST")
         try:
             with urllib.request.urlopen(request, timeout=20) as response:
                 if response.status not in {200, 204}:

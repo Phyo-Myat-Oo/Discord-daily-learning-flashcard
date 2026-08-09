@@ -1,12 +1,48 @@
 {
   "imports": [
     {
-      "source_file": "linux-commands.ipynb",
-      "source_type": "ipynb",
-      "sha256": "6e9745e5a8b2ba1fa0dcb58809a5a8788ae52f863e66c14223a70d0e7cb13690",
-      "processed_at": "2026-08-08T10:23:25.247309+00:00",
-      "cards_generated": 12,
-      "output_directory": "cards/imported/linux-commands-6e9745e5"
+      "source_file": "LinuxCommand.pdf",
+      "source_title": "The Linux Command Line, 7th Internet Edition",
+      "source_type": "pdf",
+      "sha256": "c6c564db237ea1d5f5758c5a0df5d8c804041ef483585259687d04d9ecf2cd05",
+      "section_key": "chapter-1-pages-26-30",
+      "processed_at": "2026-08-09T09:41:19+06:30",
+      "cards_generated": 4,
+      "output_directory": "cards/imported/pilot-linux",
+      "sections": [{"title": "Chapter 1 — What Is the Shell?", "locator": "pages 26-30"}]
+    },
+    {
+      "source_file": "progit.pdf",
+      "source_title": "Pro Git, 2nd Edition",
+      "source_type": "pdf",
+      "sha256": "403f4051cdca2c585361d85f6e87d5dd87d8c544fc91dced007711babe81e8ef",
+      "section_key": "chapter-1-pages-16-31",
+      "processed_at": "2026-08-09T09:41:19+06:30",
+      "cards_generated": 4,
+      "output_directory": "cards/imported/pilot-git",
+      "sections": [{"title": "Chapter 1 — Getting Started", "locator": "pages 16-31"}]
+    },
+    {
+      "source_file": "Hands-On-Machine-Learning.pdf",
+      "source_title": "Hands-On Machine Learning with Scikit-Learn and PyTorch",
+      "source_type": "pdf",
+      "sha256": "341210fc509c43113ca7bd6ac86a3f560c0c3150cbd10685d51ef3f1a5149ee1",
+      "section_key": "chapter-1-pages-33-70",
+      "processed_at": "2026-08-09T09:41:19+06:30",
+      "cards_generated": 4,
+      "output_directory": "cards/imported/pilot-ml",
+      "sections": [{"title": "Chapter 1 — The Machine Learning Landscape", "locator": "pages 33-70"}]
+    },
+    {
+      "source_file": "Designing machine learning systems _ an iterative process -- Chip Huyen; Safari, an O'Reilly Media Company -- O'Reilly Media, [N_p_], 2022 -- O'Reilly -.epub",
+      "source_title": "Designing Machine Learning Systems",
+      "source_type": "epub",
+      "sha256": "65d1701891c6b9673d875c954ff414afb99b0a3d6e07f7dffc4b66cae2398052",
+      "section_key": "chapter-1-ch01",
+      "processed_at": "2026-08-09T09:41:19+06:30",
+      "cards_generated": 4,
+      "output_directory": "cards/imported/pilot-mlops",
+      "sections": [{"title": "Chapter 1. Overview of Machine Learning Systems", "locator": "EPUB item: ch01.xhtml"}]
     }
   ]
 }
