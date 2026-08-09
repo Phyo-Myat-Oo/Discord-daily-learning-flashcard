@@ -38,6 +38,45 @@ def missing_slots(target_override: int | None = None, today: date | None = None,
     return result
 
 
+def build_prompt(slots: list[dict[str, str]], stream: str | None = None) -> str:
+    """Build a compact, stable-prefix prompt for one generation job."""
+    template = (ROOT / "prompts/generate_cards.md").read_text(encoding="utf-8")
+    channels = load_channels()
+    selected_streams = {name: config for name, config in channels.items() if not stream or name == stream}
+    topics = json.loads((ROOT / "state/topics.json").read_text(encoding="utf-8"))
+    covered = [
+        {key: item.get(key) for key in ("stream", "sequence", "category", "topic", "id")}
+        for item in topics.get("covered", [])
+        if isinstance(item, dict)
+    ]
+    matching_cards = [
+        card for _, card in all_cards()
+        if not stream or card.get("stream") == stream
+    ]
+    recent = sorted(
+        (card for card in matching_cards if card.get("date")),
+        key=lambda card: card["date"],
+        reverse=True,
+    )[:8]
+    context = {
+        "today": date.today().isoformat(),
+        "missing_count": len(slots),
+        "stream_date_slots": slots,
+        "stream_configuration": selected_streams,
+        "terminology": json.loads((ROOT / "state/terminology.json").read_text(encoding="utf-8")),
+        "covered_topics": covered,
+        "recent_cards": [
+            {
+                **{key: card.get(key) for key in ("id", "stream", "date", "sequence", "category", "topic")},
+                "title": localized(card, "en", "title"),
+                "question": localized(card, "en", "question"),
+            }
+            for card in recent
+        ],
+    }
+    return template + "\n## Dynamic context\n\n```json\n" + json.dumps(context, ensure_ascii=False, indent=2) + "\n```\n"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--target", type=int, help="override every stream's configured target")
@@ -52,20 +91,7 @@ def main() -> int:
         if args.limit < 1:
             parser.error("--limit must be at least 1")
         needed = needed[:args.limit]
-    template = (ROOT / "prompts/generate_cards.md").read_text(encoding="utf-8")
-    topics = json.loads((ROOT / "state/topics.json").read_text(encoding="utf-8"))
-    recent = sorted((c for _, c in all_cards() if c.get("date")), key=lambda c: c["date"], reverse=True)[:10]
-    context = {
-        "today": date.today().isoformat(),
-        "missing_count": len(needed),
-        "stream_date_slots": needed,
-        "stream_configuration": load_channels(),
-        "terminology": json.loads((ROOT / "state/terminology.json").read_text(encoding="utf-8")),
-        "covered_topics": topics.get("covered", []),
-        "recent_cards": [{**{key: c.get(key) for key in ("id", "stream", "date", "category", "topic")}, "title": localized(c, "en", "title"), "question": localized(c, "en", "question")} for c in recent],
-        "output_root": "cards/<category>/",
-    }
-    print(template + "\n## Dynamic context\n\n```json\n" + json.dumps(context, indent=2) + "\n```\n")
+    print(build_prompt(needed, args.stream))
     return 0
 
 

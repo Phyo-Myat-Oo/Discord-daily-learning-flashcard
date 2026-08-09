@@ -35,7 +35,7 @@ chmod +x scripts/generate.sh scripts/*.py
 python3 scripts/validate_cards.py
 ```
 
-PDF extraction prefers `pypdf` for document outlines and falls back to Ubuntu's `pdftotext` from `poppler-utils`. EPUB and daily delivery use Python's standard library. Install and authenticate the Codex CLI, then verify `codex exec --help` works. The generation scripts use an ephemeral, workspace-write session rooted at this repository. They never give Codex Git push responsibility.
+PDF extraction prefers `pypdf` for document outlines and falls back to Ubuntu's `pdftotext` from `poppler-utils`. EPUB and daily delivery use Python's standard library. Install and authenticate the Codex CLI, then verify `codex exec --help` works. Curriculum generation uses ephemeral, read-only Codex sessions that return schema-constrained card data; Python validates and installs it. Codex never receives Git push responsibility.
 
 Configure Git once if needed:
 
@@ -90,7 +90,25 @@ python3 scripts/validate_cards.py
 ./scripts/generate.sh
 ```
 
-`generate.sh` pulls with `--ff-only`, calculates missing `(stream, date)` slots up to each stream's configured 14-card future buffer, and invokes Codex in restartable batches of at most four cards. After every batch it validates and recalculates what remains, then stages only `cards/` plus `state/topics.json`, commits, and pushes. When every stream is full, it exits without invoking Codex. Read `AGENTS.md` to see the permanent quality, scope, duplication, and safety rules.
+`generate.sh` pulls with `--ff-only`, calculates missing `(stream, date)` slots up to each stream's configured 14-card future buffer, and invokes Codex in resumable two-card jobs. Two jobs run concurrently by default. Codex returns structured JSON into ignored local staging; Python validates each job against existing cards, validates the combined batch, installs it, and updates `state/topics.json` deterministically. The shell then stages only `cards/` plus `state/topics.json`, commits, and pushes. A failed run changes no tracked files and retains successful outputs for the next retry. When every stream is full, it exits without invoking Codex. Read `AGENTS.md` to see the permanent quality, scope, duplication, and safety rules.
+
+Preview the next generation plan without calling Codex:
+
+```bash
+python3 scripts/generation_runner.py --plan
+```
+
+The safe defaults can be overridden for troubleshooting or a faster connection:
+
+```bash
+CODEX_GENERATION_CONCURRENCY=2 \
+CODEX_GENERATION_BATCH_SIZE=2 \
+CODEX_TIMEOUT_SECONDS=900 \
+CODEX_GENERATION_RETRIES=1 \
+./scripts/generate.sh
+```
+
+The runner prints a heartbeat every 30 seconds. Override that interval with `CODEX_HEARTBEAT_SECONDS` if needed. Higher concurrency reduces wall-clock time but may encounter account or network rate limits.
 
 To add a card manually, copy a nearby JSON file into the correct category, choose a unique ID and unused ISO date, update `state/topics.json`, then run validation and a dry-run preview. Scheduled cards require dates; approved imported cards may remain undated until you place them in the delivery calendar.
 
@@ -173,7 +191,7 @@ Imported material may be private. Only candidate JSON and import history are can
 ## Troubleshooting
 
 - **No card today:** run `python3 scripts/card_status.py`; create/schedule the missing `(stream, date)`, validate, commit, and push. The Action intentionally sends nothing if preflight fails.
-- **Codex creates nothing:** inspect the full generation output and confirm authentication plus workspace permissions. Run `python3 scripts/generate_prompt.py` to inspect its prompt.
+- **Codex creates nothing:** inspect `.generated/curriculum/*/jobs/*/codex.log`, confirm Codex authentication, and run `python3 scripts/generation_runner.py --plan`. Valid completed jobs are reused automatically on retry.
 - **PDF has no text:** it is probably scanned; OCR it outside this project and import the resulting text/PDF.
 - **Timer fails:** inspect `journalctl --user -u daily-learning-generate.service`; verify the repo path, executable bit, network, Codex login, and Git credentials.
 - **Push is rejected:** manually reconcile remote changes; automation intentionally uses only `git pull --ff-only`.
