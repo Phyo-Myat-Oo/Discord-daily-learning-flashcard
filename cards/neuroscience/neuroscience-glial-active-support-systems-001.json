@@ -7,22 +7,40 @@
   "category": "neuroscience",
   "topic": "glial-cells-active-support-systems",
   "difficulty": "beginner",
-  "example": "Predict what happens to neuronal signaling when surrounding glia can no longer maintain a stable local environment: signaling becomes less reliable even if the neurons themselves remain present.",
+  "example": "Predict what happens to neuronal function if nearby glia no longer nourish or insulate neurons: signaling becomes less reliable even if the neurons themselves remain present.",
   "content": {
     "en": {
-      "title": "Glial Cells Are Active Support Systems",
-      "learning_objective": "Explain one causal reason neurons depend on glial cells rather than functioning as isolated cells.",
-      "simple_explanation": "Glial cells are non-neuronal cells that actively help neurons function. They maintain suitable conditions around neurons, provide structural and metabolic support, and respond when nervous tissue is disturbed.",
-      "how_it_works": "A neuron is enclosed by a membrane and contains specialized structures that produce proteins and support signaling. Those mechanisms require a controlled local environment. Glia help maintain that environment; when their support fails, neuronal communication can become unreliable or tissue can be damaged.",
-      "visual": "glial support\n    ↓\nstable local conditions\n    ↓\nreliable neuron function",
-      "use_case": "When studying a neurological disorder, ask whether impaired behavior comes only from damaged neurons or also from loss of the glial support those neurons require.",
-      "expected_result": "You identify glia as active participants in nervous-system function, not merely material filling the space between neurons.",
-      "what_to_notice": "The causal link matters: supporting the conditions for signaling can change neural function even when the support cell does not carry the signal itself.",
-      "common_mistake": "Calling glia passive 'glue' and assuming every nervous-system problem must begin inside a neuron.",
-      "practical_tip": "For each glial role you encounter, complete the sentence: 'This helps neurons because…'",
-      "question": "Why can glial failure disrupt neural signaling even when neurons are still present?",
-      "answer": "Neurons depend on glia to maintain the local conditions and support needed for reliable function."
+      "title": "Glial Cells as Active Support Systems",
+      "learning_objective": "Explain how glial support enables neighboring neurons to function reliably.",
+      "simple_explanation": "Neurons perform most information processing, but they do not work alone. Glial cells surround neurons and actively maintain the conditions they need by supporting, nourishing, and insulating them.",
+      "how_it_works": "Insulation helps neuronal signals remain separated, nourishment supplies what neurons need to operate, and physical support keeps cells organized. Because these services shape the neuron's working conditions, weakened glial support can impair signaling without removing the neuron itself.",
+      "visual": "Glia support neuron\n├─ nourish → operation\n├─ insulate → separated signals\n└─ support → stable position",
+      "use_case": "When analyzing impaired neural signaling, check both the information-processing neuron and the surrounding support system.",
+      "expected_result": "A neuron with effective glial support has conditions better suited to reliable communication.",
+      "what_to_notice": "Support is causal, not decorative: changing the neuron's environment can change its performance.",
+      "common_mistake": "Calling glia passive glue and assuming only neurons matter to brain function.",
+      "practical_tip": "For any neural function, ask two questions: what signal does the neuron handle, and what conditions do nearby glia maintain?",
+      "question": "Why can disrupted glial function impair neural communication even when neurons remain present?",
+      "answer": "Because glia nourish, insulate, and support neurons, so losing those conditions makes neuronal signaling less reliable."
     }
+  },
+  "review_items": [
+    {
+      "question": "What three main contributions do glia make to neighboring neurons in the assigned source?",
+      "answer": "They insulate, support, and nourish neighboring neurons."
+    },
+    {
+      "question": "How can glial insulation affect neuronal communication?",
+      "answer": "It helps keep neuronal signals separated, supporting reliable communication."
+    },
+    {
+      "question": "Neurons remain intact but signaling becomes unreliable after surrounding support cells are damaged. What mechanism should you suspect?",
+      "answer": "Loss of glial nourishment, insulation, or physical support has degraded the neurons' operating conditions."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Draw and label a causal diagram with one glial cell pointing to three branches—nourishment, insulation, and physical support—and connect each branch to one predicted effect on a neighboring neuron. Add one failure prediction for loss of any branch.",
+    "output": "Save one annotated causal diagram titled `glia-support-system`."
   },
   "study_plan": {
     "course_day": 3,
@@ -30,7 +48,7 @@
     "study_duration_minutes": 60,
     "source_id": "exploring-brain-4e",
     "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
-    "source_locator": "PDF pages 65–67 — Pages 61–72",
+    "source_locator": "Book pages 28–30 (PDF viewer pages 65–67)",
     "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
     "online_resource": {
       "title": "OpenStax — Nervous Tissue",
@@ -60,17 +78,17 @@
       {
         "minutes": 18,
         "activity": "Source study",
-        "en": "Study PDF pages 65–67 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+        "en": "Study Book pages 28–30 (PDF viewer pages 65–67). Stop when this time box ends, even if you want to continue."
       },
       {
         "minutes": 22,
-        "activity": "Explain",
-        "en": "Write three sentences explaining the causal chain in your own words."
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
       },
       {
         "minutes": 5,
         "activity": "Check",
-        "en": "Answer the recall question, then correct only what was missing."
+        "en": "Complete all three recall checks, then correct only what was missing."
       }
     ],
     "study_output": {

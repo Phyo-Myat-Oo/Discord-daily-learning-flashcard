@@ -7,22 +7,40 @@
   "category": "neuroscience",
   "topic": "why-the-brain-needs-specialized-cells",
   "difficulty": "beginner",
-  "example": "Predict the effect of disrupting glial support: even intact neurons may function poorly because insulation, nourishment, and physical support help them operate together.",
+  "example": "When you touch a hot surface, some neurons detect the change, other neurons relay and process that information, and motor commands produce a response; neighboring glia support the neurons that perform this work.",
   "content": {
     "en": {
       "title": "Why the Brain Needs Specialized Cells",
-      "learning_objective": "Explain how specialized neurons and glia combine their different roles to produce brain function.",
-      "simple_explanation": "An organ works because its cells perform specialized jobs and interact. In the brain, neurons handle most information processing, while glia mainly insulate, support, and nourish neighboring neurons.",
-      "how_it_works": "Neurons sense environmental changes, communicate those changes to other neurons, and command responses. Glia maintain conditions that help neighboring neurons work. The coordinated activity of these specialized cells allows circuits to support sensation, movement, speech, emotion, and other brain functions.",
-      "visual": "neurons → process information\n   ↕ interaction\nglia → support neurons\n   ↓\ncoordinated brain function",
-      "use_case": "When studying a brain disorder, ask whether the primary problem affects neuronal information processing, glial support, or the interaction between them.",
-      "expected_result": "This classification produces a clearer causal explanation than treating every brain cell as interchangeable.",
-      "what_to_notice": "Specialization divides the work, but brain function depends on concerted cell activity rather than one cell type acting alone.",
-      "common_mistake": "Calling glia mere filler. The source emphasizes that they insulate, support, and nourish neurons, so their role is functionally important.",
-      "practical_tip": "For each nervous-system cell, record both its individual job and the neighboring cells whose work it enables.",
-      "question": "Why can the brain not perform its functions with one interchangeable type of cell?",
-      "answer": "Its functions require neurons to process and communicate information while glia support, insulate, and nourish them; coordinated specialization makes the organ work."
+      "learning_objective": "Explain how cellular specialization and cooperation allow the brain to sense changes, process information, and direct responses.",
+      "simple_explanation": "An organ works because its cells perform specialized jobs and cooperate. In the nervous system, neurons handle most information processing: they sense changes, communicate with other neurons, and command responses. Glia mainly insulate, support, and nourish nearby neurons.",
+      "how_it_works": "Different cell structures and functions divide the work. Neurons exchange information and form circuits; glia maintain conditions that help those neurons operate. When many specialized cells act together, their coordinated activity produces an organ-level function that no isolated cell could perform alone.",
+      "visual": "specialized cells\n      ↓ cooperate\nneural circuits\n      ↓\nsensation → response",
+      "use_case": "To explain a rapid withdrawal from heat, identify the required jobs: detecting the environmental change, communicating it through neurons, processing it in a circuit, supporting that activity, and commanding movement.",
+      "expected_result": "The explanation links a body response to coordinated work by specialized neurons and supporting glia.",
+      "what_to_notice": "Specialization is useful because it divides a complex task into complementary cellular roles; the brain's function depends on both individual cell actions and their organization into circuits.",
+      "common_mistake": "Do not treat glia as meaningless filler or assume one neuron performs an entire behavior. The source describes glia as important support cells and brain functions as concerted cellular actions.",
+      "practical_tip": "When studying a brain function, ask two questions: What job does each cell perform, and how do the cells cooperate in a circuit?",
+      "question": "Why can the brain not perform its functions with one generic cell type working alone?",
+      "answer": "Its functions require complementary jobs—neurons sense, communicate, and command responses while glia support them—and coordinated circuits combine those jobs."
     }
+  },
+  "review_items": [
+    {
+      "question": "What two broad cell categories does the source identify in the nervous system, and what are their main roles?",
+      "answer": "Neurons perform most information processing; glia mainly insulate, support, and nourish neighboring neurons."
+    },
+    {
+      "question": "How does cellular specialization lead to an organ-level brain function?",
+      "answer": "Specialized cells perform complementary jobs, and their coordinated interactions assemble those jobs into functional circuits."
+    },
+    {
+      "question": "A person withdraws from a hot object. Why must this response involve coordinated specialized cells?",
+      "answer": "The system must detect change, communicate and process it, support that activity, and command a response—distinct but cooperating jobs."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Draw a causal diagram for touching a hot surface. Include five labeled nodes: environmental change, sensing neuron, communicating neurons, glial support, and commanded response. Use arrows to show the main information path and a side arrow from glial support to the active neurons. Under the diagram, add one sentence explaining why no single node is sufficient.",
+    "output": "Save the completed diagram and explanation as `day-01-specialized-cells.txt` or a photo named `day-01-specialized-cells.jpg`."
   },
   "study_plan": {
     "course_day": 1,
@@ -30,7 +48,7 @@
     "study_duration_minutes": 60,
     "source_id": "exploring-brain-4e",
     "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
-    "source_locator": "PDF pages 61–63 — Pages 61–72",
+    "source_locator": "Book pages 24–26 (PDF viewer pages 61–63)",
     "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
     "online_resource": {
       "title": "OpenStax — Nervous Tissue",
@@ -60,17 +78,17 @@
       {
         "minutes": 19,
         "activity": "Source study",
-        "en": "Study PDF pages 61–63 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+        "en": "Study Book pages 24–26 (PDF viewer pages 61–63). Stop when this time box ends, even if you want to continue."
       },
       {
         "minutes": 21,
-        "activity": "Explain",
-        "en": "Write three sentences explaining the causal chain in your own words."
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
       },
       {
         "minutes": 5,
         "activity": "Check",
-        "en": "Answer the recall question, then correct only what was missing."
+        "en": "Complete all three recall checks, then correct only what was missing."
       }
     ],
     "study_output": {
@@ -78,7 +96,6 @@
     }
   },
   "tags": [
-    "brain-cells",
     "neurons",
     "glia",
     "cell-specialization"

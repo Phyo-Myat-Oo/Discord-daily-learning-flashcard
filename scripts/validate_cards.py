@@ -228,6 +228,19 @@ def validate(paths: list[Path]) -> list[str]:
                 review_items = card.get("review_items")
                 if not isinstance(review_items, list) or len(review_items) != 5:
                     errors.append(f"{path}: weekly assessment card requires exactly five review_items")
+            elif workload is not None:
+                review_items = card.get("review_items")
+                if not isinstance(review_items, list) or len(review_items) != 3:
+                    errors.append(f"{path}: neuroscience concept card requires exactly three review_items")
+                exercise = card.get("active_exercise")
+                if not isinstance(exercise, dict) or any(not isinstance(exercise.get(field), str) or not exercise[field].strip() for field in ("instruction", "output")):
+                    errors.append(f"{path}: neuroscience concept card requires a topic-specific active_exercise")
+                elif re.search(r"write (?:three|\d+) sentences", exercise.get("instruction", ""), re.I):
+                    errors.append(f"{path}: active_exercise is an unsupported generic writing task")
+            else:
+                review_items = card.get("review_items")
+                if not isinstance(review_items, list) or len(review_items) != 1:
+                    errors.append(f"{path}: neuroscience practical card requires exactly one prediction/check review_item")
             if not isinstance(study_plan.get("source_locator"), str) or not study_plan.get("source_locator", "").strip():
                 errors.append(f"{path}: study_plan requires a reliable source locator")
         if card.get("category") == "review":
@@ -252,8 +265,9 @@ def validate(paths: list[Path]) -> list[str]:
                     errors.append(f"{path}: Discord embed {index} title exceeds 256 characters")
                 if len(embed.get("description", "")) > 4096:
                     errors.append(f"{path}: Discord embed {index} description exceeds 4096 characters")
-                if len(embed.get("description", "")) > 2700:
-                    errors.append(f"{path}: Discord embed {index} description exceeds the teaching budget of 2700 characters")
+                teaching_budget = 3400 if card.get("stream") == "neuroscience" and index == 1 else 2700
+                if len(embed.get("description", "")) > teaching_budget:
+                    errors.append(f"{path}: Discord embed {index} description exceeds the teaching budget of {teaching_budget} characters")
                 embed_total += len(embed.get("title", "")) + len(embed.get("description", "")) + len(embed.get("footer", {}).get("text", ""))
             if embed_total > 5800:
                 errors.append(f"{path}: Discord embeds contain {embed_total} characters (safe teaching limit: 5800)")

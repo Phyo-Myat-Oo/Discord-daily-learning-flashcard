@@ -7,43 +7,43 @@
   "category": "neuroscience",
   "topic": "review-cells-and-nervous-system",
   "difficulty": "beginner",
-  "example": "Predict the path from touching a hot surface to withdrawing your hand: sensory neurons detect the change, nervous-system circuits process it, and motor output commands muscles; glia support the cells that make this signaling possible.",
+  "example": "Trace touching a hot surface: sensory neurons detect the change, connected neurons process it, motor neurons command withdrawal, and glia maintain the conditions that let the circuit operate.",
   "content": {
     "en": {
       "title": "Review: Cells and the Nervous System",
-      "learning_objective": "Connect specialized nervous-system cells, neuron structure, glial support, information flow, and nervous-system divisions in one causal model.",
-      "simple_explanation": "The brain works because specialized cells act both individually and together. Neurons perform most information processing: they detect changes, communicate, and command responses. Glia help neurons function by insulating, supporting, and nourishing them.",
-      "how_it_works": "A stimulus changes sensory input. A neuron receives input mainly through dendrites, integrates it near the soma, and sends output along its axon. Other neurons carry and process the signal, while glia maintain conditions that support this activity. Peripheral pathways connect the body to central processing and carry commands back to the body.",
-      "visual": "stimulus → sensory neuron\n        ↓\ncentral processing\n        ↓\nmotor neuron → response\nglia support every stage",
-      "use_case": "While drawing this week's concept map, trace a hot-surface withdrawal from stimulus to response and label where neuron parts, glia, the peripheral nervous system, and the central nervous system contribute.",
-      "expected_result": "The map forms one causal chain rather than five disconnected definitions.",
-      "what_to_notice": "Each concept answers a different question: what detects and carries information, how one neuron is organized, what sustains signaling, and where signals travel.",
-      "common_mistake": "Do not describe glia as inert filler. Their insulation, support, and nourishment affect whether neighboring neurons can function properly.",
-      "practical_tip": "Answer each review question with a mechanism using “because” or “therefore,” then repair only the links you cannot explain.",
+      "learning_objective": "Explain how specialized cells and nervous-system divisions cooperate to convert a stimulus into a response.",
+      "simple_explanation": "The brain works because specialized cells perform different jobs together. Neurons detect changes, communicate, and command responses. Glia insulate, support, and nourish neighboring neurons. The central nervous system processes information, while peripheral nerves connect it with the body.",
+      "how_it_works": "A stimulus activates a sensory pathway. Neuronal dendrites receive input, the soma integrates it, and the axon carries output toward other cells. Peripheral pathways bring information to and carry commands from the central nervous system. Glia preserve the local conditions that make this signaling possible.",
+      "visual": "stimulus → sensory neuron\n        ↓\nCNS processing ↔ glial support\n        ↓\nmotor neuron → response",
+      "use_case": "When explaining rapid withdrawal from a hot surface, identify the specialized cells, the direction of information flow, and the roles of the peripheral and central nervous systems.",
+      "expected_result": "The explanation forms one causal chain from environmental change to coordinated bodily action.",
+      "what_to_notice": "No single component explains the behavior: neuronal structure guides signal flow, nervous-system divisions route it, and glia support the cells performing the signaling.",
+      "common_mistake": "Describing glia as passive filler or treating the brain and peripheral nerves as unrelated systems.",
+      "practical_tip": "For each pathway, label three things: what detects the change, where information is processed, and what produces the response.",
       "question": "How do neurons, glia, and nervous-system divisions cooperate to turn a stimulus into a response?",
-      "answer": "Neurons detect, process, and carry signals; glia support their function; peripheral pathways connect the body with central processing and carry output to effectors."
+      "answer": "Neurons detect, process, and transmit signals; glia support their function; peripheral pathways connect the body to central processing and carry commands back to effectors."
     }
   },
   "review_items": [
     {
       "question": "Why does the brain require specialized cells rather than one cell type performing every task?",
-      "answer": "Different cells divide the work: neurons detect, communicate, and command responses, while coordinated specialization lets the organ perform complex functions."
+      "answer": "Different cells divide sensing, communication, response control, and support, allowing coordinated organ function."
     },
     {
-      "question": "How can glial support change neuronal signaling even when glia are not carrying the main information output?",
-      "answer": "Glia insulate, nourish, and support neurons, so they maintain conditions needed for reliable neuronal function."
+      "question": "How do glia actively enable neuronal signaling?",
+      "answer": "They insulate, support, and nourish neurons, preserving conditions needed for reliable communication."
     },
     {
-      "question": "Trace the causal path from an environmental stimulus to a bodily response.",
-      "answer": "A sensory neuron detects change, neurons communicate and process it, and output neurons command the body's response."
+      "question": "Trace the mechanism that converts touching a hot surface into withdrawing the hand.",
+      "answer": "Sensory neurons detect the stimulus, central circuits process it, and motor neurons command the responding muscles."
     },
     {
-      "question": "How does neuron structure support directed information flow?",
-      "answer": "Dendrites receive input, the soma contains the nucleus and integrates cellular activity, and the axon carries output toward other cells."
+      "question": "How does neuron structure impose a usual direction on information flow?",
+      "answer": "Dendrites receive input, the soma integrates it, and the axon carries output to other cells."
     },
     {
-      "question": "How do the peripheral and central nervous systems cooperate during a response?",
-      "answer": "Peripheral pathways carry sensory information to central circuits, which process it and send motor commands back through peripheral pathways."
+      "question": "Why are both central and peripheral nervous systems required for a response to an external stimulus?",
+      "answer": "Peripheral pathways link body and CNS; the CNS processes input and organizes commands sent back through peripheral pathways."
     }
   ],
   "study_plan": {
@@ -123,11 +123,10 @@
     }
   },
   "tags": [
-    "neuroscience",
     "neurons",
     "glia",
     "nervous-system",
-    "review"
+    "week-1-review"
   ],
   "status": "approved"
 }

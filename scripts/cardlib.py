@@ -138,7 +138,17 @@ def _rich_description(card: dict[str, Any], language: str) -> str:
     if card.get("example"):
         lines += [f"```{'bash' if card.get('command') else 'text'}\n{_code(card['example'])}\n```"]
     lines += [f"**{labels['result']}**", _safe_inline(block["expected_result"]), "", f"**{labels['notice']}**", _safe_inline(block["what_to_notice"])]
-    lines += ["", f"**{labels['mistake']}**", _safe_inline(block["common_mistake"]), "", f"**{labels['tip']}**", _safe_inline(block["practical_tip"]), "", f"🧠 **{labels['recall']}**", _safe_inline(block["question"]), "", f"||{_safe_inline(block['answer'])}||"]
+    lines += ["", f"**{labels['mistake']}**", _safe_inline(block["common_mistake"]), "", f"**{labels['tip']}**", _safe_inline(block["practical_tip"])]
+    exercise = card.get("active_exercise")
+    if isinstance(exercise, dict):
+        lines += ["", "**✍️ Active exercise**", _safe_inline(exercise["instruction"]), "", "**Save this output**", _safe_inline(exercise["output"])]
+    practice_items = card.get("review_items") if card.get("stream") == "neuroscience" and not card.get("study_plan", {}).get("assessment") else None
+    if practice_items:
+        lines += ["", f"🧠 **{labels['recall']} — {len(practice_items)} checks**"]
+        for index, item in enumerate(practice_items, 1):
+            lines += [f"{index}. {_safe_inline(item['question'])}", f"||{_safe_inline(item['answer'])}||"]
+    else:
+        lines += ["", f"🧠 **{labels['recall']}**", _safe_inline(block["question"]), "", f"||{_safe_inline(block['answer'])}||"]
     return "\n".join(lines)
 
 

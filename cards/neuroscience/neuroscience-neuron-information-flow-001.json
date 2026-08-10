@@ -7,22 +7,40 @@
   "category": "neuroscience",
   "topic": "neuron-structure-and-information-flow",
   "difficulty": "beginner",
-  "example": "Trace a signal between two cells: an axon from neuron A contacts a dendrite of neuron B; the cells communicate at that contact but remain separate cells.",
+  "example": "In a simplified neuron, branching dendrites contact many axons and receive inputs. The soma is the central region containing the nucleus, and the usually single, long axon carries the neuron's output toward other cells.",
   "content": {
     "en": {
-      "title": "Neuron Structure Guides Information Flow",
-      "learning_objective": "Trace incoming information from another neuron's axon to a receiving neuron's dendrite while recognizing that the two cells remain separate.",
-      "simple_explanation": "Dendrites are branching neurites that contact many axons. Early histologists therefore described them as neuronal “antennae” that receive incoming signals, or input.",
-      "how_it_works": "An axon from one neuron reaches a dendrite of another. Their neurites approach and communicate by contact, but they do not fuse into one continuous network. This preserves the neuron as an individual functional unit while allowing neurons to form circuits.",
-      "visual": "Neuron A axon\n      ↓ contact\nNeuron B dendrite\n      ↓\nincoming signal to B\n(cells remain separate)",
-      "use_case": "When interpreting a drawing of brain circuitry, follow axons to the dendrites they contact instead of assuming every touching line is one continuous cell.",
-      "expected_result": "You identify the receiving neuron from the dendrite at the contact and keep the two neurons as distinct units.",
-      "what_to_notice": "Physical closeness permits communication without structural continuity. This distinction is the core of the neuron doctrine described in the source.",
-      "common_mistake": "Assuming contacting neurites are fused because a microscope drawing makes them look continuous.",
-      "practical_tip": "On a circuit sketch, outline each neuron separately before drawing arrows for information flow.",
-      "question": "If an axon contacts a dendrite, what does the neuron doctrine say about the two neurons and the direction of input?",
-      "answer": "They remain separate cells; the dendrite receives input associated with the contacting axon."
+      "title": "Neuron Structure and Information Flow",
+      "learning_objective": "Trace the usual direction of information through a neuron and connect dendrite, soma, and axon structure to their roles.",
+      "simple_explanation": "A neuron is an individual cell with specialized regions. Dendrites are multiple, tapering neurites that receive incoming signals. The soma, or cell body, contains the nucleus. A neuron usually has one axon, a relatively uniform neurite that can extend far from the soma and carries output.",
+      "how_it_works": "Branching dendrites provide many points of contact for incoming axons. Information received there is directed toward the soma. Output then travels away through the axon, whose long, wire-like form connects the neuron to distant targets. Neurons communicate by contact rather than forming one continuous fused network.",
+      "visual": "many inputs\n    ↓\ndendrites → soma\n              ↓\n            axon → output",
+      "use_case": "When inspecting a neuron drawing, locate the nucleus to identify the soma. Then distinguish the many tapering dendrites from the usually single, more uniform axon and predict the usual information direction.",
+      "expected_result": "The labeled trace runs from incoming contacts to dendrites, through the soma, and outward along the axon.",
+      "what_to_notice": "Shape supports function: dendritic branching helps collect many inputs, while axon length supports output over distance. Separate neurons can therefore form circuits without being physically continuous.",
+      "common_mistake": "Do not label every projection as an axon or assume signals normally enter through the axon. Axons and dendrites are both neurites, but their typical shapes and information roles differ.",
+      "practical_tip": "On an unfamiliar neuron image, identify the soma first; then use number, taper, and diameter to form a cautious dendrite-versus-axon prediction.",
+      "question": "What is the usual path of information through the basic parts of a neuron?",
+      "answer": "Input reaches dendrites, passes toward the soma, and output travels away along the axon."
     }
+  },
+  "review_items": [
+    {
+      "question": "What are the three basic neuron regions emphasized in the source, and what does each do?",
+      "answer": "Dendrites receive input, the soma contains the nucleus, and the axon carries output."
+    },
+    {
+      "question": "Why are many tapering dendrites suited to input while a long, relatively uniform axon is suited to output?",
+      "answer": "Branches provide many input contacts; axon length carries output toward distant targets."
+    },
+    {
+      "question": "A drawing shows many short tapering branches and one long uniform process leaving a nucleated region. Predict their identities and information direction.",
+      "answer": "The branches are dendrites, the central region is soma, and the long process is the axon; flow is dendrites → soma → axon."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Sketch one neuron with at least three dendrites, a soma containing a nucleus, and one long axon. Add arrows showing the usual information direction. Annotate one structural clue beside each part: `many/tapering`, `contains nucleus`, and `single/uniform`. Finally, mark a nearby second neuron as separate rather than fused.",
+    "output": "Save the annotated trace as `day-02-neuron-flow.png` or `day-02-neuron-flow.jpg`."
   },
   "study_plan": {
     "course_day": 2,
@@ -30,7 +48,7 @@
     "study_duration_minutes": 60,
     "source_id": "exploring-brain-4e",
     "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
-    "source_locator": "PDF pages 64–64 — Pages 61–72",
+    "source_locator": "Book pages 27–27 (PDF viewer pages 64–64)",
     "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
     "online_resource": {
       "title": "OpenStax — Nervous Tissue",
@@ -60,17 +78,17 @@
       {
         "minutes": 18,
         "activity": "Source study",
-        "en": "Study PDF pages 64–64 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+        "en": "Study Book pages 27–27 (PDF viewer pages 64–64). Stop when this time box ends, even if you want to continue."
       },
       {
         "minutes": 22,
-        "activity": "Explain",
-        "en": "Write three sentences explaining the causal chain in your own words."
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
       },
       {
         "minutes": 5,
         "activity": "Check",
-        "en": "Answer the recall question, then correct only what was missing."
+        "en": "Complete all three recall checks, then correct only what was missing."
       }
     ],
     "study_output": {
@@ -78,10 +96,10 @@
     }
   },
   "tags": [
-    "neurons",
+    "neuron-structure",
     "dendrites",
-    "axons",
-    "neuron-doctrine"
+    "axon",
+    "information-flow"
   ],
   "status": "approved"
 }

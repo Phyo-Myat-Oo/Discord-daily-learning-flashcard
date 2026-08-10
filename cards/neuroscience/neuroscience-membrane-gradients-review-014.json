@@ -1,5 +1,5 @@
 {
-  "id": "neuroscience-membrane-gradients-review-001",
+  "id": "neuroscience-membrane-gradients-review-014",
   "stream": "neuroscience",
   "language": "en",
   "sequence": 14,
@@ -7,43 +7,43 @@
   "category": "neuroscience",
   "topic": "review-membranes-ions-electrical-gradients",
   "difficulty": "beginner",
-  "example": "Predict ion movement by checking three things in order: whether a selective channel is available, where the ion is more concentrated, and which side's charge attracts or repels it.",
+  "example": "For an open K+ channel, first identify the available path, then compare the concentration and electrical forces before predicting net movement.",
   "content": {
     "en": {
-      "title": "Review: Access Plus Driving Force",
-      "learning_objective": "Explain why membrane permeability and ion gradients must be considered together when predicting ion movement.",
-      "simple_explanation": "The lipid bilayer is an electrical boundary because it blocks water-soluble ions. Selective channels create controlled paths across it, but a path alone does not cause net movement.",
-      "how_it_works": "Diffusion pushes ions from high toward low concentration. Voltage also acts on ions because they carry charge. When a suitable channel is available, these concentration and electrical forces jointly determine net movement; ion movement can then alter charge separation across the membrane.",
-      "visual": "selective channel available?\n      +\nconcentration gradient\n      +\nelectrical gradient\n      ↓\nnet ion movement",
-      "use_case": "Use this checklist while drawing the weekly concept map. For each ion, mark channel availability and both gradients before drawing an arrow.",
-      "expected_result": "Each movement arrow has a stated pathway and driving force instead of being based on concentration alone.",
-      "what_to_notice": "The same concentration gradient can produce different outcomes when channel permeability or the electrical gradient changes.",
-      "common_mistake": "Treating the membrane as freely permeable or assuming that every gradient must produce net flow.",
-      "practical_tip": "For every prediction, say: path, concentration force, electrical force, then net direction.",
+      "title": "Review: Path Plus Driving Force",
+      "learning_objective": "Explain how the membrane, selective channels, ion gradients, and supporting cells jointly enable controlled neuronal electrical behavior.",
+      "simple_explanation": "A neuronal membrane separates watery compartments and blocks direct ion passage. Selective channels provide controlled paths. Concentration and electrical gradients then determine whether ions move through those paths.",
+      "how_it_works": "The bilayer preserves separation. Channel permeability determines which ions can cross. Diffusion pushes ions from high toward low concentration, while electrical forces attract opposite charges and repel like charges. Ion movement changes charge separation and therefore membrane voltage.",
+      "visual": "bilayer → separation\nchannels → selective paths\ngradients → driving forces\nion movement → voltage change",
+      "use_case": "When reviewing a membrane-voltage result, ask in order: Which ion has a path? What concentration force acts? What electrical force acts?",
+      "expected_result": "This sequence produces a mechanism-based prediction rather than a guess based on one gradient alone.",
+      "what_to_notice": "An open channel is necessary for passage, but net movement also requires a driving force.",
+      "common_mistake": "Treating permeability, concentration gradient, and electrical gradient as interchangeable ideas.",
+      "practical_tip": "Draw each mechanism as a separate layer before combining them in the weekly concept map.",
       "question": "What must you evaluate before predicting net ion movement across a neuronal membrane?",
-      "answer": "Evaluate selective permeability plus the concentration and electrical gradients acting on the ion."
+      "answer": "Check selective permeability and both the concentration and electrical components of the ion's driving force."
     }
   },
   "review_items": [
     {
-      "question": "How does the cell membrane make a voltage difference possible?",
-      "answer": "The ion-blocking bilayer separates charge, while selective channels regulate when particular ions can cross."
+      "question": "Why can a neuronal membrane maintain an electrical difference between its two sides?",
+      "answer": "Its phospholipid bilayer blocks direct passage of water-soluble ions, preserving charge separation across the membrane."
     },
     {
-      "question": "Why does increasing permeability to one ion strengthen that ion's effect on membrane voltage?",
-      "answer": "More available selective pathways let that ion's gradients drive more charge movement across the membrane."
+      "question": "A membrane becomes more permeable to K+. Why does K+ gain more influence over membrane voltage?",
+      "answer": "More selective K+ paths permit greater K+ movement under its existing driving forces, altering charge separation."
     },
     {
-      "question": "How do ion gradients contribute to resting membrane potential?",
-      "answer": "Selective permeability allows unequal ion distributions and electrical forces to produce a stable separation of charge."
+      "question": "How do ion gradients help create a resting membrane potential?",
+      "answer": "Selective channels let ions move down combined concentration and electrical gradients until opposing forces limit net movement."
     },
     {
-      "question": "How can glial cells support reliable neuronal electrical signaling?",
-      "answer": "They help maintain the extracellular ionic conditions on which neuronal gradients and signaling depend."
+      "question": "How can glia support stable neuronal electrical signaling?",
+      "answer": "They help maintain the extracellular conditions neurons require, so ion gradients and membrane signaling remain functional."
     },
     {
-      "question": "What happens when concentration and electrical gradients push an ion in opposite directions?",
-      "answer": "Net movement follows the stronger force and can cease when the opposing forces balance."
+      "question": "An ion has an open channel. What determines whether it moves inward, outward, or has no net movement?",
+      "answer": "The combined concentration and electrical gradients determine the direction and net driving force."
     }
   ],
   "study_plan": {
@@ -124,8 +124,8 @@
   },
   "tags": [
     "neuronal-membrane",
-    "ion-gradients",
     "selective-permeability",
+    "ion-gradients",
     "weekly-review"
   ],
   "status": "approved"

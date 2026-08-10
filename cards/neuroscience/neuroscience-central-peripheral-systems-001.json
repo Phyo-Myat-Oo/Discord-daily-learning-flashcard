@@ -7,22 +7,40 @@
   "category": "neuroscience",
   "topic": "central-peripheral-nervous-systems",
   "difficulty": "beginner",
-  "example": "Touching a hot surface activates peripheral sensory pathways that carry information toward the CNS; the CNS processes it, and peripheral motor pathways carry commands toward muscles.",
+  "example": "Touching a hot surface begins with a peripheral sensory signal traveling toward the central nervous system; a resulting command travels through the peripheral system toward muscles.",
   "content": {
     "en": {
       "title": "Central and Peripheral Nervous Systems",
-      "learning_objective": "Trace information through the central nervous system and peripheral nervous system in a simple sensory-response loop.",
-      "simple_explanation": "The central nervous system (CNS) consists of the brain and spinal cord. The peripheral nervous system (PNS) includes nervous tissue outside them and connects the CNS with the rest of the body.",
-      "how_it_works": "Peripheral sensory pathways carry information from the body toward the CNS. Central circuits process that information. Peripheral motor pathways then carry commands from the CNS toward muscles or glands, linking central processing to action.",
-      "visual": "body stimulus\n    ↓  PNS sensory\nCNS processing\n    ↓  PNS motor\nbody response",
-      "use_case": "Use this division to localize a problem: ask whether information fails while entering the CNS, during central processing, or while an outgoing command travels through the PNS.",
-      "expected_result": "Given a simple stimulus and response, you can label the body-to-CNS and CNS-to-body parts of the pathway.",
-      "what_to_notice": "CNS and PNS describe connected anatomical regions, not competing systems. Useful behavior depends on information crossing their boundary in both directions.",
-      "common_mistake": "Treating the PNS as input-only. It carries sensory information inward and motor commands outward.",
-      "practical_tip": "Draw the CNS in the center, then add one inward sensory arrow and one outward motor arrow before adding details.",
-      "question": "In a sensory-response loop, what distinct roles do the CNS and PNS play?",
-      "answer": "The PNS carries information between body and CNS; the CNS processes it and organizes responses."
+      "learning_objective": "Trace information between the central nervous system and the rest of the body.",
+      "simple_explanation": "The central nervous system (CNS) is the brain and spinal cord. The peripheral nervous system (PNS) consists of nervous tissue outside them and connects the CNS with the rest of the body.",
+      "how_it_works": "Neurons sense changes, communicate them, and help command responses. Sensory information travels from peripheral receptors toward the CNS, where neural circuits process it. Commands then travel through peripheral pathways toward effectors such as muscles.",
+      "visual": "stimulus\n↓ PNS: sensory path\nCNS: process\n↓ PNS: command path\nresponse",
+      "use_case": "Use the CNS–PNS boundary to trace where a sensory or movement problem could interrupt information flow.",
+      "expected_result": "A complete trace identifies an incoming peripheral path, central processing, and an outgoing peripheral path.",
+      "what_to_notice": "The PNS is not merely an input cable: it carries information both toward and away from the CNS.",
+      "common_mistake": "Treating the brain as the whole nervous system or assuming every peripheral pathway carries signals in the same direction.",
+      "practical_tip": "When tracing a pathway, label both its anatomical division and its signal direction.",
+      "question": "How do the CNS and PNS cooperate to turn a stimulus into a response?",
+      "answer": "The PNS carries sensory information to the CNS for processing, then carries commands from the CNS toward effectors."
     }
+  },
+  "review_items": [
+    {
+      "question": "What structures form the CNS, and what does the PNS connect?",
+      "answer": "The brain and spinal cord form the CNS; the PNS connects them with the rest of the body."
+    },
+    {
+      "question": "Why are both incoming and outgoing peripheral pathways needed for a stimulus-response loop?",
+      "answer": "One carries sensory information to central circuits; the other carries the resulting command toward an effector."
+    },
+    {
+      "question": "A person detects a hot object but a muscle command cannot reach the hand. Which part of the information loop is disrupted?",
+      "answer": "The outgoing peripheral path from central processing toward the muscle is disrupted."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Draw a five-node trace for touching a hot surface: stimulus, peripheral sensory path, CNS processing, peripheral command path, and muscle response. Annotate each arrow with `toward CNS` or `away from CNS`, then mark one possible interruption point.",
+    "output": "Save one annotated pathway diagram titled `cns-pns-hot-surface-trace`."
   },
   "study_plan": {
     "course_day": 4,
@@ -30,7 +48,7 @@
     "study_duration_minutes": 60,
     "source_id": "exploring-brain-4e",
     "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
-    "source_locator": "PDF pages 68–70 — Pages 61–72",
+    "source_locator": "Book pages 31–33 (PDF viewer pages 68–70)",
     "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
     "online_resource": {
       "title": "OpenStax — Nervous Tissue",
@@ -60,17 +78,17 @@
       {
         "minutes": 18,
         "activity": "Source study",
-        "en": "Study PDF pages 68–70 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+        "en": "Study Book pages 31–33 (PDF viewer pages 68–70). Stop when this time box ends, even if you want to continue."
       },
       {
         "minutes": 22,
-        "activity": "Explain",
-        "en": "Write three sentences explaining the causal chain in your own words."
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
       },
       {
         "minutes": 5,
         "activity": "Check",
-        "en": "Answer the recall question, then correct only what was missing."
+        "en": "Complete all three recall checks, then correct only what was missing."
       }
     ],
     "study_output": {

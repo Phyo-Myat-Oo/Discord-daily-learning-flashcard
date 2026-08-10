@@ -7,22 +7,40 @@
   "category": "neuroscience",
   "topic": "cell-membrane-electrical-boundary",
   "difficulty": "beginner",
-  "example": "Imagine equal NaCl concentrations on both sides of a phospholipid bilayer and a battery creating voltage across it. Without ion channels, membrane conductance is zero, so no ionic current crosses despite the electrical force.",
+  "example": "Compare an intact phospholipid bilayer with the same membrane after an ion channel opens. The intact bilayer blocks water-soluble ions; the open channel supplies a selective crossing path.",
   "content": {
     "en": {
       "title": "The Cell Membrane as an Electrical Boundary",
-      "learning_objective": "Explain why a neuronal membrane can separate electrical charge and why ions cross it only through suitable membrane proteins.",
-      "simple_explanation": "A neuron's membrane is a phospholipid bilayer. Its nonpolar interior blocks water-soluble ions, so the fluids inside and outside can maintain different ion concentrations and electrical conditions.",
-      "how_it_works": "The bilayer supplies the barrier. Selective ion channels form pores that let particular ions cross; gated channels can open or close. Ion pumps use energy from ATP to transport certain ions and help maintain unequal distributions. When a suitable channel is open, concentration and electrical gradients can drive ion movement.",
-      "visual": "outside: water + ions\n════════ membrane ════════\n       channel │ pump\ninside:  water + ions\nbarrier + paths → controlled flow",
-      "use_case": "Predict whether current crosses a membrane when voltage is present but no ion channels are available, then predict what changes when a selective channel opens.",
-      "expected_result": "With no channels, conductance is zero and no ionic current crosses. Opening a suitable channel creates a path, although net flow still depends on a driving gradient.",
-      "what_to_notice": "A driving force and a pathway are separate requirements. Voltage alone cannot move ions through an impermeable bilayer, and an open channel alone does not guarantee net movement.",
-      "common_mistake": "Do not treat the membrane as a simple wall or assume every open channel passes every ion. Channel pore properties determine ion selectivity.",
-      "practical_tip": "For any ion-movement problem, ask two questions in order: “Is there a permeable channel?” and “What concentration or electrical force drives the ion?”",
+      "learning_objective": "Explain how a phospholipid bilayer separates charge while membrane proteins control ion passage.",
+      "simple_explanation": "A neuronal membrane is a phospholipid bilayer with watery fluid on both sides. Its nonpolar interior blocks water-soluble ions from crossing directly. Because ions carry charge, restricting their movement allows the two sides to maintain different ion distributions and electrical conditions.",
+      "how_it_works": "The bilayer creates the barrier. Membrane-spanning channel proteins create pores through it, often selecting particular ions by pore diameter and chemical lining. Gated channels can open or close. An open channel permits passage, but net ion movement still requires a driving force such as a concentration difference or electrical field. Pumps use ATP to transport selected ions and help maintain unequal distributions.",
+      "visual": "outside: water + ions\n──────── channel ────────\n  nonpolar bilayer barrier\n───────────┬─────────────\ninside: water + ions",
+      "use_case": "To predict whether an ion can affect neuronal voltage, first ask whether the membrane provides a channel for that ion; then ask what force would drive it through.",
+      "expected_result": "With no suitable open channel, the bilayer restricts ion crossing. Opening a suitable channel creates a path, although direction and net flow depend on the forces acting on the ion.",
+      "what_to_notice": "A membrane can act as an electrical boundary because it separates mobile charges selectively, not because it is an absolute wall. Permeability and driving force answer different questions.",
+      "common_mistake": "Assuming that opening an ion channel automatically determines the direction of ion flow.",
+      "practical_tip": "Use a two-step check: access—Is a suitable channel open? Drive—What concentration or electrical force acts on the ion?",
       "question": "Why can a neuronal membrane maintain electrical differences across it?",
-      "answer": "Its phospholipid core blocks ions, while selective channels and ATP-driven pumps control when and how ions cross."
+      "answer": "Its phospholipid bilayer blocks direct ion passage, while selective channels and pumps regulate when and how charged ions cross."
     }
+  },
+  "review_items": [
+    {
+      "question": "What property of the phospholipid bilayer makes it an electrical boundary?",
+      "answer": "Its nonpolar interior blocks water-soluble ions, allowing charge and ion distributions to differ across the membrane."
+    },
+    {
+      "question": "How does an ion channel change the boundary without removing it?",
+      "answer": "A membrane-spanning protein forms a selective pore, giving certain ions a controlled path through the bilayer."
+    },
+    {
+      "question": "A Na+ channel opens, but Na+ concentrations and electrical conditions are equal on both sides. Why may there be no net Na+ movement?",
+      "answer": "The channel provides access, but equal conditions supply no net concentration or electrical driving force."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Draw two side-by-side membrane cross-sections: A, an intact phospholipid bilayer with Na+ blocked; B, the same bilayer with an open Na+ channel. Add arrows showing no crossing in A and possible crossing in B. Under B, write: “path present; direction requires driving force.”",
+    "output": "Save one annotated diagram titled “membrane_boundary_day8” showing barrier, channel, Na+, and the access-versus-drive distinction."
   },
   "study_plan": {
     "course_day": 8,
@@ -30,7 +48,7 @@
     "study_duration_minutes": 60,
     "source_id": "exploring-brain-4e",
     "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
-    "source_locator": "PDF pages 97–102 — Pages 97–120",
+    "source_locator": "Book pages 60–65 (PDF viewer pages 97–102)",
     "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
     "online_resource": {
       "title": "OpenStax — Nervous Tissue",
@@ -60,17 +78,17 @@
       {
         "minutes": 28,
         "activity": "Source study",
-        "en": "Study PDF pages 97–102 — Pages 97–120. Stop when this time box ends, even if you want to continue."
+        "en": "Study Book pages 60–65 (PDF viewer pages 97–102). Stop when this time box ends, even if you want to continue."
       },
       {
         "minutes": 12,
-        "activity": "Explain",
-        "en": "Write three sentences explaining the causal chain in your own words."
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
       },
       {
         "minutes": 5,
         "activity": "Check",
-        "en": "Answer the recall question, then correct only what was missing."
+        "en": "Complete all three recall checks, then correct only what was missing."
       }
     ],
     "study_output": {
@@ -78,11 +96,10 @@
     }
   },
   "tags": [
-    "neuroscience",
     "cell-membrane",
+    "phospholipid-bilayer",
     "ion-channels",
-    "ion-pumps",
-    "electrical-signaling"
+    "electrical-boundary"
   ],
   "status": "approved"
 }

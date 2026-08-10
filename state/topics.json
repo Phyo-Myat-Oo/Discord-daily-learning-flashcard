@@ -406,7 +406,7 @@
       "date": "2026-08-21",
       "category": "neuroscience",
       "topic": "the-sodium-potassium-pump",
-      "id": "neuroscience-sodium-potassium-pump-001"
+      "id": "neuroscience-sodium-potassium-pump-002"
     },
     {
       "stream": "neuroscience",
@@ -414,7 +414,7 @@
       "date": "2026-08-22",
       "category": "neuroscience",
       "topic": "how-ion-gradients-create-resting-potential",
-      "id": "neuroscience-ion-gradients-resting-potential-001"
+      "id": "neuroscience-ion-gradients-resting-potential-002"
     },
     {
       "stream": "neuroscience",
@@ -422,7 +422,7 @@
       "date": "2026-08-23",
       "category": "neuroscience",
       "topic": "practical-membranes-ions-electrical-gradients",
-      "id": "neuroscience-membrane-permeability-model-001"
+      "id": "neuroscience-membrane-permeability-practical-013"
     },
     {
       "stream": "neuroscience",
@@ -430,7 +430,7 @@
       "date": "2026-08-24",
       "category": "neuroscience",
       "topic": "review-membranes-ions-electrical-gradients",
-      "id": "neuroscience-membrane-gradients-review-001"
+      "id": "neuroscience-membrane-gradients-review-014"
     }
   ]
 }

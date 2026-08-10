@@ -16,7 +16,7 @@ import generate_prompt
 from build_neuroscience_plan import build_plan, focused_locator
 from activate_neuroscience_plan import prepare_activation
 from cardlib import all_cards, build_discord_payload
-from neuroscience_sources import match_source, page_metrics
+from neuroscience_sources import match_source, page_metrics, printed_page_number
 from validate_cards import validate
 
 
@@ -38,6 +38,11 @@ class NeurosciencePlanTests(unittest.TestCase):
         prose = page_metrics("simple neuron explanation " * 100)
         dense = page_metrics(("V = I * R figure 1 table 1\n" * 20) + ("neuron " * 100))
         self.assertGreater(dense["estimated_minutes"], prose["estimated_minutes"])
+
+    def test_printed_page_number_reads_both_header_styles(self) -> None:
+        self.assertEqual(printed_page_number("24 PART ONE FOUNDATIONS\nBody"), 24)
+        self.assertEqual(printed_page_number("CHAPTER 2 NEURONS AND GLIA 25\nBody"), 25)
+        self.assertIsNone(printed_page_number("CHAPTER TWO\nBody"))
 
     def test_full_curriculum_builds_182_one_hour_days(self) -> None:
         curriculum = json.loads((ROOT / "config/neuroscience_curriculum.json").read_text(encoding="utf-8"))

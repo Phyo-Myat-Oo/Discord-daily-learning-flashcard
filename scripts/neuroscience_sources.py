@@ -38,13 +38,22 @@ def page_metrics(text: str) -> dict[str, Any]:
     }
 
 
+def printed_page_number(text: str) -> int | None:
+    """Read a printed page number from the running header when reliably present."""
+    first_line = next((line.strip() for line in text.splitlines() if line.strip()), "")
+    leading = re.match(r"^(\d{1,4})\s+(?:PART|CHAPTER|INTRODUCTION|GLOSSARY|REFERENCES|INDEX|[A-Z][A-Za-z])", first_line)
+    trailing = re.search(r"(?:PART|CHAPTER|INTRODUCTION|GLOSSARY|REFERENCES|INDEX|[A-Z][A-Z ]{3,})\s+(\d{1,4})$", first_line)
+    match = leading or trailing
+    return int(match.group(1)) if match else None
+
+
 def section_pages(text: str) -> list[dict[str, Any]]:
     pages: list[dict[str, Any]] = []
     for piece in re.split(r"(?=\[Page \d+\])", text):
         marker = re.match(r"\[Page (\d+)\]\s*", piece)
         if marker:
             body = piece[marker.end():].strip()
-            pages.append({"page": int(marker.group(1)), **page_metrics(body)})
+            pages.append({"page": int(marker.group(1)), "printed_page": printed_page_number(body), **page_metrics(body)})
     return pages
 
 

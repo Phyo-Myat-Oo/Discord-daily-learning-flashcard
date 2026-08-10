@@ -119,10 +119,22 @@ The neuroscience stream is a locked 182-day BCI and neuroengineering course. Its
 
 Reading ranges are allocated by extracted workload rather than page count alone. The scanner measures words, equation-like lines, figure/table references, and code, then the plan gives dense pages smaller ranges and adjusts source-study time between 18 and 30 minutes while keeping the entire session at 60 minutes. Sundays contain five spoiler-answer self-check questions: three from the current week plus increasingly spaced earlier concepts. The calendar never pauses or shifts based on the self-score.
 
+Every concept card includes three retrieval checks (core recall, mechanism, and application) plus one concrete active exercise with a saved output. Practical cards use one prediction/check, and weekly assessments use five spaced questions. Safely replace an existing future buffer only after the entire replacement batch validates:
+
+```bash
+python scripts/generation_runner.py --stream neuroscience --regenerate
+```
+
 Online companions are configured in `config/neuroscience_online_resources.json`. Check their availability locally when desired (network failures do not block daily GitHub Actions):
 
 ```bash
 python scripts/check_neuroscience_links.py
+```
+
+If source locators or workload metadata are rebuilt after cards already exist, synchronize their copied assignments before validation:
+
+```bash
+python scripts/sync_neuroscience_card_plan.py
 ```
 
 Obtain these exact resources legally and place PDF or EPUB files in a private local directory such as `~/Downloads/pdf_daily/neuroscience/`:

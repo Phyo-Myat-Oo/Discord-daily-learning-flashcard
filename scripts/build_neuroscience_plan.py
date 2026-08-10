@@ -119,7 +119,14 @@ def adaptive_assignment(section: dict[str, Any], topic_index: int, topic_count: 
         "figure_table_refs": sum(int(page.get("figure_table_refs", 0)) for page in chosen),
         "code_lines": sum(int(page.get("code_lines", 0)) for page in chosen),
     }
-    locator = f"PDF pages {chosen[0]['page']}–{chosen[-1]['page']} — {section['title']}"
+    printed = [page.get("printed_page") for page in chosen if isinstance(page.get("printed_page"), int)]
+    pdf_range = f"PDF viewer pages {chosen[0]['page']}–{chosen[-1]['page']}"
+    section_title = str(section.get("title", "")).strip()
+    suffix = "" if re.fullmatch(r"Pages\s+\d+[–-]\d+", section_title, re.I) else f" — {section_title}"
+    if printed:
+        locator = f"Book pages {printed[0]}–{printed[-1]} ({pdf_range}){suffix}"
+    else:
+        locator = f"{pdf_range}{suffix}"
     return locator, workload
 
 
@@ -129,8 +136,8 @@ def concept_tasks(topic: str, locator: str, source_minutes: int = 25, first_day:
         {"minutes": 5, "activity": "Recall", "en": "Before reading, write what you currently believe a neuron does." if first_day else "Without notes, recall yesterday’s main idea.", "my": "မှတ်စုမကြည့်ဘဲ မနေ့က အဓိကအချက်ကို ပြန်စဉ်းစားပါ။"},
         {"minutes": 10, "activity": "Daily lesson", "en": f"Read today’s Discord lesson about {topic}.", "my": f"ဒီနေ့ Discord lesson ထဲက {topic} အကြောင်းကို နားလည်အောင်ဖတ်ပါ။"},
         {"minutes": source_minutes, "activity": "Source study", "en": f"Study {locator}. Stop when this time box ends, even if you want to continue.", "my": f"{locator} ကိုပဲ လေ့လာပါ။ သတ်မှတ်ထားသည့် အပိုင်းပြီးလျှင် ရပ်ပါ။"},
-        {"minutes": explain_minutes, "activity": "Explain", "en": "Write three sentences explaining the causal chain in your own words.", "my": "ဖြစ်စဉ်အဆင့်ဆင့်ကို ကိုယ့်စကားဖြင့် စာကြောင်းသုံးကြောင်း ရေးပါ။"},
-        {"minutes": 5, "activity": "Check", "en": "Answer the recall question, then correct only what was missing.", "my": "Recall question ကို ဖြေပြီး လိုနေသည့်အချက်ကိုသာ ပြန်ပြင်ပါ။"},
+        {"minutes": explain_minutes, "activity": "Active exercise", "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output.", "my": "ဖြစ်စဉ်အဆင့်ဆင့်ကို ကိုယ့်စကားဖြင့် စာကြောင်းသုံးကြောင်း ရေးပါ။"},
+        {"minutes": 5, "activity": "Check", "en": "Complete all three recall checks, then correct only what was missing.", "my": "Recall question ကို ဖြေပြီး လိုနေသည့်အချက်ကိုသာ ပြန်ပြင်ပါ။"},
     ])
 
 

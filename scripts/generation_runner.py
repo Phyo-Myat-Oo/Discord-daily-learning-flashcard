@@ -97,6 +97,7 @@ def output_schema(card_count: int, stream: str | None = None) -> dict[str, Any]:
         "my": nullable({"type": "string"}),
     }
     review_fields = {"question": {"type": "string"}, "answer": {"type": "string"}}
+    exercise_fields = {"instruction": {"type": "string"}, "output": {"type": "string"}}
     english_only = stream == "neuroscience"
     task_fields = {
         "minutes": {"type": "integer", "minimum": 1},
@@ -177,6 +178,7 @@ def output_schema(card_count: int, stream: str | None = None) -> dict[str, Any]:
                 "additionalProperties": False,
             },
         }),
+        "active_exercise": nullable({"type": "object", "properties": exercise_fields, "required": list(exercise_fields), "additionalProperties": False}),
         "study_plan": nullable({
             "type": "object",
             "properties": study_fields,
@@ -210,7 +212,7 @@ def output_schema(card_count: int, stream: str | None = None) -> dict[str, Any]:
 
 def strip_nullable_fields(card: dict[str, Any]) -> dict[str, Any]:
     """Remove structured-output null placeholders before project validation."""
-    for field in ("command", "flags", "review_items", "study_plan"):
+    for field in ("command", "flags", "review_items", "active_exercise", "study_plan"):
         if card.get(field) is None:
             card.pop(field, None)
     for flag in card.get("flags", []):
@@ -294,7 +296,14 @@ def validate_job_content(job_dir: Path, cards: list[dict[str, Any]]) -> str | No
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(card, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         paths.append(path)
-    errors = validate(card_paths() + paths)
+    generated_keys = {(card.get("stream"), card.get("date")) for card in cards}
+    generated_streams = {card.get("stream") for card in cards}
+    existing = []
+    for path in card_paths():
+        existing_card = json.loads(path.read_text(encoding="utf-8"))
+        if existing_card.get("stream") not in generated_streams and (existing_card.get("stream"), existing_card.get("date")) not in generated_keys:
+            existing.append(path)
+    errors = validate(existing + paths)
     if errors:
         return "project validation failed: " + " | ".join(errors)
     return None
@@ -425,7 +434,7 @@ def run_identifier(root: Path, slots: list[dict[str, Any]], batch_size: int) -> 
     return hashlib.sha256(encoded).hexdigest()[:16]
 
 
-def stage_and_validate(root: Path, run_dir: Path, cards: list[dict[str, Any]]) -> list[Path]:
+def stage_and_validate(root: Path, run_dir: Path, cards: list[dict[str, Any]], replace_keys: set[tuple[str, str]] | None = None) -> list[Path]:
     stage_root = run_dir / "staged-cards"
     if stage_root.exists():
         shutil.rmtree(stage_root)
@@ -436,21 +445,31 @@ def stage_and_validate(root: Path, run_dir: Path, cards: list[dict[str, Any]]) -
         if not isinstance(card_id, str) or not isinstance(category, str):
             raise ValueError("generated cards require string id and category fields")
         destination = root / "cards" / category / f"{card_id}.json"
-        if destination.exists():
+        if destination.exists() and (card.get("stream"), card.get("date")) not in (replace_keys or set()):
             raise ValueError(f"refusing to overwrite existing card: {destination.relative_to(root)}")
         path = stage_root / category / f"{card_id}.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(card, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         staged.append(path)
-    errors = validate(card_paths() + staged)
+    existing = []
+    for path in card_paths():
+        card = json.loads(path.read_text(encoding="utf-8"))
+        if (card.get("stream"), card.get("date")) not in (replace_keys or set()):
+            existing.append(path)
+    errors = validate(existing + staged)
     if errors:
         raise ValueError("staged card validation failed:\n  - " + "\n  - ".join(errors))
     return staged
 
 
-def install_cards(root: Path, staged: list[Path], run_dir: Path) -> None:
+def install_cards(root: Path, staged: list[Path], run_dir: Path, replace_keys: set[tuple[str, str]] | None = None) -> None:
     stage_root = run_dir / "staged-cards"
     installed_cards: list[dict[str, Any]] = []
+    if replace_keys:
+        for path in card_paths():
+            card = json.loads(path.read_text(encoding="utf-8"))
+            if (card.get("stream"), card.get("date")) in replace_keys:
+                path.unlink()
     for source in staged:
         relative = source.relative_to(stage_root)
         destination = root / "cards" / relative
@@ -463,6 +482,8 @@ def install_cards(root: Path, staged: list[Path], run_dir: Path) -> None:
     topics_path = root / "state/topics.json"
     topics = json.loads(topics_path.read_text(encoding="utf-8"))
     covered = topics.setdefault("covered", [])
+    if replace_keys:
+        covered[:] = [item for item in covered if not isinstance(item, dict) or (item.get("stream"), item.get("date")) not in replace_keys]
     known_ids = {item.get("id") for item in covered if isinstance(item, dict)}
     for card in installed_cards:
         if card["id"] in known_ids:
@@ -494,6 +515,7 @@ def main() -> int:
     parser.add_argument("--count-only", action="store_true", help="print only the missing-card count")
     parser.add_argument("--target", type=int, help="override every stream's configured buffer target")
     parser.add_argument("--stream", choices=load_channels().keys(), help="generate only one configured stream")
+    parser.add_argument("--regenerate", action="store_true", help="replace the selected stream's current future buffer after all replacements validate")
     args = parser.parse_args()
     try:
         concurrency = positive_env("CODEX_GENERATION_CONCURRENCY", 2)
@@ -505,7 +527,9 @@ def main() -> int:
         print(exc, file=sys.stderr)
         return 2
 
-    slots = missing_slots(args.target, stream_filter=args.stream)
+    if args.regenerate and not args.stream:
+        parser.error("--regenerate requires --stream")
+    slots = missing_slots(args.target, stream_filter=args.stream, replace_existing_stream=args.stream if args.regenerate else None)
     if args.count_only:
         print(len(slots))
         return 0
@@ -558,8 +582,9 @@ def main() -> int:
         print("Generation output did not cover every planned slot exactly once; tracked files were not changed.", file=sys.stderr)
         return 1
     try:
-        staged = stage_and_validate(ROOT, run_dir, list(unique_cards.values()))
-        install_cards(ROOT, staged, run_dir)
+        replace_keys = {(slot["stream"], slot["date"]) for slot in slots} if args.regenerate else set()
+        staged = stage_and_validate(ROOT, run_dir, list(unique_cards.values()), replace_keys)
+        install_cards(ROOT, staged, run_dir, replace_keys)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(str(exc), file=sys.stderr)
         print("Generation stopped before commit; inspect the working tree and generation cache.", file=sys.stderr)

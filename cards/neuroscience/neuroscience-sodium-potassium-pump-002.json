@@ -1,0 +1,106 @@
+{
+  "id": "neuroscience-sodium-potassium-pump-002",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 11,
+  "date": "2026-08-21",
+  "category": "neuroscience",
+  "topic": "the-sodium-potassium-pump",
+  "difficulty": "beginner",
+  "example": "If Na+ leaks into a resting neuron, the sodium-potassium pump uses ATP to move that Na+ back out while bringing K+ back in.",
+  "content": {
+    "en": {
+      "title": "The Sodium-Potassium Pump Maintains Ion Gradients",
+      "learning_objective": "Explain how the sodium-potassium pump uses ATP to maintain the Na+ and K+ gradients needed for neuronal signaling.",
+      "simple_explanation": "The membrane blocks most direct ion passage, while channels provide selective routes. The sodium-potassium pump is a membrane enzyme that spends energy from ATP to move Na+ out of the neuron and K+ into it.",
+      "how_it_works": "During each cycle, the pump binds 3 Na+ inside, uses ATP, releases them outside, then binds 2 K+ outside and releases them inside. This transport opposes diffusion and restores ions that leak through channels. The unequal 3-for-2 exchange also moves one net positive charge outward, but its main role is preserving the gradients that make electrical signaling possible.",
+      "visual": "ATP powers pump\n3 Na+ inside → outside\n2 K+ outside → inside\n→ gradients maintained",
+      "use_case": "After repeated neuronal activity, extra Na+ is inside and some K+ has left. Predict what continued pump activity does.",
+      "expected_result": "Na+ is gradually transported outward and K+ inward, helping restore their concentration gradients.",
+      "what_to_notice": "The pump maintains the stored gradients; it does not provide the rapid ion flow used to carry an electrical signal.",
+      "common_mistake": "Do not confuse a pump with a channel. A channel provides a selective pore for movement down an electrochemical gradient; this pump uses ATP to move ions against their gradients.",
+      "practical_tip": "When explaining membrane voltage, separate gradient maintenance by pumps from immediate voltage changes caused mainly by ions moving through open channels.",
+      "question": "What is the sodium-potassium pump's essential role in resting neurons?",
+      "answer": "It uses ATP to move 3 Na+ out and 2 K+ in, maintaining the ion gradients required for membrane voltage and signaling."
+    }
+  },
+  "review_items": [
+    {
+      "question": "Which ions does the sodium-potassium pump move, and in which directions?",
+      "answer": "It moves 3 Na+ out of the neuron and 2 K+ into it per cycle."
+    },
+    {
+      "question": "Why does the sodium-potassium pump require ATP?",
+      "answer": "It transports Na+ and K+ against their concentration gradients, which requires energy."
+    },
+    {
+      "question": "Na+ has leaked inward during activity. What does continued pump activity do?",
+      "answer": "It transports Na+ outward while returning K+ inward, restoring the gradients over time."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Draw and label a membrane with 3 Na+ on the cytosolic side, 2 K+ outside, and one ATP. Add arrows showing one pump cycle and annotate which movements oppose the concentration gradients.",
+    "output": "Save one labeled causal diagram titled `day11-sodium-potassium-pump` showing ATP → 3 Na+ out + 2 K+ in → maintained gradients."
+  },
+  "study_plan": {
+    "course_day": 11,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "Book pages 74–77 (PDF viewer pages 111–114)",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 20,
+      "raw_text_minutes": 15.3,
+      "density": "low",
+      "word_count": 1899,
+      "equation_lines": 0,
+      "figure_table_refs": 7,
+      "code_lines": 0
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about The sodium-potassium pump."
+      },
+      {
+        "minutes": 20,
+        "activity": "Source study",
+        "en": "Study Book pages 74–77 (PDF viewer pages 111–114). Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 20,
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Complete all three recall checks, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain The sodium-potassium pump in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "neuronal-membrane",
+    "ion-pump",
+    "sodium",
+    "potassium",
+    "ATP"
+  ],
+  "status": "approved"
+}

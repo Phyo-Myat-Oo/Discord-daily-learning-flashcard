@@ -1,0 +1,106 @@
+{
+  "id": "neuroscience-ion-gradients-resting-potential-002",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 12,
+  "date": "2026-08-22",
+  "category": "neuroscience",
+  "topic": "how-ion-gradients-create-resting-potential",
+  "difficulty": "beginner",
+  "example": "At rest, open K+-selective channels let K+ diffuse outward. The resulting negative interior increasingly attracts K+ inward until the electrical and concentration forces approach balance.",
+  "content": {
+    "en": {
+      "title": "How Ion Gradients Create Resting Potential",
+      "learning_objective": "Predict how ion concentration gradients and selective membrane permeability produce a negative resting membrane potential.",
+      "simple_explanation": "A concentration gradient is a difference in ion concentration across the membrane. An open selective channel gives its ion a route across, while diffusion and electrical attraction determine the direction of net movement.",
+      "how_it_works": "At rest, the membrane is more permeable to K+ than to Na+. K+ therefore diffuses outward down its concentration gradient, leaving excess negative charge just inside the membrane. This voltage attracts K+ inward and opposes further loss. Small Na+ permeability shifts the resting voltage away from the K+ balance point. Pumps maintain the underlying ion gradients over time.",
+      "visual": "High K+ inside\nK+ leak → outward\ninside becomes negative\n← electrical pull on K+\n→ stable negative Vm",
+      "use_case": "Suppose a resting neuron suddenly becomes more permeable to K+ while its ion concentrations remain initially unchanged. Predict the voltage change.",
+      "expected_result": "The membrane potential moves toward the K+ equilibrium potential and usually becomes more negative.",
+      "what_to_notice": "Concentrations need not become equal. A small separation of charge near the membrane can create enough electrical force to oppose further net K+ diffusion.",
+      "common_mistake": "Do not say that a concentration gradient alone fixes the voltage. Resting potential depends on both electrochemical driving forces and which ion channels are permeable.",
+      "practical_tip": "For any resting-potential prediction, ask two questions: which ions have gradients, and which of their channels are open?",
+      "question": "Why does outward K+ movement make the resting neuron's interior negative?",
+      "answer": "K+ leaves through selective channels, leaving excess negative charge inside until the electrical force opposes further outward diffusion."
+    }
+  },
+  "review_items": [
+    {
+      "question": "What two membrane conditions allow an ion gradient to influence resting potential?",
+      "answer": "A concentration difference across the membrane and open channels permeable to that ion."
+    },
+    {
+      "question": "Why does net outward K+ movement slow as the inside becomes negative?",
+      "answer": "The negative interior electrically attracts K+ inward, opposing its outward concentration force."
+    },
+    {
+      "question": "If resting K+ permeability increases, what voltage change is expected?",
+      "answer": "Vm moves toward the K+ equilibrium potential, usually becoming more negative."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Draw a two-stage membrane trace. Stage 1: high K+ inside with a K+ channel open. Stage 2: show K+ moving out, negative charge remaining inside, and an inward electrical arrow opposing diffusion. Add a final prediction for increased K+ permeability.",
+    "output": "Save one annotated diagram titled `day12-resting-potential` ending with `higher K+ permeability → Vm toward EK`."
+  },
+  "study_plan": {
+    "course_day": 12,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "Book pages 78–84 (PDF viewer pages 115–120)",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 23,
+      "raw_text_minutes": 18.2,
+      "density": "low",
+      "word_count": 2585,
+      "equation_lines": 0,
+      "figure_table_refs": 4,
+      "code_lines": 1
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about How ion gradients create resting potential."
+      },
+      {
+        "minutes": 23,
+        "activity": "Source study",
+        "en": "Study Book pages 78–84 (PDF viewer pages 115–120). Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 17,
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Complete all three recall checks, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain How ion gradients create resting potential in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "resting-potential",
+    "ion-gradients",
+    "potassium",
+    "permeability",
+    "membrane-voltage"
+  ],
+  "status": "approved"
+}

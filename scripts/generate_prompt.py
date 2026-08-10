@@ -11,7 +11,7 @@ NEUROSCIENCE_PLAN = ROOT / "state/neuroscience_plan.json"
 NEUROSCIENCE_CATALOG = ROOT / ".generated/neuroscience/catalog.json"
 
 
-def missing_slots(target_override: int | None = None, today: date | None = None, stream_filter: str | None = None) -> list[dict[str, str]]:
+def missing_slots(target_override: int | None = None, today: date | None = None, stream_filter: str | None = None, replace_existing_stream: str | None = None) -> list[dict[str, str]]:
     today = today or date.today()
     channels = load_channels()
     cards = list(all_cards())
@@ -21,6 +21,8 @@ def missing_slots(target_override: int | None = None, today: date | None = None,
             continue
         target = target_override or int(config.get("buffer_target", 14))
         occupied = {date.fromisoformat(c["date"]) for _, c in cards if c.get("stream") == stream and c.get("date") and date.fromisoformat(c["date"]) >= today and c.get("status") in {"approved", "scheduled"}}
+        if stream == replace_existing_stream:
+            occupied = set()
         next_sequence = max((int(c.get("sequence", 0)) for _, c in cards if c.get("stream") == stream), default=0) + 1
         if stream == "neuroscience":
             if not NEUROSCIENCE_PLAN.exists():

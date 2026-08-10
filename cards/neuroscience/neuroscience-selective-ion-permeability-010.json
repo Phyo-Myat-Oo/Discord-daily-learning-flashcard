@@ -7,22 +7,40 @@
   "category": "neuroscience",
   "topic": "selective-ion-permeability",
   "difficulty": "beginner",
-  "example": "Compare three cases using the supplied approximate values: a K+-only membrane tends toward EK near −80 mV; a Na+-only membrane tends toward ENa near +62 mV; a membrane about 40 times more permeable to K+ than Na+ settles between them, near −65 mV and closer to EK.",
+  "example": "If a membrane contains open K+-selective channels but no open Na+-selective channels, K+ has a membrane pathway while Na+ remains strongly restricted, even if both ions have gradients.",
   "content": {
     "en": {
-      "title": "Permeability Weights Each Ion's Influence",
-      "learning_objective": "Predict how selective and relative ion permeability position membrane voltage among the equilibrium potentials of permeant ions.",
-      "simple_explanation": "Selective permeability means a membrane lets some ion types cross more readily than others through selective channels. Each permeant ion drives membrane voltage toward its own equilibrium potential. An ion with greater permeability has greater influence on the resulting voltage.",
-      "how_it_works": "Ion pumps establish concentration gradients: K+ is concentrated inside, while Na+ and Ca2+ are concentrated outside. Channels determine which ions can move down their electrochemical gradients. If only one ion is permeable, voltage approaches that ion's equilibrium potential. If several ions are permeable, relative permeability weights their effects.",
-      "visual": "K+ only  → Vm near EK\nNa+ only → Vm near ENa\nK+ ≫ Na+\n        → Vm closer to EK",
-      "use_case": "To explain a neuron's resting voltage, compare Vm with the equilibrium potentials of ions that can cross at rest, then ask which ion has the greatest permeability.",
-      "expected_result": "With resting K+ permeability about 40 times Na+ permeability, Vm lies between EK and ENa but remains much closer to EK; the supplied example predicts about −65 mV.",
-      "what_to_notice": "A concentration gradient gives an ion a possible equilibrium potential, but permeability determines how strongly that ion influences the actual membrane potential. The Nernst equation describes one ion's equilibrium potential; relative permeabilities are needed for a membrane permeable to multiple ions.",
-      "common_mistake": "Do not assume the most abundant ion alone sets Vm. An ion cannot strongly shape voltage unless the membrane provides appreciable permeability to it.",
-      "practical_tip": "Use a weighted-target mental model: list each permeant ion's equilibrium potential, then place Vm closest to the target of the most permeable ion.",
-      "question": "Why is a typical resting Vm near −65 mV rather than equal to the K+ equilibrium potential near −80 mV?",
-      "answer": "The resting membrane is highly permeable to K+ but also leaks some Na+, so Vm lies between EK and ENa while remaining closer to EK."
+      "title": "Selective Permeability Controls Ion Access",
+      "learning_objective": "Predict which ion can cross a membrane from the selectivity and open state of its channels.",
+      "simple_explanation": "Selective permeability means a membrane provides an easier path for some ions than for others. The lipid bilayer blocks water-soluble ions, so they usually need ion channels to cross.",
+      "how_it_works": "Membrane-spanning protein subunits assemble into a pore. The pore's diameter and the chemical properties of the amino-acid R groups lining it determine which ion can pass. Many channels are also gated, so a selective pathway matters only when it is open.",
+      "visual": "Lipid bilayer: ions blocked\nOpen K+ channel: K+ passes\nNa+ at K+ channel: restricted\nAccess ≠ direction of movement",
+      "use_case": "Given a neuron with several ion gradients, inspect which selective channels are open before predicting which ions can contribute to membrane current.",
+      "expected_result": "Opening K+-selective channels increases access for K+ without giving Na+ the same access through those channels.",
+      "what_to_notice": "Permeability answers whether an ion has a usable path. The ion's concentration and electrical gradients determine whether that accessible ion has net movement and in which direction.",
+      "common_mistake": "Assuming every open ion channel passes every ion, or treating channel opening as sufficient to determine flow direction.",
+      "practical_tip": "Make two checks in order: first `Is there an open selective path?`; then `What forces act on that ion?`",
+      "question": "Why can opening K+-selective channels change K+ movement without producing the same change in Na+ movement?",
+      "answer": "The pore selectively permits K+ based on its structure, while Na+ remains restricted through that pathway."
     }
+  },
+  "review_items": [
+    {
+      "question": "What does selective ion permeability mean?",
+      "answer": "The membrane provides passage for some ions more readily than for others."
+    },
+    {
+      "question": "What channel features help determine ion selectivity?",
+      "answer": "The pore's diameter and the chemical properties of the R groups lining it."
+    },
+    {
+      "question": "A membrane has a strong Na+ gradient but no open Na+-permeable channel. What should you predict?",
+      "answer": "Little Na+ crossing, because the gradient lacks a usable membrane pathway."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Create a two-row comparison for K+ and Na+. Assume only K+-selective channels are open. For each ion, label `open path: yes/no` and then state whether its gradient can produce substantial crossing through those channels. Add one note explaining why access does not determine direction.",
+    "output": "Save one annotated comparison titled `Selective permeability check`."
   },
   "study_plan": {
     "course_day": 10,
@@ -30,7 +48,7 @@
     "study_duration_minutes": 60,
     "source_id": "exploring-brain-4e",
     "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
-    "source_locator": "PDF pages 106–110 — Pages 97–120",
+    "source_locator": "Book pages 69–73 (PDF viewer pages 106–110)",
     "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
     "online_resource": {
       "title": "OpenStax — Nervous Tissue",
@@ -60,17 +78,17 @@
       {
         "minutes": 30,
         "activity": "Source study",
-        "en": "Study PDF pages 106–110 — Pages 97–120. Stop when this time box ends, even if you want to continue."
+        "en": "Study Book pages 69–73 (PDF viewer pages 106–110). Stop when this time box ends, even if you want to continue."
       },
       {
         "minutes": 10,
-        "activity": "Explain",
-        "en": "Write three sentences explaining the causal chain in your own words."
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
       },
       {
         "minutes": 5,
         "activity": "Check",
-        "en": "Answer the recall question, then correct only what was missing."
+        "en": "Complete all three recall checks, then correct only what was missing."
       }
     ],
     "study_output": {
@@ -78,9 +96,9 @@
     }
   },
   "tags": [
-    "selective-permeability",
-    "resting-potential",
-    "ion-channels"
+    "neuronal-membrane",
+    "ion-channels",
+    "selective-permeability"
   ],
   "status": "approved"
 }

@@ -7,23 +7,29 @@
   "category": "neuroscience",
   "topic": "practical-cells-and-the-nervous-system",
   "difficulty": "beginner",
-  "example": "Predict the route for touching a hot surface: a sensory receptor detects the change, neurons carry and process the information, and an output command reaches a muscle that withdraws the hand.",
+  "example": "In a withdrawal trace, dendrites receive input, the soma belongs to the neuron receiving it, and the axon carries that neuron's output toward the next cell or commanded response.",
   "content": {
     "en": {
-      "title": "Practical: Trace a Nervous-System Signal",
-      "learning_objective": "Draw a neuron and use a causal diagram to trace one signal from a sensory receptor to a muscle response.",
-      "simple_explanation": "Neurons are specialized cells that detect environmental changes, communicate with other neurons, and command bodily responses. A neuron has dendrites that receive input, a soma containing the nucleus, and usually one axon that carries output.",
-      "how_it_works": "Begin with a sensory receptor that detects a stimulus. Show information passing into a neuron, through other neurons in a circuit, and toward an output neuron connected to a muscle. Label input near dendrites and output along the axon. Glia should be shown as supporting neighboring neurons, not as the main signal route.",
-      "visual": "stimulus → sensory receptor\n↓ neural circuit\noutput neuron\n↓\nmuscle → response",
-      "use_case": "Draw and label one neuron, then place it inside a larger route from a skin receptor to an arm muscle. Use arrows to predict the direction of information flow.",
-      "expected_result": "The diagram shows a continuous causal route from detected stimulus to muscle response, with neuron parts and arrow directions clearly labeled.",
-      "what_to_notice": "A single neuron is one cell in the route, while the response depends on multiple specialized cells working together as a circuit.",
-      "common_mistake": "Drawing dendrites and an axon correctly but leaving arrows unlabeled, so input and output cannot be distinguished.",
-      "practical_tip": "Before adding detail, draw the five-step route first. Then place neuron structures where they explain input or output.",
-      "question": "Why should a sensory-to-muscle diagram include both individual neuron parts and the larger circuit?",
-      "answer": "Neuron parts explain input and output within one cell; the circuit explains how multiple cells produce the response."
+      "title": "Practical: Trace the Cells in a Response",
+      "learning_objective": "Draw a neuron and use its input-output structure in a stimulus-to-muscle trace.",
+      "simple_explanation": "A neuron is an individual cell with specialized parts. Dendrites receive incoming signals, the soma contains the nucleus, and the usually single axon carries output. Neurons then cooperate in circuits rather than forming one continuous cell.",
+      "how_it_works": "A stimulus begins the trace at a sensory receptor. Neural input is received through dendrites, processed by the neuron, and carried away along its axon. Communication between distinct neurons extends the path until a command reaches a muscle. Glia support, nourish, and insulate neighboring neurons.",
+      "visual": "dendrites → soma → axon\n input              output\n\nreceptor → neurons → muscle",
+      "use_case": "Before the practical, predict the direction of every arrow in a diagram tracing a touch stimulus from a receptor to a withdrawing muscle.",
+      "expected_result": "The finished drawing shows a labeled neuron and one continuous causal trace from receptor input to muscle action.",
+      "what_to_notice": "Signal direction follows the neuron's structure, but the whole response requires several distinct cells communicating as a circuit.",
+      "common_mistake": "Do not fuse neighboring neurons into one continuous wire or point the axon toward the dendrites in the input-output trace.",
+      "practical_tip": "Use one arrow style for information flow and label dendrites as input and axon as output before adding the larger circuit.",
+      "question": "How should dendrites, soma, and axon be arranged when tracing information through one neuron?",
+      "answer": "Dendrites receive input toward the soma; the axon carries output away."
     }
   },
+  "review_items": [
+    {
+      "question": "Before drawing, predict what error you should find if an arrow runs from a neuron's axon back toward its dendrites in the stimulus-to-muscle trace.",
+      "answer": "The information-flow direction is reversed: dendrites receive input, while the axon carries output away."
+    }
+  ],
   "study_plan": {
     "course_day": 6,
     "course_week": 1,
@@ -64,9 +70,9 @@
     }
   },
   "tags": [
-    "neurons",
+    "neuron-structure",
     "neural-circuits",
-    "sensory-motor"
+    "practical"
   ],
   "status": "approved"
 }

@@ -7,22 +7,40 @@
   "category": "neuroscience",
   "topic": "concentration-electrical-gradients",
   "difficulty": "beginner",
-  "example": "Predict K+ movement in a model cell: K+ starts more concentrated inside, and only K+ channels are open. K+ initially leaves by diffusion. The negative charge left inside then attracts K+ inward until the electrical and concentration forces balance.",
+  "example": "Suppose K+ is more concentrated inside a neuron and a K+-permeable channel opens. Diffusion initially drives K+ outward. As positive charge leaves, the increasingly negative interior electrically attracts K+ inward, opposing further loss.",
   "content": {
     "en": {
       "title": "Two Gradients Drive Ion Movement",
-      "learning_objective": "Explain how concentration and electrical gradients combine to determine the net movement of an ion across a membrane.",
-      "simple_explanation": "An ion near a neuronal membrane can face two forces. A concentration gradient drives it from higher concentration toward lower concentration. An electrical gradient attracts it toward opposite charge and repels it from like charge. Ion movement also requires a channel that the ion can cross.",
-      "how_it_works": "Suppose K+ is concentrated inside a model cell and K+ channels open. K+ first diffuses outward. Impermeable negative ions remain inside, so the inner membrane surface becomes negative. That electrical difference pulls K+ inward. At the K+ equilibrium potential, the outward concentration force and inward electrical force are equal and opposite, so net K+ movement stops.",
-      "visual": "K+ high inside\n      ↓ concentration force\nK+ moves out\n      ↑ electrical force\nEqual forces → no net movement",
-      "use_case": "When interpreting a membrane-potential diagram, first identify the ion's concentration difference and charge. Then predict the concentration force, the electrical force, and whether a suitable channel is available.",
-      "expected_result": "In the K+ model, opening K+ channels produces an initial outward K+ flow and a negative voltage inside. Net flow stops when the two forces balance.",
-      "what_to_notice": "Equilibrium does not mean that the concentration difference disappears. A very small redistribution of ions can create enough voltage to oppose further net movement, while the bulk solutions remain nearly electrically neutral.",
-      "common_mistake": "Do not predict ion movement from concentration alone. Membrane voltage, ion charge, and channel availability can reinforce, oppose, or prevent that movement.",
-      "practical_tip": "Draw two separate arrows—one for the concentration force and one for the electrical force—before deciding the net direction.",
+      "learning_objective": "Predict an ion's initial movement by considering both its concentration gradient and the electrical force on its charge.",
+      "simple_explanation": "An ion crossing an open channel feels two influences. A concentration gradient drives net diffusion from higher concentration toward lower concentration. An electrical gradient attracts the ion toward opposite charge and repels it from like charge.",
+      "how_it_works": "Random motion produces diffusion down a concentration gradient, but ions also carry charge. Voltage therefore exerts an electrical force whose direction depends on the ion's sign. These forces may reinforce or oppose each other. An open channel supplies a path; it does not by itself guarantee net movement.",
+      "visual": "Concentration force: K+ → outside\nElectrical force:    K+ ← inside\nOpposing forces\n→ net flow slows, then can stop",
+      "use_case": "When analyzing a membrane diagram, first mark where the ion is more concentrated. Then mark which side is electrically attractive to that ion. Combine the two arrows to predict net movement.",
+      "expected_result": "With K+ concentrated inside and the interior becoming negative, K+ first moves outward, but its net outward movement decreases as the inward electrical force grows.",
+      "what_to_notice": "Equal concentration is not required for net movement to stop. Opposing concentration and electrical forces can balance while the concentrations remain unequal.",
+      "common_mistake": "Predicting ion movement from concentration alone, or assuming that an open channel forces ions to cross indefinitely.",
+      "practical_tip": "Draw separate arrows for concentration and electrical forces before drawing one net-movement arrow.",
       "question": "K+ is more concentrated inside a cell and only K+ channels are open. Why does net outward K+ movement eventually stop?",
-      "answer": "K+ leaving makes the inside negative, creating an inward electrical force that eventually balances the outward concentration force."
+      "answer": "Outward diffusion leaves the inside more negative, creating an inward electrical force on K+ that eventually balances the concentration force."
     }
+  },
+  "review_items": [
+    {
+      "question": "What two forces influence an ion moving through an open membrane channel?",
+      "answer": "Its concentration gradient and the electrical force produced by voltage."
+    },
+    {
+      "question": "Why can net ion movement stop before concentrations become equal?",
+      "answer": "The electrical force can oppose and balance the concentration-driven force."
+    },
+    {
+      "question": "A positive ion is more concentrated inside, and the inside is negative. What must you compare before predicting its net direction?",
+      "answer": "Compare its outward concentration force with its inward electrical force."
+    }
+  ],
+  "active_exercise": {
+    "instruction": "Draw a four-line causal diagram for K+ with high concentration inside and an open K+ channel: show outward diffusion, positive charge leaving, the interior becoming negative, and increasing inward electrical attraction. Add a final prediction for when net flow stops.",
+    "output": "Save one annotated causal diagram titled `K+ opposing gradients`."
   },
   "study_plan": {
     "course_day": 9,
@@ -30,7 +48,7 @@
     "study_duration_minutes": 60,
     "source_id": "exploring-brain-4e",
     "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
-    "source_locator": "PDF pages 103–105 — Pages 97–120",
+    "source_locator": "Book pages 66–68 (PDF viewer pages 103–105)",
     "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
     "online_resource": {
       "title": "OpenStax — Nervous Tissue",
@@ -60,17 +78,17 @@
       {
         "minutes": 21,
         "activity": "Source study",
-        "en": "Study PDF pages 103–105 — Pages 97–120. Stop when this time box ends, even if you want to continue."
+        "en": "Study Book pages 66–68 (PDF viewer pages 103–105). Stop when this time box ends, even if you want to continue."
       },
       {
         "minutes": 19,
-        "activity": "Explain",
-        "en": "Write three sentences explaining the causal chain in your own words."
+        "activity": "Active exercise",
+        "en": "Complete the topic-specific active exercise in today’s Discord card and save its stated output."
       },
       {
         "minutes": 5,
         "activity": "Check",
-        "en": "Answer the recall question, then correct only what was missing."
+        "en": "Complete all three recall checks, then correct only what was missing."
       }
     ],
     "study_output": {
@@ -78,9 +96,9 @@
     }
   },
   "tags": [
-    "membrane-potential",
-    "ion-gradients",
-    "equilibrium-potential"
+    "neuronal-membrane",
+    "ion-movement",
+    "electrochemical-gradient"
   ],
   "status": "approved"
 }
