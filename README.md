@@ -50,7 +50,7 @@ Use an SSH remote or a credential helper so unattended `git pull` and `git push`
 
 ## 2. Create the Discord webhooks
 
-Create four Discord text channels (names are suggestions), then open **Server Settings → Integrations → Webhooks → New Webhook** and create one webhook for each channel:
+Create the Discord text channels you want, then open **Server Settings → Integrations → Webhooks → New Webhook** and create one webhook for each enabled channel:
 
 | Stream | Suggested channel | GitHub secret |
 |---|---|---|
@@ -58,6 +58,7 @@ Create four Discord text channels (names are suggestions), then open **Server Se
 | `ai` | `#daily-ai` | `DISCORD_WEBHOOK_AI` |
 | `dev` | `#daily-dev` | `DISCORD_WEBHOOK_DEV` |
 | `mlops` | `#daily-mlops` | `DISCORD_WEBHOOK_MLOPS` |
+| `neuroscience` | `#daily-neuroscience` | `DISCORD_WEBHOOK_NEUROSCIENCE` |
 
 Copy each webhook URL separately. Do not put URLs in a file or commit them. Stream behavior lives in `config/channels.json`; `webhook_env` stores only the environment-variable name.
 
@@ -78,7 +79,7 @@ python3 scripts/send_discord.py --today --all --dry-run
 
 ## 3. Configure GitHub
 
-Push this project to GitHub. In **Repository Settings → Secrets and variables → Actions**, add all four secrets from the table above. The workflow runs at 00:15 Asia/Yangon (17:45 UTC), validates all cards, locates one card for each `(stream, Yangon date)`, preflights every stream, and then posts each card to its webhook. A missing card or secret fails before any message is sent.
+Push this project to GitHub. In **Repository Settings → Secrets and variables → Actions**, add the secrets for every enabled stream. The neuroscience stream ships disabled until its source-grounded plan and initial cards are ready. The workflow runs at 00:15 Asia/Yangon (17:45 UTC), validates all cards, locates one card for each `(stream, Yangon date)`, preflights every enabled stream, and then posts each card to its webhook. A missing card or secret fails before any message is sent.
 
 Under **Actions → Send daily learning card → Run workflow**, optionally enter a sample date such as `2026-08-10`. This performs a real post. GitHub may delay scheduled workflows during load, but date lookup remains based on Asia/Yangon.
 
@@ -112,7 +113,66 @@ The runner prints a heartbeat every 30 seconds. Override that interval with `COD
 
 To add a card manually, copy a nearby JSON file into the correct category, choose a unique ID and unused ISO date, update `state/topics.json`, then run validation and a dry-run preview. Scheduled cards require dates; approved imported cards may remain undated until you place them in the delivery calendar.
 
-## 5. Enable the user systemd timer
+## 5. Prepare the six-month neuroscience course
+
+The neuroscience stream is a locked 182-day BCI and neuroengineering course. Its cards are English-only. Every Discord message contains a teaching-focused lesson and an exact 60-minute assignment, plus clickable links to the assigned book source and one curated free online companion. The online companion is optional and does not increase the required study time. Its weekly rhythm is five concept days, one practical day, and one lighter review day.
+
+Reading ranges are allocated by extracted workload rather than page count alone. The scanner measures words, equation-like lines, figure/table references, and code, then the plan gives dense pages smaller ranges and adjusts source-study time between 18 and 30 minutes while keeping the entire session at 60 minutes. Sundays contain five spoiler-answer self-check questions: three from the current week plus increasingly spaced earlier concepts. The calendar never pauses or shifts based on the self-score.
+
+Online companions are configured in `config/neuroscience_online_resources.json`. Check their availability locally when desired (network failures do not block daily GitHub Actions):
+
+```bash
+python scripts/check_neuroscience_links.py
+```
+
+Obtain these exact resources legally and place PDF or EPUB files in a private local directory such as `~/Downloads/pdf_daily/neuroscience/`:
+
+- *Brain Facts: A Primer on the Brain and Nervous System* — [free official PDF](https://www.sfn.org/-/media/Brainfacts2/BrainFacts-Book/Brain-Facts-Book-2018-high-res.pdf)
+- *Neuroscience: Exploring the Brain, Fourth Edition* — [publisher](https://www.jblearning.com/catalog/productdetails/9780781778176)
+- *Neuronal Dynamics* — [official online book](https://neuronaldynamics.epfl.ch/online/)
+- *Analyzing Neural Time Series Data: Theory and Practice* — [MIT Press](https://mitpress.mit.edu/9780262019873/analyzing-neural-time-series-data/)
+- *Brain–Computer Interfaces: Principles and Practice* — [Oxford Academic](https://academic.oup.com/book/1700)
+
+PDFs receive exact page ranges. EPUBs receive stable chapter/section locators because EPUB page numbers vary by reader. The scanner is non-recursive, accepts at most 20 files, keeps extracted text under ignored `.generated/`, and reports unrecognized or missing books:
+
+```bash
+mkdir -p ~/Downloads/pdf_daily/neuroscience
+python3 scripts/neuroscience_sources.py scan \
+  ~/Downloads/pdf_daily/neuroscience
+python3 scripts/neuroscience_sources.py status
+```
+
+Build and inspect the full course without enabling Discord:
+
+```bash
+python3 scripts/build_neuroscience_plan.py
+python3 scripts/neuroscience_status.py --next 14
+```
+
+Before activation, create `#daily-neuroscience` and add `DISCORD_WEBHOOK_NEUROSCIENCE` to GitHub Actions secrets. Activation defaults to the next Monday. To deliberately shift the complete seven-day learning cycle, an explicit non-Monday date requires `--allow-midweek`:
+
+```bash
+python3 scripts/activate_neuroscience_plan.py
+# or: python3 scripts/activate_neuroscience_plan.py --start-date 2026-08-17
+# shifted cycle: python3 scripts/activate_neuroscience_plan.py --start-date 2026-08-11 --allow-midweek
+```
+
+Activation changes tracked plan/configuration files. Generate the initial 14-card buffer directly before committing, so GitHub never sees an enabled but empty stream:
+
+```bash
+python3 scripts/generation_runner.py --plan
+python3 scripts/generation_runner.py --stream neuroscience
+python3 scripts/validate_cards.py
+python3 scripts/neuroscience_status.py --next 14
+python3 scripts/send_discord.py --stream neuroscience --date YYYY-MM-DD --dry-run
+git add config cards state README.md AGENTS.md scripts prompts .github
+git commit -m "feat: add daily neuroscience course"
+git push
+```
+
+After initial activation, the normal systemd-driven `generate.sh` replenishes neuroscience together with the other streams. If a source file changes, generation stops until you rescan and rebuild rather than silently using incorrect pages.
+
+## 6. Enable the user systemd timer
 
 No root access is required:
 
@@ -135,7 +195,7 @@ journalctl --user -u daily-learning-generate.service -n 100
 
 If this repository is elsewhere, edit both `WorkingDirectory` and `ExecStart` in the installed service. For timers to run before login, Ubuntu can optionally enable user lingering with `loginctl enable-linger "$USER"`; this is not necessary if catching up after login is sufficient.
 
-## 6. Import private/local study sources
+## 7. Import private/local study sources
 
 Supported: PDF, EPUB, Jupyter notebook, Markdown, text, and Python. Extraction is separate from generation. Use only sources you are legally permitted to process. Keep purchased/private books outside this repository and never commit them.
 
@@ -193,6 +253,7 @@ Imported material may be private. Only candidate JSON and import history are can
 - **No card today:** run `python3 scripts/card_status.py`; create/schedule the missing `(stream, date)`, validate, commit, and push. The Action intentionally sends nothing if preflight fails.
 - **Codex creates nothing:** inspect `.generated/curriculum/*/jobs/*/codex.log`, confirm Codex authentication, and run `python3 scripts/generation_runner.py --plan`. Valid completed jobs are reused automatically on retry.
 - **PDF has no text:** it is probably scanned; OCR it outside this project and import the resulting text/PDF.
+- **Neuroscience plan will not build:** run `python3 scripts/neuroscience_sources.py status`; provide every required exact edition and rescan. The builder intentionally refuses guessed locators.
 - **Timer fails:** inspect `journalctl --user -u daily-learning-generate.service`; verify the repo path, executable bit, network, Codex login, and Git credentials.
 - **Push is rejected:** manually reconcile remote changes; automation intentionally uses only `git pull --ff-only`.
 - **Discord HTTP error:** verify the corresponding stream's Actions secret and webhook channel permissions. Never print the secret.

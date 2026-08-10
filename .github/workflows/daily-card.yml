@@ -28,6 +28,7 @@ jobs:
       DISCORD_WEBHOOK_AI: ${{ secrets.DISCORD_WEBHOOK_AI }}
       DISCORD_WEBHOOK_DEV: ${{ secrets.DISCORD_WEBHOOK_DEV }}
       DISCORD_WEBHOOK_MLOPS: ${{ secrets.DISCORD_WEBHOOK_MLOPS }}
+      DISCORD_WEBHOOK_NEUROSCIENCE: ${{ secrets.DISCORD_WEBHOOK_NEUROSCIENCE }}
     steps:
       - uses: actions/checkout@v4
       - name: Validate all cards

@@ -68,7 +68,7 @@ def nullable(schema: dict[str, Any]) -> dict[str, Any]:
     return {"anyOf": [schema, {"type": "null"}]}
 
 
-def output_schema(card_count: int) -> dict[str, Any]:
+def output_schema(card_count: int, stream: str | None = None) -> dict[str, Any]:
     """Build a strict structured-output schema for curriculum cards."""
     rich_fields = {
         "title": {"type": "string"},
@@ -97,10 +97,55 @@ def output_schema(card_count: int) -> dict[str, Any]:
         "my": nullable({"type": "string"}),
     }
     review_fields = {"question": {"type": "string"}, "answer": {"type": "string"}}
+    english_only = stream == "neuroscience"
+    task_fields = {
+        "minutes": {"type": "integer", "minimum": 1},
+        "activity": {"type": "string"},
+        "en": {"type": "string"},
+    }
+    if not english_only:
+        task_fields["my"] = {"type": "string"}
+    output_fields = {"en": {"type": "string"}}
+    if not english_only:
+        output_fields["my"] = {"type": "string"}
+    online_fields = {"title": {"type": "string"}, "url": {"type": "string"}, "note": {"type": "string"}}
+    workload_fields = {
+        "estimated_reading_minutes": {"type": "integer", "minimum": 18, "maximum": 30},
+        "raw_text_minutes": {"type": "number", "minimum": 0},
+        "density": {"type": "string", "enum": ["low", "medium", "high"]},
+        "word_count": {"type": "integer", "minimum": 0},
+        "equation_lines": {"type": "integer", "minimum": 0},
+        "figure_table_refs": {"type": "integer", "minimum": 0},
+        "code_lines": {"type": "integer", "minimum": 0},
+    }
+    assessment_item_fields = {"course_day": {"type": "integer"}, "topic": {"type": "string"}, "module": {"type": "string"}, "review_age_days": {"type": "integer"}}
+    assessment_fields = {
+        "mode": {"type": "string", "const": "self-check"},
+        "score_max": {"type": "integer", "const": 5},
+        "items": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"type": "object", "properties": assessment_item_fields, "required": list(assessment_item_fields), "additionalProperties": False}},
+        "rubric": {"type": "string"},
+    }
+    study_fields = {
+        "course_day": {"type": "integer", "minimum": 1, "maximum": 182},
+        "course_week": {"type": "integer", "minimum": 1, "maximum": 26},
+        "study_duration_minutes": {"type": "integer", "const": 60},
+        "source_id": {"type": "string"},
+        "source_title": {"type": "string"},
+        "source_locator": {"type": "string"},
+        "source_url": {"type": "string"},
+        "online_resource": nullable({"type": "object", "properties": online_fields, "required": list(online_fields), "additionalProperties": False}),
+        "workload": nullable({"type": "object", "properties": workload_fields, "required": list(workload_fields), "additionalProperties": False}),
+        "assessment": nullable({"type": "object", "properties": assessment_fields, "required": list(assessment_fields), "additionalProperties": False}),
+        "tasks": {
+            "type": "array",
+            "items": {"type": "object", "properties": task_fields, "required": list(task_fields), "additionalProperties": False},
+        },
+        "study_output": {"type": "object", "properties": output_fields, "required": list(output_fields), "additionalProperties": False},
+    }
     card_fields: dict[str, Any] = {
         "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
         "stream": {"type": "string"},
-        "language": {"type": "string", "const": "bilingual"},
+        "language": {"type": "string", "const": "en" if english_only else "bilingual"},
         "sequence": {"type": "integer", "minimum": 1},
         "date": {"type": "string"},
         "category": {"type": "string"},
@@ -119,8 +164,8 @@ def output_schema(card_count: int) -> dict[str, Any]:
         "example": {"type": "string"},
         "content": {
             "type": "object",
-            "properties": {"en": rich_language, "my": rich_language},
-            "required": ["en", "my"],
+            "properties": ({"en": rich_language} if english_only else {"en": rich_language, "my": rich_language}),
+            "required": (["en"] if english_only else ["en", "my"]),
             "additionalProperties": False,
         },
         "review_items": nullable({
@@ -131,6 +176,12 @@ def output_schema(card_count: int) -> dict[str, Any]:
                 "required": list(review_fields),
                 "additionalProperties": False,
             },
+        }),
+        "study_plan": nullable({
+            "type": "object",
+            "properties": study_fields,
+            "required": list(study_fields),
+            "additionalProperties": False,
         }),
         "tags": {"type": "array", "minItems": 1, "items": {"type": "string"}},
         "status": {"type": "string", "const": "approved"},
@@ -159,7 +210,7 @@ def output_schema(card_count: int) -> dict[str, Any]:
 
 def strip_nullable_fields(card: dict[str, Any]) -> dict[str, Any]:
     """Remove structured-output null placeholders before project validation."""
-    for field in ("command", "flags", "review_items"):
+    for field in ("command", "flags", "review_items", "study_plan"):
         if card.get(field) is None:
             card.pop(field, None)
     for flag in card.get("flags", []):
@@ -167,6 +218,13 @@ def strip_nullable_fields(card: dict[str, Any]) -> dict[str, Any]:
             for field in tuple(flag):
                 if flag[field] is None:
                     flag.pop(field)
+    plan = card.get("study_plan")
+    if isinstance(plan, dict) and plan.get("online_resource") is None:
+        plan.pop("online_resource", None)
+    if isinstance(plan, dict):
+        for field in ("workload", "assessment"):
+            if plan.get(field) is None:
+                plan.pop(field, None)
     return card
 
 
@@ -276,7 +334,7 @@ def run_job(
     prompt = build_prompt(list(job.slots), job.stream)
     prompt_path.write_text(prompt, encoding="utf-8")
     schema_path.write_text(
-        json.dumps(output_schema(len(job.slots)), ensure_ascii=False, indent=2),
+        json.dumps(output_schema(len(job.slots), job.stream), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     command = [
@@ -435,6 +493,7 @@ def main() -> int:
     parser.add_argument("--plan", action="store_true", help="show planned jobs without calling Codex")
     parser.add_argument("--count-only", action="store_true", help="print only the missing-card count")
     parser.add_argument("--target", type=int, help="override every stream's configured buffer target")
+    parser.add_argument("--stream", choices=load_channels().keys(), help="generate only one configured stream")
     args = parser.parse_args()
     try:
         concurrency = positive_env("CODEX_GENERATION_CONCURRENCY", 2)
@@ -446,7 +505,7 @@ def main() -> int:
         print(exc, file=sys.stderr)
         return 2
 
-    slots = missing_slots(args.target)
+    slots = missing_slots(args.target, stream_filter=args.stream)
     if args.count_only:
         print(len(slots))
         return 0

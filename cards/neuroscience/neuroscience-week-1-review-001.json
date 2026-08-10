@@ -1,0 +1,133 @@
+{
+  "id": "neuroscience-week-1-review-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 7,
+  "date": "2026-08-17",
+  "category": "neuroscience",
+  "topic": "review-cells-and-nervous-system",
+  "difficulty": "beginner",
+  "example": "Predict the path from touching a hot surface to withdrawing your hand: sensory neurons detect the change, nervous-system circuits process it, and motor output commands muscles; glia support the cells that make this signaling possible.",
+  "content": {
+    "en": {
+      "title": "Review: Cells and the Nervous System",
+      "learning_objective": "Connect specialized nervous-system cells, neuron structure, glial support, information flow, and nervous-system divisions in one causal model.",
+      "simple_explanation": "The brain works because specialized cells act both individually and together. Neurons perform most information processing: they detect changes, communicate, and command responses. Glia help neurons function by insulating, supporting, and nourishing them.",
+      "how_it_works": "A stimulus changes sensory input. A neuron receives input mainly through dendrites, integrates it near the soma, and sends output along its axon. Other neurons carry and process the signal, while glia maintain conditions that support this activity. Peripheral pathways connect the body to central processing and carry commands back to the body.",
+      "visual": "stimulus → sensory neuron\n        ↓\ncentral processing\n        ↓\nmotor neuron → response\nglia support every stage",
+      "use_case": "While drawing this week's concept map, trace a hot-surface withdrawal from stimulus to response and label where neuron parts, glia, the peripheral nervous system, and the central nervous system contribute.",
+      "expected_result": "The map forms one causal chain rather than five disconnected definitions.",
+      "what_to_notice": "Each concept answers a different question: what detects and carries information, how one neuron is organized, what sustains signaling, and where signals travel.",
+      "common_mistake": "Do not describe glia as inert filler. Their insulation, support, and nourishment affect whether neighboring neurons can function properly.",
+      "practical_tip": "Answer each review question with a mechanism using “because” or “therefore,” then repair only the links you cannot explain.",
+      "question": "How do neurons, glia, and nervous-system divisions cooperate to turn a stimulus into a response?",
+      "answer": "Neurons detect, process, and carry signals; glia support their function; peripheral pathways connect the body with central processing and carry output to effectors."
+    }
+  },
+  "review_items": [
+    {
+      "question": "Why does the brain require specialized cells rather than one cell type performing every task?",
+      "answer": "Different cells divide the work: neurons detect, communicate, and command responses, while coordinated specialization lets the organ perform complex functions."
+    },
+    {
+      "question": "How can glial support change neuronal signaling even when glia are not carrying the main information output?",
+      "answer": "Glia insulate, nourish, and support neurons, so they maintain conditions needed for reliable neuronal function."
+    },
+    {
+      "question": "Trace the causal path from an environmental stimulus to a bodily response.",
+      "answer": "A sensory neuron detects change, neurons communicate and process it, and output neurons command the body's response."
+    },
+    {
+      "question": "How does neuron structure support directed information flow?",
+      "answer": "Dendrites receive input, the soma contains the nucleus and integrates cellular activity, and the axon carries output toward other cells."
+    },
+    {
+      "question": "How do the peripheral and central nervous systems cooperate during a response?",
+      "answer": "Peripheral pathways carry sensory information to central circuits, which process it and send motor commands back through peripheral pathways."
+    }
+  ],
+  "study_plan": {
+    "course_day": 7,
+    "course_week": 1,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "Review Week 1 assignments — no new pages",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "assessment": {
+      "mode": "self-check",
+      "score_max": 5,
+      "items": [
+        {
+          "course_day": 1,
+          "topic": "Why the brain needs specialized cells",
+          "module": "Cells and the nervous system",
+          "review_age_days": 6
+        },
+        {
+          "course_day": 3,
+          "topic": "Glial cells as active support systems",
+          "module": "Cells and the nervous system",
+          "review_age_days": 4
+        },
+        {
+          "course_day": 5,
+          "topic": "From stimulus to response",
+          "module": "Cells and the nervous system",
+          "review_age_days": 2
+        },
+        {
+          "course_day": 2,
+          "topic": "Neuron structure and information flow",
+          "module": "Cells and the nervous system",
+          "review_age_days": 5
+        },
+        {
+          "course_day": 4,
+          "topic": "Central and peripheral nervous systems",
+          "module": "Cells and the nervous system",
+          "review_age_days": 3
+        }
+      ],
+      "rubric": "Give yourself one point for each answer that states the correct mechanism, not merely a related keyword."
+    },
+    "tasks": [
+      {
+        "minutes": 20,
+        "activity": "Self-assessment",
+        "en": "Answer all five Week 1 questions without notes, then score one point per correct answer."
+      },
+      {
+        "minutes": 15,
+        "activity": "Repair",
+        "en": "Open the spoiler answers, revisit only missed ideas, and correct your mental model."
+      },
+      {
+        "minutes": 20,
+        "activity": "Synthesize",
+        "en": "Create one diagram connecting the week’s five concepts."
+      },
+      {
+        "minutes": 5,
+        "activity": "Preview",
+        "en": "Read next week’s module title; do not study it yet."
+      }
+    ],
+    "study_output": {
+      "en": "Keep one weekly concept map and a list of remaining questions."
+    }
+  },
+  "tags": [
+    "neuroscience",
+    "neurons",
+    "glia",
+    "nervous-system",
+    "review"
+  ],
+  "status": "approved"
+}

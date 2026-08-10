@@ -1,0 +1,73 @@
+{
+  "id": "neuroscience-membrane-permeability-model-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 13,
+  "date": "2026-08-23",
+  "category": "neuroscience",
+  "topic": "practical-membranes-ions-electrical-gradients",
+  "difficulty": "beginner",
+  "example": "Create a small table with columns for ion, concentration difference, charge, and channel permeability. Increase one ion's permeability while holding the other entries constant, then predict how its influence on membrane voltage changes.",
+  "content": {
+    "en": {
+      "title": "Practical: Model Selective Permeability",
+      "learning_objective": "Build a simple model that predicts how changing ion permeability changes an ion's influence on membrane voltage.",
+      "simple_explanation": "The phospholipid bilayer blocks water-soluble ions. A selective ion channel provides a pore for a particular ion. Permeability describes how readily that ion can cross the membrane through available channels.",
+      "how_it_works": "An ion contributes movement only when the membrane is permeable to it and a driving force exists. A concentration difference drives diffusion, while voltage exerts force on charged ions. Increasing permeability strengthens that ion's possible contribution; it does not determine direction by itself.",
+      "visual": "bilayer blocks ions\n      ↓\nselective channel opens\n      ↓\ngradients drive ion movement\n      ↓\ncharge movement changes voltage",
+      "use_case": "In a spreadsheet or Python notebook, keep the concentration and electrical conditions fixed. Raise the permeability assigned to one ion from low to high and record the predicted voltage shift or influence.",
+      "expected_result": "The modeled membrane voltage becomes more strongly influenced by the ion whose permeability was increased.",
+      "what_to_notice": "Permeability controls access across the barrier. The concentration and electrical gradients still determine whether net movement occurs and in which direction.",
+      "common_mistake": "Assuming that an open channel automatically causes net ion flow. Without a driving gradient, an available pore alone is insufficient.",
+      "practical_tip": "Change one permeability at a time and label every fixed assumption. This makes the cause of each model result visible.",
+      "question": "Why can increasing an ion's permeability change membrane voltage without determining the direction of ion flow by itself?",
+      "answer": "Permeability changes access through the membrane, but concentration and electrical gradients determine the direction and strength of net ion movement."
+    }
+  },
+  "study_plan": {
+    "course_day": 13,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "Practice for Week 2 — Membranes, ions and electrical gradients",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Recall the week’s central mechanism without notes."
+      },
+      {
+        "minutes": 10,
+        "activity": "Prepare",
+        "en": "Read the practical briefing and define the expected result."
+      },
+      {
+        "minutes": 40,
+        "activity": "Practice",
+        "en": "Build a small spreadsheet or Python model showing how changing ion permeability changes membrane voltage."
+      },
+      {
+        "minutes": 5,
+        "activity": "Lab log",
+        "en": "Record what happened, what you noticed, and one unanswered question."
+      }
+    ],
+    "study_output": {
+      "en": "Save one diagram, notebook result, or experiment log entry."
+    }
+  },
+  "tags": [
+    "neuronal-membrane",
+    "ion-permeability",
+    "membrane-voltage",
+    "practical-model"
+  ],
+  "status": "approved"
+}

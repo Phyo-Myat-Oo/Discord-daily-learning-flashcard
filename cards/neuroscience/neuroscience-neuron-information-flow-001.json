@@ -1,0 +1,87 @@
+{
+  "id": "neuroscience-neuron-information-flow-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 2,
+  "date": "2026-08-12",
+  "category": "neuroscience",
+  "topic": "neuron-structure-and-information-flow",
+  "difficulty": "beginner",
+  "example": "Trace a signal between two cells: an axon from neuron A contacts a dendrite of neuron B; the cells communicate at that contact but remain separate cells.",
+  "content": {
+    "en": {
+      "title": "Neuron Structure Guides Information Flow",
+      "learning_objective": "Trace incoming information from another neuron's axon to a receiving neuron's dendrite while recognizing that the two cells remain separate.",
+      "simple_explanation": "Dendrites are branching neurites that contact many axons. Early histologists therefore described them as neuronal “antennae” that receive incoming signals, or input.",
+      "how_it_works": "An axon from one neuron reaches a dendrite of another. Their neurites approach and communicate by contact, but they do not fuse into one continuous network. This preserves the neuron as an individual functional unit while allowing neurons to form circuits.",
+      "visual": "Neuron A axon\n      ↓ contact\nNeuron B dendrite\n      ↓\nincoming signal to B\n(cells remain separate)",
+      "use_case": "When interpreting a drawing of brain circuitry, follow axons to the dendrites they contact instead of assuming every touching line is one continuous cell.",
+      "expected_result": "You identify the receiving neuron from the dendrite at the contact and keep the two neurons as distinct units.",
+      "what_to_notice": "Physical closeness permits communication without structural continuity. This distinction is the core of the neuron doctrine described in the source.",
+      "common_mistake": "Assuming contacting neurites are fused because a microscope drawing makes them look continuous.",
+      "practical_tip": "On a circuit sketch, outline each neuron separately before drawing arrows for information flow.",
+      "question": "If an axon contacts a dendrite, what does the neuron doctrine say about the two neurons and the direction of input?",
+      "answer": "They remain separate cells; the dendrite receives input associated with the contacting axon."
+    }
+  },
+  "study_plan": {
+    "course_day": 2,
+    "course_week": 1,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 64–64 — Pages 61–72",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 18,
+      "raw_text_minutes": 5.3,
+      "density": "medium",
+      "word_count": 370,
+      "equation_lines": 0,
+      "figure_table_refs": 7,
+      "code_lines": 0
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about Neuron structure and information flow."
+      },
+      {
+        "minutes": 18,
+        "activity": "Source study",
+        "en": "Study PDF pages 64–64 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 22,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain Neuron structure and information flow in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "neurons",
+    "dendrites",
+    "axons",
+    "neuron-doctrine"
+  ],
+  "status": "approved"
+}

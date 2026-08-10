@@ -1,0 +1,269 @@
+{
+  "version": 1,
+  "course_title": "Neuroscience and BCI Foundations",
+  "online_resources": {
+    "brainfacts-core": {
+      "title": "BrainFacts.org — Core Concepts",
+      "url": "https://www.brainfacts.org/core-concepts",
+      "note": "Optional concept reinforcement from the Society for Neuroscience."
+    },
+    "neuronal-dynamics-online": {
+      "title": "Neuronal Dynamics — Free Online Book",
+      "url": "https://neuronaldynamics.epfl.ch/online/",
+      "note": "Optional interactive examples and exercises that accompany the modeling chapters."
+    },
+    "mne-tutorials": {
+      "title": "MNE-Python — Official Tutorials",
+      "url": "https://mne.tools/stable/auto_tutorials/index.html",
+      "note": "Optional executable tutorials for EEG processing and analysis."
+    },
+    "physionet-eeg": {
+      "title": "PhysioNet EEG Motor Movement/Imagery Dataset",
+      "url": "https://physionet.org/content/eegmmidb/1.0.0/",
+      "note": "Optional public EEG data for the later BCI practical exercises."
+    }
+  },
+  "source_companions": {
+    "brain-facts-2018": "brainfacts-core",
+    "exploring-brain-4e": "brainfacts-core",
+    "neuronal-dynamics": "neuronal-dynamics-online",
+    "neural-time-series": "mne-tutorials",
+    "bci-principles": "physionet-eeg"
+  },
+  "weeks": [
+    {
+      "week": 1,
+      "module": "Cells and the nervous system",
+      "source_id": "exploring-brain-4e",
+      "source_section_number": 6,
+      "section_keywords": ["cells", "neurons", "nervous system"],
+      "topics": ["Why the brain needs specialized cells", "Neuron structure and information flow", "Glial cells as active support systems", "Central and peripheral nervous systems", "From stimulus to response"],
+      "lab": "Draw and label a neuron, then trace one signal from a sensory receptor to a muscle."
+    },
+    {
+      "week": 2,
+      "module": "Membranes, ions and electrical gradients",
+      "source_id": "exploring-brain-4e",
+      "source_section_numbers": [9, 10],
+      "section_keywords": ["membrane", "ions", "resting potential"],
+      "topics": ["The cell membrane as an electrical boundary", "Concentration and electrical gradients", "Selective ion permeability", "The sodium-potassium pump", "How ion gradients create resting potential"],
+      "lab": "Build a small spreadsheet or Python model showing how changing ion permeability changes membrane voltage."
+    },
+    {
+      "week": 3,
+      "module": "Action potentials",
+      "source_id": "exploring-brain-4e",
+      "source_section_number": 11,
+      "section_keywords": ["action potential", "excitable membrane", "voltage gated"],
+      "topics": ["Threshold and all-or-none firing", "Voltage-gated sodium channels", "Repolarization through potassium channels", "Refractory periods and firing limits", "Myelin and saltatory conduction"],
+      "lab": "Plot the phases of an action potential and annotate which channels dominate each phase."
+    },
+    {
+      "week": 4,
+      "module": "Synapses and neurotransmitters",
+      "source_id": "exploring-brain-4e",
+      "source_section_number": 13,
+      "section_keywords": ["synaptic transmission", "neurotransmitter", "synapse"],
+      "topics": ["Electrical versus chemical synapses", "Neurotransmitter release", "Receptors and postsynaptic effects", "Excitation, inhibition and summation", "Clearing neurotransmitters from the synapse"],
+      "lab": "Create a causal diagram comparing excitatory and inhibitory synaptic input."
+    },
+    {
+      "week": 5,
+      "module": "Functional neuroanatomy",
+      "source_id": "exploring-brain-4e",
+      "source_section_number": 19,
+      "section_keywords": ["anatomy", "brain regions", "organization"],
+      "topics": ["Orientation terms and anatomical planes", "Cerebral cortex and its lobes", "Thalamus as a routing structure", "Basal ganglia and cerebellum", "Brainstem and spinal cord"],
+      "lab": "Label a brain diagram and describe one function without treating any region as working alone."
+    },
+    {
+      "week": 6,
+      "module": "Sensation and neural representation",
+      "source_id": "exploring-brain-4e",
+      "source_section_number": 39,
+      "section_keywords": ["sensory", "somatic", "perception"],
+      "topics": ["Sensory transduction", "Receptive fields", "Topographic maps", "Rate and temporal coding", "Adaptation and changing sensitivity"],
+      "lab": "Compare how stimulus intensity could be represented by firing rate and population activity."
+    },
+    {
+      "week": 7,
+      "module": "Motor systems",
+      "source_id": "exploring-brain-4e",
+      "source_section_number": 44,
+      "section_keywords": ["motor system", "movement", "motor cortex"],
+      "topics": ["Movement intention and motor planning", "Primary motor cortex", "Descending motor pathways", "Sensory feedback during movement", "Motor populations rather than single-neuron commands"],
+      "lab": "Trace the closed loop from movement intention through muscle action and sensory feedback."
+    },
+    {
+      "week": 8,
+      "module": "Plasticity, learning and memory",
+      "source_id": "exploring-brain-4e",
+      "source_section_number": 72,
+      "section_keywords": ["learning", "memory", "plasticity"],
+      "topics": ["Synaptic plasticity", "Hebbian learning", "Long-term potentiation", "Hippocampus and memory formation", "Consolidation and retrieval"],
+      "lab": "Explain a learning event at behavioral, circuit and synaptic levels."
+    },
+    {
+      "week": 9,
+      "module": "How neuroscience measures the brain",
+      "source_id": "brain-facts-2018",
+      "source_section_number": 10,
+      "section_keywords": ["tools", "methods", "imaging", "recording"],
+      "topics": ["What a scientific measurement represents", "Single-unit and multi-unit recording", "EEG and field potentials", "fMRI and indirect measurement", "Spatial versus temporal resolution"],
+      "lab": "Build a comparison table for EEG, fMRI and intracortical recording."
+    },
+    {
+      "week": 10,
+      "module": "Experiments, evidence and statistics",
+      "source_id": "brain-facts-2018",
+      "source_section_number": 10,
+      "section_keywords": ["research", "experiment", "science"],
+      "topics": ["Hypotheses and operational definitions", "Controls and confounding variables", "Trials, subjects and repeated measurements", "Effect size and uncertainty", "Correlation versus causal evidence"],
+      "lab": "Critique a hypothetical EEG experiment for leakage, confounding and unsupported claims."
+    },
+    {
+      "week": 11,
+      "module": "Modeling a single neuron",
+      "source_id": "neuronal-dynamics",
+      "source_section_number": 12,
+      "section_keywords": ["integrate and fire", "single neuron", "membrane"],
+      "topics": ["Why neuroscientists use models", "Leaky membrane integration", "Threshold and reset", "The leaky integrate-and-fire model", "What simplified neuron models omit"],
+      "lab": "Implement and plot a leaky integrate-and-fire neuron in Python."
+    },
+    {
+      "week": 12,
+      "module": "Spike trains and neural coding",
+      "source_id": "neuronal-dynamics",
+      "source_section_number": 16,
+      "section_keywords": ["spike trains", "neural code", "firing rate"],
+      "topics": ["Representing a spike train", "Inter-spike intervals", "Firing-rate codes", "Temporal codes", "Encoding versus decoding"],
+      "lab": "Generate synthetic spike trains and compare rate and timing features."
+    },
+    {
+      "week": 13,
+      "module": "Populations and neural dynamics",
+      "source_id": "neuronal-dynamics",
+      "source_section_number": 27,
+      "section_keywords": ["population", "network", "dynamics"],
+      "topics": ["Why populations carry robust information", "Population vectors", "Shared and private variability", "State-space views of neural activity", "Dynamics as evolving population state"],
+      "lab": "Visualize a small population response and decode a synthetic movement direction."
+    },
+    {
+      "week": 14,
+      "module": "Sampling and neural time series",
+      "source_id": "neural-time-series",
+      "source_section_number": 12,
+      "section_keywords": ["sampling", "time series", "data"],
+      "topics": ["Discrete samples of continuous signals", "Sampling rate and temporal resolution", "Aliasing", "Amplitude, phase and frequency", "Stationarity and changing signals"],
+      "lab": "Sample sine waves at several rates and demonstrate aliasing."
+    },
+    {
+      "week": 15,
+      "module": "Filtering without fooling yourself",
+      "source_id": "neural-time-series",
+      "source_section_number": 17,
+      "section_keywords": ["filter", "convolution", "signal processing"],
+      "topics": ["Why neural signals are filtered", "High-pass and low-pass filters", "Band-pass and notch filters", "Edge artifacts and phase distortion", "Choosing filters from the scientific question"],
+      "lab": "Filter a synthetic signal and inspect both the intended effect and edge artifacts."
+    },
+    {
+      "week": 16,
+      "module": "Spectra and oscillations",
+      "source_id": "neural-time-series",
+      "source_section_number": 12,
+      "section_keywords": ["fourier", "frequency", "spectral"],
+      "topics": ["Decomposing signals into frequencies", "Fourier transform intuition", "Power spectra", "Spectral leakage", "Why a frequency peak is not automatically a brain rhythm"],
+      "lab": "Calculate and interpret the power spectrum of a signal with known frequency components."
+    },
+    {
+      "week": 17,
+      "module": "EEG preprocessing and artifacts",
+      "source_id": "neural-time-series",
+      "source_section_number": 8,
+      "section_keywords": ["eeg", "artifact", "preprocessing"],
+      "topics": ["What scalp EEG measures", "Referencing choices", "Eye and muscle artifacts", "Epoching around events", "Baseline correction and artifact rejection"],
+      "lab": "Load sample EEG with MNE, inspect channels and mark an artifact without training a model."
+    },
+    {
+      "week": 18,
+      "module": "The complete BCI loop",
+      "source_id": "bci-principles",
+      "source_section_number": 3,
+      "section_keywords": ["brain computer interface", "definition", "overview"],
+      "topics": ["What makes a system a BCI", "Signal acquisition", "Feature extraction", "Translation algorithms", "Feedback and user adaptation"],
+      "lab": "Diagram a closed-loop BCI and identify the latency introduced by each component."
+    },
+    {
+      "week": 19,
+      "module": "Motor-imagery BCI",
+      "source_id": "bci-principles",
+      "source_section_number": 22,
+      "section_keywords": ["sensorimotor rhythms", "motor imagery", "movement"],
+      "topics": ["Motor imagery as a control paradigm", "Mu and beta rhythms", "Event-related desynchronization", "Common Spatial Patterns", "LDA as a strong baseline"],
+      "lab": "Run a CSP plus LDA baseline on a small PhysioNet motor-imagery subset."
+    },
+    {
+      "week": 20,
+      "module": "P300 and SSVEP interfaces",
+      "source_id": "bci-principles",
+      "source_section_number": 20,
+      "section_keywords": ["p300", "evoked potential", "ssvep"],
+      "topics": ["Event-related potentials", "Oddball paradigms and P300", "Averaging noisy trials", "Steady-state visual evoked potentials", "Speed, accuracy and user burden"],
+      "lab": "Compare motor imagery, P300 and SSVEP by training requirement, control speed and accessibility."
+    },
+    {
+      "week": 21,
+      "module": "Machine learning for EEG",
+      "source_id": "bci-principles",
+      "source_section_number": 15,
+      "section_keywords": ["machine learning", "classification", "translation algorithm"],
+      "topics": ["Trials, features and labels", "Within-subject versus cross-subject evaluation", "Data leakage in EEG windows", "EEGNet and compact convolutions", "When deep learning does not beat a baseline"],
+      "lab": "Design a leakage-resistant evaluation comparing CSP-LDA with a compact neural network."
+    },
+    {
+      "week": 22,
+      "module": "Real-time and adaptive BCI",
+      "source_id": "bci-principles",
+      "source_section_number": 28,
+      "section_keywords": ["real time", "adaptation", "feedback"],
+      "topics": ["Offline accuracy versus online control", "Latency and update rate", "Calibration", "Decoder drift", "Co-adaptation between user and decoder"],
+      "lab": "Simulate a streaming decoder and measure the accuracy-latency tradeoff."
+    },
+    {
+      "week": 23,
+      "module": "Invasive neural recording",
+      "source_id": "bci-principles",
+      "source_section_number": 10,
+      "section_keywords": ["intracortical", "invasive", "electrode"],
+      "topics": ["EEG, ECoG and intracortical scales", "Microelectrodes and extracellular voltage", "Spikes versus local field potentials", "Channel count and information", "Signal quality versus surgical risk"],
+      "lab": "Compare non-invasive and invasive interfaces without assuming that more channels always mean better control."
+    },
+    {
+      "week": 24,
+      "module": "Implant engineering and Neuralink-style systems",
+      "source_id": "bci-principles",
+      "source_section_number": 26,
+      "section_keywords": ["implant", "electrode", "hardware"],
+      "topics": ["Flexible electrode arrays", "Low-noise neural front ends", "ADC, bandwidth and data rate", "Wireless power and communication", "Biocompatibility and long-term stability"],
+      "lab": "Estimate raw data rate for a multichannel implant and identify where compression or feature extraction could occur."
+    },
+    {
+      "week": 25,
+      "module": "Clinical evidence, safety and neuroethics",
+      "source_id": "bci-principles",
+      "source_section_number": 34,
+      "section_keywords": ["clinical", "ethical", "users", "future"],
+      "topics": ["Assistive goals and patient-centered outcomes", "Clinical trials and adverse events", "Reliability and abandonment", "Neural data privacy", "Claims, evidence and responsible communication"],
+      "lab": "Write a one-page risk-benefit analysis for a hypothetical implanted cursor-control BCI."
+    },
+    {
+      "week": 26,
+      "module": "Capstone: a reproducible motor-imagery decoder",
+      "source_id": "bci-principles",
+      "source_section_number": 35,
+      "section_keywords": ["evaluation", "performance", "research"],
+      "topics": ["Define a defensible research question", "Create a reproducible data pipeline", "Establish a classical baseline", "Evaluate across sessions or subjects", "Interpret errors and state limitations"],
+      "lab": "Finish a concise report with methods, results, limitations and one justified next experiment."
+    }
+  ]
+}

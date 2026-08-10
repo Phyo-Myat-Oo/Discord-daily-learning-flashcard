@@ -1,0 +1,86 @@
+{
+  "id": "neuroscience-stimulus-to-response-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 5,
+  "date": "2026-08-15",
+  "category": "neuroscience",
+  "topic": "from-stimulus-to-response",
+  "difficulty": "beginner",
+  "example": "In the source, an unexpected DNA arrangement prompted a question, direct nuclear injection changed the experimental conditions, and successful chromosomal integration provided an observable response.",
+  "content": {
+    "en": {
+      "title": "From Stimulus to Response",
+      "learning_objective": "Trace how a detected change can lead through processing and action to an observable response.",
+      "simple_explanation": "A stimulus is a detectable change. A response is what a system does because of that change. Between them, information must be detected, interpreted, and converted into action.",
+      "how_it_works": "The source illustrates this causal pattern through discovery. An observation—the unexpectedly ordered arrangement of injected gene copies—triggered a question about mechanism. Investigators changed the system by injecting DNA directly into cell nuclei, then measured integration. Evidence of homologous recombination connected the intervention to the observed result. The same reasoning separates an initiating event from the processes that produce an output.",
+      "visual": "Stimulus: observation\n↓ detection and question\nProcessing: test a mechanism\n↓\nResponse: measurable result",
+      "use_case": "While reading the source, label the unexpected DNA arrangement as the stimulus, the proposed recombination mechanism as the processing step, and chromosomal insertion as the measured response.",
+      "expected_result": "You produce a causal chain in which every arrow states what caused the next event.",
+      "what_to_notice": "A response is not merely the event after a stimulus. The intermediate mechanism explains why the response followed.",
+      "common_mistake": "Listing events in chronological order without identifying the causal mechanism between them.",
+      "practical_tip": "For each arrow in your diagram, complete the sentence: “This causes the next step because…”",
+      "question": "What must a stimulus-to-response explanation include between the initial change and the final output?",
+      "answer": "The detection and processing mechanism that causally converts the change into action."
+    }
+  },
+  "study_plan": {
+    "course_day": 5,
+    "course_week": 1,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 71–72 — Pages 61–72",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 18,
+      "raw_text_minutes": 7.2,
+      "density": "low",
+      "word_count": 1153,
+      "equation_lines": 0,
+      "figure_table_refs": 0,
+      "code_lines": 0
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about From stimulus to response."
+      },
+      {
+        "minutes": 18,
+        "activity": "Source study",
+        "en": "Study PDF pages 71–72 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 22,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain From stimulus to response in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "stimulus-response",
+    "causal-chain",
+    "mechanism"
+  ],
+  "status": "approved"
+}

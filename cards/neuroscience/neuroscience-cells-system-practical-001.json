@@ -1,0 +1,72 @@
+{
+  "id": "neuroscience-cells-system-practical-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 6,
+  "date": "2026-08-16",
+  "category": "neuroscience",
+  "topic": "practical-cells-and-the-nervous-system",
+  "difficulty": "beginner",
+  "example": "Predict the route for touching a hot surface: a sensory receptor detects the change, neurons carry and process the information, and an output command reaches a muscle that withdraws the hand.",
+  "content": {
+    "en": {
+      "title": "Practical: Trace a Nervous-System Signal",
+      "learning_objective": "Draw a neuron and use a causal diagram to trace one signal from a sensory receptor to a muscle response.",
+      "simple_explanation": "Neurons are specialized cells that detect environmental changes, communicate with other neurons, and command bodily responses. A neuron has dendrites that receive input, a soma containing the nucleus, and usually one axon that carries output.",
+      "how_it_works": "Begin with a sensory receptor that detects a stimulus. Show information passing into a neuron, through other neurons in a circuit, and toward an output neuron connected to a muscle. Label input near dendrites and output along the axon. Glia should be shown as supporting neighboring neurons, not as the main signal route.",
+      "visual": "stimulus → sensory receptor\n↓ neural circuit\noutput neuron\n↓\nmuscle → response",
+      "use_case": "Draw and label one neuron, then place it inside a larger route from a skin receptor to an arm muscle. Use arrows to predict the direction of information flow.",
+      "expected_result": "The diagram shows a continuous causal route from detected stimulus to muscle response, with neuron parts and arrow directions clearly labeled.",
+      "what_to_notice": "A single neuron is one cell in the route, while the response depends on multiple specialized cells working together as a circuit.",
+      "common_mistake": "Drawing dendrites and an axon correctly but leaving arrows unlabeled, so input and output cannot be distinguished.",
+      "practical_tip": "Before adding detail, draw the five-step route first. Then place neuron structures where they explain input or output.",
+      "question": "Why should a sensory-to-muscle diagram include both individual neuron parts and the larger circuit?",
+      "answer": "Neuron parts explain input and output within one cell; the circuit explains how multiple cells produce the response."
+    }
+  },
+  "study_plan": {
+    "course_day": 6,
+    "course_week": 1,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "Practice for Week 1 — Cells and the nervous system",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Recall the week’s central mechanism without notes."
+      },
+      {
+        "minutes": 10,
+        "activity": "Prepare",
+        "en": "Read the practical briefing and define the expected result."
+      },
+      {
+        "minutes": 40,
+        "activity": "Practice",
+        "en": "Draw and label a neuron, then trace one signal from a sensory receptor to a muscle."
+      },
+      {
+        "minutes": 5,
+        "activity": "Lab log",
+        "en": "Record what happened, what you noticed, and one unanswered question."
+      }
+    ],
+    "study_output": {
+      "en": "Save one diagram, notebook result, or experiment log entry."
+    }
+  },
+  "tags": [
+    "neurons",
+    "neural-circuits",
+    "sensory-motor"
+  ],
+  "status": "approved"
+}

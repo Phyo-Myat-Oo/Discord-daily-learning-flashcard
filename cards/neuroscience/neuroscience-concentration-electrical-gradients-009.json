@@ -1,0 +1,86 @@
+{
+  "id": "neuroscience-concentration-electrical-gradients-009",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 9,
+  "date": "2026-08-19",
+  "category": "neuroscience",
+  "topic": "concentration-electrical-gradients",
+  "difficulty": "beginner",
+  "example": "Predict K+ movement in a model cell: K+ starts more concentrated inside, and only K+ channels are open. K+ initially leaves by diffusion. The negative charge left inside then attracts K+ inward until the electrical and concentration forces balance.",
+  "content": {
+    "en": {
+      "title": "Two Gradients Drive Ion Movement",
+      "learning_objective": "Explain how concentration and electrical gradients combine to determine the net movement of an ion across a membrane.",
+      "simple_explanation": "An ion near a neuronal membrane can face two forces. A concentration gradient drives it from higher concentration toward lower concentration. An electrical gradient attracts it toward opposite charge and repels it from like charge. Ion movement also requires a channel that the ion can cross.",
+      "how_it_works": "Suppose K+ is concentrated inside a model cell and K+ channels open. K+ first diffuses outward. Impermeable negative ions remain inside, so the inner membrane surface becomes negative. That electrical difference pulls K+ inward. At the K+ equilibrium potential, the outward concentration force and inward electrical force are equal and opposite, so net K+ movement stops.",
+      "visual": "K+ high inside\n      ↓ concentration force\nK+ moves out\n      ↑ electrical force\nEqual forces → no net movement",
+      "use_case": "When interpreting a membrane-potential diagram, first identify the ion's concentration difference and charge. Then predict the concentration force, the electrical force, and whether a suitable channel is available.",
+      "expected_result": "In the K+ model, opening K+ channels produces an initial outward K+ flow and a negative voltage inside. Net flow stops when the two forces balance.",
+      "what_to_notice": "Equilibrium does not mean that the concentration difference disappears. A very small redistribution of ions can create enough voltage to oppose further net movement, while the bulk solutions remain nearly electrically neutral.",
+      "common_mistake": "Do not predict ion movement from concentration alone. Membrane voltage, ion charge, and channel availability can reinforce, oppose, or prevent that movement.",
+      "practical_tip": "Draw two separate arrows—one for the concentration force and one for the electrical force—before deciding the net direction.",
+      "question": "K+ is more concentrated inside a cell and only K+ channels are open. Why does net outward K+ movement eventually stop?",
+      "answer": "K+ leaving makes the inside negative, creating an inward electrical force that eventually balances the outward concentration force."
+    }
+  },
+  "study_plan": {
+    "course_day": 9,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 103–105 — Pages 97–120",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 21,
+      "raw_text_minutes": 16.3,
+      "density": "medium",
+      "word_count": 1571,
+      "equation_lines": 0,
+      "figure_table_refs": 14,
+      "code_lines": 0
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about Concentration and electrical gradients."
+      },
+      {
+        "minutes": 21,
+        "activity": "Source study",
+        "en": "Study PDF pages 103–105 — Pages 97–120. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 19,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain Concentration and electrical gradients in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "membrane-potential",
+    "ion-gradients",
+    "equilibrium-potential"
+  ],
+  "status": "approved"
+}

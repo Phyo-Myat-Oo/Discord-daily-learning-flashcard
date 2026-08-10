@@ -6,10 +6,10 @@
   "properties": {
     "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
     "stream": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
-    "language": {"enum": ["my", "bilingual"]},
+    "language": {"enum": ["my", "en", "bilingual"]},
     "sequence": {"type": "integer", "minimum": 1},
     "date": {"type": "string", "format": "date"},
-    "category": {"enum": ["linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "review"]},
+    "category": {"enum": ["linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "neuroscience", "review"]},
     "topic": {"type": "string"},
     "concept_key": {"type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"},
     "track": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
@@ -35,6 +35,72 @@
     "source_page": {"type": "integer", "minimum": 1},
     "source_cell": {"type": "integer", "minimum": 0},
     "needs_review": {"type": "boolean"},
+    "study_plan": {
+      "type": "object",
+      "required": ["course_day", "course_week", "study_duration_minutes", "source_id", "source_title", "source_locator", "tasks", "study_output"],
+      "properties": {
+        "course_day": {"type": "integer", "minimum": 1, "maximum": 182},
+        "course_week": {"type": "integer", "minimum": 1, "maximum": 26},
+        "study_duration_minutes": {"const": 60},
+        "source_id": {"type": "string"},
+        "source_title": {"type": "string"},
+        "source_locator": {"type": "string"},
+        "source_url": {"type": "string"},
+        "online_resource": {
+          "type": "object",
+          "required": ["title", "url", "note"],
+          "properties": {"title": {"type": "string"}, "url": {"type": "string", "format": "uri"}, "note": {"type": "string"}},
+          "additionalProperties": false
+        },
+        "workload": {
+          "type": "object",
+          "required": ["estimated_reading_minutes", "raw_text_minutes", "density", "word_count", "equation_lines", "figure_table_refs", "code_lines"],
+          "properties": {
+            "estimated_reading_minutes": {"type": "integer", "minimum": 18, "maximum": 30},
+            "raw_text_minutes": {"type": "number", "minimum": 0},
+            "density": {"enum": ["low", "medium", "high"]},
+            "word_count": {"type": "integer", "minimum": 0},
+            "equation_lines": {"type": "integer", "minimum": 0},
+            "figure_table_refs": {"type": "integer", "minimum": 0},
+            "code_lines": {"type": "integer", "minimum": 0}
+          },
+          "additionalProperties": false
+        },
+        "assessment": {
+          "type": "object",
+          "required": ["mode", "score_max", "items", "rubric"],
+          "properties": {
+            "mode": {"const": "self-check"},
+            "score_max": {"const": 5},
+            "items": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"type": "object", "required": ["course_day", "topic", "module", "review_age_days"], "properties": {"course_day": {"type": "integer"}, "topic": {"type": "string"}, "module": {"type": "string"}, "review_age_days": {"type": "integer"}}, "additionalProperties": false}},
+            "rubric": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        "tasks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["minutes", "activity", "en"],
+            "properties": {
+              "minutes": {"type": "integer", "minimum": 1},
+              "activity": {"type": "string"},
+              "en": {"type": "string"},
+              "my": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "study_output": {
+          "type": "object",
+          "required": ["en"],
+          "properties": {"en": {"type": "string"}, "my": {"type": "string"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "ai_review": {
       "type": "object",
       "required": ["status", "reviewed_at", "reviewer"],
@@ -47,7 +113,7 @@
     },
     "content": {
       "type": "object",
-      "required": ["en", "my"],
+      "required": ["en"],
       "properties": {
         "en": {"$ref": "#/$defs/richLanguage"},
         "my": {"$ref": "#/$defs/richLanguage"}
@@ -87,7 +153,7 @@
   },
   "allOf": [
     {
-      "if": {"properties": {"language": {"const": "bilingual"}}},
+      "if": {"properties": {"language": {"enum": ["en", "bilingual"]}}},
       "then": {"required": ["content"]},
       "else": {"required": ["title", "summary", "explanation", "use_case", "question", "answer"]}
     }

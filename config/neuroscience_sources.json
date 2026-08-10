@@ -1,0 +1,41 @@
+{
+  "sources": {
+    "brain-facts-2018": {
+      "title": "Brain Facts: A Primer on the Brain and Nervous System",
+      "required": true,
+      "aliases": ["brain facts", "brainfacts"],
+      "official_url": "https://www.sfn.org/-/media/Brainfacts2/BrainFacts-Book/Brain-Facts-Book-2018-high-res.pdf"
+    },
+    "exploring-brain-4e": {
+      "title": "Neuroscience: Exploring the Brain, Fourth Edition",
+      "required": true,
+      "aliases": ["neuroscience exploring the brain", "exploring the brain", "bear connors paradiso"],
+      "official_url": "https://www.jblearning.com/catalog/productdetails/9780781778176"
+    },
+    "neuronal-dynamics": {
+      "title": "Neuronal Dynamics",
+      "required": true,
+      "aliases": ["neuronal dynamics", "gerstner kistler naud paninski"],
+      "official_url": "https://neuronaldynamics.epfl.ch/online/"
+    },
+    "neural-time-series": {
+      "title": "Analyzing Neural Time Series Data: Theory and Practice",
+      "required": true,
+      "aliases": ["analyzing neural time series", "neural time series", "mike x cohen"],
+      "official_url": "https://mitpress.mit.edu/9780262019873/analyzing-neural-time-series-data/"
+    },
+    "bci-principles": {
+      "title": "Brain–Computer Interfaces: Principles and Practice",
+      "required": true,
+      "aliases": ["brain computer interfaces principles and practice", "brain-computer interfaces principles and practice", "wolpaw"],
+      "official_url": "https://academic.oup.com/book/1700"
+    }
+  },
+  "supplements": {
+    "harvard-neuroscience": "https://pll.harvard.edu/series/fundamentals-neuroscience",
+    "neuromatch": "https://compneuro.neuromatch.io/",
+    "modern-bci-design": "https://eeglab.ucsd.edu/wiki/Introduction_To_Modern_Brain-Computer_Interface_Design",
+    "mne": "https://mne.tools/stable/auto_tutorials/index.html",
+    "physionet-eegbci": "https://physionet.org/content/eegmmidb/1.0.0/"
+  }
+}

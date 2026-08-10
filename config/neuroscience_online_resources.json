@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "resources": {
+    "nervous-tissue": {"title": "OpenStax — Nervous Tissue", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue", "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling.", "type": "textbook"},
+    "nervous-system": {"title": "OpenStax — The Central and Peripheral Nervous Systems", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-introduction", "note": "Optional anatomy overview with labeled structures.", "type": "textbook"},
+    "memory": {"title": "BrainFacts — Learning and Memory", "url": "https://www.brainfacts.org/thinking-sensing-and-behaving/learning-and-memory", "note": "Optional neuroscience articles connecting plasticity with learning and memory.", "type": "articles"},
+    "research": {"title": "BrainFacts — Tools and Techniques", "url": "https://www.brainfacts.org/in-the-lab/tools-and-techniques", "note": "Optional explanations of how neuroscientists measure and test the brain.", "type": "articles"},
+    "nd-models": {"title": "Neuronal Dynamics — Introduction to Neuron Models", "url": "https://neuronaldynamics.epfl.ch/online/Ch1.html", "note": "Optional equations, simulations and exercises for simplified neuron models.", "type": "interactive-book"},
+    "nd-spikes": {"title": "Neuronal Dynamics — Neuronal Variability and Spike Trains", "url": "https://neuronaldynamics.epfl.ch/online/Ch7.html", "note": "Optional worked treatment of spike trains, rates and variability.", "type": "interactive-book"},
+    "nd-populations": {"title": "Neuronal Dynamics — Population Models", "url": "https://neuronaldynamics.epfl.ch/online/Ch12.html", "note": "Optional mathematical treatment of interacting neuron populations.", "type": "interactive-book"},
+    "mne-overview": {"title": "MNE-Python — Overview of MEG/EEG Analysis", "url": "https://mne.tools/stable/auto_tutorials/intro/10_overview.html", "note": "Optional orientation to neural time-series data and the MNE workflow.", "type": "tutorial"},
+    "mne-filtering": {"title": "MNE-Python — Filtering and Resampling", "url": "https://mne.tools/stable/auto_tutorials/preprocessing/30_filtering_resampling.html", "note": "Optional executable tutorial showing filter choices and their effects.", "type": "tutorial"},
+    "mne-frequency": {"title": "MNE-Python — Time-Frequency Analysis", "url": "https://mne.tools/stable/auto_tutorials/time-freq/20_sensors_time_frequency.html", "note": "Optional code-based reinforcement for spectra and oscillations.", "type": "tutorial"},
+    "mne-artifacts": {"title": "MNE-Python — Repairing Artifacts with ICA", "url": "https://mne.tools/stable/auto_tutorials/preprocessing/40_artifact_correction_ica.html", "note": "Optional practical tutorial for identifying and repairing EEG artifacts.", "type": "tutorial"},
+    "bci-overview": {"title": "BNCI Horizon 2020 — BCI Research Portal", "url": "https://bnci-horizon-2020.eu/", "note": "Optional overview of established BCI research projects, tools and datasets.", "type": "research-resources"},
+    "motor-imagery": {"title": "PhysioNet — EEG Motor Movement/Imagery Dataset", "url": "https://physionet.org/content/eegmmidb/1.0.0/", "note": "Optional public data and documentation for motor-imagery exercises.", "type": "dataset"},
+    "bci-data": {"title": "BNCI Horizon 2020 — Public BCI Datasets", "url": "https://bnci-horizon-2020.eu/database/data-sets", "note": "Optional datasets covering motor imagery and evoked-potential paradigms.", "type": "dataset-catalog"},
+    "mne-decoding": {"title": "MNE-Python — Decoding Tutorials", "url": "https://mne.tools/stable/auto_tutorials/machine-learning/index.html", "note": "Optional examples of leakage-aware decoding and model evaluation.", "type": "tutorial"},
+    "bci-clinical": {"title": "NIH BRAIN Initiative — Neuroethics", "url": "https://braininitiative.nih.gov/research/neuroethics", "note": "Optional primary guidance on ethics in advanced neurotechnology research.", "type": "guidance"}
+  },
+  "week_resources": {
+    "1": "nervous-tissue", "2": "nervous-tissue", "3": "nervous-tissue", "4": "nervous-tissue",
+    "5": "nervous-system", "6": "nervous-system", "7": "nervous-system", "8": "memory",
+    "9": "research", "10": "research", "11": "nd-models", "12": "nd-spikes", "13": "nd-populations",
+    "14": "mne-overview", "15": "mne-filtering", "16": "mne-frequency", "17": "mne-artifacts",
+    "18": "bci-overview", "19": "motor-imagery", "20": "bci-data", "21": "mne-decoding",
+    "22": "mne-decoding", "23": "bci-overview", "24": "bci-overview", "25": "bci-clinical", "26": "motor-imagery"
+  }
+}

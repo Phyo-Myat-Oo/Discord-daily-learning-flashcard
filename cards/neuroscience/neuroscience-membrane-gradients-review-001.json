@@ -1,0 +1,132 @@
+{
+  "id": "neuroscience-membrane-gradients-review-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 14,
+  "date": "2026-08-24",
+  "category": "neuroscience",
+  "topic": "review-membranes-ions-electrical-gradients",
+  "difficulty": "beginner",
+  "example": "Predict ion movement by checking three things in order: whether a selective channel is available, where the ion is more concentrated, and which side's charge attracts or repels it.",
+  "content": {
+    "en": {
+      "title": "Review: Access Plus Driving Force",
+      "learning_objective": "Explain why membrane permeability and ion gradients must be considered together when predicting ion movement.",
+      "simple_explanation": "The lipid bilayer is an electrical boundary because it blocks water-soluble ions. Selective channels create controlled paths across it, but a path alone does not cause net movement.",
+      "how_it_works": "Diffusion pushes ions from high toward low concentration. Voltage also acts on ions because they carry charge. When a suitable channel is available, these concentration and electrical forces jointly determine net movement; ion movement can then alter charge separation across the membrane.",
+      "visual": "selective channel available?\n      +\nconcentration gradient\n      +\nelectrical gradient\n      ↓\nnet ion movement",
+      "use_case": "Use this checklist while drawing the weekly concept map. For each ion, mark channel availability and both gradients before drawing an arrow.",
+      "expected_result": "Each movement arrow has a stated pathway and driving force instead of being based on concentration alone.",
+      "what_to_notice": "The same concentration gradient can produce different outcomes when channel permeability or the electrical gradient changes.",
+      "common_mistake": "Treating the membrane as freely permeable or assuming that every gradient must produce net flow.",
+      "practical_tip": "For every prediction, say: path, concentration force, electrical force, then net direction.",
+      "question": "What must you evaluate before predicting net ion movement across a neuronal membrane?",
+      "answer": "Evaluate selective permeability plus the concentration and electrical gradients acting on the ion."
+    }
+  },
+  "review_items": [
+    {
+      "question": "How does the cell membrane make a voltage difference possible?",
+      "answer": "The ion-blocking bilayer separates charge, while selective channels regulate when particular ions can cross."
+    },
+    {
+      "question": "Why does increasing permeability to one ion strengthen that ion's effect on membrane voltage?",
+      "answer": "More available selective pathways let that ion's gradients drive more charge movement across the membrane."
+    },
+    {
+      "question": "How do ion gradients contribute to resting membrane potential?",
+      "answer": "Selective permeability allows unequal ion distributions and electrical forces to produce a stable separation of charge."
+    },
+    {
+      "question": "How can glial cells support reliable neuronal electrical signaling?",
+      "answer": "They help maintain the extracellular ionic conditions on which neuronal gradients and signaling depend."
+    },
+    {
+      "question": "What happens when concentration and electrical gradients push an ion in opposite directions?",
+      "answer": "Net movement follows the stronger force and can cease when the opposing forces balance."
+    }
+  ],
+  "study_plan": {
+    "course_day": 14,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "Review Week 2 assignments — no new pages",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "assessment": {
+      "mode": "self-check",
+      "score_max": 5,
+      "items": [
+        {
+          "course_day": 8,
+          "topic": "The cell membrane as an electrical boundary",
+          "module": "Membranes, ions and electrical gradients",
+          "review_age_days": 6
+        },
+        {
+          "course_day": 10,
+          "topic": "Selective ion permeability",
+          "module": "Membranes, ions and electrical gradients",
+          "review_age_days": 4
+        },
+        {
+          "course_day": 12,
+          "topic": "How ion gradients create resting potential",
+          "module": "Membranes, ions and electrical gradients",
+          "review_age_days": 2
+        },
+        {
+          "course_day": 3,
+          "topic": "Glial cells as active support systems",
+          "module": "Cells and the nervous system",
+          "review_age_days": 11
+        },
+        {
+          "course_day": 9,
+          "topic": "Concentration and electrical gradients",
+          "module": "Membranes, ions and electrical gradients",
+          "review_age_days": 5
+        }
+      ],
+      "rubric": "Give yourself one point for each answer that states the correct mechanism, not merely a related keyword."
+    },
+    "tasks": [
+      {
+        "minutes": 20,
+        "activity": "Self-assessment",
+        "en": "Answer all five Week 2 questions without notes, then score one point per correct answer."
+      },
+      {
+        "minutes": 15,
+        "activity": "Repair",
+        "en": "Open the spoiler answers, revisit only missed ideas, and correct your mental model."
+      },
+      {
+        "minutes": 20,
+        "activity": "Synthesize",
+        "en": "Create one diagram connecting the week’s five concepts."
+      },
+      {
+        "minutes": 5,
+        "activity": "Preview",
+        "en": "Read next week’s module title; do not study it yet."
+      }
+    ],
+    "study_output": {
+      "en": "Keep one weekly concept map and a list of remaining questions."
+    }
+  },
+  "tags": [
+    "neuronal-membrane",
+    "ion-gradients",
+    "selective-permeability",
+    "weekly-review"
+  ],
+  "status": "approved"
+}

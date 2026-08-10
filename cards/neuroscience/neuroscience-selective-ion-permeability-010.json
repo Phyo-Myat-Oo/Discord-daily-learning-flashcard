@@ -1,0 +1,86 @@
+{
+  "id": "neuroscience-selective-ion-permeability-010",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 10,
+  "date": "2026-08-20",
+  "category": "neuroscience",
+  "topic": "selective-ion-permeability",
+  "difficulty": "beginner",
+  "example": "Compare three cases using the supplied approximate values: a K+-only membrane tends toward EK near −80 mV; a Na+-only membrane tends toward ENa near +62 mV; a membrane about 40 times more permeable to K+ than Na+ settles between them, near −65 mV and closer to EK.",
+  "content": {
+    "en": {
+      "title": "Permeability Weights Each Ion's Influence",
+      "learning_objective": "Predict how selective and relative ion permeability position membrane voltage among the equilibrium potentials of permeant ions.",
+      "simple_explanation": "Selective permeability means a membrane lets some ion types cross more readily than others through selective channels. Each permeant ion drives membrane voltage toward its own equilibrium potential. An ion with greater permeability has greater influence on the resulting voltage.",
+      "how_it_works": "Ion pumps establish concentration gradients: K+ is concentrated inside, while Na+ and Ca2+ are concentrated outside. Channels determine which ions can move down their electrochemical gradients. If only one ion is permeable, voltage approaches that ion's equilibrium potential. If several ions are permeable, relative permeability weights their effects.",
+      "visual": "K+ only  → Vm near EK\nNa+ only → Vm near ENa\nK+ ≫ Na+\n        → Vm closer to EK",
+      "use_case": "To explain a neuron's resting voltage, compare Vm with the equilibrium potentials of ions that can cross at rest, then ask which ion has the greatest permeability.",
+      "expected_result": "With resting K+ permeability about 40 times Na+ permeability, Vm lies between EK and ENa but remains much closer to EK; the supplied example predicts about −65 mV.",
+      "what_to_notice": "A concentration gradient gives an ion a possible equilibrium potential, but permeability determines how strongly that ion influences the actual membrane potential. The Nernst equation describes one ion's equilibrium potential; relative permeabilities are needed for a membrane permeable to multiple ions.",
+      "common_mistake": "Do not assume the most abundant ion alone sets Vm. An ion cannot strongly shape voltage unless the membrane provides appreciable permeability to it.",
+      "practical_tip": "Use a weighted-target mental model: list each permeant ion's equilibrium potential, then place Vm closest to the target of the most permeable ion.",
+      "question": "Why is a typical resting Vm near −65 mV rather than equal to the K+ equilibrium potential near −80 mV?",
+      "answer": "The resting membrane is highly permeable to K+ but also leaks some Na+, so Vm lies between EK and ENa while remaining closer to EK."
+    }
+  },
+  "study_plan": {
+    "course_day": 10,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 106–110 — Pages 97–120",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 30,
+      "raw_text_minutes": 25.3,
+      "density": "medium",
+      "word_count": 2343,
+      "equation_lines": 10,
+      "figure_table_refs": 14,
+      "code_lines": 2
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about Selective ion permeability."
+      },
+      {
+        "minutes": 30,
+        "activity": "Source study",
+        "en": "Study PDF pages 106–110 — Pages 97–120. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 10,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain Selective ion permeability in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "selective-permeability",
+    "resting-potential",
+    "ion-channels"
+  ],
+  "status": "approved"
+}

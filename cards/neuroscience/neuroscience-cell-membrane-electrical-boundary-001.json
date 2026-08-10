@@ -1,0 +1,88 @@
+{
+  "id": "neuroscience-cell-membrane-electrical-boundary-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 8,
+  "date": "2026-08-18",
+  "category": "neuroscience",
+  "topic": "cell-membrane-electrical-boundary",
+  "difficulty": "beginner",
+  "example": "Imagine equal NaCl concentrations on both sides of a phospholipid bilayer and a battery creating voltage across it. Without ion channels, membrane conductance is zero, so no ionic current crosses despite the electrical force.",
+  "content": {
+    "en": {
+      "title": "The Cell Membrane as an Electrical Boundary",
+      "learning_objective": "Explain why a neuronal membrane can separate electrical charge and why ions cross it only through suitable membrane proteins.",
+      "simple_explanation": "A neuron's membrane is a phospholipid bilayer. Its nonpolar interior blocks water-soluble ions, so the fluids inside and outside can maintain different ion concentrations and electrical conditions.",
+      "how_it_works": "The bilayer supplies the barrier. Selective ion channels form pores that let particular ions cross; gated channels can open or close. Ion pumps use energy from ATP to transport certain ions and help maintain unequal distributions. When a suitable channel is open, concentration and electrical gradients can drive ion movement.",
+      "visual": "outside: water + ions\n════════ membrane ════════\n       channel │ pump\ninside:  water + ions\nbarrier + paths → controlled flow",
+      "use_case": "Predict whether current crosses a membrane when voltage is present but no ion channels are available, then predict what changes when a selective channel opens.",
+      "expected_result": "With no channels, conductance is zero and no ionic current crosses. Opening a suitable channel creates a path, although net flow still depends on a driving gradient.",
+      "what_to_notice": "A driving force and a pathway are separate requirements. Voltage alone cannot move ions through an impermeable bilayer, and an open channel alone does not guarantee net movement.",
+      "common_mistake": "Do not treat the membrane as a simple wall or assume every open channel passes every ion. Channel pore properties determine ion selectivity.",
+      "practical_tip": "For any ion-movement problem, ask two questions in order: “Is there a permeable channel?” and “What concentration or electrical force drives the ion?”",
+      "question": "Why can a neuronal membrane maintain electrical differences across it?",
+      "answer": "Its phospholipid core blocks ions, while selective channels and ATP-driven pumps control when and how ions cross."
+    }
+  },
+  "study_plan": {
+    "course_day": 8,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 97–102 — Pages 97–120",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 28,
+      "raw_text_minutes": 23.0,
+      "density": "low",
+      "word_count": 2393,
+      "equation_lines": 0,
+      "figure_table_refs": 16,
+      "code_lines": 0
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about The cell membrane as an electrical boundary."
+      },
+      {
+        "minutes": 28,
+        "activity": "Source study",
+        "en": "Study PDF pages 97–102 — Pages 97–120. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 12,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain The cell membrane as an electrical boundary in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "neuroscience",
+    "cell-membrane",
+    "ion-channels",
+    "ion-pumps",
+    "electrical-signaling"
+  ],
+  "status": "approved"
+}

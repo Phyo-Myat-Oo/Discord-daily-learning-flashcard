@@ -1,0 +1,86 @@
+{
+  "id": "neuroscience-glial-active-support-systems-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 3,
+  "date": "2026-08-13",
+  "category": "neuroscience",
+  "topic": "glial-cells-active-support-systems",
+  "difficulty": "beginner",
+  "example": "Predict what happens to neuronal signaling when surrounding glia can no longer maintain a stable local environment: signaling becomes less reliable even if the neurons themselves remain present.",
+  "content": {
+    "en": {
+      "title": "Glial Cells Are Active Support Systems",
+      "learning_objective": "Explain one causal reason neurons depend on glial cells rather than functioning as isolated cells.",
+      "simple_explanation": "Glial cells are non-neuronal cells that actively help neurons function. They maintain suitable conditions around neurons, provide structural and metabolic support, and respond when nervous tissue is disturbed.",
+      "how_it_works": "A neuron is enclosed by a membrane and contains specialized structures that produce proteins and support signaling. Those mechanisms require a controlled local environment. Glia help maintain that environment; when their support fails, neuronal communication can become unreliable or tissue can be damaged.",
+      "visual": "glial support\n    ↓\nstable local conditions\n    ↓\nreliable neuron function",
+      "use_case": "When studying a neurological disorder, ask whether impaired behavior comes only from damaged neurons or also from loss of the glial support those neurons require.",
+      "expected_result": "You identify glia as active participants in nervous-system function, not merely material filling the space between neurons.",
+      "what_to_notice": "The causal link matters: supporting the conditions for signaling can change neural function even when the support cell does not carry the signal itself.",
+      "common_mistake": "Calling glia passive 'glue' and assuming every nervous-system problem must begin inside a neuron.",
+      "practical_tip": "For each glial role you encounter, complete the sentence: 'This helps neurons because…'",
+      "question": "Why can glial failure disrupt neural signaling even when neurons are still present?",
+      "answer": "Neurons depend on glia to maintain the local conditions and support needed for reliable function."
+    }
+  },
+  "study_plan": {
+    "course_day": 3,
+    "course_week": 1,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 65–67 — Pages 61–72",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 18,
+      "raw_text_minutes": 8.4,
+      "density": "low",
+      "word_count": 1050,
+      "equation_lines": 0,
+      "figure_table_refs": 3,
+      "code_lines": 0
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about Glial cells as active support systems."
+      },
+      {
+        "minutes": 18,
+        "activity": "Source study",
+        "en": "Study PDF pages 65–67 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 22,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain Glial cells as active support systems in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "glia",
+    "neurons",
+    "cellular-support"
+  ],
+  "status": "approved"
+}

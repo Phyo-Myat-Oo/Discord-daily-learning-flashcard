@@ -1,0 +1,87 @@
+{
+  "id": "neuroscience-specialized-brain-cells-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 1,
+  "date": "2026-08-11",
+  "category": "neuroscience",
+  "topic": "why-the-brain-needs-specialized-cells",
+  "difficulty": "beginner",
+  "example": "Predict the effect of disrupting glial support: even intact neurons may function poorly because insulation, nourishment, and physical support help them operate together.",
+  "content": {
+    "en": {
+      "title": "Why the Brain Needs Specialized Cells",
+      "learning_objective": "Explain how specialized neurons and glia combine their different roles to produce brain function.",
+      "simple_explanation": "An organ works because its cells perform specialized jobs and interact. In the brain, neurons handle most information processing, while glia mainly insulate, support, and nourish neighboring neurons.",
+      "how_it_works": "Neurons sense environmental changes, communicate those changes to other neurons, and command responses. Glia maintain conditions that help neighboring neurons work. The coordinated activity of these specialized cells allows circuits to support sensation, movement, speech, emotion, and other brain functions.",
+      "visual": "neurons → process information\n   ↕ interaction\nglia → support neurons\n   ↓\ncoordinated brain function",
+      "use_case": "When studying a brain disorder, ask whether the primary problem affects neuronal information processing, glial support, or the interaction between them.",
+      "expected_result": "This classification produces a clearer causal explanation than treating every brain cell as interchangeable.",
+      "what_to_notice": "Specialization divides the work, but brain function depends on concerted cell activity rather than one cell type acting alone.",
+      "common_mistake": "Calling glia mere filler. The source emphasizes that they insulate, support, and nourish neurons, so their role is functionally important.",
+      "practical_tip": "For each nervous-system cell, record both its individual job and the neighboring cells whose work it enables.",
+      "question": "Why can the brain not perform its functions with one interchangeable type of cell?",
+      "answer": "Its functions require neurons to process and communicate information while glia support, insulate, and nourish them; coordinated specialization makes the organ work."
+    }
+  },
+  "study_plan": {
+    "course_day": 1,
+    "course_week": 1,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 61–63 — Pages 61–72",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 19,
+      "raw_text_minutes": 14.0,
+      "density": "medium",
+      "word_count": 1351,
+      "equation_lines": 0,
+      "figure_table_refs": 12,
+      "code_lines": 0
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Before reading, write what you currently believe a neuron does."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about Why the brain needs specialized cells."
+      },
+      {
+        "minutes": 19,
+        "activity": "Source study",
+        "en": "Study PDF pages 61–63 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 21,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain Why the brain needs specialized cells in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "brain-cells",
+    "neurons",
+    "glia",
+    "cell-specialization"
+  ],
+  "status": "approved"
+}

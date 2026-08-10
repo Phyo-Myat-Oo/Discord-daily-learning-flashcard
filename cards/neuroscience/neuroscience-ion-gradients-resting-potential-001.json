@@ -1,0 +1,86 @@
+{
+  "id": "neuroscience-ion-gradients-resting-potential-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 12,
+  "date": "2026-08-22",
+  "category": "neuroscience",
+  "topic": "how-ion-gradients-create-resting-potential",
+  "difficulty": "beginner",
+  "example": "Compare normal extracellular K+ with a large increase outside the cell. With less difference between inside and outside, less K+ leaves, so the membrane becomes less negative.",
+  "content": {
+    "en": {
+      "title": "How Ion Gradients Create Resting Potential",
+      "learning_objective": "Explain why a K+ concentration gradient plus selective K+ permeability makes a resting neuron's interior negative.",
+      "simple_explanation": "An ion gradient is an unequal concentration of an ion across a membrane. Pumps maintain much more K+ inside the neuron, while the resting membrane is highly permeable to K+ through potassium channels.",
+      "how_it_works": "K+ moves outward through open channels down its concentration gradient. Negative charge is left behind, making the inside negative relative to the outside. The growing electrical attraction pulls K+ inward and opposes further outward diffusion. Their balance produces a stable negative potential near the K+ equilibrium potential.",
+      "visual": "high K+ inside\n      ↓ K+ exits through channels\nnegative charge remains inside\n      ↓\nnegative resting potential",
+      "use_case": "A clinician observes elevated extracellular K+. Predict the voltage change: the K+ gradient is reduced, so less outward K+ movement is favored and the membrane depolarizes, becoming less negative.",
+      "expected_result": "At rest, the membrane sits near −65 mV. Raising extracellular K+ shifts it toward a less negative value and can impair excitable cells.",
+      "what_to_notice": "A concentration gradient supplies the tendency to move, but selective channels determine which ion strongly influences voltage. Both conditions are necessary.",
+      "common_mistake": "Do not say that all intracellular K+ leaves. Only a small separation of charge is needed before the electrical force opposes further net K+ movement.",
+      "practical_tip": "Trace resting potential in three links: pump-maintained gradient, selective K+ movement, then charge separation.",
+      "question": "Why does outward K+ movement make the neuron's resting interior negative?",
+      "answer": "K+ carries positive charge out, leaving relative negative charge inside until the electrical force balances its outward diffusion."
+    }
+  },
+  "study_plan": {
+    "course_day": 12,
+    "course_week": 2,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 115–120 — Pages 97–120",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 23,
+      "raw_text_minutes": 18.2,
+      "density": "low",
+      "word_count": 2585,
+      "equation_lines": 0,
+      "figure_table_refs": 4,
+      "code_lines": 1
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about How ion gradients create resting potential."
+      },
+      {
+        "minutes": 23,
+        "activity": "Source study",
+        "en": "Study PDF pages 115–120 — Pages 97–120. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 17,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain How ion gradients create resting potential in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "ion-gradients",
+    "potassium-channels",
+    "resting-potential"
+  ],
+  "status": "approved"
+}

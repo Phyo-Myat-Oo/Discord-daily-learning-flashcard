@@ -11,7 +11,7 @@ from typing import Any, Iterable
 ROOT = Path(__file__).resolve().parents[1]
 CARDS = ROOT / "cards"
 CHANNELS_FILE = ROOT / "config/channels.json"
-VALID_CATEGORIES = {"linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "review"}
+VALID_CATEGORIES = {"linux", "networking", "git", "docker", "python", "ai", "mlops", "ai-engineering", "neuroscience", "review"}
 VALID_DIFFICULTIES = {"beginner", "intermediate", "advanced"}
 VALID_STATUSES = {"candidate", "approved", "rejected", "scheduled"}
 VALID_PRIORITIES = {"low", "normal", "high"}
@@ -19,7 +19,7 @@ BASE_REQUIRED = {"id", "stream", "language", "category", "topic", "difficulty", 
 LEGACY_REQUIRED = BASE_REQUIRED | {"title", "summary", "explanation", "use_case", "question", "answer"}
 REQUIRED = LEGACY_REQUIRED  # Backward-compatible import for older scripts.
 RICH_REQUIRED = {"title", "learning_objective", "simple_explanation", "how_it_works", "visual", "use_case", "expected_result", "what_to_notice", "common_mistake", "practical_tip", "question", "answer"}
-EMOJI = {"linux": "🐧", "networking": "🌐", "git": "🌿", "docker": "🐳", "python": "🐍", "ai": "🤖", "mlops": "⚙️", "ai-engineering": "🧩", "review": "🧠"}
+EMOJI = {"linux": "🐧", "networking": "🌐", "git": "🌿", "docker": "🐳", "python": "🐍", "ai": "🤖", "mlops": "⚙️", "ai-engineering": "🧩", "neuroscience": "🧬", "review": "🧠"}
 
 
 def card_paths() -> list[Path]:
@@ -39,13 +39,51 @@ def all_cards() -> Iterable[tuple[Path, dict[str, Any]]]:
         yield path, load_card(path)
 
 
-def load_channels() -> dict[str, dict[str, Any]]:
+def load_channels(include_disabled: bool = False) -> dict[str, dict[str, Any]]:
     with CHANNELS_FILE.open(encoding="utf-8") as handle:
         config = json.load(handle)
     streams = config.get("streams")
     if not isinstance(streams, dict) or not streams:
         raise ValueError("config/channels.json must contain a non-empty streams object")
-    return streams
+    if include_disabled:
+        return streams
+    return {name: config for name, config in streams.items() if config.get("enabled", True)}
+
+
+def _study_plan_description(card: dict[str, Any]) -> str:
+    plan = card["study_plan"]
+    source_label = _safe_inline(plan["source_title"])
+    source_line = f"[{source_label}]({plan['source_url']})" if plan.get("source_url") else source_label
+    lines = [
+        f"**Day {plan['course_day']} of 182 • Week {plan['course_week']}**",
+        f"**Source:** {source_line}",
+        f"**Read/watch:** {_safe_inline(plan['source_locator'])}",
+        "",
+    ]
+    for task in plan["tasks"]:
+        lines += [
+            f"**{task['minutes']} min — {_safe_inline(task['activity'])}**",
+            _safe_inline(task["en"]),
+        ]
+    lines += [
+        "",
+        "**Finish by producing**",
+        _safe_inline(plan["study_output"]["en"]),
+    ]
+    resource = plan.get("online_resource")
+    if isinstance(resource, dict):
+        lines += [
+            "",
+            "**Optional online companion**",
+            f"[{_safe_inline(resource['title'])}]({resource['url']})",
+            _safe_inline(resource.get("note", "Use this only if the core lesson needs reinforcement.")),
+        ]
+    if isinstance(plan.get("assessment"), dict) and card.get("review_items"):
+        lines += ["", "**Weekly self-assessment — 1 point each**"]
+        for index, item in enumerate(card["review_items"], 1):
+            lines += [f"{index}. {_safe_inline(item['question'])}", f"||{_safe_inline(item['answer'])}||"]
+        lines += ["", f"**Scoring:** {_safe_inline(plan['assessment']['rubric'])}"]
+    return "\n".join(lines)
 
 
 def find_card(day: str, stream: str) -> tuple[Path, dict[str, Any]] | None:
@@ -72,8 +110,12 @@ def is_bilingual(card: dict[str, Any]) -> bool:
     return card.get("language") == "bilingual" and isinstance(card.get("content"), dict)
 
 
+def is_rich(card: dict[str, Any]) -> bool:
+    return card.get("language") in {"en", "bilingual"} and isinstance(card.get("content"), dict)
+
+
 def localized(card: dict[str, Any], language: str, field: str, default: str = "") -> str:
-    if is_bilingual(card):
+    if is_rich(card):
         block = card.get("content", {}).get(language, {})
         return str(block.get(field, default)) if isinstance(block, dict) else default
     return str(card.get(field, default))
@@ -102,22 +144,28 @@ def _rich_description(card: dict[str, Any], language: str) -> str:
 
 def build_discord_payload(card: dict[str, Any]) -> dict[str, Any]:
     """Build the webhook JSON body; rich bilingual cards use two embeds."""
-    if not is_bilingual(card):
+    if not is_rich(card):
         return {"content": format_discord(card), "allowed_mentions": {"parse": []}}
     category = card["category"]
     footer = " • ".join([category.replace("-", " ").title(), f"Sequence {card.get('sequence', '—')}", card["difficulty"].title()])
     source = card.get("source_title")
     if source:
         footer += f" • Source: {source}"
-    embeds = [
-        {"title": f"🇬🇧 {localized(card, 'en', 'title')}", "description": _rich_description(card, "en"), "color": 0x3498DB, "footer": {"text": footer}},
-        {"title": f"🇲🇲 {localized(card, 'my', 'title')}", "description": _rich_description(card, "my"), "color": 0xF1C40F, "footer": {"text": footer}},
-    ]
+    embeds = [{"title": f"🇬🇧 {localized(card, 'en', 'title')}", "description": _rich_description(card, "en"), "color": 0x3498DB, "footer": {"text": footer}}]
+    if is_bilingual(card):
+        embeds.append({"title": f"🇲🇲 {localized(card, 'my', 'title')}", "description": _rich_description(card, "my"), "color": 0xF1C40F, "footer": {"text": footer}})
+    if isinstance(card.get("study_plan"), dict):
+        embeds.append({
+            "title": "📖 Today’s 60-minute study plan",
+            "description": _study_plan_description(card),
+            "color": 0x9B59B6,
+            "footer": {"text": "Keep the hour small, focused, and complete."},
+        })
     return {"content": f"{EMOJI.get(category, '📚')} **{category.replace('-', ' ').title()} — Daily Learning**", "embeds": embeds, "allowed_mentions": {"parse": []}}
 
 
 def format_discord(card: dict[str, Any]) -> str:
-    if is_bilingual(card):
+    if is_rich(card):
         payload = build_discord_payload(card)
         chunks = [payload.get("content", "")]
         for embed in payload["embeds"]:

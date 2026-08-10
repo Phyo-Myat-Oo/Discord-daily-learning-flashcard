@@ -1,0 +1,86 @@
+{
+  "id": "neuroscience-central-peripheral-systems-001",
+  "stream": "neuroscience",
+  "language": "en",
+  "sequence": 4,
+  "date": "2026-08-14",
+  "category": "neuroscience",
+  "topic": "central-peripheral-nervous-systems",
+  "difficulty": "beginner",
+  "example": "Touching a hot surface activates peripheral sensory pathways that carry information toward the CNS; the CNS processes it, and peripheral motor pathways carry commands toward muscles.",
+  "content": {
+    "en": {
+      "title": "Central and Peripheral Nervous Systems",
+      "learning_objective": "Trace information through the central nervous system and peripheral nervous system in a simple sensory-response loop.",
+      "simple_explanation": "The central nervous system (CNS) consists of the brain and spinal cord. The peripheral nervous system (PNS) includes nervous tissue outside them and connects the CNS with the rest of the body.",
+      "how_it_works": "Peripheral sensory pathways carry information from the body toward the CNS. Central circuits process that information. Peripheral motor pathways then carry commands from the CNS toward muscles or glands, linking central processing to action.",
+      "visual": "body stimulus\n    ↓  PNS sensory\nCNS processing\n    ↓  PNS motor\nbody response",
+      "use_case": "Use this division to localize a problem: ask whether information fails while entering the CNS, during central processing, or while an outgoing command travels through the PNS.",
+      "expected_result": "Given a simple stimulus and response, you can label the body-to-CNS and CNS-to-body parts of the pathway.",
+      "what_to_notice": "CNS and PNS describe connected anatomical regions, not competing systems. Useful behavior depends on information crossing their boundary in both directions.",
+      "common_mistake": "Treating the PNS as input-only. It carries sensory information inward and motor commands outward.",
+      "practical_tip": "Draw the CNS in the center, then add one inward sensory arrow and one outward motor arrow before adding details.",
+      "question": "In a sensory-response loop, what distinct roles do the CNS and PNS play?",
+      "answer": "The PNS carries information between body and CNS; the CNS processes it and organizes responses."
+    }
+  },
+  "study_plan": {
+    "course_day": 4,
+    "course_week": 1,
+    "study_duration_minutes": 60,
+    "source_id": "exploring-brain-4e",
+    "source_title": "Neuroscience: Exploring the Brain, Fourth Edition",
+    "source_locator": "PDF pages 68–70 — Pages 61–72",
+    "source_url": "https://www.jblearning.com/catalog/productdetails/9780781778176",
+    "online_resource": {
+      "title": "OpenStax — Nervous Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-2-nervous-tissue",
+      "note": "Optional illustrated reinforcement for neurons, glia, membranes and signaling."
+    },
+    "workload": {
+      "estimated_reading_minutes": 18,
+      "raw_text_minutes": 10.5,
+      "density": "low",
+      "word_count": 1426,
+      "equation_lines": 0,
+      "figure_table_refs": 3,
+      "code_lines": 1
+    },
+    "tasks": [
+      {
+        "minutes": 5,
+        "activity": "Recall",
+        "en": "Without notes, recall yesterday’s main idea."
+      },
+      {
+        "minutes": 10,
+        "activity": "Daily lesson",
+        "en": "Read today’s Discord lesson about Central and peripheral nervous systems."
+      },
+      {
+        "minutes": 18,
+        "activity": "Source study",
+        "en": "Study PDF pages 68–70 — Pages 61–72. Stop when this time box ends, even if you want to continue."
+      },
+      {
+        "minutes": 22,
+        "activity": "Explain",
+        "en": "Write three sentences explaining the causal chain in your own words."
+      },
+      {
+        "minutes": 5,
+        "activity": "Check",
+        "en": "Answer the recall question, then correct only what was missing."
+      }
+    ],
+    "study_output": {
+      "en": "Explain Central and peripheral nervous systems in your own words using one causal diagram."
+    }
+  },
+  "tags": [
+    "central-nervous-system",
+    "peripheral-nervous-system",
+    "information-flow"
+  ],
+  "status": "approved"
+}

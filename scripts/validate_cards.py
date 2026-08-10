@@ -9,7 +9,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from cardlib import BASE_REQUIRED, LEGACY_REQUIRED, RICH_REQUIRED, VALID_CATEGORIES, VALID_DIFFICULTIES, VALID_PRIORITIES, VALID_STATUSES, build_discord_payload, card_paths, is_bilingual, load_card, load_channels, localized, normalized_words, parse_date
+from cardlib import BASE_REQUIRED, LEGACY_REQUIRED, RICH_REQUIRED, VALID_CATEGORIES, VALID_DIFFICULTIES, VALID_PRIORITIES, VALID_STATUSES, build_discord_payload, card_paths, is_bilingual, is_rich, load_card, load_channels, localized, normalized_words, parse_date
 
 SECRET_PATTERNS = [
     re.compile(r"AKIA[0-9A-Z]{16}"),
@@ -29,9 +29,22 @@ def validate(paths: list[Path]) -> list[str]:
     sequences: dict[tuple[str, int], Path] = {}
     topics: defaultdict[tuple[str, str], list[tuple[Path, dict]]] = defaultdict(list)
     try:
-        streams = load_channels()
+        streams = load_channels(include_disabled=True)
     except (OSError, json.JSONDecodeError, ValueError) as exc:
         return [f"config/channels.json: {exc}"]
+    resource_path = Path(__file__).resolve().parents[1] / "config/neuroscience_online_resources.json"
+    try:
+        resource_catalog = json.loads(resource_path.read_text(encoding="utf-8"))
+        resources = resource_catalog.get("resources", {})
+        week_resources = resource_catalog.get("week_resources", {})
+        if set(week_resources) != {str(week) for week in range(1, 27)}:
+            errors.append(f"{resource_path}: must map every Week 1..26 exactly once")
+        for week, resource_id in week_resources.items():
+            resource = resources.get(resource_id)
+            if not isinstance(resource, dict) or not str(resource.get("url", "")).startswith("https://"):
+                errors.append(f"{resource_path}: Week {week} has an invalid or non-HTTPS resource")
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"{resource_path}: malformed resource catalog: {exc}")
     for stream_name, config in streams.items():
         if not re.fullmatch(r"[a-z0-9][a-z0-9-]+", stream_name):
             errors.append(f"config/channels.json: invalid stream key: {stream_name}")
@@ -48,13 +61,15 @@ def validate(paths: list[Path]) -> list[str]:
         intermediate_through = progression.get("intermediate_through")
         if not isinstance(beginner_through, int) or not isinstance(intermediate_through, int) or not 1 <= beginner_through < intermediate_through:
             errors.append(f"config/channels.json: {stream_name} has invalid progression thresholds")
+        if not isinstance(config.get("enabled", True), bool):
+            errors.append(f"config/channels.json: {stream_name} enabled must be boolean")
     for path in paths:
         try:
             card = load_card(path)
         except (OSError, json.JSONDecodeError, ValueError) as exc:
             errors.append(f"{path}: malformed JSON: {exc}")
             continue
-        required = BASE_REQUIRED | ({"content"} if card.get("language") == "bilingual" else LEGACY_REQUIRED)
+        required = BASE_REQUIRED | ({"content"} if card.get("language") in {"en", "bilingual"} else LEGACY_REQUIRED)
         missing = required - card.keys()
         renderable = not missing
         if missing:
@@ -64,11 +79,12 @@ def validate(paths: list[Path]) -> list[str]:
                 errors.append(f"{path}: empty field: {key}")
         if card.get("category") not in VALID_CATEGORIES:
             errors.append(f"{path}: invalid category: {card.get('category')}")
-        if card.get("language") not in {"my", "bilingual"}:
-            errors.append(f"{path}: language must be 'my' or 'bilingual'")
-        if is_bilingual(card):
+        if card.get("language") not in {"my", "en", "bilingual"}:
+            errors.append(f"{path}: language must be 'my', 'en', or 'bilingual'")
+        if is_rich(card):
             content = card.get("content", {})
-            for language in ("en", "my"):
+            languages = ("en", "my") if is_bilingual(card) else ("en",)
+            for language in languages:
                 block = content.get(language)
                 if not isinstance(block, dict):
                     errors.append(f"{path}: content.{language} must be an object")
@@ -108,9 +124,10 @@ def validate(paths: list[Path]) -> list[str]:
                         similarity = len(words_a & words_b) / max(1, min(len(words_a), len(words_b)))
                         if len(words_a) >= 8 and len(words_b) >= 8 and similarity >= .8:
                             errors.append(f"{path}: content.{language}.{field_a} and {field_b} repeat too much ({similarity:.0%})")
-            my_text = " ".join(str(value) for value in content.get("my", {}).values()) if isinstance(content.get("my"), dict) else ""
-            if not re.search(r"[က-႟]", my_text):
-                errors.append(f"{path}: Burmese content contains no Myanmar script")
+            if is_bilingual(card):
+                my_text = " ".join(str(value) for value in content.get("my", {}).values()) if isinstance(content.get("my"), dict) else ""
+                if not re.search(r"[က-႟]", my_text):
+                    errors.append(f"{path}: Burmese content contains no Myanmar script")
         stream = card.get("stream")
         if stream not in streams:
             errors.append(f"{path}: unknown stream: {stream}")
@@ -158,6 +175,61 @@ def validate(paths: list[Path]) -> list[str]:
         if card.get("generated_from_source"):
             for field in ("source_type", "source_file"):
                 if not card.get(field): errors.append(f"{path}: source card missing {field}")
+        study_plan = card.get("study_plan")
+        if card.get("stream") == "neuroscience" and not isinstance(study_plan, dict):
+            errors.append(f"{path}: neuroscience cards require study_plan")
+        if isinstance(study_plan, dict):
+            required_plan = {"course_day", "course_week", "study_duration_minutes", "source_id", "source_title", "source_locator", "tasks", "study_output"}
+            absent = required_plan - study_plan.keys()
+            if absent:
+                errors.append(f"{path}: study_plan missing fields: {', '.join(sorted(absent))}")
+            if study_plan.get("study_duration_minutes") != 60:
+                errors.append(f"{path}: study_plan duration must be exactly 60 minutes")
+            tasks = study_plan.get("tasks")
+            if not isinstance(tasks, list) or not tasks:
+                errors.append(f"{path}: study_plan tasks must be a non-empty array")
+            else:
+                minutes = 0
+                for index, task in enumerate(tasks, 1):
+                    if not isinstance(task, dict) or not {"minutes", "activity", "en"} <= task.keys():
+                        errors.append(f"{path}: study_plan task {index} is incomplete")
+                        continue
+                    if not isinstance(task["minutes"], int) or task["minutes"] < 1:
+                        errors.append(f"{path}: study_plan task {index} has invalid minutes")
+                    else:
+                        minutes += task["minutes"]
+                    required_task_text = ("activity", "en", "my") if is_bilingual(card) else ("activity", "en")
+                    if any(not isinstance(task.get(field), str) or not task[field].strip() for field in required_task_text):
+                        errors.append(f"{path}: study_plan task {index} has missing instructions")
+                if minutes != 60:
+                    errors.append(f"{path}: study_plan task minutes total {minutes}, expected 60")
+            output = study_plan.get("study_output")
+            output_languages = ("en", "my") if is_bilingual(card) else ("en",)
+            if not isinstance(output, dict) or any(not isinstance(output.get(language), str) or not output[language].strip() for language in output_languages):
+                errors.append(f"{path}: study_plan study_output is incomplete")
+            resource = study_plan.get("online_resource")
+            if resource is not None and (not isinstance(resource, dict) or not all(isinstance(resource.get(key), str) and resource[key].strip() for key in ("title", "url")) or not str(resource.get("url", "")).startswith("https://")):
+                errors.append(f"{path}: study_plan online_resource requires a title and HTTPS URL")
+            workload = study_plan.get("workload")
+            if workload is not None:
+                required_workload = {"estimated_reading_minutes", "raw_text_minutes", "density", "word_count", "equation_lines", "figure_table_refs", "code_lines"}
+                if not isinstance(workload, dict) or not required_workload <= workload.keys():
+                    errors.append(f"{path}: study_plan workload metadata is incomplete")
+                elif not 18 <= workload.get("estimated_reading_minutes", 0) <= 30 or workload.get("density") not in {"low", "medium", "high"}:
+                    errors.append(f"{path}: study_plan workload is outside the adaptive reading policy")
+                source_task = next((task for task in tasks or [] if isinstance(task, dict) and task.get("activity") == "Source study"), None)
+                if source_task and source_task.get("minutes") != workload.get("estimated_reading_minutes"):
+                    errors.append(f"{path}: source-study minutes do not match workload estimate")
+            assessment = study_plan.get("assessment")
+            if assessment is not None:
+                blueprint = assessment.get("items") if isinstance(assessment, dict) else None
+                if not isinstance(blueprint, list) or len(blueprint) != 5 or len({item.get("course_day") for item in blueprint if isinstance(item, dict)}) != 5:
+                    errors.append(f"{path}: weekly assessment requires five distinct blueprint items")
+                review_items = card.get("review_items")
+                if not isinstance(review_items, list) or len(review_items) != 5:
+                    errors.append(f"{path}: weekly assessment card requires exactly five review_items")
+            if not isinstance(study_plan.get("source_locator"), str) or not study_plan.get("source_locator", "").strip():
+                errors.append(f"{path}: study_plan requires a reliable source locator")
         if card.get("category") == "review":
             items = card.get("review_items")
             if not isinstance(items, list) or len(items) < 2 or any(not isinstance(item, dict) or not item.get("question") or not item.get("answer") for item in (items or [])):

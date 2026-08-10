@@ -48,7 +48,7 @@ def run_ai_review(paths: list[Path], timeout: int) -> bool:
 
 
 def schedule_complete_rows(paths: list[Path], start: date) -> int:
-    streams = list(load_channels())
+    streams = [name for name, config in load_channels().items() if config.get("candidate_scheduling", True)]
     candidates: dict[str, list[tuple[Path, dict]]] = {stream: [] for stream in streams}
     for path in paths:
         card = load_card(path)
